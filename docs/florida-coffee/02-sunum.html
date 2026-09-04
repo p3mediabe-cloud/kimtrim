@@ -1,0 +1,549 @@
+<title>Florida Coffee Dijital Analiz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+<style>
+:root{
+  --bg:#F4F6F5; --bg-2:#EAEEEC; --ink:#241A15; --ink-2:#4A3F39; --ink-3:#7A6F68;
+  --line:#D6DBD9; --accent:#0E7C86; --accent-ink:#0B5F67; --accent-soft:#DDEDEF;
+  --copper:#B5561F; --copper-soft:#F5E4D8; --good:#2F7D4F; --good-soft:#DFEFE4;
+  --card:#FFFFFF; --code:#EEF1F0;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15191A; --bg-2:#1D2224; --ink:#EEF0EE; --ink-2:#C8CCC9; --ink-3:#8E9693;
+    --line:#2E3537; --accent:#5FC1CB; --accent-ink:#8ED6DD; --accent-soft:#163D41;
+    --copper:#E08A52; --copper-soft:#3C2416; --good:#6FC48E; --good-soft:#1C3527;
+    --card:#1B2022; --code:#222829;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15191A; --bg-2:#1D2224; --ink:#EEF0EE; --ink-2:#C8CCC9; --ink-3:#8E9693;
+  --line:#2E3537; --accent:#5FC1CB; --accent-ink:#8ED6DD; --accent-soft:#163D41;
+  --copper:#E08A52; --copper-soft:#3C2416; --good:#6FC48E; --good-soft:#1C3527;
+  --card:#1B2022; --code:#222829;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.6}
+h1,h2,h3,h4,.display{font-family:"Bricolage Grotesque","Public Sans",system-ui,sans-serif;text-wrap:balance;letter-spacing:-0.01em}
+h1{font-size:clamp(2rem,4.5vw,3.4rem);line-height:1.05;font-weight:800;margin:0 0 .6rem}
+h2{font-size:1.7rem;line-height:1.15;font-weight:700;margin:0 0 1rem}
+h3{font-size:1.15rem;font-weight:700;margin:1.8rem 0 .6rem}
+h4{font-size:1rem;font-weight:700;margin:1.2rem 0 .4rem;color:var(--ink-2)}
+p{margin:0 0 1rem;max-width:72ch}
+a{color:var(--accent-ink)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink);font-weight:700}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);gap:3rem;max-width:1240px;margin:0 auto;padding:2.5rem 1.5rem 5rem}
+nav.toc{position:sticky;top:1.5rem;align-self:start;font-size:.85rem}
+nav.toc ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.15rem;border-left:1px solid var(--line)}
+nav.toc a{display:block;padding:.3rem .8rem;color:var(--ink-2);text-decoration:none;border-left:2px solid transparent;margin-left:-1px}
+nav.toc a:hover{color:var(--ink);border-left-color:var(--accent)}
+nav.toc .meta{color:var(--ink-3);font-size:.75rem;margin-bottom:1rem;line-height:1.5}
+main{min-width:0}
+header.hero{padding-bottom:2rem;border-bottom:1px solid var(--line);margin-bottom:2.5rem}
+.hero .lede{font-size:1.15rem;color:var(--ink-2);max-width:62ch}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:1.8rem 0 0}
+.kpi{background:var(--card);padding:1.1rem 1.2rem}
+.kpi .lbl{font-size:.75rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.08em;font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.kpi .val{font-family:"Bricolage Grotesque",sans-serif;font-size:2.1rem;font-weight:800;line-height:1.1;font-variant-numeric:tabular-nums;margin:.2rem 0}
+.kpi .sub{font-size:.8rem;color:var(--ink-2)}
+.kpi.bad .val{color:var(--copper)}
+section{margin-bottom:3.5rem;scroll-margin-top:1.5rem}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--card);margin:1rem 0 1.4rem}
+table{border-collapse:collapse;width:100%;font-size:.88rem;font-variant-numeric:tabular-nums}
+th,td{padding:.55rem .75rem;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);background:var(--bg-2);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+td strong{color:var(--ink)}
+.num{text-align:right;white-space:nowrap}
+.pill{display:inline-block;padding:.1rem .5rem;border-radius:999px;font-size:.72rem;font-weight:600;font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.03em}
+.pill.a{background:var(--copper-soft);color:var(--copper)}
+.pill.b{background:var(--accent-soft);color:var(--accent-ink)}
+.pill.c{background:var(--bg-2);color:var(--ink-2)}
+.pill.ok{background:var(--good-soft);color:var(--good)}
+.findings{list-style:none;padding:0;margin:0;display:grid;gap:.75rem;counter-reset:f}
+.findings li{display:grid;grid-template-columns:2.2rem 1fr;gap:.6rem;padding:.9rem 1rem;background:var(--card);border:1px solid var(--line)}
+.findings li::before{counter-increment:f;content:counter(f);font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.3rem;color:var(--accent);line-height:1}
+.findings li p{margin:0;max-width:none}
+.callout{border-left:3px solid var(--accent);background:var(--accent-soft);padding:.9rem 1.1rem;margin:1.2rem 0}
+.callout.warn{border-left-color:var(--copper);background:var(--copper-soft)}
+.callout p{margin:0;max-width:none}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;margin:1rem 0}
+.card{background:var(--card);border:1px solid var(--line);padding:1rem 1.1rem}
+.card h4{margin-top:0}
+.card ul{margin:.3rem 0 0;padding-left:1.1rem}
+.card li{margin:.2rem 0}
+pre{background:var(--code);border:1px solid var(--line);padding:1rem;overflow-x:auto;font-size:.8rem;line-height:1.5;margin:1rem 0}
+figure{margin:1.2rem 0}
+figcaption{font-size:.8rem;color:var(--ink-3);margin-top:.4rem}
+.chart svg{width:100%;height:auto;display:block}
+.chart text{font-family:"Public Sans",sans-serif;fill:var(--ink-2);font-size:12px}
+.chart .bar{fill:var(--accent)}
+.chart .bar.me{fill:var(--copper)}
+.chart .grid{stroke:var(--line);stroke-width:1}
+.chart .lbl{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;fill:var(--ink)}
+.chart .val{font-weight:600;fill:var(--ink)}
+.map{font-family:"Bricolage Grotesque",sans-serif}
+.persona{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.8rem;margin:1rem 0}
+.persona .card{padding:.9rem 1rem;font-size:.9rem}
+.persona .who{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:1rem;margin-bottom:.3rem}
+.persona .tag{color:var(--ink-3);font-size:.78rem}
+.roadmap{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.8rem;margin:1rem 0}
+.roadmap .card{border-top:3px solid var(--accent)}
+.roadmap .card .when{font-size:.75rem;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em;font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.q{margin:0;padding-left:1.2rem}
+.q li{margin:.3rem 0}
+footer{border-top:1px solid var(--line);padding-top:1.2rem;font-size:.8rem;color:var(--ink-3);max-width:none}
+@media (max-width:860px){
+  .shell{grid-template-columns:1fr;gap:1.5rem}
+  nav.toc{position:static}
+  nav.toc ol{flex-direction:row;flex-wrap:wrap;border-left:none;gap:.3rem}
+  nav.toc a{border:1px solid var(--line);border-radius:999px;padding:.25rem .7rem;margin:0}
+  .kpis{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:no-preference){ html{scroll-behavior:smooth} }
+</style>
+
+<div class="shell">
+<nav class="toc" aria-label="Bölümler">
+  <div class="meta">P3Media · 4 Eylül 2026<br>Florida Coffee Kahve Gıda A.Ş.<br>Web + Mobil Uygulama Ön Analizi</div>
+  <ol>
+    <li><a href="#ozet">Yönetici özeti</a></li>
+    <li><a href="#kurum">Kurum ve marka profili</a></li>
+    <li><a href="#sozlesme">Sözleşmeden çıkan gereksinimler</a></li>
+    <li><a href="#pazar">Pazar</a></li>
+    <li><a href="#rakip">Rakip analizi</a></li>
+    <li><a href="#kitle">Kitle ve kullanıcı</a></li>
+    <li><a href="#kelime">Anahtar kelimeler</a></li>
+    <li><a href="#seo">SEO stratejisi</a></li>
+    <li><a href="#marka">Kurumsal kimlik</a></li>
+    <li><a href="#site">Site yapısı</a></li>
+    <li><a href="#app">Mobil uygulama</a></li>
+    <li><a href="#ai">Yapay zeka</a></li>
+    <li><a href="#veri">Veri ve bilgi tabanı</a></li>
+    <li><a href="#fark">Farklılaştırma</a></li>
+    <li><a href="#yol">Yol haritası</a></li>
+    <li><a href="#demo">Demo ve sunum</a></li>
+  </ol>
+</nav>
+
+<main>
+<header class="hero">
+  <div class="eyebrow">Ön analiz raporu · gizli</div>
+  <h1>Florida Coffee'yi arama motorlarında bulunur, rakipler arasında önde kılmak</h1>
+  <p class="lede">Çengelköy doğumlu, 15'ten fazla noktası ve Karadağ'da iki şubesi olan bir kahve zinciri, Google'da ABD'deki Florida kahvecileriyle karışıyor ve ilk 10'da tek bir kelimede yer almıyor. Bu rapor, web sitesi ve mobil uygulama teklifinin dayanacağı pazar, rakip, kitle, anahtar kelime, SEO, marka, kullanıcı, mimari, yapay zeka ve veri analizlerini bir araya getirir.</p>
+  <div class="kpis">
+    <div class="kpi bad"><div class="lbl">floridacoffee.com.tr · Semrush TR sırası</div><div class="val">208.967</div><div class="sub">33 organik kelime · 287 ziyaret/ay · ilk 10'da 0 kelime</div></div>
+    <div class="kpi"><div class="lbl">espressolab.com</div><div class="val">2.708</div><div class="sub">3.141 kelime · 143.611 ziyaret/ay · 305–338 şube</div></div>
+    <div class="kpi"><div class="lbl">kahvedunyasi.com</div><div class="val">1.124</div><div class="sub">10.864 kelime · 426.933 ziyaret/ay · 302–343 şube</div></div>
+  </div>
+</header>
+
+<section id="ozet">
+  <div class="eyebrow">01</div>
+  <h2>Yönetici özeti</h2>
+  <ol class="findings">
+    <li><p><strong>Dijitalde görünmez.</strong> Semrush Türkiye'de 208.967. sıra, ilk 10'da sıfır kelime, tahmini 287 aylık organik ziyaret. Site yalnızca üç sayfa ile indekste: ana sayfa, hakkımızda, mağazalar. Menü, franchise, blog yok.</p></li>
+    <li><p><strong>"Florida" coğrafi bir ad.</strong> Bu rapor için yapılan 45+ aramanın yarısı ABD sitelerine gitti. Sözleşme 3.4'te kabul edilen bu sorun, varlık (entity) SEO'su ile "Florida Coffee Türkiye" olarak sabitlenmeli.</p></li>
+    <li><p><strong>Sözleşme dijitali merkezileştiriyor.</strong> Madde 7.2 franchise alanın site ve sosyal hesap açmasını yasaklıyor; 7.4 sadakat kartından mobil uygulamaya geçişi; 6.32 mobil uygulama, yazılım, e-fatura ücretlerini aylık gider olarak tanımlıyor. Platform HQ'ya masraf değil, şube başına gelir kalemi olarak sunulabilir.</p></li>
+    <li><p><strong>Şube hesapları dağınık.</strong> Ana Instagram 4.046 takipçi; Kavacık, Yahyakaptan, Bahçeşehir ayrı hesaplarda; Facebook 32 beğeni; Yandex Haritalar Çengelköy merkezini "artık faal değil" gösteriyor.</p></li>
+    <li><p><strong>Uygulama var ama görünmez.</strong> iOS (id6504341925) ve Android (com.floridacoffeemobile) yayında; sadakat, cüzdan, kampanya vurgusu yok. Sıfırdan değil, "v2 yeniden lansman" olarak konumlandırılmalı.</p></li>
+    <li><p><strong>Pazar patlıyor.</strong> 2025'te 15 milyar TL (+%35), kişi başı tüketim 2026'da 2,2–2,5 kg, 28.000+ kafe, Starbucks boykotu yerli zincirlere talep kaydırdı.</p></li>
+    <li><p><strong>Kazanma planı.</strong> Marka varlığını sabitle, her şube için zengin yerel sayfa + Google İşletme Profili disiplini, tek uygulamada sadakat + ön sipariş + cüzdan, franchise yatırımcısı hunisi, HQ'nun zaten topladığı otomasyon verisini (6.23) yapay zeka ile tahmin ve kişiselleştirmeye çevir.</p></li>
+  </ol>
+  <div class="callout warn"><p><strong>Veri kısıtı.</strong> Semrush API birimleri üç domain raporundan sonra sıfırlandı; anahtar kelime hacimleri, backlink profili ve rakip kelime boşluğu alınamadı. Çalışma ortamının ağ politikası nedeniyle floridacoffee.com.tr, App Store, Şikayetvar, Yandex doğrudan taranamadı; bulgular arama motoru özetlerinden derlendi. Bu iki boşluk teklif öncesi 1 saatte kapatılır.</p></div>
+</section>
+
+<section id="kurum">
+  <div class="eyebrow">02</div>
+  <h2>Kurum ve marka profili</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Alan</th><th>Bilgi</th></tr>
+    <tr><td>Tüzel kişi</td><td>Florida Coffee Kahve Gıda Sanayi ve Ticaret A.Ş. · İstanbul Sicil 1007745 · Mersis 0388184298400001</td></tr>
+    <tr><td>Merkez</td><td>Çengelköy Mah. Görgeç Sok. Mado No:6, Üsküdar / İstanbul</td></tr>
+    <tr><td>Karar verici (tebligat)</td><td>korhan@floridacoffee.com.tr</td></tr>
+    <tr><td>Marka tescili</td><td>30, 35, 43. sınıflar (SMK)</td></tr>
+    <tr><td>Alt markalar</td><td>Florida Coffee · FloridaDays · Mi Florida · BİFLORİDA · Florida Plus</td></tr>
+    <tr><td>Grup</td><td>Yummy Cheese Pasta ("Türkiye'nin en büyük taze makarna fast food markası", 4 ülke 10 şehir), Amanos Döner</td></tr>
+    <tr><td>Çalışan</td><td>50–74</td></tr>
+    <tr><td>Slogan</td><td>"Mutluluğun Tadı" / "Taste of Joy"</td></tr>
+    <tr><td>Franchise modeli</td><td>10 yıl · 3 km koruma · ciro %5 + KDV royalty · merkezi tedarik · 30 gün yönetici + 15 gün barista eğitimi · gizli müşteri 900 TL/ay</td></tr>
+  </table></div>
+  <h3>Şube ağı (web araması ile derlendi, doğrulanacak)</h3>
+  <div class="grid2">
+    <div class="card"><h4>İstanbul</h4><ul><li>Çengelköy (merkez; Yandex "kapalı" gösteriyor)</li><li>Taksim Talimhane · Taksim Meydan</li><li>Kadıköy</li><li>Beykoz Kelle İbrahim (Boğaz manzaralı, 02:00'a kadar)</li><li>Kavacık FSM Cad. 42A</li><li>Bahçeşehir · Ümraniye · Esenyurt</li></ul></div>
+    <div class="card"><h4>Anadolu ve yurt dışı</h4><ul><li>İzmit Yahyakaptan</li><li>Sakarya Çark Caddesi (Cadde54 Florida Coffee Ltd.) + Şal Sk. 20A (sözleşme konusu)</li><li>Bursa · Samsun · Rize · Erzincan</li><li>Karadağ: Podgorica, Budva</li></ul></div>
+  </div>
+  <h3>Mevcut dijital varlıklar</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Varlık</th><th>Durum</th><th>Değerlendirme</th></tr>
+    <tr><td>floridacoffee.com.tr</td><td>/ · /about · /stores</td><td>İngilizce slug, Türkçe içerik; başlıklar "Ana Sayfa", "Mağazalarımız"; menü/franchise/blog yok</td></tr>
+    <tr><td>Mobil uygulama</td><td>iOS id6504341925 · Android com.floridacoffeemobile</td><td>"Birkaç dokunuşla sipariş"; puan ve indirme görünmüyor; site link vermiyor</td></tr>
+    <tr><td>Instagram</td><td>@floridacoffeetr 4.046 · şube hesapları ayrı</td><td>Espressolab 191K, Kahve Dünyası 327K, Coffy 20K</td></tr>
+    <tr><td>TikTok / Facebook / LinkedIn</td><td>@floridacoffee_ aktif · 32 beğeni · Florida Coffee Co.</td><td>Facebook fiilen ölü; LinkedIn işveren markası için kullanılmıyor</td></tr>
+    <tr><td>Yemeksepeti</td><td>4+ kayıt (İstanbul x3, Kocaeli), min. sepet 300 TL</td><td>Getir / Trendyol Go kaydı bulunamadı</td></tr>
+    <tr><td>Yorumlar</td><td>Yandex: Beykoz 3,7 (9) · Kavacık 5,0 (13) · Google ~4,2</td><td>Şikayetvar'da yanıtsız şikayetler (2025–2026)</td></tr>
+  </table></div>
+</section>
+
+<section id="sozlesme">
+  <div class="eyebrow">03</div>
+  <h2>Sözleşmeden çıkan dijital gereksinimler</h2>
+  <p>Franchise sözleşmesi, teklifin omurgasını zaten yazmış durumda. Her madde bir platform modülüne karşılık geliyor.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Madde</th><th>Hüküm</th><th>Platform karşılığı</th></tr>
+    <tr><td>3.5</td><td>Yazılım ve reklam ajansı merkezden yönlendirilir</td><td>HQ onaylı tek tedarikçi</td></tr>
+    <tr><td>4</td><td>Alan adları ve sosyal hesaplar Franchise Veren'e ait</td><td>Tüm varlıklar HQ hesabında; şubelere rol bazlı erişim</td></tr>
+    <tr><td>6.23 / 9.5</td><td>Satış, ciro, stok, muhasebe HQ'ya online açık</td><td>POS entegrasyonu, HQ dashboard, şube raporlama</td></tr>
+    <tr><td>6.32</td><td>Aylık: ajans, yazılım + sunucu, e-posta, e-fatura, <strong>mobil uygulama</strong></td><td>Şube başına aylık SaaS lisansı</td></tr>
+    <tr><td>7.1</td><td>Ulusal reklam bütçesi ciro %1</td><td>Kampanya yönetimi ve ölçüm</td></tr>
+    <tr><td>7.2</td><td>Franchise alan web / sosyal açamaz (ceza 100.000 TL)</td><td>Şube sayfaları merkezi sitede; merkezi içerik takvimi</td></tr>
+    <tr><td>7.4</td><td>Fiziksel sadakat kartı, sonra mobil uygulama</td><td>Sadakat motoru, kart→uygulama geçiş kampanyası</td></tr>
+    <tr><td>8 · 9 · 9.3</td><td>Eğitim, denetim, gizli müşteri</td><td>Franchisee portalı: LMS, denetim raporu, AI özet</td></tr>
+    <tr><td>12.3</td><td>Ciro eşiği altında kalma fesih sebebi</td><td>Şube performans erken uyarısı</td></tr>
+  </table></div>
+</section>
+
+<section id="pazar">
+  <div class="eyebrow">04</div>
+  <h2>Pazar</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Gösterge</th><th>Değer</th><th>Kaynak</th></tr>
+    <tr><td>Türkiye kahve pazarı (2025)</td><td class="num">~15 milyar TL, +%35</td><td>Marketing Türkiye, Dünya</td></tr>
+    <tr><td>Kişi başı tüketim</td><td class="num">2010: 0,4 kg → 2025: 1,5 kg → 2026T: 2,2–2,5 kg</td><td>Karar, Dünya</td></tr>
+    <tr><td>Kahve ithalatı (2025)</td><td class="num">125 bin ton · 909,2 M USD (+%82,9)</td><td>Gıdatarım</td></tr>
+    <tr><td>Kafe sayısı (2026)</td><td class="num">28.000+</td><td>Accio</td></tr>
+    <tr><td>Kahve zinciri sayısı</td><td class="num">130+</td><td>DergiPark</td></tr>
+  </table></div>
+  <h3>Zincir sıralaması (şube)</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Marka</th><th class="num">ZAM Haber 2026</th><th class="num">Gıda Bülteni Nis 2025</th><th>Not</th></tr>
+    <tr><td>Starbucks</td><td class="num">755</td><td class="num">—</td><td>Boykot etkisiyle şehir merkezi kapanışları</td></tr>
+    <tr><td>Espressolab</td><td class="num">305</td><td class="num">338</td><td>4 ayda +109 şube; 1M uygulama kullanıcısı</td></tr>
+    <tr><td>Kahve Dünyası</td><td class="num">302</td><td class="num">343</td><td>En güçlü e-ticaret</td></tr>
+    <tr><td>Gloria Jean's</td><td class="num">206</td><td class="num">240+</td><td>50+ il, kendi kavurma</td></tr>
+    <tr><td>Arabica · Mackbear</td><td class="num">183 · 182</td><td class="num">—</td><td>Anadolu ağırlıklı</td></tr>
+    <tr><td>Coffy</td><td class="num">131</td><td class="num">200</td><td>2026 hedefi 350; tek fiyat</td></tr>
+    <tr><td>Caffè Nero</td><td class="num">104</td><td class="num">—</td><td>Yoyo Wallet</td></tr>
+    <tr><td><strong>Florida Coffee</strong></td><td class="num"><strong>~15–18</strong></td><td class="num">—</td><td>İstanbul + Marmara + Karadeniz + Karadağ</td></tr>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>Fırsat: Starbucks boykotu</h4><p>Şehir merkezi mağazaları kapanıyor; yerli algısı güçlü markalara talep kayıyor. "İstanbul doğumlu, Boğaz manzaralı, yerli" hikayesi sahiplenilebilir.</p></div>
+    <div class="card"><h4>Fırsat: franchise talebi</h4><p>2026'da 17 kahve zinciri 253 girişimci arıyor. Espressolab ve Coffy başvuru sayfalarında güçlü; Florida Coffee'nin franchise sayfası indekste yok.</p></div>
+    <div class="card"><h4>Fırsat: Sakarya</h4><p>Espressolab 7 şube (SEAH, Kampüs, ilçeler), Kahve Dünyası Ada AVM / Serdivan AVM / Agora, Starbucks Serdivan AVM. Çark Caddesi'nde cadde tipi premium zincir yok; SAÜ 60.000+ öğrenci.</p></div>
+    <div class="card"><h4>Fırsat: Karadağ</h4><p>Adriyatik'te ilk Türk kahve zinciri konumu. EN/ME site katmanı ve turist kitlesi.</p></div>
+  </div>
+</section>
+
+<section id="rakip">
+  <div class="eyebrow">05</div>
+  <h2>Rakip analizi</h2>
+  <figure class="chart">
+    <svg viewBox="0 0 720 190" role="img" aria-label="Aylık organik trafik karşılaştırması, logaritmik ölçek">
+      <line class="grid" x1="170" y1="20" x2="170" y2="160"/>
+      <line class="grid" x1="300" y1="20" x2="300" y2="160"/>
+      <line class="grid" x1="430" y1="20" x2="430" y2="160"/>
+      <line class="grid" x1="560" y1="20" x2="560" y2="160"/>
+      <line class="grid" x1="690" y1="20" x2="690" y2="160"/>
+      <text x="170" y="176" text-anchor="middle">100</text>
+      <text x="300" y="176" text-anchor="middle">1.000</text>
+      <text x="430" y="176" text-anchor="middle">10.000</text>
+      <text x="560" y="176" text-anchor="middle">100.000</text>
+      <text x="690" y="176" text-anchor="middle">1.000.000</text>
+      <text class="lbl" x="160" y="46" text-anchor="end">Kahve Dünyası</text>
+      <rect class="bar" x="170" y="32" width="435" height="20"/>
+      <text class="val" x="612" y="46">426.933</text>
+      <text class="lbl" x="160" y="96" text-anchor="end">Espressolab</text>
+      <rect class="bar" x="170" y="82" width="374" height="20"/>
+      <text class="val" x="551" y="96">143.611</text>
+      <text class="lbl" x="160" y="146" text-anchor="end">Florida Coffee</text>
+      <rect class="bar me" x="170" y="132" width="59" height="20"/>
+      <text class="val" x="236" y="146">287</text>
+    </svg>
+    <figcaption>Tahmini aylık organik ziyaret, Semrush TR veritabanı, Eylül 2026. Yatay eksen logaritmik; fark 500 ile 1.500 kat arasında.</figcaption>
+  </figure>
+  <div class="tablewrap"><table>
+    <tr><th>Domain</th><th class="num">Semrush Rank</th><th class="num">Organik kelime</th><th class="num">Ziyaret / ay</th><th class="num">Top 3</th><th class="num">4–10</th></tr>
+    <tr><td>kahvedunyasi.com</td><td class="num">1.124</td><td class="num">10.864</td><td class="num">426.933</td><td class="num">1.788</td><td class="num">1.643</td></tr>
+    <tr><td>espressolab.com</td><td class="num">2.708</td><td class="num">3.141</td><td class="num">143.611</td><td class="num">214</td><td class="num">422</td></tr>
+    <tr><td><strong>floridacoffee.com.tr</strong></td><td class="num"><strong>208.967</strong></td><td class="num"><strong>33</strong></td><td class="num"><strong>287</strong></td><td class="num"><strong>0</strong></td><td class="num"><strong>0</strong></td></tr>
+  </table></div>
+  <p>Florida Coffee 14 kelimede yerel paket ve 4 kelimede AI Overview tetikliyor. Google markayı yerel işletme olarak tanıyor; site otorite üretmiyor.</p>
+  <h3>Ürün ve uygulama karşılaştırması</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Marka</th><th>Sadakat</th><th>Ön sipariş</th><th>Cüzdan</th><th>E-ticaret</th><th>Franchise sayfası</th><th class="num">Instagram</th></tr>
+    <tr><td>Espressolab</td><td>O-Club 3 seviye, LabCoin, 15 coin = 12 oz</td><td>Gel Al + Bana Gönder</td><td>Eslab Wallet, yemek kartı, QR</td><td>Çekirdek, merch</td><td>Var</td><td class="num">191K</td></tr>
+    <tr><td>Kahve Dünyası</td><td>Çekirdek puan, 1 puan = 1 TL</td><td>Hazır Al (TR'de ilk)</td><td>Var</td><td>Güçlü + atölye bileti</td><td>Var</td><td class="num">327K</td></tr>
+    <tr><td>Coffy</td><td>5'e 1, CoffyClub</td><td>Gel Al + "Ben Geldim"</td><td>Hepsipay kampanya</td><td>Yok</td><td>Ayrı subdomain</td><td class="num">20K</td></tr>
+    <tr><td>Starbucks TR</td><td>15 yıldız = Tall, davet 5 yıldız</td><td>Yok</td><td>Bakiye + QR</td><td>Yok</td><td>Yok</td><td class="num">—</td></tr>
+    <tr><td>Gloria Jean's</td><td>Öde / damga / kazan</td><td>—</td><td>—</td><td>Trendyol</td><td>Var</td><td class="num">62K</td></tr>
+    <tr><td><strong>Florida Coffee</strong></td><td>Fiziksel kart planlı</td><td>Belirsiz</td><td>Yok</td><td>Yok</td><td>Yok</td><td class="num">4K</td></tr>
+  </table></div>
+  <div class="callout"><p><strong>Ortak zayıflık.</strong> Hiçbir rakip şube bazlı zengin yerel sayfa üretmiyor (menü, saat, manzara, park, çalışma alanı, etkinlik); şube sayfaları harita listesinden ibaret. Florida Coffee'nin fark yaratacağı alan burası.</p></div>
+  <h3>Konumlandırma</h3>
+  <pre class="map">                     Premium / deneyim
+                            ▲
+       Petra, Kronotrop     │     Starbucks, Caffè Nero
+       (3. dalga butik)     │     (global premium)
+                            │
+    ◄───────────────────────┼───────────────────────►
+    Butik / az şube         │        Kitlesel / çok şube
+                            │
+      FLORIDA COFFEE        │     Espressolab, Kahve Dünyası
+      Boğaz manzaralı,      │     Gloria Jean's
+      kendi kavurduğu,      │
+      ulaşılabilir premium  │     Coffy, Mackbear
+                            ▼     (tek fiyat / hız)
+                     Uygun fiyat / hız</pre>
+  <h3>Yerel rakipler: Çark Caddesi, Adapazarı</h3>
+  <p>Safir Cafe (Foursquare 8,0; Türk kahvesi ve personel övgüsü), Saklı Bahçe (No. 58), Kontrbus ve Truck City 54 (Serdivan, sosyal medya viral). Zincirler AVM'lerde; caddede "premium kahve zinciri" konumu boş.</p>
+</section>
+
+<section id="kitle">
+  <div class="eyebrow">06</div>
+  <h2>Kitle ve kullanıcı</h2>
+  <p>Markalı kahve tüketiminde öncü gruplar kadınlar, 18–24 yaş, öğrenciler ve orta-üst gelir (Ipsos hane paneli, DergiPark). Kafe tercih faktörleri: tat ve sunum, makul fiyat, servis hızı, çeşitlilik, hijyen. Büyüyen segmentler: içime hazır soğuk kahve ve evde çekirdek tüketimi.</p>
+  <div class="persona">
+    <div class="card"><div class="who">Zeynep, 21</div><div class="tag">SAÜ öğrencisi, Sakarya</div>Bütçe hassas, arkadaşlarıyla çalışır. "sakarya çalışılacak kafe", reels, 5'e 1 kampanya. <span class="pill b">App sadakat</span></div>
+    <div class="card"><div class="who">Emre, 29</div><div class="tag">Plaza çalışanı, Kadıköy / Taksim</div>Sabah ve öğle, hız ister; sıra beklemek istemez. "yakınımdaki kahveci", push. <span class="pill b">Ön sipariş + cüzdan</span></div>
+    <div class="card"><div class="who">Selin ve Can, 34–40</div><div class="tag">Hafta sonu, Beykoz / Çengelköy</div>Manzara, kahvaltı, tatlı; park bilgisi ve fotoğraf arar. "boğaz manzaralı cafe beykoz". <span class="pill b">Şube sayfası + GBP</span></div>
+    <div class="card"><div class="who">Ahmet, 45</div><div class="tag">Yatırımcı</div>2–5 M TL bütçe, şeffaf yatırım tablosu ve referans şube ister. "kahve franchise", LinkedIn. <span class="pill a">Franchise hunisi + CRM</span></div>
+    <div class="card"><div class="who">Mira, 27</div><div class="tag">Turist, Budva</div>Türk kahvesi ve Boğaz hikayesi; EN menü, Google Maps. <span class="pill b">EN site + GBP</span></div>
+    <div class="card"><div class="who">Deniz, 24</div><div class="tag">Şube müdürü</div>HQ raporlaması, eğitim, tedarik siparişi; tek mobil panel. <span class="pill c">Franchisee portalı</span></div>
+    <div class="card"><div class="who">Korhan Bey</div><div class="tag">HQ yönetimi</div>Ciro, royalty, denetim, marka kontrolü, ciro eşiği uyarısı (12.3). <span class="pill c">HQ admin</span></div>
+  </div>
+  <h3>Şikayetlerden çıkan içgörüler (Şikayetvar 2025–2026)</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Şikayet</th><th>Kök neden</th><th>Dijital çözüm</th></tr>
+    <tr><td>Soğuk istenen kahve sıcak bardakta geldi</td><td>Sipariş modifikasyonu kaybı</td><td>Zorunlu sıcak/soğuk/buz seçici, POS'a yapısal aktarım</td></tr>
+    <tr><td>Laktozsuz süt isteği uygulanmadı</td><td>Özel istek takibi yok</td><td>Profilde süt tercihi; barista ekranında vurgu</td></tr>
+    <tr><td>215 TL ice white mocha'da parçacık (İzmit)</td><td>Standart dışı hazırlık</td><td>Yorum sentimenti + gizli müşteri → şube skoru</td></tr>
+    <tr><td>Kağıt bardak ıslanıp yırtıldı</td><td>Tedarik kalitesi</td><td>Merkezi tedarik geri bildirim modülü</td></tr>
+    <tr><td>Fiyat yüksek algısı (Beykoz)</td><td>Değer iletişimi zayıf</td><td>Sadakat, manzara/deneyim vurgusu</td></tr>
+    <tr><td>Marka yanıt vermiyor</td><td>Yorum yönetimi yok</td><td>Tek gelen kutusu, AI taslak yanıt, 24 saat SLA</td></tr>
+  </table></div>
+</section>
+
+<section id="kelime">
+  <div class="eyebrow">07</div>
+  <h2>Anahtar kelime analizi</h2>
+  <p>120 kelimelik tam liste küme, niyet, hedef sayfa ve öncelikle CSV olarak hazırlandı. Hacim ve zorluk, Semrush birimi yüklendiğinde tek çağrıyla doğrulanacak. Öncelik: <span class="pill a">A</span> ilk 90 gün · <span class="pill b">B</span> 3–6 ay · <span class="pill c">C</span> 6–12 ay.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Küme</th><th>Örnek kelimeler</th><th>Hedef</th><th>Öncelik</th></tr>
+    <tr><td>Marka / varlık</td><td>florida coffee türkiye · florida coffee menü · florida coffee şubeleri · florida coffee franchise · florida coffee kavacık</td><td>/, /menu, /subeler, /franchise</td><td><span class="pill a">A</span></td></tr>
+    <tr><td>Yerel keşif</td><td>yakınımdaki kahveci · çengelköy cafe · boğaz manzaralı cafe beykoz · kadıköy çalışılacak kafe · çark caddesi cafe · adapazarı kahveci · sakarya çalışılacak kafe · izmit cafe · coffee shop budva</td><td>/subeler/{şehir}/{şube} + GBP</td><td><span class="pill a">A</span></td></tr>
+    <tr><td>Ürün</td><td>filtre kahve · latte · cold brew · iced latte · türk kahvesi · matcha latte · laktozsuz süt latte · san sebastian</td><td>/menu/{ürün}</td><td><span class="pill a">A</span> / <span class="pill b">B</span></td></tr>
+    <tr><td>Franchise (B2B)</td><td>kahve franchise · kahve bayiliği veren firmalar · kahve dükkanı açmak maliyeti · franchise veren kahve markaları · kahve franchise karşılaştırma</td><td>/franchise, /franchise/yatirim, blog karşılaştırma</td><td><span class="pill a">A</span></td></tr>
+    <tr><td>Uygulama</td><td>kahve sipariş uygulaması · bedava kahve uygulaması · ön sipariş kahve</td><td>/uygulama, /sadakat</td><td><span class="pill b">B</span></td></tr>
+    <tr><td>Bilgi / blog</td><td>v60 nasıl yapılır · cold brew nasıl yapılır · arabica robusta farkı · çalışılacak kafeler istanbul · boğaz manzaralı kafeler</td><td>/blog/demleme, /blog/mekan-rehberi</td><td><span class="pill b">B</span> / <span class="pill c">C</span></td></tr>
+    <tr><td>E-ticaret</td><td>çekirdek kahve satın al · kahve çekirdeği fiyatları</td><td>/magaza (Mi Florida)</td><td><span class="pill c">C</span></td></tr>
+  </table></div>
+  <p>Niyet dağılımı önerisi: %35 yerel, %25 ürün, %15 marka, %15 franchise, %10 bilgi. Franchise kümesi en düşük hacim, en yüksek ticari değer: tek dönüşüm 10 yıllık royalty demek.</p>
+</section>
+
+<section id="seo">
+  <div class="eyebrow">08</div>
+  <h2>SEO stratejisi</h2>
+  <h3>Teşhis</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Alan</th><th>Bulgu</th><th>Etki</th></tr>
+    <tr><td>Otorite</td><td>Rank 208.967, trafik değeri 0 USD</td><td>Google için önemsiz site</td></tr>
+    <tr><td>İndeks kapsamı</td><td>3 sayfa; menü, franchise, blog yok</td><td>Ürün ve B2B niyetlerinde görünmüyor</td></tr>
+    <tr><td>Başlık ve URL</td><td>"Florida Coffee | Ana Sayfa"; /about, /stores</td><td>Kelime ve konum sinyali yok; dil tutarsız</td></tr>
+    <tr><td>Varlık karışıklığı</td><td>"florida coffee" ABD'ye gidiyor</td><td>Marka aramasında bile kayıp</td></tr>
+    <tr><td>Yerel</td><td>14 kelimede local pack; Yandex merkez "kapalı"</td><td>GBP çalışıyor, veri hijyeni zayıf</td></tr>
+    <tr><td>Domain</td><td>.com ve .com.tr, kanonik belirsiz</td><td>Otorite bölünmesi</td></tr>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>Teknik hedefler</h4><ul><li>LCP &lt; 2,0 s mobil (2026 "iyi" eşiği), INP &lt; 200 ms, CLS &lt; 0,1</li><li>Lighthouse mobil ≥ 90; Next.js SSR/ISR</li><li>AVIF/WebP + CDN; sitemap index; hreflang tr-TR / en / sr-ME</li><li>Kanonik floridacoffee.com.tr, .com 301</li></ul></div>
+    <div class="card"><h4>Yapılandırılmış veri</h4><ul><li>Organization + Brand (sameAs, alternateName "Florida Coffee Co.")</li><li>CafeOrCoffeeShop her şube: saat, geo, amenityFeature, hasMenu, aggregateRating</li><li>Menu / MenuItem: fiyat, besin, suitableForDiet</li><li>FAQPage, MobileApplication, JobPosting, Event, BreadcrumbList</li></ul></div>
+    <div class="card"><h4>Yerel SEO disiplini</h4><ul><li>NAP tek kaynak: site = GBP = Yandex = Apple = Yemeksepeti</li><li>İlk hafta: Yandex Çengelköy "faal değil" düzeltmesi</li><li>GBP: kategori, ürün kataloğu, haftalık gönderi, Q&amp;A, fotoğraf standardı</li><li>Fiş QR + push ile yorum; 24 saatte yanıt</li></ul></div>
+    <div class="card"><h4>Varlık SEO ve GEO</h4><ul><li>Tüm varlıklarda "Florida Coffee Türkiye"</li><li>Wikidata öğesi → Knowledge Panel</li><li>Basın: Marketing Türkiye, Food in Life, Franchise Market</li><li>Şube SSS blokları, tablo formatında menü, llms.txt; AI Overview aramaların ~yarısında</li></ul></div>
+  </div>
+  <h3>Hedef göstergeler</h3>
+  <div class="tablewrap"><table>
+    <tr><th>KPI</th><th class="num">Bugün</th><th class="num">6 ay</th><th class="num">12 ay</th></tr>
+    <tr><td>Organik kelime (TR)</td><td class="num">33</td><td class="num">600</td><td class="num">2.000</td></tr>
+    <tr><td>Top 10 kelime</td><td class="num">0</td><td class="num">120</td><td class="num">400</td></tr>
+    <tr><td>Aylık organik ziyaret</td><td class="num">287</td><td class="num">8.000</td><td class="num">30.000</td></tr>
+    <tr><td>Semrush Rank</td><td class="num">208.967</td><td class="num">&lt; 60.000</td><td class="num">&lt; 20.000</td></tr>
+    <tr><td>Franchise formu / ay</td><td class="num">ölçülmüyor</td><td class="num">15</td><td class="num">40</td></tr>
+    <tr><td>Uygulama aktif kullanıcı</td><td class="num">?</td><td class="num">15.000</td><td class="num">60.000</td></tr>
+  </table></div>
+</section>
+
+<section id="marka">
+  <div class="eyebrow">09</div>
+  <h2>Kurumsal kimlik ve marka</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Marka</th><th>Muhtemel rol</th><th>Öneri</th></tr>
+    <tr><td>Florida Coffee</td><td>Ana marka</td><td>Master brand; dijitalde "Florida Coffee Türkiye"</td></tr>
+    <tr><td>FloridaDays</td><td>Kampanya / etkinlik?</td><td>Sadakat programının adı: "FloridaDays Club"</td></tr>
+    <tr><td>Mi Florida</td><td>Perakende ürün veya kişisel katman?</td><td>E-ticaret ve kişiselleştirme ("benim Florida'm")</td></tr>
+    <tr><td>BİFLORİDA</td><td>Tek fiyat / hızlı format?</td><td>Coffy tarzı ekonomik alt hat (müşteriye sorulacak)</td></tr>
+    <tr><td>Florida Plus</td><td>Premium seviye / üyelik?</td><td>Sadakat üst seviyesi</td></tr>
+  </table></div>
+  <p>Öneri: master brand + endorsed alt markalar. Alt markalar ayrı sayfa değil, program ve ürün adı olarak yaşamalı ki otorite bölünmesin.</p>
+  <div class="callout"><p><strong>Vaat ile algı arasındaki boşluk.</strong> Vaat "Mutluluğun Tadı", manzara, SCA standardı. Algı: mekan ve manzara övgüsü, ama fiyat yüksek ve kalite tutarsız şikayetleri. Dijitalde deneyim hikayesi anlatılmalı; standardizasyon şikayetleri uygulama doğruluğu ve denetim modülüyle kapatılmalı.</p></div>
+  <h3>Sosyal medya</h3>
+  <p>Şube hesapları kapatılmaz; "Florida Coffee | Kavacık" formatıyla merkezi yönetime devralınır (madde 4). İçerik sütunları: manzara/mekan, ürün/tarif, barista/insan, kampanya/sadakat, franchise başarı hikayesi, Karadağ. P3Media AI video ile haftada 3 kısa video, şube adaptasyonu otomatik (madde 7.3).</p>
+</section>
+
+<section id="site">
+  <div class="eyebrow">10</div>
+  <h2>Site yapısı</h2>
+<pre>floridacoffee.com.tr
+├── /                      Manzara hero · en yakın şube · öne çıkan ürünler · app · franchise CTA
+├── /menu                  /sicak-kahveler · /soguk-kahveler · /kahve-disi · /yiyecekler · /sezon · /{urun}
+├── /subeler               Harita + filtre (manzara, gece açık, otopark, çalışma alanı)
+│   └── /subeler/{sehir}/{sube}   NAP, saat, galeri, özellikler, menü özeti, yorumlar, SSS, ön sipariş
+├── /uygulama · /sadakat (FloridaDays Club) · /kampanyalar
+├── /kahvemiz · /hikayemiz
+├── /franchise             /neden-florida · /yatirim · /basari-hikayeleri · /basvuru → CRM
+├── /kurumsal · /blog · /kariyer · /sss · /iletisim · /yasal
+├── /en/…                  EN yansıması
+└── /me/…                  Karadağ (Podgorica, Budva)
+
+portal.floridacoffee.com.tr   Franchisee portalı
+admin.floridacoffee.com.tr    HQ yönetim
+api.floridacoffee.com.tr      Headless API: web + app + POS</pre>
+  <h3>Şube sayfası şablonu, fark yaratan sayfa</h3>
+  <p>H1 "Florida Coffee Kavacık — Boğaz Manzaralı Kahve, Beykoz". Özellik rozetleri (manzara, gece 02:00, Wi-Fi, priz, otopark, evcil dostu), sabah/gün batımı galerisi, şubeye özel ürünler, POS verisinden "şu an sakin / yoğun", Google ve Yandex yorumları, 5 soruluk SSS, yol tarifi, "bu şubeden ön sipariş ver", etkinlik takvimi.</p>
+</section>
+
+<section id="app">
+  <div class="eyebrow">11</div>
+  <h2>Mobil uygulama</h2>
+  <p>Mevcut uygulama aynı mağaza kaydıyla v2 olarak yeniden lanse edilir; indirme geçmişi korunur.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Modül</th><th>MVP özelliği</th><th>Rakip referans</th></tr>
+    <tr><td>Kimlik</td><td>Telefon OTP, Apple/Google giriş, KVKK</td><td>Tümü</td></tr>
+    <tr><td>Sadakat</td><td>1 TL = 1 çekirdek, 10 kahveye 1, doğum günü içeceği, fiziksel kart QR ile aktarım</td><td>KD Çekirdek, LabCoin</td></tr>
+    <tr><td>Seviye</td><td>FloridaDays Club: Classic / Plus / Premium (6 aylık harcama)</td><td>Espressolab O-Club</td></tr>
+    <tr><td>Cüzdan</td><td>Kredi/banka/yemek kartı ile yükleme, yüklemede bonus, QR ödeme</td><td>Eslab Wallet</td></tr>
+    <tr><td>Ön sipariş</td><td>Şube → menü → modifikasyon (boy, süt, şurup, sıcak/soğuk) → ödeme → "Geldim"</td><td>Coffy, KD Hazır Al</td></tr>
+    <tr><td>Şubeler · Kampanya · Favoriler</td><td>Harita/yoğunluk, segment hedefli push ve kupon, "her zamanki" tek dokunuş</td><td>—</td></tr>
+    <tr><td>Hediye · Geri bildirim</td><td>Arkadaşa kahve, hediye kartı; sipariş sonrası tek dokunuş puan</td><td>KD</td></tr>
+  </table></div>
+  <div class="grid2">
+    <div class="card"><h4>V2 (3–6 ay)</h4><ul><li>Bana Gönder teslimat</li><li>E-ticaret: çekirdek, kapsül, merch (Mi Florida)</li><li>AI barista önerisi</li><li>Abonelik (aylık filtre kahve)</li><li>Karadağ: EUR, EN/ME, yerel ödeme</li></ul></div>
+    <div class="card"><h4>Teknoloji</h4><ul><li>Flutter veya React Native · Next.js web · headless CMS</li><li>Supabase (Postgres, Auth, RLS ile şube izolasyonu) veya NestJS</li><li>iyzico / PayTR + yemek kartları + Hepsipay</li><li>POS: Adisyo / Menulux / Simpra / robotPOS API (mevcut otomasyon belirlenecek)</li><li>E-fatura entegratörü · Firebase push · GA4 + PostHog · Claude API</li></ul></div>
+  </div>
+  <h3>Franchisee portalı ve HQ admin</h3>
+  <p>Otomatik ciro çekimi (6.23), gider ve abonelik görünümü (6.32), reklam katkı hesabı (7.1), video LMS ve sınav (8), denetim ve gizli müşteri raporları (9), ciro eşiği erken uyarı (12.3), merkezi tedarik siparişi ve 40 gün vade takibi (6.4), belge kütüphanesi ve erişim iptali (13.2). HQ tarafında tüm şubeler için ciro, royalty, sadakat, yorum puanı, kampanya ROI ve franchise lead pipeline. Ticari model: şube başına aylık SaaS lisansı + HQ kurulum bedeli.</p>
+</section>
+
+<section id="ai">
+  <div class="eyebrow">12</div>
+  <h2>Yapay zeka entegrasyonu</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Kullanım</th><th>Veri</th><th>Değer</th><th>Faz</th></tr>
+    <tr><td>AI barista önerisi</td><td>Sipariş geçmişi, hava, saat, stok</td><td>Sepet +%10–15 (Starbucks Deep Brew: ortalama sipariş +%12)</td><td><span class="pill b">V1.5</span></td></tr>
+    <tr><td>WhatsApp / Instagram DM sipariş ve destek asistanı</td><td>Menü, şube, sadakat API</td><td>7/24 destek, şikayet erken yakalama</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Yorum sentimenti ve yanıt taslağı</td><td>Google, Yandex, Şikayetvar, app</td><td>Şube kalite skoru, denetim girdisi</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Talep tahmini ve stok</td><td>POS (6.23), hava, takvim</td><td>Fire azalması, tedarik otomasyonu</td><td><span class="pill b">V2</span></td></tr>
+    <tr><td>Personel vardiya önerisi</td><td>Talep tahmini</td><td>Personel maliyeti ±%15 bandı (6.16)</td><td><span class="pill b">V2</span></td></tr>
+    <tr><td>SEO / GEO içerik motoru</td><td>CMS</td><td>15 şube × 5 SSS × 2 dil otomatik</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Gizli müşteri raporu özeti</td><td>PDF / form</td><td>3 uyarı kuralı takibi (6.18)</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Franchise lead skorlama</td><td>Form, bölge verisi</td><td>Satış önceliklendirme</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Dinamik kampanya (ölü saat)</td><td>POS + app</td><td>14:00–16:00 doluluk</td><td><span class="pill b">V2</span></td></tr>
+    <tr><td>AI video ve görsel (P3Media)</td><td>Ürün fotoğrafı</td><td>Haftalık içerik maliyeti düşer</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Ciro eşiği erken uyarı</td><td>POS</td><td>Fesih riski öncesi müdahale (12.3)</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Menü lokalizasyonu (Karadağ)</td><td>CMS</td><td>EN/ME otomatik</td><td><span class="pill a">V1</span></td></tr>
+    <tr><td>Sesli sipariş / kiosk · kamera kalite analizi</td><td>Menü · kamera (6.23)</td><td>Taksim/AVM formatı · standart dışı sunum uyarısı</td><td><span class="pill c">V3</span></td></tr>
+  </table></div>
+  <p>Yönetişim: KVKK aydınlatma, kişiselleştirme için açık rıza, yorum yanıtlarında insan onayı, kamera analizi için ayrı hukuki görüş.</p>
+</section>
+
+<section id="veri">
+  <div class="eyebrow">13</div>
+  <h2>Genişletilmiş bilgi yükleme: veri ve bilgi tabanı</h2>
+  <p>Web, uygulama, işletme profilleri, AI asistan ve GEO tek doğru veri kaynağından beslenir. Müşteriden Excel/Drive ile toplanır, P3Media temizler, CMS'e aktarılır; şema, sitemap ve GBP/Yandex güncellemeleri otomatik üretilir.</p>
+  <div class="tablewrap"><table>
+    <tr><th>Varlık</th><th>Alanlar</th><th>Kullanım</th></tr>
+    <tr><td>Şube</td><td>Ad, kod, yapısal adres, geo, telefon, saatler ve istisnalar, özellikler, fotoğraf seti, yönetici, POS/GBP/Yandex/Yemeksepeti ID'leri</td><td>Şube sayfası, app, NAP senkron, şema</td></tr>
+    <tr><td>Ürün</td><td>Ad TR/EN, kategori, boy/fiyat (şube grubu bazlı), kcal ve kafein, alerjen, süt seçenekleri, sezon, görsel, POS SKU, hazırlık süresi</td><td>Menü, sipariş, öneri motoru</td></tr>
+    <tr><td>Kampanya · Sadakat kuralı</td><td>Kural, segment, şube, tarih, kupon; kazanım oranı, seviye eşikleri, ödüller</td><td>App, web, push</td></tr>
+    <tr><td>Yorum · Denetim · Lead</td><td>Platform, şube, puan, metin, yanıt, sentiment; denetim bulguları; lead kaynak ve durum</td><td>HQ, şube skoru, CRM</td></tr>
+    <tr><td>Marka</td><td>Logo, renk, tipografi, ton, yasak kullanımlar</td><td>AI içerik motoru kılavuzu</td></tr>
+    <tr><td>LLM bilgi tabanı</td><td>Yukarıdakilerin metin özeti + iade, alerjen, saat politikaları</td><td>WhatsApp asistanı, site sohbeti</td></tr>
+  </table></div>
+</section>
+
+<section id="fark">
+  <div class="eyebrow">14</div>
+  <h2>Rakiplerin en iyisi olma planı</h2>
+  <div class="tablewrap"><table>
+    <tr><th>Rakip güçlü yanı</th><th>Florida Coffee cevabı</th></tr>
+    <tr><td>Espressolab: 1M kullanıcı, cüzdan</td><td>Aynı mekanikler artı "manzara + ön sipariş": en güzel manzaralı masayı uygulamadan ayır (Beykoz, Kavacık)</td></tr>
+    <tr><td>Kahve Dünyası: içerik ve e-ticaret</td><td>Manzaralı kahve rotası rehberleri; Mi Florida çekirdek satışı</td></tr>
+    <tr><td>Coffy: tek fiyat</td><td>BİFLORİDA ekonomik hat (karar müşterinin)</td></tr>
+    <tr><td>Starbucks: marka gücü</td><td>Yerlilik + Boğaz hikayesi + boykot sonrası alternatif</td></tr>
+    <tr><td>Hepsi: zayıf şube sayfaları</td><td>Türkiye'nin en zengin şube sayfaları: yoğunluk, manzara saatleri, etkinlik</td></tr>
+    <tr><td>Hepsi: form odaklı franchise sayfası</td><td>Şeffaf yatırım hesaplayıcı, video başarı hikayeleri, 3 km koruma vurgusu</td></tr>
+    <tr><td>Hiçbiri: Karadağ</td><td>Adriyatik'te ilk Türk kahve zinciri</td></tr>
+  </table></div>
+</section>
+
+<section id="yol">
+  <div class="eyebrow">15</div>
+  <h2>Yol haritası</h2>
+  <div class="roadmap">
+    <div class="card"><div class="when">0 · Keşif · 2 hafta</div><h4>Gereksinim</h4>Marka kılavuzu, POS envanteri, şube verisi, Semrush tam çekim, teknik denetim, alt marka rolleri</div>
+    <div class="card"><div class="when">1 · Temel · 6–8 hafta</div><h4>Web TR</h4>15 şube sayfası, menü, franchise hunisi, GBP/Yandex temizliği, Wikidata, şema, analitik</div>
+    <div class="card"><div class="when">2 · Uygulama v2 · 8–10 hafta</div><h4>Lansman</h4>Sadakat, cüzdan, ön sipariş, kampanya, push; kart→uygulama geçişi</div>
+    <div class="card"><div class="when">3 · Portal · 6 hafta</div><h4>Franchisee + HQ</h4>Dashboard, POS ve e-fatura entegrasyonu; sözleşme yükümlülükleri dijital</div>
+    <div class="card"><div class="when">4 · AI · 4–6 hafta</div><h4>AI katmanı v1</h4>WhatsApp asistan, yorum sentimenti, içerik motoru, lead skor, ciro uyarısı</div>
+    <div class="card"><div class="when">5 · Büyüme · sürekli</div><h4>Retainer</h4>Blog, EN/ME, e-ticaret, öneri motoru, talep tahmini, AI video</div>
+  </div>
+</section>
+
+<section id="demo">
+  <div class="eyebrow">16</div>
+  <h2>Demo ve sunum planı</h2>
+  <div class="grid2">
+    <div class="card"><h4>Demoda gösterilecekler</h4><ol class="q">
+      <li>"Florida Coffee Türkiye" SERP simülasyonu: bugün (ABD karışıklığı) ve hedef (knowledge panel, sitelinks, local pack, app)</li>
+      <li>Ana sayfa + Kavacık şube sayfası</li>
+      <li>Uygulama akışı: kart aktar → favori sipariş → "Geldim" → puan → seviye</li>
+      <li>HQ dashboard: 15 şube, ciro eşiği uyarısı</li>
+      <li>WhatsApp AI asistanı: "Beykoz'da laktozsuz iced latte"</li>
+      <li>Franchise hunisi: yatırım hesaplayıcı → lead skor</li>
+      <li>15 saniyelik AI şube videosu</li></ol></div>
+    <div class="card"><h4>Sunum ana mesajları</h4><ul>
+      <li>"208.967. sıradasınız; rakipler binlerde. Bu tasarım değil, altyapı sorunu."</li>
+      <li>"Sözleşmeniz dijitali merkezileştiriyor; biz yazılımını ve içeriğini kuruyoruz. Her yeni franchise platformun bir müşterisi."</li>
+      <li>"Florida adı en büyük SEO riskiniz; varlık stratejisiyle en büyük farkınız olur."</li>
+      <li>"Manzara sizin ürününüz; hiçbir rakip bunu dijitalde satmıyor."</li>
+      <li>"Karadağ ile Türkiye'nin ilk Adriyatik kahve zinciri hikayesini yazın."</li></ul></div>
+  </div>
+  <h3>Müşteriye keşif soruları</h3>
+  <ol class="q">
+    <li>Alt markaların (FloridaDays, Mi Florida, BİFLORİDA, Florida Plus) gerçek rolleri?</li>
+    <li>Mevcut online otomasyon / POS hangisi, API var mı?</li>
+    <li>Mevcut uygulamayı kim geliştirdi; kaynak kod ve mağaza hesapları sizde mi?</li>
+    <li>Fiziksel sadakat kartı başladı mı, kaç kart dağıtıldı?</li>
+    <li>Kendi kavurma tesisi var mı; çekirdek satışı planı?</li>
+    <li>Sakarya Çark Caddesi şubesi ile Şal Sokak adresi ilişkisi?</li>
+    <li>Karadağ operasyonu kimde, ayrı şirket mi?</li>
+    <li>Yemeksepeti dışında teslimat platformları?</li>
+    <li>2026–2027 şube hedefi ve franchise satış ekibi?</li>
+    <li>Marka kılavuzu ve görsel arşiv?</li>
+    <li>Çengelköy merkez şubesi gerçekten kapalı mı (Yandex)?</li>
+    <li>Reklam ajansı sözleşmesi (7.3) kimde; P3Media bu rolü mü devralıyor?</li>
+  </ol>
+  <h3>Riskler</h3>
+  <div class="tablewrap"><table>
+    <tr><th>Risk</th><th>Azaltma</th></tr>
+    <tr><td>Mevcut uygulama kaynak koduna erişilemez</td><td>Yeni bundle ID ile yayın + eski uygulamada yönlendirme</td></tr>
+    <tr><td>POS API yok</td><td>Adisyo/Menulux geçişi veya günlük CSV senkron</td></tr>
+    <tr><td>Franchise alanların şube hesaplarını devretme direnci</td><td>Madde 4 ve 7.2'ye dayalı devralma; silme değil</td></tr>
+    <tr><td>KVKK (kamera AI, kişiselleştirme)</td><td>Aydınlatma metinleri, TR veri lokasyonu, hukuk görüşü</td></tr>
+    <tr><td>Karadağ ödeme ve dil</td><td>Faz 2, EUR ve yerel PSP</td></tr>
+  </table></div>
+</section>
+
+<footer>
+  Kaynaklar: Franchise sözleşmesi özet sunumları (P3Media, Eylül 2026) · Semrush TR (Eylül 2026) · floridacoffee.com.tr · App Store / Google Play kayıtları · Instagram, TikTok, Facebook, LinkedIn hesapları · Şikayetvar · Yandex Haritalar · sayfa.istanbul · Kariyer.net · SATSO · Yemeksepeti · ZAM Haber, Gıda Bülteni, Ekoturk (şube sayıları) · Marketing Türkiye, Dünya, Karar, Gıdatarım, Accio (pazar) · Ipsos hane paneli, DergiPark (tüketici) · Espressolab, Kahve Dünyası, Coffy, Starbucks TR, Gloria Jean's (uygulama özellikleri) · GZT, Sabah (boykot) · Ekonomist (franchise talebi) · richmenu.io, geekssort (Core Web Vitals 2026) · Sheltron, ComSuite (GEO) · GrowthHQ (Deep Brew) · mekan.com, Foursquare (Sakarya). Tam rapor: docs/florida-coffee/00-analiz-raporu.md
+</footer>
+</main>
+</div>
