@@ -1,0 +1,116 @@
+kelime,kume,niyet,hedef_sayfa,oncelik
+florida coffee,marka,navigasyonel,/,A
+florida coffee türkiye,marka,navigasyonel,/,A
+florida coffee menü,marka,ticari,/menu,A
+florida coffee fiyat,marka,ticari,/menu,A
+florida coffee şubeleri,marka,navigasyonel,/subeler,A
+florida coffee franchise,marka,ticari-b2b,/franchise,A
+florida coffee bayilik,marka,ticari-b2b,/franchise,A
+florida coffee uygulama,marka,navigasyonel,/uygulama,A
+florida coffee çengelköy,yerel,yerel,/subeler/istanbul/cengelkoy,A
+florida coffee beykoz,yerel,yerel,/subeler/istanbul/beykoz,A
+florida coffee kavacık,yerel,yerel,/subeler/istanbul/kavacik,A
+florida coffee kadıköy,yerel,yerel,/subeler/istanbul/kadikoy,A
+florida coffee taksim,yerel,yerel,/subeler/istanbul/taksim,A
+florida coffee bahçeşehir,yerel,yerel,/subeler/istanbul/bahcesehir,A
+florida coffee ümraniye,yerel,yerel,/subeler/istanbul/umraniye,A
+florida coffee esenyurt,yerel,yerel,/subeler/istanbul/esenyurt,A
+florida coffee izmit,yerel,yerel,/subeler/kocaeli/yahyakaptan,A
+florida coffee sakarya,yerel,yerel,/subeler/sakarya/cark,A
+florida coffee adapazarı,yerel,yerel,/subeler/sakarya/cark,A
+florida coffee bursa,yerel,yerel,/subeler/bursa,A
+florida coffee samsun,yerel,yerel,/subeler/samsun,A
+yakınımdaki kahveci,yerel,yerel,GBP+/subeler,A
+en yakın kahveci,yerel,yerel,GBP+/subeler,A
+yakınımdaki cafe,yerel,yerel,GBP+/subeler,A
+çengelköy cafe,yerel,yerel,/subeler/istanbul/cengelkoy,A
+çengelköy kahvaltı,yerel,yerel,/subeler/istanbul/cengelkoy,B
+beykoz cafe,yerel,yerel,/subeler/istanbul/beykoz,A
+boğaz manzaralı cafe beykoz,yerel,yerel,/subeler/istanbul/beykoz,A
+boğaz manzaralı kafeler,yerel,bilgi,/blog/mekan-rehberi,B
+kavacık cafe,yerel,yerel,/subeler/istanbul/kavacik,A
+gece açık cafe beykoz,yerel,yerel,/subeler/istanbul/beykoz,B
+kadıköy kahveci,yerel,yerel,/subeler/istanbul/kadikoy,A
+kadıköy çalışılacak kafe,yerel,yerel,/subeler/istanbul/kadikoy,B
+taksim cafe,yerel,yerel,/subeler/istanbul/taksim,A
+talimhane cafe,yerel,yerel,/subeler/istanbul/taksim-talimhane,B
+üsküdar cafe,yerel,yerel,/subeler/istanbul/cengelkoy,B
+bahçeşehir cafe,yerel,yerel,/subeler/istanbul/bahcesehir,A
+esenyurt cafe,yerel,yerel,/subeler/istanbul/esenyurt,B
+ümraniye cafe,yerel,yerel,/subeler/istanbul/umraniye,B
+adapazarı cafe,yerel,yerel,/subeler/sakarya/cark,A
+sakarya cafe,yerel,yerel,/subeler/sakarya/cark,A
+çark caddesi cafe,yerel,yerel,/subeler/sakarya/cark,A
+adapazarı kahveci,yerel,yerel,/subeler/sakarya/cark,A
+sakarya çalışılacak kafe,yerel,yerel,/subeler/sakarya/cark,B
+serdivan cafe,yerel,yerel,/subeler/sakarya/cark,B
+izmit cafe,yerel,yerel,/subeler/kocaeli/yahyakaptan,A
+yahyakaptan cafe,yerel,yerel,/subeler/kocaeli/yahyakaptan,B
+kocaeli kahveci,yerel,yerel,/subeler/kocaeli/yahyakaptan,B
+bursa cafe,yerel,yerel,/subeler/bursa,B
+samsun cafe,yerel,yerel,/subeler/samsun,B
+atakum cafe,yerel,yerel,/subeler/samsun,B
+rize cafe,yerel,yerel,/subeler/rize,B
+erzincan cafe,yerel,yerel,/subeler/erzincan,B
+coffee shop budva,yerel-en,yerel,/en/stores/budva,B
+coffee shop podgorica,yerel-en,yerel,/en/stores/podgorica,B
+filtre kahve,urun,ticari,/menu/sicak-kahveler,A
+latte,urun,ticari,/menu/latte,A
+cappuccino,urun,ticari,/menu/cappuccino,A
+americano,urun,ticari,/menu/americano,A
+flat white,urun,ticari,/menu/flat-white,B
+espresso,urun,ticari,/menu/espresso,B
+cortado,urun,ticari,/menu/cortado,C
+cold brew,urun,ticari,/menu/soguk-kahveler,A
+soğuk kahve,urun,ticari,/menu/soguk-kahveler,A
+buzlu kahve,urun,ticari,/menu/soguk-kahveler,A
+iced latte,urun,ticari,/menu/iced-latte,A
+frappe,urun,ticari,/menu/soguk-kahveler,B
+türk kahvesi,urun,ticari,/menu/turk-kahvesi,A
+dibek kahvesi,urun,ticari,/menu/turk-kahvesi,C
+matcha latte,urun,ticari,/menu/kahve-disi,B
+chai latte,urun,ticari,/menu/kahve-disi,C
+sıcak çikolata,urun,ticari,/menu/kahve-disi,B
+limonata,urun,ticari,/menu/kahve-disi,C
+san sebastian cheesecake,urun,ticari,/menu/tatlilar,B
+kruvasan,urun,ticari,/menu/yiyecekler,C
+laktozsuz süt latte,urun,ticari-nis,/menu,B
+yulaf sütlü latte,urun,ticari-nis,/menu,B
+latte kalori,urun,bilgi,/menu/latte,C
+kahve kafein miktarı,bilgi,bilgi,/blog,C
+kahve franchise,franchise,ticari-b2b,/franchise,A
+kahve bayilik,franchise,ticari-b2b,/franchise,A
+kahve bayiliği veren firmalar,franchise,ticari-b2b,/franchise,A
+coffee shop franchise,franchise,ticari-b2b,/franchise,A
+kahve dükkanı açmak,franchise,ticari-b2b,/franchise/yatirim,A
+kahve dükkanı açmak maliyeti,franchise,ticari-b2b,/franchise/yatirim,A
+kafe açmak ne kadar,franchise,ticari-b2b,/franchise/yatirim,B
+en karlı kahve franchise,franchise,ticari-b2b,/blog/franchise-karsilastirma,B
+franchise veren kahve markaları,franchise,ticari-b2b,/franchise,A
+yerli kahve zinciri franchise,franchise,ticari-b2b,/franchise,B
+kahve franchise karşılaştırma,franchise,ticari-b2b,/blog/franchise-karsilastirma,B
+espressolab franchise bedeli,franchise,ticari-b2b,/blog/franchise-karsilastirma,C
+coffy franchise,franchise,ticari-b2b,/blog/franchise-karsilastirma,C
+kahve dünyası franchise bedeli,franchise,ticari-b2b,/blog/franchise-karsilastirma,C
+sakarya franchise,franchise,ticari-b2b,/franchise,C
+kahve zinciri,pazar,bilgi,/hikayemiz,B
+en iyi kahve zincirleri,pazar,bilgi,/blog,B
+kahve markaları,pazar,bilgi,/kahvemiz,C
+kahve sipariş uygulaması,uygulama,ticari,/uygulama,B
+kahve sadakat uygulaması,uygulama,ticari,/uygulama,B
+bedava kahve uygulaması,uygulama,ticari,/uygulama,B
+ön sipariş kahve,uygulama,ticari,/uygulama,B
+kahve puan biriktirme,uygulama,ticari,/sadakat,C
+v60 nasıl yapılır,blog,bilgi,/blog/demleme,B
+cold brew nasıl yapılır,blog,bilgi,/blog/demleme,B
+french press kahve oranı,blog,bilgi,/blog/demleme,C
+arabica robusta farkı,blog,bilgi,/blog/demleme,B
+kahve çekirdeği nasıl saklanır,blog,bilgi,/blog/demleme,C
+single origin nedir,blog,bilgi,/blog/demleme,C
+türk kahvesi tarihi,blog,bilgi,/blog/kahve-kulturu,C
+çalışılacak kafeler istanbul,blog,bilgi,/blog/mekan-rehberi,B
+kahvaltı mekanları çengelköy,blog,bilgi,/blog/mekan-rehberi,B
+barista nasıl olunur,blog,bilgi,/kariyer,C
+sca sertifikası,blog,bilgi,/kahvemiz,C
+çekirdek kahve satın al,eticaret,ticari,/magaza,C
+kahve çekirdeği fiyatları,eticaret,ticari,/magaza,C
