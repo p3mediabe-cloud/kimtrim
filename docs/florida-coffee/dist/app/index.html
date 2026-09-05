@@ -1,0 +1,458 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Uygulama Demosu</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><style>
+:root{
+  --bg:#F3F2EF; --panel:#FFFFFF; --panel-2:#F8F7F4; --ink:#23170F; --ink-2:#4E423A; --ink-3:#847970;
+  --line:#E2DED8; --teal:#0E7C86; --teal-ink:#0A5D65; --teal-soft:#DCEEF0;
+  --coral:#E0602B; --coral-soft:#FBE6DC; --gold:#C9962B; --gold-soft:#F7ECD2;
+  --good:#2F7D4F; --good-soft:#DFF0E5; --warn:#B9481E; --warn-soft:#F9E2D8;
+  --lilac:#6B4FBB; --lilac-soft:#E9E3F8; --blue:#2E6FD8; --blue-soft:#E0EAFB;
+  --roast:#2A1B12; --roast-2:#3E2A1E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16130F; --panel:#1F1A15; --panel-2:#26201A; --ink:#F1ECE6; --ink-2:#CDC4BA; --ink-3:#8F857B;
+    --line:#332B24; --teal:#5FC1CB; --teal-ink:#8ED6DD; --teal-soft:#173D41;
+    --coral:#F0865A; --coral-soft:#3E2418; --gold:#E2B55A; --gold-soft:#3B2E14;
+    --good:#6FC48E; --good-soft:#1C3527; --warn:#F0916C; --warn-soft:#3F2318;
+    --lilac:#A894E8; --lilac-soft:#2A2340; --blue:#7FA8F0; --blue-soft:#1C2A44;
+    --roast:#0F0B08; --roast-2:#1B140F;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16130F; --panel:#1F1A15; --panel-2:#26201A; --ink:#F1ECE6; --ink-2:#CDC4BA; --ink-3:#8F857B;
+  --line:#332B24; --teal:#5FC1CB; --teal-ink:#8ED6DD; --teal-soft:#173D41;
+  --coral:#F0865A; --coral-soft:#3E2418; --gold:#E2B55A; --gold-soft:#3B2E14;
+  --good:#6FC48E; --good-soft:#1C3527; --warn:#F0916C; --warn-soft:#3F2318;
+  --lilac:#A894E8; --lilac-soft:#2A2340; --blue:#7FA8F0; --blue-soft:#1C2A44;
+  --roast:#0F0B08; --roast-2:#1B140F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:15px;line-height:1.5}
+h1,h2,h3,h4,.d{font-family:"Bricolage Grotesque","Public Sans",sans-serif;letter-spacing:-0.01em;text-wrap:balance}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+input,select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem}
+.topbar{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:1rem;padding:.6rem 1.2rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand .mark{width:30px;height:30px;border-radius:50%;background:var(--coral);position:relative}
+.brand .mark::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--panel)}
+.brand .t{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem}
+.brand .s{font-size:.72rem;color:var(--ink-3)}
+.tabs{display:flex;gap:.25rem;flex-wrap:wrap;margin-left:auto}
+.tabs button{padding:.45rem .8rem;border-radius:999px;font-weight:600;font-size:.85rem;color:var(--ink-2)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tabs button:hover{background:var(--panel-2)}
+.stage{max-width:1280px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+.view{display:none}.view.on{display:block}
+.intro{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1.2rem;flex-wrap:wrap}
+.intro h2{margin:0;font-size:1.5rem}
+.intro p{margin:.2rem 0 0;color:var(--ink-2);max-width:70ch}
+.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-ink);font-weight:700}
+.note{font-size:.78rem;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;gap:.3rem;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;font-family:"Bricolage Grotesque",sans-serif}
+.chip.teal{background:var(--teal-soft);color:var(--teal-ink)}.chip.coral{background:var(--coral-soft);color:var(--coral)}
+.chip.gold{background:var(--gold-soft);color:var(--gold)}.chip.good{background:var(--good-soft);color:var(--good)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.lilac{background:var(--lilac-soft);color:var(--lilac)}
+.chip.blue{background:var(--blue-soft);color:var(--blue)}.chip.grey{background:var(--panel-2);color:var(--ink-2);border:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem 1rem;border-radius:10px;font-weight:700;font-family:"Bricolage Grotesque",sans-serif;font-size:.9rem;border:1px solid transparent}
+.btn.primary{background:var(--teal);color:#fff}.btn.primary:hover{background:var(--teal-ink)}
+.btn.coral{background:var(--coral);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--ink)}.btn.ghost:hover{background:var(--panel-2)}
+.btn.sm{padding:.35rem .7rem;font-size:.8rem;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+/* SERP */
+.serp{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1.2rem}
+.serpbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.serpbox h3{margin:0 0 .8rem;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+.g-search{border:1px solid var(--line);border-radius:999px;padding:.5rem .9rem;color:var(--ink-2);font-size:.9rem;margin-bottom:1rem;background:var(--panel-2)}
+.g-res{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.g-res:last-child{border-bottom:none}
+.g-res .u{font-size:.75rem;color:var(--ink-3)}
+.g-res .t{color:var(--blue);font-size:1rem;font-weight:500}
+.g-res .s{font-size:.82rem;color:var(--ink-2)}
+.g-res.dim{opacity:.55}
+.g-res.bad .t{color:var(--warn)}
+.kp{border:1px solid var(--line);border-radius:12px;padding:.8rem;margin:.6rem 0;background:var(--panel-2)}
+.kp .d{font-weight:800;font-size:1.05rem}
+.kp .row{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:.3rem}
+.sitelinks{display:grid;grid-template-columns:1fr 1fr;gap:.2rem .8rem;font-size:.82rem;margin-top:.4rem}
+.sitelinks span{color:var(--blue)}
+.localpack{display:grid;gap:.4rem;margin:.6rem 0}
+.localpack div{display:flex;justify-content:space-between;font-size:.82rem;padding:.35rem .5rem;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+/* WEB */
+.browser{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.browser .bar{display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--panel-2);border-bottom:1px solid var(--line);font-size:.78rem;color:var(--ink-3)}
+.browser .bar .dots span{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line);margin-right:3px}
+.browser .url{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.25rem .6rem;font-family:ui-monospace,monospace}
+.site{padding:0}
+.site nav{display:flex;align-items:center;gap:1.2rem;padding:.8rem 1.4rem;border-bottom:1px solid var(--line);font-size:.85rem;font-weight:600}
+.site nav .sp{flex:1}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;padding:2rem 1.4rem;background:linear-gradient(135deg,var(--roast) 0%,var(--roast-2) 55%,#0E7C86 140%);color:#F6EFE7}
+.hero h1{margin:0 0 .6rem;font-size:2.2rem;line-height:1.05;font-weight:800}
+.hero p{margin:0 0 1rem;max-width:44ch;color:#D9CFC4}
+.hero .video{border-radius:12px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.06) 0 6px,transparent 6px 14px),linear-gradient(180deg,#1C5F67,#2A1B12);min-height:180px;display:flex;align-items:flex-end;padding:.8rem;font-size:.75rem;color:#CFE6E9}
+.nearest{background:#fff;color:#23170F;border-radius:12px;padding:.9rem 1rem;margin-top:1rem;display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center}
+.nearest .d{font-weight:800}
+.nearest .m{font-size:.8rem;color:#4E423A}
+.nearest .acts{display:flex;gap:.4rem;grid-column:1/-1;flex-wrap:wrap}
+.nearest .btn{background:#0E7C86;color:#fff}
+.nearest .btn.ghost{background:transparent;color:#23170F;border-color:#E2DED8}
+.sec{padding:1.6rem 1.4rem;border-bottom:1px solid var(--line)}
+.sec h2{margin:0 0 .8rem;font-size:1.3rem}
+.sec .sub{margin:-.5rem 0 1rem;color:var(--ink-3);font-size:.85rem}
+.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem}
+.prod{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.prod .img{height:90px;background:var(--panel-2);position:relative}
+.prod .img::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50% 50% 45% 45%;transform:translate(-50%,-50%);background:var(--c,#7A4B2A)}
+.prod .b{padding:.6rem .7rem}
+.prod .n{font-weight:700;font-size:.9rem;font-family:"Bricolage Grotesque",sans-serif}
+.prod .p{font-size:.8rem;color:var(--ink-2)}
+.filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.filters button{padding:.3rem .7rem;border-radius:999px;border:1px solid var(--line);font-size:.8rem;font-weight:600}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem}
+.bcard{border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem;background:var(--panel);text-align:left;display:flex;flex-direction:column;gap:.35rem;transition:transform .15s}
+.bcard:hover{transform:translateY(-2px);border-color:var(--teal)}
+.bcard .n{font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
+.bcard .c{font-size:.78rem;color:var(--ink-3)}
+.bcard .tags{display:flex;gap:.25rem;flex-wrap:wrap}
+.bcard .busy{font-size:.75rem;display:flex;align-items:center;gap:.3rem}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.g{background:var(--good)}.dot.y{background:var(--gold)}.dot.r{background:var(--warn)}
+.cta2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.6rem 1.4rem}
+.cta2 .box{border-radius:14px;padding:1.2rem;background:var(--panel-2);border:1px solid var(--line)}
+.cta2 .box.dark{background:var(--roast);color:#F6EFE7;border-color:transparent}
+.cta2 h3{margin:0 0 .4rem;font-size:1.1rem}
+.cta2 p{margin:0 0 .8rem;font-size:.85rem}
+/* branch page */
+.bp{padding:1.4rem}
+.bp .back{color:var(--teal-ink);font-weight:600;font-size:.85rem;margin-bottom:.6rem;display:inline-block}
+.bp h1{margin:0 0 .3rem;font-size:1.8rem}
+.bp .meta{color:var(--ink-2);font-size:.9rem;margin-bottom:.8rem}
+.bp .gal{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.5rem;margin:.8rem 0}
+.bp .gal div{height:110px;border-radius:10px;background:linear-gradient(160deg,#1C5F67,#2A1B12)}
+.bp .gal div:nth-child(2){background:linear-gradient(160deg,#C9962B,#2A1B12)}
+.bp .gal div:nth-child(3){background:linear-gradient(160deg,#E0602B,#2A1B12)}
+.bp .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:1.2rem}
+.bp .card{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;background:var(--panel);margin-bottom:.8rem}
+.bp .card h4{margin:0 0 .5rem;font-size:.95rem}
+.faq details{border-bottom:1px solid var(--line);padding:.4rem 0;font-size:.88rem}
+.faq summary{cursor:pointer;font-weight:600}
+.hours{display:grid;grid-template-columns:1fr auto;font-size:.85rem;gap:.15rem .8rem}
+.rev{font-size:.85rem;padding:.5rem 0;border-bottom:1px solid var(--line)}
+.rev .who{font-weight:700;font-size:.8rem}
+/* APP */
+.appwrap{display:grid;grid-template-columns:420px 1fr;gap:2rem;align-items:start}
+.phone{width:390px;height:780px;border-radius:44px;background:#111;padding:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);margin:0 auto}
+.screen{width:100%;height:100%;border-radius:34px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;position:relative;color:var(--ink)}
+.status{display:flex;justify-content:space-between;padding:.9rem 1.4rem .2rem;font-size:.75rem;font-weight:700}
+.scr{flex:1;overflow:auto;padding:.6rem 1.1rem 1rem;display:none}
+.scr.on{display:block}
+.bottomnav{display:flex;border-top:1px solid var(--line);background:var(--panel)}
+.bottomnav button{flex:1;padding:.6rem 0 1rem;font-size:.68rem;font-weight:700;color:var(--ink-3);display:flex;flex-direction:column;gap:.15rem;align-items:center}
+.bottomnav button .i{width:22px;height:22px;border-radius:7px;background:var(--panel-2);border:1px solid var(--line)}
+.bottomnav button[aria-current="page"]{color:var(--teal-ink)}
+.bottomnav button[aria-current="page"] .i{background:var(--teal-soft);border-color:var(--teal)}
+.pts{background:var(--roast);color:#F6EFE7;border-radius:16px;padding:1rem;margin:.4rem 0 .8rem}
+.pts .lvl{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#E2B55A;font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.pts .big{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.pts .bar{height:6px;border-radius:3px;background:rgba(255,255,255,.15);margin:.6rem 0 .3rem;overflow:hidden}
+.pts .bar i{display:block;height:100%;background:var(--coral);width:0;transition:width .6s}
+.pts .m{font-size:.75rem;color:#D9CFC4}
+.stamps{display:flex;gap:.3rem;margin-top:.5rem}
+.stamps span{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4)}
+.stamps span.f{background:var(--coral);border-color:var(--coral)}
+.usual{border:1px solid var(--line);border-radius:14px;padding:.8rem;display:flex;gap:.7rem;align-items:center;background:var(--panel-2)}
+.usual .ic{width:44px;height:44px;border-radius:12px;background:#7A4B2A}
+.usual .t{font-weight:800;font-family:"Bricolage Grotesque",sans-serif;font-size:.92rem}
+.usual .s{font-size:.75rem;color:var(--ink-3)}
+.h6{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:.95rem;margin:.9rem 0 .4rem}
+.camp{border-radius:12px;padding:.7rem .8rem;background:var(--coral-soft);font-size:.8rem;margin-bottom:.4rem}
+.camp b{font-family:"Bricolage Grotesque",sans-serif}
+.list{display:flex;flex-direction:column;gap:.4rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.6rem .7rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-align:left;width:100%}
+.row .l{display:flex;flex-direction:column}
+.row .n{font-weight:700;font-size:.88rem;font-family:"Bricolage Grotesque",sans-serif}
+.row .s{font-size:.72rem;color:var(--ink-3)}
+.row .p{font-weight:700;font-size:.85rem;white-space:nowrap}
+.row[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.opt{margin:.6rem 0}
+.opt .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-bottom:.3rem;font-family:"Bricolage Grotesque",sans-serif}
+.opt .req{color:var(--coral)}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.seg button{padding:.35rem .6rem;border-radius:999px;border:1px solid var(--line);font-size:.78rem;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button.milk[aria-pressed="true"]{background:var(--lilac);border-color:var(--lilac);color:#fff}
+.sticky{position:sticky;bottom:0;background:var(--panel);padding:.6rem 0 .2rem;border-top:1px solid var(--line);margin-top:.8rem}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-family:"Bricolage Grotesque",sans-serif;margin-bottom:.4rem}
+.steps{display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0}
+.step{display:flex;gap:.6rem;align-items:center;font-size:.85rem;color:var(--ink-3)}
+.step i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-style:normal}
+.step.done{color:var(--ink)}.step.done i{background:var(--good);border-color:var(--good);color:#fff}
+.step.now{color:var(--ink);font-weight:700}.step.now i{border-color:var(--teal);color:var(--teal)}
+.qr{width:150px;height:150px;margin:.6rem auto;background:
+ conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px;border:8px solid var(--panel);outline:1px solid var(--line);border-radius:8px}
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.5rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.guide{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.guide ol{padding-left:1.2rem;margin:.4rem 0 0}
+.guide li{margin:.3rem 0;font-size:.9rem}
+.guide li.now{font-weight:700;color:var(--teal-ink)}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
+.mini div{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;font-size:.8rem;background:var(--panel-2)}
+.mini b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.1rem}
+/* HQ */
+.hq{display:grid;grid-template-columns:200px 1fr;gap:1rem;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:640px}
+.hq aside{background:var(--roast);color:#D9CFC4;padding:1rem .8rem;display:flex;flex-direction:column;gap:.2rem}
+.hq aside .t{color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;padding:.3rem .5rem .8rem}
+.hq aside button{text-align:left;padding:.45rem .6rem;border-radius:8px;font-size:.85rem;font-weight:600;color:#D9CFC4}
+.hq aside button[aria-selected="true"]{background:rgba(255,255,255,.12);color:#fff}
+.hq main{padding:1rem 1.2rem;min-width:0}
+.hqv{display:none}.hqv.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin:.6rem 0 1rem}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;background:var(--panel-2)}
+.kpi .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.kpi .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:.72rem}
+.kpi .d.up{color:var(--good)}.kpi .d.dn{color:var(--warn)}
+.alerts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.alert{display:flex;gap:.6rem;align-items:center;padding:.55rem .8rem;border-radius:10px;font-size:.85rem;border:1px solid var(--line)}
+.alert.warn{background:var(--warn-soft);border-color:transparent}
+.alert.gold{background:var(--gold-soft);border-color:transparent}
+.alert b{font-family:"Bricolage Grotesque",sans-serif}
+.alert .sp{flex:1}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.82rem;font-variant-numeric:tabular-nums}
+th,td{padding:.5rem .65rem;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);background:var(--panel-2);cursor:pointer;user-select:none}
+th[aria-sort]::after{content:" ↕";opacity:.5}
+th[aria-sort="descending"]::after{content:" ↓";opacity:1}
+th[aria-sort="ascending"]::after{content:" ↑";opacity:1}
+td.n{text-align:right}
+tr.low td{background:var(--warn-soft)}
+.spark{display:inline-flex;gap:2px;align-items:flex-end;height:18px}
+.spark i{width:4px;background:var(--teal);border-radius:1px;display:block}
+.inbox{display:grid;grid-template-columns:1fr 1.2fr;gap:1rem}
+.msg{border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;margin-bottom:.5rem;cursor:pointer;background:var(--panel)}
+.msg[aria-selected="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.msg .h{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3)}
+.msg .b{font-size:.85rem;margin-top:.2rem}
+.draft{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;background:var(--panel-2)}
+.draft textarea{width:100%;min-height:130px;font:inherit;font-size:.85rem;border:1px solid var(--line);border-radius:8px;padding:.6rem;background:var(--panel);color:var(--ink);resize:vertical}
+.stars{color:var(--gold);letter-spacing:.05em}
+/* AI */
+.wa{display:grid;grid-template-columns:420px 1fr;gap:2rem;align-items:start}
+.wa .phone{height:760px}
+.wa .screen{background:#E5DDD5}
+.wa .head{background:#075E54;color:#fff;padding:1.4rem 1rem .7rem;display:flex;gap:.6rem;align-items:center}
+.wa .head .av{width:36px;height:36px;border-radius:50%;background:var(--coral)}
+.wa .head .n{font-weight:700;font-size:.9rem}.wa .head .s{font-size:.7rem;opacity:.85}
+.chat{flex:1;overflow:auto;padding:.8rem;display:flex;flex-direction:column;gap:.4rem}
+.bub{max-width:82%;padding:.5rem .7rem;border-radius:10px;font-size:.84rem;line-height:1.4;box-shadow:0 1px 1px rgba(0,0,0,.08);color:#111}
+.bub.in{background:#fff;align-self:flex-start;border-top-left-radius:2px}
+.bub.out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px}
+.bub .tm{display:block;text-align:right;font-size:.65rem;color:#667;margin-top:.2rem}
+.bub .card{background:#F4F1EA;border-radius:8px;padding:.5rem .6rem;margin-top:.4rem;font-size:.78rem;border-left:3px solid var(--coral)}
+.quick{padding:.5rem .8rem .9rem;display:flex;gap:.4rem;flex-wrap:wrap;background:#F0F0F0}
+.quick button{background:#fff;border:1px solid #CFD8DC;border-radius:999px;padding:.35rem .7rem;font-size:.78rem;font-weight:600;color:#075E54}
+.typing{align-self:flex-start;background:#fff;border-radius:10px;padding:.4rem .7rem;font-size:.8rem;color:#667}
+/* FRANCHISE */
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:start}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.box h3{margin:0 0 .6rem;font-size:1.05rem}
+.field{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.7rem}
+.field label{font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.field input[type=range]{padding:0}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.8rem}
+.out>div{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;background:var(--panel-2)}
+.out .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.out .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.2rem;font-variant-numeric:tabular-nums}
+.wiz .p{display:none}.wiz .p.on{display:block}
+.wiz .prog{display:flex;gap:.3rem;margin-bottom:.8rem}
+.wiz .prog span{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.wiz .prog span.on{background:var(--teal)}
+.score{display:flex;align-items:center;gap:1rem;margin-top:.8rem}
+.ring{width:84px;height:84px;border-radius:50%;background:conic-gradient(var(--teal) calc(var(--s)*1%),var(--line) 0);display:grid;place-items:center}
+.ring b{width:64px;height:64px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-family:"Bricolage Grotesque",sans-serif;font-size:1.3rem}
+@media (max-width:900px){
+  .appwrap,.wa,.fr,.inbox,.cta2,.bp .cols,.hero{grid-template-columns:1fr}
+  .hq{grid-template-columns:1fr}.hq aside{flex-direction:row;flex-wrap:wrap}
+  .phone{width:100%;max-width:390px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style><style>
+body{background:radial-gradient(90% 60% at 20% 0%,#0E5A6B,transparent 60%),#052733;color:#F6F1E8;min-height:100dvh}
+.apphead{display:flex;align-items:center;gap:.6rem;padding:.9rem 1.2rem;font-family:"Bricolage Grotesque",sans-serif;font-weight:800}
+.apphead .mark{width:1.5rem;height:1.5rem}.apphead small{font-weight:600;color:#BCD0D4;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;margin-left:auto}
+.stage{padding:1rem 1.2rem 3rem}.intro{display:none}
+.appwrap{grid-template-columns:420px 1fr;max-width:1100px;margin:0 auto}
+@media (max-width:900px){
+  .stage{padding:0}.appwrap{grid-template-columns:1fr;gap:0}.appwrap>div:last-child{display:none}
+  .phone{width:100%;max-width:none;height:calc(100dvh - 3.4rem);border-radius:0;padding:0;box-shadow:none}
+  .screen{border-radius:0}.apphead{position:sticky;top:0;background:#052733;z-index:5}
+}
+</style><header class="apphead"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>florida <small>Uygulama demosu · örnek veriler</small></header><div class="stage"><section class="view on" id="v-app">
+  <div class="intro"><div><div class="eyebrow">3 · Mobil uygulama</div><h2>Sadakat, cüzdan ve ön sipariş tek akışta</h2><p>Sağdaki adımları izleyin. Uygulama, mevcut mağaza kaydı üzerinde v2 olarak yeniden lanse edilir.</p></div></div>
+  <div class="appwrap">
+    <div class="phone"><div class="screen">
+      <div class="status"><span>09:41</span><span>●●● ⌁ ▮</span></div>
+      <!-- HOME -->
+      <div class="scr on" id="s-home">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div><div class="note">Günaydın</div><div class="d" style="font-weight:800;font-size:1.2rem">Emre</div></div><span class="chip gold" id="lvlchip">FloridaDays Plus</span></div>
+        <div class="pts"><div class="lvl">Çekirdek bakiyesi</div><div class="big"><span id="pts">340</span> <span style="font-size:1rem;font-weight:600">çekirdek</span></div><div class="bar"><i id="ptsbar"></i></div><div class="m" id="ptsm">Premium seviyeye 1.160 çekirdek</div><div class="stamps" id="stamps"></div><div class="m" style="margin-top:.3rem"><span id="stampm">7/10 içecek · 3 kahve sonra 1 hediye</span></div></div>
+        <div class="usual"><div class="ic"></div><div style="flex:1"><div class="t">Her zamanki: Iced Latte, orta, laktozsuz</div><div class="s">Kavacık · 160 ₺ · tek dokunuşla sipariş</div></div><button class="btn primary sm" onclick="usual()">Sipariş</button></div>
+        <div class="h6">En yakın Florida</div>
+        <button class="row" onclick="showScr('order')"><span class="l"><span class="n">Kavacık</span><span class="s">1,2 km · <span class="dot g"></span> sakin · tahmini 4 dk</span></span><span class="p">Sipariş ›</span></button>
+        <div class="h6">Kampanyalar</div>
+        <div class="camp"><b>14:00–16:00 ölü saat:</b> Kavacık'ta tüm soğuk kahveler %20 (AI, yoğunluk düşük olduğu için önerdi)</div>
+        <div class="camp" style="background:var(--lilac-soft)"><b>500 ₺ yükle, 25 ₺ bonus</b> kazan · Cüzdan</div>
+      </div>
+      <!-- ORDER: branch+menu -->
+      <div class="scr" id="s-order">
+        <div class="h6" style="margin-top:.3rem">Şube</div>
+        <div class="list">
+          <button class="row" aria-pressed="true" data-b="Kavacık"><span class="l"><span class="n">Kavacık</span><span class="s"><span class="dot g"></span> sakin · 4 dk</span></span><span class="p">İstanbul fiyatı</span></button>
+          <button class="row" aria-pressed="false" data-b="Beykoz"><span class="l"><span class="n">Beykoz Kelle İbrahim</span><span class="s"><span class="dot y"></span> orta · 9 dk</span></span><span class="p"></span></button>
+        </div>
+        <div class="h6">Soğuk kahveler</div>
+        <div class="list">
+          <button class="row" onclick="pick('Iced Latte',160)"><span class="l"><span class="n">Iced Latte</span><span class="s">Espresso, soğuk süt, buz</span></span><span class="p">160 ₺</span></button>
+          <button class="row" onclick="pick('Cold Brew',145)"><span class="l"><span class="n">Cold Brew</span><span class="s">16 saat demleme</span></span><span class="p">145 ₺</span></button>
+          <button class="row" onclick="pick('Boğaz Cold Brew',165)"><span class="l"><span class="n">Boğaz Cold Brew</span><span class="s">Tonik ile · şubeye özel</span></span><span class="p">165 ₺</span></button>
+        </div>
+        <div class="h6">Sıcak kahveler</div>
+        <div class="list">
+          <button class="row" onclick="pick('Florida Filtre',120)"><span class="l"><span class="n">Florida Filtre</span><span class="s">Günün çekirdeği</span></span><span class="p">120 ₺</span></button>
+          <button class="row" onclick="pick('Flat White',150)"><span class="l"><span class="n">Flat White</span><span class="s">Çift shot</span></span><span class="p">150 ₺</span></button>
+        </div>
+      </div>
+      <!-- PRODUCT -->
+      <div class="scr" id="s-prod">
+        <button class="note" onclick="showScr('order')" style="padding:0">← Menü</button>
+        <div class="d" style="font-weight:800;font-size:1.3rem;margin:.3rem 0" id="p-name">Iced Latte</div>
+        <div class="opt"><div class="lbl">Boy</div><div class="seg" data-k="size"><button aria-pressed="false" data-v="Küçük" data-p="-15">Küçük</button><button aria-pressed="true" data-v="Orta" data-p="0">Orta</button><button aria-pressed="false" data-v="Büyük" data-p="20">Büyük +20</button></div></div>
+        <div class="opt"><div class="lbl">Sıcak / soğuk <span class="req">zorunlu</span></div><div class="seg" data-k="temp"><button aria-pressed="false" data-v="Sıcak" data-p="0">Sıcak</button><button aria-pressed="true" data-v="Soğuk" data-p="0">Soğuk</button></div></div>
+        <div class="opt" id="iceopt"><div class="lbl">Buz</div><div class="seg" data-k="ice"><button aria-pressed="false" data-v="Az buz" data-p="0">Az</button><button aria-pressed="true" data-v="Normal buz" data-p="0">Normal</button><button aria-pressed="false" data-v="Bol buz" data-p="0">Bol</button></div></div>
+        <div class="opt"><div class="lbl">Süt</div><div class="seg" data-k="milk"><button aria-pressed="false" data-v="İnek" data-p="0">İnek</button><button class="milk" aria-pressed="true" data-v="Laktozsuz" data-p="10">Laktozsuz +10</button><button class="milk" aria-pressed="false" data-v="Yulaf" data-p="15">Yulaf +15</button><button class="milk" aria-pressed="false" data-v="Badem" data-p="15">Badem +15</button></div></div>
+        <div class="opt"><div class="lbl">Ekstra</div><div class="seg" data-k="extra"><button aria-pressed="false" data-v="Ekstra shot" data-p="20">Ekstra shot +20</button><button aria-pressed="false" data-v="Vanilya şurup" data-p="10">Vanilya +10</button><button aria-pressed="false" data-v="Şekersiz" data-p="0">Şekersiz</button></div></div>
+        <div class="note">Süt tercihiniz profilinize kaydedildi; barista ekranında mor etiketle görünür.</div>
+        <div class="sticky"><div class="tot"><span>Toplam</span><span><span id="p-total">170</span> ₺</span></div><button class="btn primary" style="width:100%" onclick="toCart()">Sepete ekle</button></div>
+      </div>
+      <!-- CART -->
+      <div class="scr" id="s-cart">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Sepet · <span id="c-branch">Kavacık</span></div>
+        <div class="row" style="cursor:default"><span class="l"><span class="n" id="c-name">Iced Latte</span><span class="s" id="c-mods">Orta · Soğuk · Laktozsuz</span></span><span class="p"><span id="c-price">170</span> ₺</span></div>
+        <div class="opt"><div class="lbl">Teslim zamanı</div><div class="seg" data-k="when"><button aria-pressed="true" data-v="Hemen (4 dk)" data-p="0">Hemen · 4 dk</button><button aria-pressed="false" data-v="09:15" data-p="0">09:15</button><button aria-pressed="false" data-v="09:30" data-p="0">09:30</button></div></div>
+        <div class="opt"><div class="lbl">Ödeme</div><div class="seg" data-k="pay"><button aria-pressed="true" data-v="Cüzdan" data-p="0">Cüzdan · 412 ₺</button><button aria-pressed="false" data-v="Kart" data-p="0">Kart</button><button aria-pressed="false" data-v="Multinet" data-p="0">Multinet</button></div></div>
+        <div class="opt"><div class="lbl">Ödül kullan</div><div class="seg" data-k="reward"><button aria-pressed="false" data-v="100 çekirdek = 100 ₺" data-p="-100">100 çekirdek → −100 ₺</button></div></div>
+        <div class="sticky"><div class="tot"><span>Ödenecek</span><span><span id="c-total">170</span> ₺</span></div><button class="btn primary" style="width:100%" onclick="payNow()">Öde ve sipariş ver</button></div>
+      </div>
+      <!-- STATUS -->
+      <div class="scr" id="s-status">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Sipariş #4821</div>
+        <div class="note" id="st-sub">Kavacık · Iced Latte · <span id="st-when">Hemen</span></div>
+        <div class="steps" id="steps">
+          <div class="step done"><i>✓</i>Alındı · 09:41</div>
+          <div class="step now" id="st2"><i>2</i>Hazırlanıyor</div>
+          <div class="step" id="st3"><i>3</i>Hazır</div>
+          <div class="step" id="st4"><i>4</i>Teslim edildi</div>
+        </div>
+        <div class="camp" style="background:var(--teal-soft)" id="st-hint">Planlı siparişte hazırlık siz "Geldim" deyince veya şubeye 200 m yaklaşınca başlar; kahveniz soğumaz.</div>
+        <button class="btn coral" style="width:100%;margin-top:.6rem" id="arrive" onclick="arrived()">Geldim</button>
+        <button class="btn primary" style="width:100%;margin-top:.6rem" id="deliver" onclick="delivered()" hidden>Teslim aldım</button>
+        <div id="after" hidden style="margin-top:.8rem">
+          <div class="camp" style="background:var(--good-soft)"><b>+170 çekirdek</b> kazandınız · damga 8/10</div>
+          <div class="h6">Nasıldı?</div>
+          <div class="seg"><button aria-pressed="false" onclick="rate(1)">1</button><button aria-pressed="false" onclick="rate(2)">2</button><button aria-pressed="false" onclick="rate(3)">3</button><button aria-pressed="false" onclick="rate(4)">4</button><button aria-pressed="false" onclick="rate(5)">5</button></div>
+          <div class="note" id="ratemsg" style="margin-top:.4rem"></div>
+        </div>
+      </div>
+      <!-- CARD -->
+      <div class="scr" id="s-card">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Kartım</div>
+        <div class="note">Ödeme ve puan için tek QR; barista okutur</div>
+        <div class="qr" role="img" aria-label="QR kod"></div>
+        <div style="text-align:center"><div class="note">Cüzdan bakiyesi</div><div class="d" style="font-weight:800;font-size:1.8rem"><span id="wallet">412</span> ₺</div></div>
+        <div class="opt"><div class="lbl">Yükle</div><div class="seg"><button aria-pressed="false" onclick="topup(250,0)">250 ₺</button><button aria-pressed="false" onclick="topup(500,25)">500 ₺ +25 bonus</button><button aria-pressed="false" onclick="topup(1000,75)">1.000 ₺ +75</button></div></div>
+        <div class="opt"><div class="lbl">Kaynak</div><div class="seg"><button aria-pressed="true">Kredi kartı</button><button aria-pressed="false">Multinet</button><button aria-pressed="false">Sodexo</button></div></div>
+        <div class="h6">Fiziksel kart aktarımı</div>
+        <button class="row" onclick="toast('Kart 5731 aktarıldı: +120 ₺, 6 damga')"><span class="l"><span class="n">Kartımı tara</span><span class="s">Sözleşme 7.4: karttan uygulamaya geçiş</span></span><span class="p">›</span></button>
+        <div class="h6">Hediye gönder</div>
+        <button class="row" onclick="toast('Selin\'e 1 kahve gönderildi')"><span class="l"><span class="n">Arkadaşına kahve gönder</span><span class="s">Telefon numarasıyla</span></span><span class="p">›</span></button>
+      </div>
+      <!-- PROFILE -->
+      <div class="scr" id="s-profile">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Profil</div>
+        <div class="list">
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Süt tercihi</span><span class="s">Laktozsuz · siparişlerde varsayılan</span></span><span class="chip lilac">kayıtlı</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Favori şube</span><span class="s">Kavacık</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">FloridaDays Club</span><span class="s">Plus · son 6 ay 4.120 ₺ · Premium'a 3.380 ₺</span></span><span class="chip gold">Plus</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Avantajlarım</span><span class="s">Doğum günü içeceği · ayda 2 boy yükseltme</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">İzinler</span><span class="s">KVKK aydınlatma · pazarlama izni açık</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Hesabımı sil</span><span class="s">30 gün içinde anonimleştirilir</span></span><span class="p"></span></div>
+        </div>
+      </div>
+      <div class="toast" id="toast"></div>
+      <div class="bottomnav">
+        <button aria-current="page" data-s="home"><span class="i"></span>Ana</button>
+        <button data-s="order"><span class="i"></span>Sipariş</button>
+        <button data-s="card"><span class="i"></span>Kart</button>
+        <button data-s="profile"><span class="i"></span>Profil</button>
+      </div>
+    </div></div>
+    <div>
+      <div class="guide"><div class="eyebrow">Demo akışı</div>
+        <ol id="guide">
+          <li class="now">Ana ekranda puan, seviye ve "her zamanki" siparişi görün</li>
+          <li>Sipariş sekmesinden Iced Latte seçin; süt olarak Laktozsuz zaten kayıtlı</li>
+          <li>Sepette teslim zamanı ve cüzdan ile ödeyin</li>
+          <li>Sipariş durumunda "Geldim" deyin; barista ekranında en üste çıkar</li>
+          <li>Teslim alın; puan ve damga otomatik yazılır, 1 dokunuşla puanlayın</li>
+          <li>Kart sekmesinde QR, yükleme bonusu ve fiziksel kart aktarımı</li>
+        </ol>
+      </div>
+      <div class="mini">
+        <div><b>1 ₺ = 1 çekirdek</b>10 içecekte 1 hediye</div>
+        <div><b>Classic · Plus · Premium</b>son 6 ay harcamasıyla</div>
+        <div><b>"Geldim" + geofence</b>kahve soğumaz</div>
+        <div><b>Modifikasyon POS'a yapısal</b>laktozsuz şikayetleri biter</div>
+      </div>
+      <div class="guide" style="margin-top:1rem"><div class="eyebrow">Barista ekranı (şube tableti)</div>
+        <div class="list" style="margin-top:.5rem" id="barista">
+          <div class="row" style="cursor:default"><span class="l"><span class="n">#4819 · Cold Brew orta</span><span class="s">Hazırlanıyor · 09:39</span></span><span class="chip blue">SOĞUK</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">#4820 · Flat White</span><span class="s">Alındı · planlı 09:50</span></span><span class="chip grey">bekliyor</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section></div><script>
+/* ---------- app ---------- */
+const S={pts:340,wallet:412,stamps:7,prod:'Iced Latte',base:160,mods:{size:['Orta',0],temp:['Soğuk',0],ice:['Normal buz',0],milk:['Laktozsuz',10],extra:[]},when:'Hemen (4 dk)',pay:'Cüzdan',reward:0,branch:'Kavacık'};
+function showScr(s){document.querySelectorAll('.scr').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));document.querySelectorAll('.bottomnav button').forEach(b=>{const cur=b.dataset.s===s||(b.dataset.s==='order'&&['prod','cart','status'].includes(s));b.toggleAttribute('aria-current',cur);if(cur)b.setAttribute('aria-current','page');});guide(s);}
+document.querySelectorAll('.bottomnav button').forEach(b=>b.addEventListener('click',()=>showScr(b.dataset.s)));
+function guide(s){const m={home:1,order:2,prod:2,cart:3,status:4,card:6};const i=m[s]||1;document.querySelectorAll('#guide li').forEach((li,k)=>li.classList.toggle('now',k===i-1));}
+function renderPts(){document.getElementById('pts').textContent=S.pts.toLocaleString('tr-TR');document.getElementById('ptsbar').style.width=Math.min(100,(4120/7500)*100)+'%';const st=document.getElementById('stamps');st.innerHTML=Array.from({length:10},(_,i)=>`<span class="${i<S.stamps?'f':''}"></span>`).join('');document.getElementById('stampm').textContent=`${S.stamps}/10 içecek · ${10-S.stamps} kahve sonra 1 hediye`;document.getElementById('wallet').textContent=S.wallet.toLocaleString('tr-TR');}
+renderPts();
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200);}
+document.querySelectorAll('#s-order .row[data-b]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#s-order .row[data-b]').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.branch=b.dataset.b;toast('Şube: '+S.branch);}));
+function pick(n,p){S.prod=n;S.base=p;document.getElementById('p-name').textContent=n;calc();showScr('prod');}
+document.querySelectorAll('.seg[data-k]').forEach(seg=>{const k=seg.dataset.k;const multi=k==='extra'||k==='reward';seg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')==='true';if(multi){b.setAttribute('aria-pressed',!on);}else{seg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');}
+ if(k==='extra'){S.mods.extra=[...seg.querySelectorAll('[aria-pressed=true]')].map(x=>[x.dataset.v,+x.dataset.p]);}
+ else if(k==='reward'){S.reward=on?0:100;}
+ else if(k==='when'){S.when=b.dataset.v;}else if(k==='pay'){S.pay=b.dataset.v;}
+ else{S.mods[k]=[b.dataset.v,+b.dataset.p];if(k==='temp')document.getElementById('iceopt').style.display=b.dataset.v==='Soğuk'?'':'none';}
+ calc();}));});
+function calc(){let t=S.base+S.mods.size[1]+S.mods.milk[1]+S.mods.extra.reduce((a,x)=>a+x[1],0);document.getElementById('p-total').textContent=t;document.getElementById('c-price').textContent=t;document.getElementById('c-total').textContent=Math.max(0,t-S.reward);const mods=[S.mods.size[0],S.mods.temp[0],...(S.mods.temp[0]==='Soğuk'?[S.mods.ice[0]]:[]),S.mods.milk[0],...S.mods.extra.map(x=>x[0])];document.getElementById('c-mods').textContent=mods.join(' · ');document.getElementById('c-name').textContent=S.prod;document.getElementById('c-branch').textContent=S.branch;return t;}
+function toCart(){calc();showScr('cart');}
+function usual(){S.prod='Iced Latte';S.base=160;calc();showScr('cart');toast('Her zamanki sepete eklendi');}
+function payNow(){const t=Math.max(0,calc()-S.reward);if(S.pay==='Cüzdan'){S.wallet-=t;}if(S.reward){S.pts-=100;}renderPts();document.getElementById('st-when').textContent=S.when;document.getElementById('st-sub').innerHTML=`${S.branch} · ${S.prod} · ${S.when} · ${S.pay}`;
+ const planned=!S.when.startsWith('Hemen');document.getElementById('st2').className='step'+(planned?'':' now');document.getElementById('st-hint').style.display=planned?'':'none';
+ const bar=document.getElementById('barista');const c=document.createElement('div');c.className='row';c.style.cursor='default';c.innerHTML=`<span class="l"><span class="n">#4821 · ${S.prod} ${S.mods.size[0].toLowerCase()}</span><span class="s">${planned?'Alındı · planlı '+S.when:'Hazırlanıyor · 09:41'}</span></span><span>${S.mods.milk[0]!=='İnek'?'<span class="chip lilac">'+S.mods.milk[0].toUpperCase()+'</span> ':''}${S.mods.temp[0]==='Soğuk'?'<span class="chip blue">SOĞUK</span>':'<span class="chip coral">SICAK</span>'}</span>`;bar.prepend(c);S._card=c;
+ document.getElementById('arrive').hidden=false;document.getElementById('deliver').hidden=true;document.getElementById('after').hidden=true;document.getElementById('st3').className='step';document.getElementById('st4').className='step';showScr('status');toast(S.pay==='Cüzdan'?`Cüzdandan ${t} ₺ ödendi`:'Ödeme alındı');}
+function arrived(){document.getElementById('arrive').hidden=true;document.getElementById('st2').className='step done';document.getElementById('st3').className='step now';toast('Barista ekranında en üste çıktı');if(S._card){S._card.querySelector('.s').textContent='GELDİ · hazırlanıyor';S._card.style.borderColor='var(--coral)';}
+ setTimeout(()=>{document.getElementById('st3').className='step done';document.getElementById('st4').className='step now';document.getElementById('deliver').hidden=false;toast('Hazır! Tezgahtan alabilirsiniz');if(S._card)S._card.querySelector('.s').textContent='HAZIR · 09:45';},1800);}
+function delivered(){document.getElementById('deliver').hidden=true;document.getElementById('st4').className='step done';const t=Math.max(0,calc()-S.reward);S.pts+=t;S.stamps=Math.min(10,S.stamps+1);renderPts();document.getElementById('after').hidden=false;document.getElementById('after').querySelector('b').textContent=`+${t} çekirdek`;guide('status');document.querySelectorAll('#guide li')[4].classList.add('now');if(S._card)S._card.remove();}
+function rate(n){document.getElementById('ratemsg').textContent=n>=4?'Teşekkürler! Google\'da da paylaşmak ister misiniz? Yorum linki gönderildi.':'Üzgünüz. Şikayetiniz HQ ve şube müdürüne iletildi; 24 saat içinde dönüş yapılacak.';}
+function topup(a,b){S.wallet+=a+b;renderPts();toast(`${a} ₺ yüklendi${b?', +'+b+' ₺ bonus':''}`);}
+
+
+</script></body></html>

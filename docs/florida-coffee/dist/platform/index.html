@@ -1,0 +1,787 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Platform Prototipi</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root{
+  --bg:#F3F2EF; --panel:#FFFFFF; --panel-2:#F8F7F4; --ink:#23170F; --ink-2:#4E423A; --ink-3:#847970;
+  --line:#E2DED8; --teal:#0E7C86; --teal-ink:#0A5D65; --teal-soft:#DCEEF0;
+  --coral:#E0602B; --coral-soft:#FBE6DC; --gold:#C9962B; --gold-soft:#F7ECD2;
+  --good:#2F7D4F; --good-soft:#DFF0E5; --warn:#B9481E; --warn-soft:#F9E2D8;
+  --lilac:#6B4FBB; --lilac-soft:#E9E3F8; --blue:#2E6FD8; --blue-soft:#E0EAFB;
+  --roast:#2A1B12; --roast-2:#3E2A1E;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16130F; --panel:#1F1A15; --panel-2:#26201A; --ink:#F1ECE6; --ink-2:#CDC4BA; --ink-3:#8F857B;
+    --line:#332B24; --teal:#5FC1CB; --teal-ink:#8ED6DD; --teal-soft:#173D41;
+    --coral:#F0865A; --coral-soft:#3E2418; --gold:#E2B55A; --gold-soft:#3B2E14;
+    --good:#6FC48E; --good-soft:#1C3527; --warn:#F0916C; --warn-soft:#3F2318;
+    --lilac:#A894E8; --lilac-soft:#2A2340; --blue:#7FA8F0; --blue-soft:#1C2A44;
+    --roast:#0F0B08; --roast-2:#1B140F;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16130F; --panel:#1F1A15; --panel-2:#26201A; --ink:#F1ECE6; --ink-2:#CDC4BA; --ink-3:#8F857B;
+  --line:#332B24; --teal:#5FC1CB; --teal-ink:#8ED6DD; --teal-soft:#173D41;
+  --coral:#F0865A; --coral-soft:#3E2418; --gold:#E2B55A; --gold-soft:#3B2E14;
+  --good:#6FC48E; --good-soft:#1C3527; --warn:#F0916C; --warn-soft:#3F2318;
+  --lilac:#A894E8; --lilac-soft:#2A2340; --blue:#7FA8F0; --blue-soft:#1C2A44;
+  --roast:#0F0B08; --roast-2:#1B140F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;font-size:15px;line-height:1.5}
+h1,h2,h3,h4,.d{font-family:"Bricolage Grotesque","Public Sans",sans-serif;letter-spacing:-0.01em;text-wrap:balance}
+button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+button:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+input,select{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem}
+.topbar{position:sticky;top:0;z-index:20;background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:1rem;padding:.6rem 1.2rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem}
+.brand .mark{width:30px;height:30px;border-radius:50%;background:var(--coral);position:relative}
+.brand .mark::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--panel)}
+.brand .t{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.05rem}
+.brand .s{font-size:.72rem;color:var(--ink-3)}
+.tabs{display:flex;gap:.25rem;flex-wrap:wrap;margin-left:auto}
+.tabs button{padding:.45rem .8rem;border-radius:999px;font-weight:600;font-size:.85rem;color:var(--ink-2)}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.tabs button:hover{background:var(--panel-2)}
+.stage{max-width:1280px;margin:0 auto;padding:1.5rem 1.2rem 4rem}
+.view{display:none}.view.on{display:block}
+.intro{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1.2rem;flex-wrap:wrap}
+.intro h2{margin:0;font-size:1.5rem}
+.intro p{margin:.2rem 0 0;color:var(--ink-2);max-width:70ch}
+.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-ink);font-weight:700}
+.note{font-size:.78rem;color:var(--ink-3)}
+.chip{display:inline-flex;align-items:center;gap:.3rem;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600;font-family:"Bricolage Grotesque",sans-serif}
+.chip.teal{background:var(--teal-soft);color:var(--teal-ink)}.chip.coral{background:var(--coral-soft);color:var(--coral)}
+.chip.gold{background:var(--gold-soft);color:var(--gold)}.chip.good{background:var(--good-soft);color:var(--good)}
+.chip.warn{background:var(--warn-soft);color:var(--warn)}.chip.lilac{background:var(--lilac-soft);color:var(--lilac)}
+.chip.blue{background:var(--blue-soft);color:var(--blue)}.chip.grey{background:var(--panel-2);color:var(--ink-2);border:1px solid var(--line)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.6rem 1rem;border-radius:10px;font-weight:700;font-family:"Bricolage Grotesque",sans-serif;font-size:.9rem;border:1px solid transparent}
+.btn.primary{background:var(--teal);color:#fff}.btn.primary:hover{background:var(--teal-ink)}
+.btn.coral{background:var(--coral);color:#fff}
+.btn.ghost{border-color:var(--line);color:var(--ink)}.btn.ghost:hover{background:var(--panel-2)}
+.btn.sm{padding:.35rem .7rem;font-size:.8rem;border-radius:8px}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+/* SERP */
+.serp{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:1.2rem}
+.serpbox{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.serpbox h3{margin:0 0 .8rem;font-size:1rem;display:flex;align-items:center;gap:.5rem}
+.g-search{border:1px solid var(--line);border-radius:999px;padding:.5rem .9rem;color:var(--ink-2);font-size:.9rem;margin-bottom:1rem;background:var(--panel-2)}
+.g-res{padding:.6rem 0;border-bottom:1px solid var(--line)}
+.g-res:last-child{border-bottom:none}
+.g-res .u{font-size:.75rem;color:var(--ink-3)}
+.g-res .t{color:var(--blue);font-size:1rem;font-weight:500}
+.g-res .s{font-size:.82rem;color:var(--ink-2)}
+.g-res.dim{opacity:.55}
+.g-res.bad .t{color:var(--warn)}
+.kp{border:1px solid var(--line);border-radius:12px;padding:.8rem;margin:.6rem 0;background:var(--panel-2)}
+.kp .d{font-weight:800;font-size:1.05rem}
+.kp .row{display:flex;gap:.6rem;flex-wrap:wrap;font-size:.8rem;color:var(--ink-2);margin-top:.3rem}
+.sitelinks{display:grid;grid-template-columns:1fr 1fr;gap:.2rem .8rem;font-size:.82rem;margin-top:.4rem}
+.sitelinks span{color:var(--blue)}
+.localpack{display:grid;gap:.4rem;margin:.6rem 0}
+.localpack div{display:flex;justify-content:space-between;font-size:.82rem;padding:.35rem .5rem;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+/* WEB */
+.browser{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.browser .bar{display:flex;align-items:center;gap:.5rem;padding:.5rem .8rem;background:var(--panel-2);border-bottom:1px solid var(--line);font-size:.78rem;color:var(--ink-3)}
+.browser .bar .dots span{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--line);margin-right:3px}
+.browser .url{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:.25rem .6rem;font-family:ui-monospace,monospace}
+.site{padding:0}
+.site nav{display:flex;align-items:center;gap:1.2rem;padding:.8rem 1.4rem;border-bottom:1px solid var(--line);font-size:.85rem;font-weight:600}
+.site nav .sp{flex:1}
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;padding:2rem 1.4rem;background:linear-gradient(135deg,var(--roast) 0%,var(--roast-2) 55%,#0E7C86 140%);color:#F6EFE7}
+.hero h1{margin:0 0 .6rem;font-size:2.2rem;line-height:1.05;font-weight:800}
+.hero p{margin:0 0 1rem;max-width:44ch;color:#D9CFC4}
+.hero .video{border-radius:12px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.06) 0 6px,transparent 6px 14px),linear-gradient(180deg,#1C5F67,#2A1B12);min-height:180px;display:flex;align-items:flex-end;padding:.8rem;font-size:.75rem;color:#CFE6E9}
+.nearest{background:#fff;color:#23170F;border-radius:12px;padding:.9rem 1rem;margin-top:1rem;display:grid;grid-template-columns:1fr auto;gap:.5rem;align-items:center}
+.nearest .d{font-weight:800}
+.nearest .m{font-size:.8rem;color:#4E423A}
+.nearest .acts{display:flex;gap:.4rem;grid-column:1/-1;flex-wrap:wrap}
+.nearest .btn{background:#0E7C86;color:#fff}
+.nearest .btn.ghost{background:transparent;color:#23170F;border-color:#E2DED8}
+.sec{padding:1.6rem 1.4rem;border-bottom:1px solid var(--line)}
+.sec h2{margin:0 0 .8rem;font-size:1.3rem}
+.sec .sub{margin:-.5rem 0 1rem;color:var(--ink-3);font-size:.85rem}
+.prods{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:.8rem}
+.prod{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--panel)}
+.prod .img{height:90px;background:var(--panel-2);position:relative}
+.prod .img::after{content:"";position:absolute;left:50%;top:50%;width:46px;height:46px;border-radius:50% 50% 45% 45%;transform:translate(-50%,-50%);background:var(--c,#7A4B2A)}
+.prod .b{padding:.6rem .7rem}
+.prod .n{font-weight:700;font-size:.9rem;font-family:"Bricolage Grotesque",sans-serif}
+.prod .p{font-size:.8rem;color:var(--ink-2)}
+.filters{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.9rem}
+.filters button{padding:.3rem .7rem;border-radius:999px;border:1px solid var(--line);font-size:.8rem;font-weight:600}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:.8rem}
+.bcard{border:1px solid var(--line);border-radius:12px;padding:.8rem .9rem;background:var(--panel);text-align:left;display:flex;flex-direction:column;gap:.35rem;transition:transform .15s}
+.bcard:hover{transform:translateY(-2px);border-color:var(--teal)}
+.bcard .n{font-weight:800;font-family:"Bricolage Grotesque",sans-serif}
+.bcard .c{font-size:.78rem;color:var(--ink-3)}
+.bcard .tags{display:flex;gap:.25rem;flex-wrap:wrap}
+.bcard .busy{font-size:.75rem;display:flex;align-items:center;gap:.3rem}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.dot.g{background:var(--good)}.dot.y{background:var(--gold)}.dot.r{background:var(--warn)}
+.cta2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;padding:1.6rem 1.4rem}
+.cta2 .box{border-radius:14px;padding:1.2rem;background:var(--panel-2);border:1px solid var(--line)}
+.cta2 .box.dark{background:var(--roast);color:#F6EFE7;border-color:transparent}
+.cta2 h3{margin:0 0 .4rem;font-size:1.1rem}
+.cta2 p{margin:0 0 .8rem;font-size:.85rem}
+/* branch page */
+.bp{padding:1.4rem}
+.bp .back{color:var(--teal-ink);font-weight:600;font-size:.85rem;margin-bottom:.6rem;display:inline-block}
+.bp h1{margin:0 0 .3rem;font-size:1.8rem}
+.bp .meta{color:var(--ink-2);font-size:.9rem;margin-bottom:.8rem}
+.bp .gal{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.5rem;margin:.8rem 0}
+.bp .gal div{height:110px;border-radius:10px;background:linear-gradient(160deg,#1C5F67,#2A1B12)}
+.bp .gal div:nth-child(2){background:linear-gradient(160deg,#C9962B,#2A1B12)}
+.bp .gal div:nth-child(3){background:linear-gradient(160deg,#E0602B,#2A1B12)}
+.bp .cols{display:grid;grid-template-columns:1.4fr 1fr;gap:1.2rem}
+.bp .card{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;background:var(--panel);margin-bottom:.8rem}
+.bp .card h4{margin:0 0 .5rem;font-size:.95rem}
+.faq details{border-bottom:1px solid var(--line);padding:.4rem 0;font-size:.88rem}
+.faq summary{cursor:pointer;font-weight:600}
+.hours{display:grid;grid-template-columns:1fr auto;font-size:.85rem;gap:.15rem .8rem}
+.rev{font-size:.85rem;padding:.5rem 0;border-bottom:1px solid var(--line)}
+.rev .who{font-weight:700;font-size:.8rem}
+/* APP */
+.appwrap{display:grid;grid-template-columns:420px 1fr;gap:2rem;align-items:start}
+.phone{width:390px;height:780px;border-radius:44px;background:#111;padding:12px;box-shadow:0 20px 50px rgba(0,0,0,.25);margin:0 auto}
+.screen{width:100%;height:100%;border-radius:34px;background:var(--panel);overflow:hidden;display:flex;flex-direction:column;position:relative;color:var(--ink)}
+.status{display:flex;justify-content:space-between;padding:.9rem 1.4rem .2rem;font-size:.75rem;font-weight:700}
+.scr{flex:1;overflow:auto;padding:.6rem 1.1rem 1rem;display:none}
+.scr.on{display:block}
+.bottomnav{display:flex;border-top:1px solid var(--line);background:var(--panel)}
+.bottomnav button{flex:1;padding:.6rem 0 1rem;font-size:.68rem;font-weight:700;color:var(--ink-3);display:flex;flex-direction:column;gap:.15rem;align-items:center}
+.bottomnav button .i{width:22px;height:22px;border-radius:7px;background:var(--panel-2);border:1px solid var(--line)}
+.bottomnav button[aria-current="page"]{color:var(--teal-ink)}
+.bottomnav button[aria-current="page"] .i{background:var(--teal-soft);border-color:var(--teal)}
+.pts{background:var(--roast);color:#F6EFE7;border-radius:16px;padding:1rem;margin:.4rem 0 .8rem}
+.pts .lvl{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#E2B55A;font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.pts .big{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:2rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.pts .bar{height:6px;border-radius:3px;background:rgba(255,255,255,.15);margin:.6rem 0 .3rem;overflow:hidden}
+.pts .bar i{display:block;height:100%;background:var(--coral);width:0;transition:width .6s}
+.pts .m{font-size:.75rem;color:#D9CFC4}
+.stamps{display:flex;gap:.3rem;margin-top:.5rem}
+.stamps span{width:18px;height:18px;border-radius:50%;border:1.5px solid rgba(255,255,255,.4)}
+.stamps span.f{background:var(--coral);border-color:var(--coral)}
+.usual{border:1px solid var(--line);border-radius:14px;padding:.8rem;display:flex;gap:.7rem;align-items:center;background:var(--panel-2)}
+.usual .ic{width:44px;height:44px;border-radius:12px;background:#7A4B2A}
+.usual .t{font-weight:800;font-family:"Bricolage Grotesque",sans-serif;font-size:.92rem}
+.usual .s{font-size:.75rem;color:var(--ink-3)}
+.h6{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:.95rem;margin:.9rem 0 .4rem}
+.camp{border-radius:12px;padding:.7rem .8rem;background:var(--coral-soft);font-size:.8rem;margin-bottom:.4rem}
+.camp b{font-family:"Bricolage Grotesque",sans-serif}
+.list{display:flex;flex-direction:column;gap:.4rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.6rem .7rem;border:1px solid var(--line);border-radius:12px;background:var(--panel);text-align:left;width:100%}
+.row .l{display:flex;flex-direction:column}
+.row .n{font-weight:700;font-size:.88rem;font-family:"Bricolage Grotesque",sans-serif}
+.row .s{font-size:.72rem;color:var(--ink-3)}
+.row .p{font-weight:700;font-size:.85rem;white-space:nowrap}
+.row[aria-pressed="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.opt{margin:.6rem 0}
+.opt .lbl{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--ink-3);margin-bottom:.3rem;font-family:"Bricolage Grotesque",sans-serif}
+.opt .req{color:var(--coral)}
+.seg{display:flex;gap:.3rem;flex-wrap:wrap}
+.seg button{padding:.35rem .6rem;border-radius:999px;border:1px solid var(--line);font-size:.78rem;font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.seg button.milk[aria-pressed="true"]{background:var(--lilac);border-color:var(--lilac);color:#fff}
+.sticky{position:sticky;bottom:0;background:var(--panel);padding:.6rem 0 .2rem;border-top:1px solid var(--line);margin-top:.8rem}
+.tot{display:flex;justify-content:space-between;font-weight:800;font-family:"Bricolage Grotesque",sans-serif;margin-bottom:.4rem}
+.steps{display:flex;flex-direction:column;gap:.5rem;margin:.6rem 0}
+.step{display:flex;gap:.6rem;align-items:center;font-size:.85rem;color:var(--ink-3)}
+.step i{width:22px;height:22px;border-radius:50%;border:2px solid var(--line);display:inline-flex;align-items:center;justify-content:center;font-size:.7rem;font-style:normal}
+.step.done{color:var(--ink)}.step.done i{background:var(--good);border-color:var(--good);color:#fff}
+.step.now{color:var(--ink);font-weight:700}.step.now i{border-color:var(--teal);color:var(--teal)}
+.qr{width:150px;height:150px;margin:.6rem auto;background:
+ conic-gradient(var(--ink) 25%,transparent 0 50%,var(--ink) 0 75%,transparent 0) 0 0/24px 24px;border:8px solid var(--panel);outline:1px solid var(--line);border-radius:8px}
+.toast{position:absolute;left:50%;bottom:90px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:.5rem .9rem;border-radius:999px;font-size:.8rem;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.guide{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1rem 1.2rem}
+.guide ol{padding-left:1.2rem;margin:.4rem 0 0}
+.guide li{margin:.3rem 0;font-size:.9rem}
+.guide li.now{font-weight:700;color:var(--teal-ink)}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem}
+.mini div{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;font-size:.8rem;background:var(--panel-2)}
+.mini b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:1.1rem}
+/* HQ */
+.hq{display:grid;grid-template-columns:200px 1fr;gap:1rem;background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden;min-height:640px}
+.hq aside{background:var(--roast);color:#D9CFC4;padding:1rem .8rem;display:flex;flex-direction:column;gap:.2rem}
+.hq aside .t{color:#fff;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;padding:.3rem .5rem .8rem}
+.hq aside button{text-align:left;padding:.45rem .6rem;border-radius:8px;font-size:.85rem;font-weight:600;color:#D9CFC4}
+.hq aside button[aria-selected="true"]{background:rgba(255,255,255,.12);color:#fff}
+.hq main{padding:1rem 1.2rem;min-width:0}
+.hqv{display:none}.hqv.on{display:block}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.6rem;margin:.6rem 0 1rem}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;background:var(--panel-2)}
+.kpi .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.kpi .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.4rem;font-variant-numeric:tabular-nums}
+.kpi .d{font-size:.72rem}
+.kpi .d.up{color:var(--good)}.kpi .d.dn{color:var(--warn)}
+.alerts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem}
+.alert{display:flex;gap:.6rem;align-items:center;padding:.55rem .8rem;border-radius:10px;font-size:.85rem;border:1px solid var(--line)}
+.alert.warn{background:var(--warn-soft);border-color:transparent}
+.alert.gold{background:var(--gold-soft);border-color:transparent}
+.alert b{font-family:"Bricolage Grotesque",sans-serif}
+.alert .sp{flex:1}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;font-size:.82rem;font-variant-numeric:tabular-nums}
+th,td{padding:.5rem .65rem;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-3);background:var(--panel-2);cursor:pointer;user-select:none}
+th[aria-sort]::after{content:" ↕";opacity:.5}
+th[aria-sort="descending"]::after{content:" ↓";opacity:1}
+th[aria-sort="ascending"]::after{content:" ↑";opacity:1}
+td.n{text-align:right}
+tr.low td{background:var(--warn-soft)}
+.spark{display:inline-flex;gap:2px;align-items:flex-end;height:18px}
+.spark i{width:4px;background:var(--teal);border-radius:1px;display:block}
+.inbox{display:grid;grid-template-columns:1fr 1.2fr;gap:1rem}
+.msg{border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;margin-bottom:.5rem;cursor:pointer;background:var(--panel)}
+.msg[aria-selected="true"]{border-color:var(--teal);background:var(--teal-soft)}
+.msg .h{display:flex;justify-content:space-between;font-size:.75rem;color:var(--ink-3)}
+.msg .b{font-size:.85rem;margin-top:.2rem}
+.draft{border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;background:var(--panel-2)}
+.draft textarea{width:100%;min-height:130px;font:inherit;font-size:.85rem;border:1px solid var(--line);border-radius:8px;padding:.6rem;background:var(--panel);color:var(--ink);resize:vertical}
+.stars{color:var(--gold);letter-spacing:.05em}
+/* AI */
+.wa{display:grid;grid-template-columns:420px 1fr;gap:2rem;align-items:start}
+.wa .phone{height:760px}
+.wa .screen{background:#E5DDD5}
+.wa .head{background:#075E54;color:#fff;padding:1.4rem 1rem .7rem;display:flex;gap:.6rem;align-items:center}
+.wa .head .av{width:36px;height:36px;border-radius:50%;background:var(--coral)}
+.wa .head .n{font-weight:700;font-size:.9rem}.wa .head .s{font-size:.7rem;opacity:.85}
+.chat{flex:1;overflow:auto;padding:.8rem;display:flex;flex-direction:column;gap:.4rem}
+.bub{max-width:82%;padding:.5rem .7rem;border-radius:10px;font-size:.84rem;line-height:1.4;box-shadow:0 1px 1px rgba(0,0,0,.08);color:#111}
+.bub.in{background:#fff;align-self:flex-start;border-top-left-radius:2px}
+.bub.out{background:#DCF8C6;align-self:flex-end;border-top-right-radius:2px}
+.bub .tm{display:block;text-align:right;font-size:.65rem;color:#667;margin-top:.2rem}
+.bub .card{background:#F4F1EA;border-radius:8px;padding:.5rem .6rem;margin-top:.4rem;font-size:.78rem;border-left:3px solid var(--coral)}
+.quick{padding:.5rem .8rem .9rem;display:flex;gap:.4rem;flex-wrap:wrap;background:#F0F0F0}
+.quick button{background:#fff;border:1px solid #CFD8DC;border-radius:999px;padding:.35rem .7rem;font-size:.78rem;font-weight:600;color:#075E54}
+.typing{align-self:flex-start;background:#fff;border-radius:10px;padding:.4rem .7rem;font-size:.8rem;color:#667}
+/* FRANCHISE */
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:start}
+.box{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
+.box h3{margin:0 0 .6rem;font-size:1.05rem}
+.field{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.7rem}
+.field label{font-size:.78rem;font-weight:700;color:var(--ink-2)}
+.field input[type=range]{padding:0}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.8rem}
+.out>div{border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem;background:var(--panel-2)}
+.out .l{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.out .v{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.2rem;font-variant-numeric:tabular-nums}
+.wiz .p{display:none}.wiz .p.on{display:block}
+.wiz .prog{display:flex;gap:.3rem;margin-bottom:.8rem}
+.wiz .prog span{flex:1;height:4px;border-radius:2px;background:var(--line)}
+.wiz .prog span.on{background:var(--teal)}
+.score{display:flex;align-items:center;gap:1rem;margin-top:.8rem}
+.ring{width:84px;height:84px;border-radius:50%;background:conic-gradient(var(--teal) calc(var(--s)*1%),var(--line) 0);display:grid;place-items:center}
+.ring b{width:64px;height:64px;border-radius:50%;background:var(--panel);display:grid;place-items:center;font-family:"Bricolage Grotesque",sans-serif;font-size:1.3rem}
+@media (max-width:900px){
+  .appwrap,.wa,.fr,.inbox,.cta2,.bp .cols,.hero{grid-template-columns:1fr}
+  .hq{grid-template-columns:1fr}.hq aside{flex-direction:row;flex-wrap:wrap}
+  .phone{width:100%;max-width:390px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="topbar">
+  <div class="brand"><div class="mark"></div><div><div class="t">Florida Coffee Platform</div><div class="s">Demo prototipi · P3Media · örnek verilerle</div></div></div>
+  <div class="tabs" role="tablist">
+    <button role="tab" aria-selected="true" data-v="serp">Google: bugün ve hedef</button>
+    <button role="tab" aria-selected="false" data-v="web">Web sitesi</button>
+    <button role="tab" aria-selected="false" data-v="app">Mobil uygulama</button>
+    <button role="tab" aria-selected="false" data-v="hq">HQ paneli</button>
+    <button role="tab" aria-selected="false" data-v="ai">AI asistan</button>
+    <button role="tab" aria-selected="false" data-v="fr">Franchise</button>
+  </div>
+</div>
+
+<div class="stage">
+
+<!-- ================= SERP ================= -->
+<section class="view on" id="v-serp">
+  <div class="intro"><div><div class="eyebrow">1 · Görünürlük</div><h2>"florida coffee" araması: bugün ve 6 ay sonra</h2><p>Sol taraf bugünkü durumu temsil eder: marka ABD'deki Florida kahvecileriyle karışıyor, site derinde. Sağ taraf varlık SEO'su, şube sayfaları ve uygulama kaydı sonrası hedeflenen sonuç sayfası.</p></div></div>
+  <div class="serp">
+    <div class="serpbox">
+      <h3><span class="chip warn">Bugün</span> Semrush TR sırası 208.967 · ilk 10'da 0 kelime</h3>
+      <div class="g-search">florida coffee</div>
+      <div class="g-res dim"><div class="u">kahwacoffee.com</div><div class="t">Kahwa Coffee | Florida's Largest Independent Coffee Roaster</div><div class="s">St. Petersburg, FL · Premium coffee roasted in Florida…</div></div>
+      <div class="g-res dim"><div class="u">thefloridatravelgirl.com</div><div class="t">15 Must-Visit Coffee Shops in Florida</div><div class="s">From Miami to Tampa, the best cafés in the Sunshine State…</div></div>
+      <div class="g-res dim"><div class="u">luckygoatcoffee.com</div><div class="t">Florida Coffee Roaster | Lucky Goat Coffee Company</div><div class="s">Tallahassee-based roaster…</div></div>
+      <div class="g-res"><div class="u">instagram.com › floridacoffeetr</div><div class="t">Florida Coffee (@floridacoffeetr) • Instagram</div><div class="s">4.046 takipçi · 137 gönderi · Taste of Joy</div></div>
+      <div class="g-res bad"><div class="u">yandex.com.tr › maps</div><div class="t">Artık faal değil: Florida Coffee Co, Çengelköy</div><div class="s">Kahve dükkanı · Üsküdar, İstanbul</div></div>
+      <div class="g-res dim"><div class="u">www.floridacoffee.com.tr</div><div class="t">Florida Coffee | Ana Sayfa</div><div class="s">(açıklama yok)</div></div>
+      <p class="note">Sonuçlar bu rapor için yapılan gerçek aramaların düzenlenmiş özetidir.</p>
+    </div>
+    <div class="serpbox">
+      <h3><span class="chip good">Hedef · 6 ay</span> Knowledge panel + sitelinks + local pack + uygulama</h3>
+      <div class="g-search">florida coffee</div>
+      <div class="kp"><div class="d">Florida Coffee Türkiye</div><div style="font-size:.78rem;color:var(--ink-3)">Kahve zinciri · İstanbul, 2019</div><div class="row"><span>17 şube · 2 ülke</span><span>★ 4,6 (2.140 yorum)</span><span>Uygulama: iOS · Android</span></div></div>
+      <div class="g-res"><div class="u">floridacoffee.com.tr</div><div class="t">Florida Coffee Türkiye | Boğaz manzaralı kahve, 17 şube</div><div class="s">SCA standardında kendi kavurduğumuz kahve. En yakın Florida'yı bulun, sıra beklemeden sipariş verin, her kahvede çekirdek kazanın.</div>
+        <div class="sitelinks"><span>Menü ve fiyatlar</span><span>Şubeler</span><span>Franchise</span><span>Uygulama</span><span>Kavacık · Boğaz</span><span>Sakarya Çark Caddesi</span></div></div>
+      <div class="localpack">
+        <div><span>Florida Coffee Kavacık · ★ 4,8 (312)</span><span>Açık · 02:00</span></div>
+        <div><span>Florida Coffee Beykoz · ★ 4,6 (198)</span><span>Açık · 02:00</span></div>
+        <div><span>Florida Coffee Çengelköy · ★ 4,7 (540)</span><span>Açık · 23:00</span></div>
+      </div>
+      <div class="g-res"><div class="u">apps.apple.com › florida-coffee</div><div class="t">Florida Coffee: Sipariş ve Çekirdek Kazan</div><div class="s">★ 4,7 · Ön sipariş, cüzdan, FloridaDays Club</div></div>
+      <div class="g-res"><div class="u">floridacoffee.com.tr › franchise</div><div class="t">Florida Coffee Franchise | 3 km bölge koruması, 45 gün eğitim</div><div class="s">Yatırım hesaplayıcı ve başvuru</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WEB ================= -->
+<section class="view" id="v-web">
+  <div class="intro"><div><div class="eyebrow">2 · Web sitesi</div><h2>Ana sayfa ve şube sayfası</h2><p>Site, ziyaretçiyi en yakın şubeye ve uygulamaya yönlendirir; her şube sayfası Google için yapılandırılmış veri taşır. Şube filtrelerini deneyin, bir şubeye tıklayın.</p></div></div>
+  <div class="browser">
+    <div class="bar"><span class="dots"><span></span><span></span><span></span></span><span class="url" id="url">floridacoffee.com.tr</span></div>
+    <div class="site" id="site-home">
+      <nav><span class="d" style="font-weight:800">Florida Coffee</span><span>Menü</span><span>Şubeler</span><span>Kahvemiz</span><span>Franchise</span><span class="sp"></span><span class="chip teal">Uygulamayı indir</span></nav>
+      <div class="hero">
+        <div>
+          <div class="eyebrow" style="color:#E2B55A">Mutluluğun Tadı</div>
+          <h1>Boğaz'ın en güzel köşelerinden doğan kahve, şimdi sıranın önünde</h1>
+          <p>SCA standardında kendi kavurduğumuz çekirdek, 17 şube, 2 ülke. En yakın Florida'yı bulun, uygulamadan sipariş verin, geldiğinizde hazır olsun.</p>
+          <div class="nearest">
+            <div><div class="d">Size en yakın Florida: Kavacık</div><div class="m">1,2 km · Açık, 02:00'a kadar · <span class="dot g"></span> şu an sakin</div></div>
+            <div style="font-size:.75rem;color:#847970">konum tahmini</div>
+            <div class="acts"><button class="btn sm">Ön sipariş ver</button><button class="btn sm ghost" onclick="openBranch('kavacik')">Şubeyi gör</button><button class="btn sm ghost">Yol tarifi</button></div>
+          </div>
+        </div>
+        <div class="video">▶ 15 sn AI şube videosu: gün batımında Kavacık terası (P3Media üretimi, yer tutucu)</div>
+      </div>
+      <div class="sec">
+        <h2>Bu sezon</h2><p class="sub">HQ panelinden "öne çıkan" işaretlenen ürünler</p>
+        <div class="prods">
+          <div class="prod"><div class="img" style="--c:#5B3A29"></div><div class="b"><div class="n">Cold Brew</div><div class="p">Orta 145 ₺ · 16 saat demleme</div></div></div>
+          <div class="prod"><div class="img" style="--c:#C89A6A"></div><div class="b"><div class="n">Iced Latte</div><div class="p">Orta 160 ₺ · laktozsuz seçenek</div></div></div>
+          <div class="prod"><div class="img" style="--c:#3D2618"></div><div class="b"><div class="n">Florida Filtre</div><div class="p">Orta 120 ₺ · günün çekirdeği</div></div></div>
+          <div class="prod"><div class="img" style="--c:#8C5A3C"></div><div class="b"><div class="n">Türk Kahvesi</div><div class="p">95 ₺ · közde</div></div></div>
+          <div class="prod"><div class="img" style="--c:#E0602B"></div><div class="b"><div class="n">San Sebastian</div><div class="p">Dilim 185 ₺</div></div></div>
+        </div>
+      </div>
+      <div class="sec">
+        <h2>Şubeler</h2><p class="sub">Filtreleyin: özellikler şube kaydından gelir, Google için amenityFeature olarak işaretlenir</p>
+        <div class="filters" id="filters">
+          <button aria-pressed="false" data-f="manzara">Boğaz manzarası</button>
+          <button aria-pressed="false" data-f="gece">Gece açık</button>
+          <button aria-pressed="false" data-f="calisma">Çalışma alanı</button>
+          <button aria-pressed="false" data-f="otopark">Otopark</button>
+          <button aria-pressed="false" data-f="kahvalti">Kahvaltı</button>
+        </div>
+        <div class="branches" id="branches"></div>
+      </div>
+      <div class="cta2">
+        <div class="box"><h3>Her kahvede çekirdek kazanın</h3><p>Fiziksel kartınızı uygulamaya aktarın, ilk siparişte kahve bizden. FloridaDays Club ile seviye atlayın.</p><button class="btn primary sm" onclick="goTab('app')">Uygulamayı gör</button></div>
+        <div class="box dark"><h3>17 şube, 2 ülke. Sıradaki siz olun.</h3><p style="color:#D9CFC4">3 km bölge koruması, 45 gün eğitim, merkezi tedarik. Yatırım hesaplayıcı ile 2 dakikada ön fikir edinin.</p><button class="btn coral sm" onclick="goTab('fr')">Franchise başvurusu</button></div>
+      </div>
+    </div>
+    <div class="site bp" id="site-branch" hidden>
+      <button class="back" onclick="closeBranch()">← Tüm şubeler</button>
+      <div class="chip teal">CafeOrCoffeeShop · FAQPage · BreadcrumbList şeması</div>
+      <h1 id="bp-title">Florida Coffee Kavacık — Boğaz Manzaralı Kahve, Beykoz</h1>
+      <div class="meta" id="bp-meta">★ 4,8 (312 yorum) · Fatih Sultan Mehmet Cad. 42A, Kavacık, Beykoz · 0541 318 80 00 · <span class="dot g"></span> şu an sakin</div>
+      <div class="tags" id="bp-tags" style="display:flex;gap:.3rem;flex-wrap:wrap"></div>
+      <div class="gal"><div></div><div></div><div></div></div>
+      <div class="cols">
+        <div>
+          <div class="card"><h4>Bu şubede</h4><p style="margin:0;font-size:.88rem">Üst kat teras gün batımında Boğaz'a bakar; hafta içi 09:00–11:00 sakin, hafta sonu 15:00 sonrası yoğun. Laktozsuz, yulaf ve badem sütü mevcut. Uygulamadan sipariş verip "Geldim" dediğinizde kahveniz o an hazırlanır.</p><div style="margin-top:.7rem;display:flex;gap:.4rem;flex-wrap:wrap"><button class="btn primary sm" onclick="goTab('app')">Bu şubeden ön sipariş ver</button><button class="btn ghost sm">Yol tarifi</button><button class="btn ghost sm">Manzaralı masa ayır (Premium)</button></div></div>
+          <div class="card"><h4>Şubeye özel</h4><div class="prods"><div class="prod"><div class="img" style="--c:#1C5F67"></div><div class="b"><div class="n">Boğaz Cold Brew</div><div class="p">Tonik ile · 165 ₺</div></div></div><div class="prod"><div class="img" style="--c:#C9962B"></div><div class="b"><div class="n">Kavacık Kahvaltı</div><div class="p">2 kişilik · 690 ₺</div></div></div></div></div>
+          <div class="card faq"><h4>Sık sorulanlar</h4>
+            <details><summary>Kavacık Florida Coffee kaça kadar açık?</summary>Her gün 08:00–02:00. Bayram günlerinde saatler uygulamada ve bu sayfada güncellenir.</details>
+            <details><summary>Otopark var mı?</summary>Şube önünde 6 araçlık alan, 150 m ileride açık otopark.</details>
+            <details><summary>Laktozsuz süt var mı?</summary>Evet; laktozsuz, yulaf ve badem sütü. Uygulamada süt tercihinizi profile kaydedebilirsiniz.</details>
+            <details><summary>Manzaralı masa rezervasyonu yapılır mı?</summary>FloridaDays Premium üyeler uygulamadan gün batımı saatleri için masa ayırabilir.</details>
+          </div>
+        </div>
+        <div>
+          <div class="card"><h4>Çalışma saatleri</h4><div class="hours"><span>Pazartesi–Cuma</span><span>08:00–02:00</span><span>Cumartesi</span><span>08:00–02:00</span><span>Pazar</span><span>08:30–02:00</span></div></div>
+          <div class="card"><h4>Yorumlar</h4>
+            <div class="rev"><div class="who">Elif K. · Google · ★★★★★</div>Gün batımı terası inanılmaz, iced latte tam kıvamında.</div>
+            <div class="rev"><div class="who">Murat A. · Yandex · ★★★★☆</div>Kahve iyi, hafta sonu biraz kalabalık. Uygulamadan sipariş kurtardı.</div>
+            <div class="rev" style="border:none"><div class="who">Deniz T. · Uygulama · ★★★★★</div>Laktozsuz süt profilimde kayıtlı, hiç sormadan doğru geliyor.</div>
+          </div>
+          <div class="card"><h4>Yakın şubeler</h4><div style="font-size:.85rem">Beykoz Kelle İbrahim · 2,4 km<br>Çengelköy · 6,1 km<br>Ümraniye · 7,8 km</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= APP ================= -->
+<section class="view" id="v-app">
+  <div class="intro"><div><div class="eyebrow">3 · Mobil uygulama</div><h2>Sadakat, cüzdan ve ön sipariş tek akışta</h2><p>Sağdaki adımları izleyin. Uygulama, mevcut mağaza kaydı üzerinde v2 olarak yeniden lanse edilir.</p></div></div>
+  <div class="appwrap">
+    <div class="phone"><div class="screen">
+      <div class="status"><span>09:41</span><span>●●● ⌁ ▮</span></div>
+      <!-- HOME -->
+      <div class="scr on" id="s-home">
+        <div style="display:flex;justify-content:space-between;align-items:center"><div><div class="note">Günaydın</div><div class="d" style="font-weight:800;font-size:1.2rem">Emre</div></div><span class="chip gold" id="lvlchip">FloridaDays Plus</span></div>
+        <div class="pts"><div class="lvl">Çekirdek bakiyesi</div><div class="big"><span id="pts">340</span> <span style="font-size:1rem;font-weight:600">çekirdek</span></div><div class="bar"><i id="ptsbar"></i></div><div class="m" id="ptsm">Premium seviyeye 1.160 çekirdek</div><div class="stamps" id="stamps"></div><div class="m" style="margin-top:.3rem"><span id="stampm">7/10 içecek · 3 kahve sonra 1 hediye</span></div></div>
+        <div class="usual"><div class="ic"></div><div style="flex:1"><div class="t">Her zamanki: Iced Latte, orta, laktozsuz</div><div class="s">Kavacık · 160 ₺ · tek dokunuşla sipariş</div></div><button class="btn primary sm" onclick="usual()">Sipariş</button></div>
+        <div class="h6">En yakın Florida</div>
+        <button class="row" onclick="showScr('order')"><span class="l"><span class="n">Kavacık</span><span class="s">1,2 km · <span class="dot g"></span> sakin · tahmini 4 dk</span></span><span class="p">Sipariş ›</span></button>
+        <div class="h6">Kampanyalar</div>
+        <div class="camp"><b>14:00–16:00 ölü saat:</b> Kavacık'ta tüm soğuk kahveler %20 (AI, yoğunluk düşük olduğu için önerdi)</div>
+        <div class="camp" style="background:var(--lilac-soft)"><b>500 ₺ yükle, 25 ₺ bonus</b> kazan · Cüzdan</div>
+      </div>
+      <!-- ORDER: branch+menu -->
+      <div class="scr" id="s-order">
+        <div class="h6" style="margin-top:.3rem">Şube</div>
+        <div class="list">
+          <button class="row" aria-pressed="true" data-b="Kavacık"><span class="l"><span class="n">Kavacık</span><span class="s"><span class="dot g"></span> sakin · 4 dk</span></span><span class="p">İstanbul fiyatı</span></button>
+          <button class="row" aria-pressed="false" data-b="Beykoz"><span class="l"><span class="n">Beykoz Kelle İbrahim</span><span class="s"><span class="dot y"></span> orta · 9 dk</span></span><span class="p"></span></button>
+        </div>
+        <div class="h6">Soğuk kahveler</div>
+        <div class="list">
+          <button class="row" onclick="pick('Iced Latte',160)"><span class="l"><span class="n">Iced Latte</span><span class="s">Espresso, soğuk süt, buz</span></span><span class="p">160 ₺</span></button>
+          <button class="row" onclick="pick('Cold Brew',145)"><span class="l"><span class="n">Cold Brew</span><span class="s">16 saat demleme</span></span><span class="p">145 ₺</span></button>
+          <button class="row" onclick="pick('Boğaz Cold Brew',165)"><span class="l"><span class="n">Boğaz Cold Brew</span><span class="s">Tonik ile · şubeye özel</span></span><span class="p">165 ₺</span></button>
+        </div>
+        <div class="h6">Sıcak kahveler</div>
+        <div class="list">
+          <button class="row" onclick="pick('Florida Filtre',120)"><span class="l"><span class="n">Florida Filtre</span><span class="s">Günün çekirdeği</span></span><span class="p">120 ₺</span></button>
+          <button class="row" onclick="pick('Flat White',150)"><span class="l"><span class="n">Flat White</span><span class="s">Çift shot</span></span><span class="p">150 ₺</span></button>
+        </div>
+      </div>
+      <!-- PRODUCT -->
+      <div class="scr" id="s-prod">
+        <button class="note" onclick="showScr('order')" style="padding:0">← Menü</button>
+        <div class="d" style="font-weight:800;font-size:1.3rem;margin:.3rem 0" id="p-name">Iced Latte</div>
+        <div class="opt"><div class="lbl">Boy</div><div class="seg" data-k="size"><button aria-pressed="false" data-v="Küçük" data-p="-15">Küçük</button><button aria-pressed="true" data-v="Orta" data-p="0">Orta</button><button aria-pressed="false" data-v="Büyük" data-p="20">Büyük +20</button></div></div>
+        <div class="opt"><div class="lbl">Sıcak / soğuk <span class="req">zorunlu</span></div><div class="seg" data-k="temp"><button aria-pressed="false" data-v="Sıcak" data-p="0">Sıcak</button><button aria-pressed="true" data-v="Soğuk" data-p="0">Soğuk</button></div></div>
+        <div class="opt" id="iceopt"><div class="lbl">Buz</div><div class="seg" data-k="ice"><button aria-pressed="false" data-v="Az buz" data-p="0">Az</button><button aria-pressed="true" data-v="Normal buz" data-p="0">Normal</button><button aria-pressed="false" data-v="Bol buz" data-p="0">Bol</button></div></div>
+        <div class="opt"><div class="lbl">Süt</div><div class="seg" data-k="milk"><button aria-pressed="false" data-v="İnek" data-p="0">İnek</button><button class="milk" aria-pressed="true" data-v="Laktozsuz" data-p="10">Laktozsuz +10</button><button class="milk" aria-pressed="false" data-v="Yulaf" data-p="15">Yulaf +15</button><button class="milk" aria-pressed="false" data-v="Badem" data-p="15">Badem +15</button></div></div>
+        <div class="opt"><div class="lbl">Ekstra</div><div class="seg" data-k="extra"><button aria-pressed="false" data-v="Ekstra shot" data-p="20">Ekstra shot +20</button><button aria-pressed="false" data-v="Vanilya şurup" data-p="10">Vanilya +10</button><button aria-pressed="false" data-v="Şekersiz" data-p="0">Şekersiz</button></div></div>
+        <div class="note">Süt tercihiniz profilinize kaydedildi; barista ekranında mor etiketle görünür.</div>
+        <div class="sticky"><div class="tot"><span>Toplam</span><span><span id="p-total">170</span> ₺</span></div><button class="btn primary" style="width:100%" onclick="toCart()">Sepete ekle</button></div>
+      </div>
+      <!-- CART -->
+      <div class="scr" id="s-cart">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Sepet · <span id="c-branch">Kavacık</span></div>
+        <div class="row" style="cursor:default"><span class="l"><span class="n" id="c-name">Iced Latte</span><span class="s" id="c-mods">Orta · Soğuk · Laktozsuz</span></span><span class="p"><span id="c-price">170</span> ₺</span></div>
+        <div class="opt"><div class="lbl">Teslim zamanı</div><div class="seg" data-k="when"><button aria-pressed="true" data-v="Hemen (4 dk)" data-p="0">Hemen · 4 dk</button><button aria-pressed="false" data-v="09:15" data-p="0">09:15</button><button aria-pressed="false" data-v="09:30" data-p="0">09:30</button></div></div>
+        <div class="opt"><div class="lbl">Ödeme</div><div class="seg" data-k="pay"><button aria-pressed="true" data-v="Cüzdan" data-p="0">Cüzdan · 412 ₺</button><button aria-pressed="false" data-v="Kart" data-p="0">Kart</button><button aria-pressed="false" data-v="Multinet" data-p="0">Multinet</button></div></div>
+        <div class="opt"><div class="lbl">Ödül kullan</div><div class="seg" data-k="reward"><button aria-pressed="false" data-v="100 çekirdek = 100 ₺" data-p="-100">100 çekirdek → −100 ₺</button></div></div>
+        <div class="sticky"><div class="tot"><span>Ödenecek</span><span><span id="c-total">170</span> ₺</span></div><button class="btn primary" style="width:100%" onclick="payNow()">Öde ve sipariş ver</button></div>
+      </div>
+      <!-- STATUS -->
+      <div class="scr" id="s-status">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Sipariş #4821</div>
+        <div class="note" id="st-sub">Kavacık · Iced Latte · <span id="st-when">Hemen</span></div>
+        <div class="steps" id="steps">
+          <div class="step done"><i>✓</i>Alındı · 09:41</div>
+          <div class="step now" id="st2"><i>2</i>Hazırlanıyor</div>
+          <div class="step" id="st3"><i>3</i>Hazır</div>
+          <div class="step" id="st4"><i>4</i>Teslim edildi</div>
+        </div>
+        <div class="camp" style="background:var(--teal-soft)" id="st-hint">Planlı siparişte hazırlık siz "Geldim" deyince veya şubeye 200 m yaklaşınca başlar; kahveniz soğumaz.</div>
+        <button class="btn coral" style="width:100%;margin-top:.6rem" id="arrive" onclick="arrived()">Geldim</button>
+        <button class="btn primary" style="width:100%;margin-top:.6rem" id="deliver" onclick="delivered()" hidden>Teslim aldım</button>
+        <div id="after" hidden style="margin-top:.8rem">
+          <div class="camp" style="background:var(--good-soft)"><b>+170 çekirdek</b> kazandınız · damga 8/10</div>
+          <div class="h6">Nasıldı?</div>
+          <div class="seg"><button aria-pressed="false" onclick="rate(1)">1</button><button aria-pressed="false" onclick="rate(2)">2</button><button aria-pressed="false" onclick="rate(3)">3</button><button aria-pressed="false" onclick="rate(4)">4</button><button aria-pressed="false" onclick="rate(5)">5</button></div>
+          <div class="note" id="ratemsg" style="margin-top:.4rem"></div>
+        </div>
+      </div>
+      <!-- CARD -->
+      <div class="scr" id="s-card">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Kartım</div>
+        <div class="note">Ödeme ve puan için tek QR; barista okutur</div>
+        <div class="qr" role="img" aria-label="QR kod"></div>
+        <div style="text-align:center"><div class="note">Cüzdan bakiyesi</div><div class="d" style="font-weight:800;font-size:1.8rem"><span id="wallet">412</span> ₺</div></div>
+        <div class="opt"><div class="lbl">Yükle</div><div class="seg"><button aria-pressed="false" onclick="topup(250,0)">250 ₺</button><button aria-pressed="false" onclick="topup(500,25)">500 ₺ +25 bonus</button><button aria-pressed="false" onclick="topup(1000,75)">1.000 ₺ +75</button></div></div>
+        <div class="opt"><div class="lbl">Kaynak</div><div class="seg"><button aria-pressed="true">Kredi kartı</button><button aria-pressed="false">Multinet</button><button aria-pressed="false">Sodexo</button></div></div>
+        <div class="h6">Fiziksel kart aktarımı</div>
+        <button class="row" onclick="toast('Kart 5731 aktarıldı: +120 ₺, 6 damga')"><span class="l"><span class="n">Kartımı tara</span><span class="s">Sözleşme 7.4: karttan uygulamaya geçiş</span></span><span class="p">›</span></button>
+        <div class="h6">Hediye gönder</div>
+        <button class="row" onclick="toast('Selin\'e 1 kahve gönderildi')"><span class="l"><span class="n">Arkadaşına kahve gönder</span><span class="s">Telefon numarasıyla</span></span><span class="p">›</span></button>
+      </div>
+      <!-- PROFILE -->
+      <div class="scr" id="s-profile">
+        <div class="d" style="font-weight:800;font-size:1.2rem;margin:.3rem 0">Profil</div>
+        <div class="list">
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Süt tercihi</span><span class="s">Laktozsuz · siparişlerde varsayılan</span></span><span class="chip lilac">kayıtlı</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Favori şube</span><span class="s">Kavacık</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">FloridaDays Club</span><span class="s">Plus · son 6 ay 4.120 ₺ · Premium'a 3.380 ₺</span></span><span class="chip gold">Plus</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Avantajlarım</span><span class="s">Doğum günü içeceği · ayda 2 boy yükseltme</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">İzinler</span><span class="s">KVKK aydınlatma · pazarlama izni açık</span></span><span class="p"></span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">Hesabımı sil</span><span class="s">30 gün içinde anonimleştirilir</span></span><span class="p"></span></div>
+        </div>
+      </div>
+      <div class="toast" id="toast"></div>
+      <div class="bottomnav">
+        <button aria-current="page" data-s="home"><span class="i"></span>Ana</button>
+        <button data-s="order"><span class="i"></span>Sipariş</button>
+        <button data-s="card"><span class="i"></span>Kart</button>
+        <button data-s="profile"><span class="i"></span>Profil</button>
+      </div>
+    </div></div>
+    <div>
+      <div class="guide"><div class="eyebrow">Demo akışı</div>
+        <ol id="guide">
+          <li class="now">Ana ekranda puan, seviye ve "her zamanki" siparişi görün</li>
+          <li>Sipariş sekmesinden Iced Latte seçin; süt olarak Laktozsuz zaten kayıtlı</li>
+          <li>Sepette teslim zamanı ve cüzdan ile ödeyin</li>
+          <li>Sipariş durumunda "Geldim" deyin; barista ekranında en üste çıkar</li>
+          <li>Teslim alın; puan ve damga otomatik yazılır, 1 dokunuşla puanlayın</li>
+          <li>Kart sekmesinde QR, yükleme bonusu ve fiziksel kart aktarımı</li>
+        </ol>
+      </div>
+      <div class="mini">
+        <div><b>1 ₺ = 1 çekirdek</b>10 içecekte 1 hediye</div>
+        <div><b>Classic · Plus · Premium</b>son 6 ay harcamasıyla</div>
+        <div><b>"Geldim" + geofence</b>kahve soğumaz</div>
+        <div><b>Modifikasyon POS'a yapısal</b>laktozsuz şikayetleri biter</div>
+      </div>
+      <div class="guide" style="margin-top:1rem"><div class="eyebrow">Barista ekranı (şube tableti)</div>
+        <div class="list" style="margin-top:.5rem" id="barista">
+          <div class="row" style="cursor:default"><span class="l"><span class="n">#4819 · Cold Brew orta</span><span class="s">Hazırlanıyor · 09:39</span></span><span class="chip blue">SOĞUK</span></div>
+          <div class="row" style="cursor:default"><span class="l"><span class="n">#4820 · Flat White</span><span class="s">Alındı · planlı 09:50</span></span><span class="chip grey">bekliyor</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HQ ================= -->
+<section class="view" id="v-hq">
+  <div class="intro"><div><div class="eyebrow">4 · HQ paneli</div><h2>17 şube, tek ekran</h2><p>Ciro, royalty, sadakat ve yorum puanı POS ve uygulamadan otomatik akar; sözleşme uyarıları (ciro eşiği 12.3, denetim 6.18, kamera 6.23) kendiliğinden düşer. Tablo başlıklarına tıklayarak sıralayın.</p></div></div>
+  <div class="hq">
+    <aside><div class="t">Florida HQ</div>
+      <button aria-selected="true" data-h="dash">Dashboard</button><button aria-selected="false" data-h="reviews">Yorumlar · AI</button><button aria-selected="false" data-h="camp">Kampanyalar</button><button aria-selected="false" data-h="leads">Franchise leadleri</button>
+      <div style="margin-top:auto;font-size:.72rem;opacity:.7;padding:.5rem">Roller: HQ yönetim · operasyon · ajans · şube</div>
+    </aside>
+    <main>
+      <div class="hqv on" id="h-dash">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem"><h3 style="margin:0">Ağustos 2026 · tüm şubeler</h3><span class="note">POS senkron: 2 dk önce</span></div>
+        <div class="kpis">
+          <div class="kpi"><div class="l">Ciro</div><div class="v">38,4 M ₺</div><div class="d up">+11% geçen aya göre</div></div>
+          <div class="kpi"><div class="l">Royalty (%5)</div><div class="v">1,92 M ₺</div><div class="d">otomatik hesaplandı</div></div>
+          <div class="kpi"><div class="l">Uygulama siparişi payı</div><div class="v">%31</div><div class="d up">+6 puan</div></div>
+          <div class="kpi"><div class="l">Aktif üye</div><div class="v">24.610</div><div class="d up">+2.140</div></div>
+          <div class="kpi"><div class="l">Ort. yorum puanı</div><div class="v">4,6</div><div class="d">1.180 yeni yorum</div></div>
+          <div class="kpi"><div class="l">Açık uyarı</div><div class="v">3</div><div class="d dn">1 kritik</div></div>
+        </div>
+        <div class="alerts">
+          <div class="alert warn"><span class="chip warn">12.3</span><b>Esenyurt</b> 3 aydır ciro eşiğinin altında (−18%). Fesih riski; müdahale planı önerildi.<span class="sp"></span><button class="btn sm ghost">Planı gör</button></div>
+          <div class="alert gold"><span class="chip gold">6.18</span><b>İzmit Yahyakaptan</b> son 6 ayda 2. yazılı uyarı; 3. uyarıda 3 M ₺ ceza eşiği.<span class="sp"></span><button class="btn sm ghost">Denetim raporu</button></div>
+          <div class="alert"><span class="chip grey">GBP</span><b>Çengelköy</b> Yandex'te "kapalı" görünüyor; düzeltme talebi gönderildi.<span class="sp"></span><span class="chip good">işlemde</span></div>
+        </div>
+        <div class="tw"><table id="btable">
+          <thead><tr><th data-k="name">Şube</th><th data-k="rev" class="n">Ciro (₺)</th><th data-k="chg" class="n">Değişim</th><th data-k="app" class="n">App payı</th><th data-k="mem" class="n">Üye</th><th data-k="rating" class="n">Puan</th><th>Trend</th><th>Durum</th></tr></thead>
+          <tbody></tbody></table></div>
+      </div>
+      <div class="hqv" id="h-reviews">
+        <h3 style="margin:0 0 .6rem">Yorum gelen kutusu · Google, Yandex, uygulama, Şikayetvar</h3>
+        <div class="inbox">
+          <div id="msgs"></div>
+          <div class="draft"><div class="eyebrow">AI yanıt taslağı</div><div class="note" style="margin:.2rem 0 .5rem" id="draft-meta">Şikayetvar · İzmit · olumsuz · konu: ürün kalitesi</div><textarea id="draft"></textarea><div style="display:flex;gap:.4rem;margin-top:.5rem;flex-wrap:wrap"><button class="btn primary sm" onclick="toastHQ('Yanıt yayınlandı ve İzmit şube skoruna işlendi')">Onayla ve yayınla</button><button class="btn ghost sm" onclick="regen()">Yeniden yaz</button><button class="btn ghost sm">Şube müdürüne ilet</button></div><div class="note" style="margin-top:.5rem" id="hqtoast"></div></div>
+        </div>
+      </div>
+      <div class="hqv" id="h-camp">
+        <h3 style="margin:0 0 .6rem">Kampanyalar</h3>
+        <div class="tw"><table><thead><tr><th>Kampanya</th><th>Hedef</th><th class="n">Kullanım</th><th class="n">Gelir</th><th class="n">ROI</th><th>Durum</th></tr></thead><tbody>
+          <tr><td>Ölü saat soğuk kahve %20</td><td>Kavacık, Beykoz · 14–16</td><td class="n">1.240</td><td class="n">168.400 ₺</td><td class="n">4,1×</td><td><span class="chip good">AI önerisi · aktif</span></td></tr>
+          <tr><td>500 ₺ yükle 25 ₺ bonus</td><td>Tüm üyeler</td><td class="n">3.870</td><td class="n">1,93 M ₺ yükleme</td><td class="n">—</td><td><span class="chip teal">aktif</span></td></tr>
+          <tr><td>İlk sipariş hediye</td><td>Yeni üyeler</td><td class="n">2.140</td><td class="n">—</td><td class="n">CAC 38 ₺</td><td><span class="chip teal">aktif</span></td></tr>
+          <tr><td>Sakarya açılış: 3 gün 1 ₺ filtre</td><td>Çark Cad. 3 km</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td><span class="chip gold">HQ onayı bekliyor (7.2)</span></td></tr>
+        </tbody></table></div>
+        <div class="note" style="margin-top:.6rem">Şube müdürleri kampanya talebi açar, HQ onaylar; onaysız kampanya sözleşme 7.2 gereği yayınlanamaz.</div>
+      </div>
+      <div class="hqv" id="h-leads">
+        <h3 style="margin:0 0 .6rem">Franchise lead pipeline</h3>
+        <div class="tw"><table><thead><tr><th>Aday</th><th>Bölge</th><th class="n">Bütçe</th><th>Deneyim</th><th class="n">AI skor</th><th>3 km çakışma</th><th>Aşama</th></tr></thead><tbody>
+          <tr><td>A. Yıldız</td><td>Bursa Nilüfer</td><td class="n">4,5 M ₺</td><td>2 kafe</td><td class="n">88</td><td><span class="chip good">yok</span></td><td>Görüşme</td></tr>
+          <tr><td>M. Demir</td><td>Sakarya Serdivan</td><td class="n">3 M ₺</td><td>perakende</td><td class="n">74</td><td><span class="chip warn">Çark 2,6 km</span></td><td>Yeni</td></tr>
+          <tr><td>S. Kaya</td><td>Eskişehir</td><td class="n">5 M ₺</td><td>restoran</td><td class="n">91</td><td><span class="chip good">yok</span></td><td>Lokasyon</td></tr>
+          <tr><td>E. Öztürk</td><td>Samsun Atakum</td><td class="n">2 M ₺</td><td>yok</td><td class="n">42</td><td><span class="chip warn">Marina 1,1 km</span></td><td>Yeni</td></tr>
+        </tbody></table></div>
+      </div>
+    </main>
+  </div>
+</section>
+
+<!-- ================= AI ================= -->
+<section class="view" id="v-ai">
+  <div class="intro"><div><div class="eyebrow">5 · AI asistan</div><h2>WhatsApp'tan sipariş ve şikayet devri</h2><p>Aynı motor WhatsApp, Instagram DM ve site sohbetinde çalışır; fiyat ve stok her zaman platform API'sinden gelir. Hızlı yanıtlara dokunarak senaryoyu ilerletin.</p></div></div>
+  <div class="wa">
+    <div class="phone"><div class="screen">
+      <div class="head"><div class="av"></div><div><div class="n">Florida Coffee Türkiye</div><div class="s">AI asistan · genelde anında yanıtlar</div></div></div>
+      <div class="chat" id="chat"></div>
+      <div class="quick" id="quick"></div>
+    </div></div>
+    <div>
+      <div class="guide"><div class="eyebrow">Ne oluyor</div><ol id="ailog"><li class="now">Kullanıcı en yakın şubede laktozsuz iced latte istiyor</li><li>Asistan şubeyi ve süt seçeneğini API'den doğrular, fiyatı söyler</li><li>Sipariş uygulama sepetine yazılır, ödeme linki gider</li><li>İkinci senaryo: şikayet → HQ gelen kutusuna kayıt ve insana devir</li></ol></div>
+      <div class="mini"><div><b>7/24</b>menü, saat, alerjen, sipariş</div><div><b>İnsana devir</b>emin olmadığında</div><div><b>KVKK</b>ilk mesajda aydınlatma</div><div><b>HQ kaydı</b>her konuşma gelen kutusunda</div></div>
+      <button class="btn ghost sm" style="margin-top:1rem" onclick="resetChat()">Senaryoyu baştan başlat</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FRANCHISE ================= -->
+<section class="view" id="v-fr">
+  <div class="intro"><div><div class="eyebrow">6 · Franchise hunisi</div><h2>Yatırımcıyı 2 dakikada ısıtan hesaplayıcı</h2><p>Rakamlar örnektir ve HQ panelinden güncellenir; sözleşmedeki oranlar (royalty %5 + KDV, ulusal reklam en fazla %1) sabittir. Form tamamlanınca AI skor ve 3 km çakışma kontrolü çalışır.</p></div></div>
+  <div class="fr">
+    <div class="box"><h3>Yatırım hesaplayıcı</h3>
+      <div class="field"><label>Şehir tipi</label><select id="f-city"><option value="1.15">İstanbul merkez</option><option value="1" selected>Büyükşehir cadde (Bursa, Sakarya, Samsun)</option><option value="0.85">İlçe / üniversite</option></select></div>
+      <div class="field"><label>Mağaza alanı: <span id="f-m2v">110</span> m²</label><input type="range" id="f-m2" min="60" max="220" value="110"></div>
+      <div class="field"><label>Tahmini aylık ciro: <span id="f-revv">1.400.000</span> ₺</label><input type="range" id="f-rev" min="500000" max="4000000" step="50000" value="1400000"></div>
+      <div class="out">
+        <div><div class="l">Tahmini kuruluş yatırımı</div><div class="v" id="o-inv">—</div></div>
+        <div><div class="l">Aylık royalty (%5 + KDV)</div><div class="v" id="o-roy">—</div></div>
+        <div><div class="l">Ulusal reklam (en fazla %1)</div><div class="v" id="o-ad">—</div></div>
+        <div><div class="l">Örnek geri dönüş</div><div class="v" id="o-pb">—</div></div>
+      </div>
+      <p class="note" style="margin:.8rem 0 0">Örnek hesaplamadır, teklif değildir. Franchise giriş bedeli ve platform lisansı HQ tarafından belirlenir; sözleşmede 5.1 boş bırakılmıştır.</p>
+    </div>
+    <div class="box wiz"><h3>Başvuru</h3>
+      <div class="prog"><span class="on"></span><span></span><span></span></div>
+      <div class="p on" data-p="1">
+        <div class="field"><label>Ad Soyad</label><input value="Selin Kaya"></div>
+        <div class="field"><label>Telefon</label><input value="0532 000 00 00"></div>
+        <div class="field"><label>E-posta</label><input value="selin@ornek.com"></div>
+        <button class="btn primary" onclick="wiz(2)">Devam</button>
+      </div>
+      <div class="p" data-p="2">
+        <div class="field"><label>Hedef şehir / ilçe</label><input value="Eskişehir Tepebaşı" id="w-city"></div>
+        <div class="field"><label>Bütçe</label><select id="w-budget"><option>2 M ₺ altı</option><option>2–4 M ₺</option><option selected>4–6 M ₺</option><option>6 M ₺ üstü</option></select></div>
+        <div class="field"><label>Lokasyon durumu</label><select><option>Henüz yok</option><option selected>Adayım var</option><option>Kira sözleşmem hazır</option></select></div>
+        <div style="display:flex;gap:.4rem"><button class="btn ghost" onclick="wiz(1)">Geri</button><button class="btn primary" onclick="wiz(3)">Devam</button></div>
+      </div>
+      <div class="p" data-p="3">
+        <div class="field"><label>Deneyim</label><select id="w-exp"><option>Yok</option><option>Perakende</option><option selected>Restoran / kafe işlettim</option><option>Franchise sahibiyim</option></select></div>
+        <div class="field"><label>Ne zaman açmak istiyorsunuz?</label><select><option selected>3 ay içinde</option><option>6 ay</option><option>12 ay</option></select></div>
+        <div style="display:flex;gap:.4rem"><button class="btn ghost" onclick="wiz(2)">Geri</button><button class="btn coral" onclick="submitLead()">Başvuruyu gönder</button></div>
+      </div>
+      <div class="p" data-p="4">
+        <div class="chip good">Başvuru alındı · CRM'e kaydedildi · HQ'ya bildirim gitti</div>
+        <div class="score"><div class="ring" id="ring" style="--s:0"><b id="scoreN">0</b></div><div><div class="d" style="font-weight:800">AI lead skoru</div><div class="note" id="scoreWhy">bütçe, deneyim, bölge boşluğu ve zamanlama</div><div class="note" style="margin-top:.3rem">3 km çakışma: <span class="chip good">yok</span> · En yakın Florida: Bursa, 150 km</div></div></div>
+        <p class="note" style="margin-top:.8rem">Sonraki adım: 24 saat içinde franchise ekibi arar; adaya "Neden Florida" videosu ve yatırım özeti e-posta ile gider.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<script>
+/* ---------- tabs ---------- */
+const tabs=[...document.querySelectorAll('.tabs [role=tab]')];
+function goTab(v){tabs.forEach(t=>t.setAttribute('aria-selected',t.dataset.v===v));document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));window.scrollTo({top:0});}
+tabs.forEach(t=>t.addEventListener('click',()=>{goTab(t.dataset.v);history.replaceState(null,'','#'+t.dataset.v);}));
+if(location.hash&&tabs.some(t=>t.dataset.v===location.hash.slice(1)))goTab(location.hash.slice(1));
+
+/* ---------- web branches ---------- */
+const BR=[
+ {id:'kavacik',n:'Kavacık',c:'Beykoz, İstanbul',f:['manzara','gece','otopark'],busy:'g',r:'4,8 (312)'},
+ {id:'beykoz',n:'Beykoz Kelle İbrahim',c:'Beykoz, İstanbul',f:['manzara','gece','kahvalti'],busy:'y',r:'4,6 (198)'},
+ {id:'cengelkoy',n:'Çengelköy',c:'Üsküdar, İstanbul · merkez',f:['manzara','kahvalti'],busy:'g',r:'4,7 (540)'},
+ {id:'kadikoy',n:'Kadıköy',c:'Kadıköy, İstanbul',f:['calisma','gece'],busy:'r',r:'4,5 (421)'},
+ {id:'taksim1',n:'Taksim Talimhane',c:'Beyoğlu, İstanbul',f:['gece'],busy:'y',r:'4,4 (260)'},
+ {id:'taksim2',n:'Taksim Meydan',c:'Beyoğlu, İstanbul',f:['gece'],busy:'r',r:'4,3 (305)'},
+ {id:'bahcesehir',n:'Bahçeşehir',c:'Başakşehir, İstanbul',f:['calisma','otopark','kahvalti'],busy:'g',r:'4,6 (150)'},
+ {id:'umraniye',n:'Ümraniye',c:'Ümraniye, İstanbul',f:['calisma','otopark'],busy:'g',r:'4,5 (98)'},
+ {id:'esenyurt',n:'Esenyurt',c:'Esenyurt, İstanbul',f:['otopark'],busy:'g',r:'4,2 (77)'},
+ {id:'izmit',n:'İzmit Yahyakaptan',c:'Kocaeli',f:['calisma','otopark'],busy:'y',r:'4,4 (210)'},
+ {id:'sakarya',n:'Sakarya Çark Caddesi',c:'Adapazarı',f:['calisma','kahvalti'],busy:'g',r:'4,6 (132)'},
+ {id:'bursa',n:'Bursa',c:'Nilüfer',f:['calisma','otopark'],busy:'g',r:'4,5 (88)'},
+ {id:'samsun',n:'Samsun Marina',c:'Atakum',f:['manzara','kahvalti','otopark'],busy:'y',r:'4,6 (140)'},
+ {id:'rize',n:'Rize',c:'Rize merkez',f:['manzara'],busy:'g',r:'4,7 (54)'},
+ {id:'erzincan',n:'Erzincan',c:'Erzincan merkez',f:['calisma'],busy:'g',r:'4,5 (41)'},
+ {id:'podgorica',n:'Podgorica',c:'Karadağ',f:['calisma'],busy:'g',r:'4,7 (66)'},
+ {id:'budva',n:'Budva',c:'Karadağ · sahil',f:['manzara','gece'],busy:'y',r:'4,8 (120)'}
+];
+const FL={manzara:'Boğaz/deniz manzarası',gece:'Gece açık',calisma:'Çalışma alanı',otopark:'Otopark',kahvalti:'Kahvaltı'};
+const BUSY={g:'sakin',y:'orta',r:'yoğun'};
+let active=new Set();
+function renderBr(){const el=document.getElementById('branches');const list=BR.filter(b=>[...active].every(f=>b.f.includes(f)));el.innerHTML=list.map(b=>`<button class="bcard" onclick="openBranch('${b.id}')"><span class="n">${b.n}</span><span class="c">${b.c} · ★ ${b.r}</span><span class="tags">${b.f.map(f=>`<span class="chip grey">${FL[f]}</span>`).join('')}</span><span class="busy"><span class="dot ${b.busy}"></span>şu an ${BUSY[b.busy]}</span></button>`).join('')||'<p class="note">Bu filtrelerle şube yok.</p>';}
+document.querySelectorAll('#filters button').forEach(b=>b.addEventListener('click',()=>{const f=b.dataset.f;const on=b.getAttribute('aria-pressed')==='true';b.setAttribute('aria-pressed',!on);on?active.delete(f):active.add(f);renderBr();}));
+renderBr();
+function openBranch(id){const b=BR.find(x=>x.id===id)||BR[0];document.getElementById('site-home').hidden=true;document.getElementById('site-branch').hidden=false;document.getElementById('url').textContent=`floridacoffee.com.tr/subeler/${b.c.includes('Karadağ')?'me':'tr'}/${b.id}`;
+ if(id!=='kavacik'){document.getElementById('bp-title').textContent=`Florida Coffee ${b.n} — ${b.f.includes('manzara')?'Manzaralı Kahve':'Kahve ve Çalışma'}, ${b.c.split('·')[0].trim()}`;document.getElementById('bp-meta').innerHTML=`★ ${b.r} · ${b.c} · <span class="dot ${b.busy}"></span> şu an ${BUSY[b.busy]}`;}
+ else{document.getElementById('bp-title').textContent='Florida Coffee Kavacık — Boğaz Manzaralı Kahve, Beykoz';document.getElementById('bp-meta').innerHTML='★ 4,8 (312 yorum) · Fatih Sultan Mehmet Cad. 42A, Kavacık, Beykoz · 0541 318 80 00 · <span class="dot g"></span> şu an sakin';}
+ document.getElementById('bp-tags').innerHTML=b.f.map(f=>`<span class="chip teal">${FL[f]}</span>`).join('')+'<span class="chip grey">Wi-Fi</span><span class="chip grey">Laktozsuz süt</span>';window.scrollTo({top:document.getElementById('v-web').offsetTop-20});}
+function closeBranch(){document.getElementById('site-home').hidden=false;document.getElementById('site-branch').hidden=true;document.getElementById('url').textContent='floridacoffee.com.tr';}
+
+/* ---------- app ---------- */
+const S={pts:340,wallet:412,stamps:7,prod:'Iced Latte',base:160,mods:{size:['Orta',0],temp:['Soğuk',0],ice:['Normal buz',0],milk:['Laktozsuz',10],extra:[]},when:'Hemen (4 dk)',pay:'Cüzdan',reward:0,branch:'Kavacık'};
+function showScr(s){document.querySelectorAll('.scr').forEach(x=>x.classList.toggle('on',x.id==='s-'+s));document.querySelectorAll('.bottomnav button').forEach(b=>{const cur=b.dataset.s===s||(b.dataset.s==='order'&&['prod','cart','status'].includes(s));b.toggleAttribute('aria-current',cur);if(cur)b.setAttribute('aria-current','page');});guide(s);}
+document.querySelectorAll('.bottomnav button').forEach(b=>b.addEventListener('click',()=>showScr(b.dataset.s)));
+function guide(s){const m={home:1,order:2,prod:2,cart:3,status:4,card:6};const i=m[s]||1;document.querySelectorAll('#guide li').forEach((li,k)=>li.classList.toggle('now',k===i-1));}
+function renderPts(){document.getElementById('pts').textContent=S.pts.toLocaleString('tr-TR');document.getElementById('ptsbar').style.width=Math.min(100,(4120/7500)*100)+'%';const st=document.getElementById('stamps');st.innerHTML=Array.from({length:10},(_,i)=>`<span class="${i<S.stamps?'f':''}"></span>`).join('');document.getElementById('stampm').textContent=`${S.stamps}/10 içecek · ${10-S.stamps} kahve sonra 1 hediye`;document.getElementById('wallet').textContent=S.wallet.toLocaleString('tr-TR');}
+renderPts();
+function toast(t){const e=document.getElementById('toast');e.textContent=t;e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2200);}
+document.querySelectorAll('#s-order .row[data-b]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#s-order .row[data-b]').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');S.branch=b.dataset.b;toast('Şube: '+S.branch);}));
+function pick(n,p){S.prod=n;S.base=p;document.getElementById('p-name').textContent=n;calc();showScr('prod');}
+document.querySelectorAll('.seg[data-k]').forEach(seg=>{const k=seg.dataset.k;const multi=k==='extra'||k==='reward';seg.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{const on=b.getAttribute('aria-pressed')==='true';if(multi){b.setAttribute('aria-pressed',!on);}else{seg.querySelectorAll('button').forEach(x=>x.setAttribute('aria-pressed','false'));b.setAttribute('aria-pressed','true');}
+ if(k==='extra'){S.mods.extra=[...seg.querySelectorAll('[aria-pressed=true]')].map(x=>[x.dataset.v,+x.dataset.p]);}
+ else if(k==='reward'){S.reward=on?0:100;}
+ else if(k==='when'){S.when=b.dataset.v;}else if(k==='pay'){S.pay=b.dataset.v;}
+ else{S.mods[k]=[b.dataset.v,+b.dataset.p];if(k==='temp')document.getElementById('iceopt').style.display=b.dataset.v==='Soğuk'?'':'none';}
+ calc();}));});
+function calc(){let t=S.base+S.mods.size[1]+S.mods.milk[1]+S.mods.extra.reduce((a,x)=>a+x[1],0);document.getElementById('p-total').textContent=t;document.getElementById('c-price').textContent=t;document.getElementById('c-total').textContent=Math.max(0,t-S.reward);const mods=[S.mods.size[0],S.mods.temp[0],...(S.mods.temp[0]==='Soğuk'?[S.mods.ice[0]]:[]),S.mods.milk[0],...S.mods.extra.map(x=>x[0])];document.getElementById('c-mods').textContent=mods.join(' · ');document.getElementById('c-name').textContent=S.prod;document.getElementById('c-branch').textContent=S.branch;return t;}
+function toCart(){calc();showScr('cart');}
+function usual(){S.prod='Iced Latte';S.base=160;calc();showScr('cart');toast('Her zamanki sepete eklendi');}
+function payNow(){const t=Math.max(0,calc()-S.reward);if(S.pay==='Cüzdan'){S.wallet-=t;}if(S.reward){S.pts-=100;}renderPts();document.getElementById('st-when').textContent=S.when;document.getElementById('st-sub').innerHTML=`${S.branch} · ${S.prod} · ${S.when} · ${S.pay}`;
+ const planned=!S.when.startsWith('Hemen');document.getElementById('st2').className='step'+(planned?'':' now');document.getElementById('st-hint').style.display=planned?'':'none';
+ const bar=document.getElementById('barista');const c=document.createElement('div');c.className='row';c.style.cursor='default';c.innerHTML=`<span class="l"><span class="n">#4821 · ${S.prod} ${S.mods.size[0].toLowerCase()}</span><span class="s">${planned?'Alındı · planlı '+S.when:'Hazırlanıyor · 09:41'}</span></span><span>${S.mods.milk[0]!=='İnek'?'<span class="chip lilac">'+S.mods.milk[0].toUpperCase()+'</span> ':''}${S.mods.temp[0]==='Soğuk'?'<span class="chip blue">SOĞUK</span>':'<span class="chip coral">SICAK</span>'}</span>`;bar.prepend(c);S._card=c;
+ document.getElementById('arrive').hidden=false;document.getElementById('deliver').hidden=true;document.getElementById('after').hidden=true;document.getElementById('st3').className='step';document.getElementById('st4').className='step';showScr('status');toast(S.pay==='Cüzdan'?`Cüzdandan ${t} ₺ ödendi`:'Ödeme alındı');}
+function arrived(){document.getElementById('arrive').hidden=true;document.getElementById('st2').className='step done';document.getElementById('st3').className='step now';toast('Barista ekranında en üste çıktı');if(S._card){S._card.querySelector('.s').textContent='GELDİ · hazırlanıyor';S._card.style.borderColor='var(--coral)';}
+ setTimeout(()=>{document.getElementById('st3').className='step done';document.getElementById('st4').className='step now';document.getElementById('deliver').hidden=false;toast('Hazır! Tezgahtan alabilirsiniz');if(S._card)S._card.querySelector('.s').textContent='HAZIR · 09:45';},1800);}
+function delivered(){document.getElementById('deliver').hidden=true;document.getElementById('st4').className='step done';const t=Math.max(0,calc()-S.reward);S.pts+=t;S.stamps=Math.min(10,S.stamps+1);renderPts();document.getElementById('after').hidden=false;document.getElementById('after').querySelector('b').textContent=`+${t} çekirdek`;guide('status');document.querySelectorAll('#guide li')[4].classList.add('now');if(S._card)S._card.remove();}
+function rate(n){document.getElementById('ratemsg').textContent=n>=4?'Teşekkürler! Google\'da da paylaşmak ister misiniz? Yorum linki gönderildi.':'Üzgünüz. Şikayetiniz HQ ve şube müdürüne iletildi; 24 saat içinde dönüş yapılacak.';}
+function topup(a,b){S.wallet+=a+b;renderPts();toast(`${a} ₺ yüklendi${b?', +'+b+' ₺ bonus':''}`);}
+
+/* ---------- HQ ---------- */
+const HQ=[
+ ['Kavacık',3420000,14,38,2810,4.8,[5,6,6,7,8,9,9]],['Çengelköy',3980000,9,33,3120,4.7,[7,7,8,8,8,9,9]],['Beykoz',2760000,11,35,2100,4.6,[5,5,6,6,7,7,8]],['Kadıköy',3210000,6,41,2640,4.5,[7,7,7,8,8,8,8]],
+ ['Taksim Talimhane',2410000,3,22,1210,4.4,[6,6,6,6,7,7,7]],['Taksim Meydan',2880000,5,19,1180,4.3,[7,7,7,8,8,8,8]],['Bahçeşehir',1950000,12,36,1760,4.6,[4,4,5,5,6,7,7]],['Ümraniye',1620000,8,30,1290,4.5,[4,4,4,5,5,6,6]],
+ ['Esenyurt',980000,-18,12,540,4.2,[6,6,5,5,4,4,3]],['İzmit Yahyakaptan',1740000,4,27,1380,4.4,[5,5,5,6,6,6,6]],['Sakarya Çark',1460000,21,34,1210,4.6,[3,3,4,5,6,7,8]],['Bursa',1580000,9,29,1100,4.5,[4,5,5,5,6,6,6]],
+ ['Samsun Marina',1690000,13,31,1320,4.6,[4,4,5,6,6,7,7]],['Rize',820000,7,18,410,4.7,[3,3,3,4,4,4,4]],['Erzincan',640000,2,15,320,4.5,[3,3,3,3,3,4,4]],['Podgorica (€)',1210000,16,24,690,4.7,[3,4,4,5,5,6,6]],['Budva (€)',2040000,28,27,830,4.8,[2,3,4,6,7,8,9]]
+].map(r=>({name:r[0],rev:r[1],chg:r[2],app:r[3],mem:r[4],rating:r[5],tr:r[6]}));
+let sortK='rev',sortD=-1;
+function renderHQ(){const tb=document.querySelector('#btable tbody');const rows=[...HQ].sort((a,b)=>(a[sortK]>b[sortK]?1:-1)*sortD*(typeof a[sortK]==='string'?-1:1));tb.innerHTML=rows.map(r=>`<tr class="${r.chg<-10?'low':''}"><td>${r.name}</td><td class="n">${r.rev.toLocaleString('tr-TR')}</td><td class="n" style="color:${r.chg<0?'var(--warn)':'var(--good)'}">${r.chg>0?'+':''}${r.chg}%</td><td class="n">%${r.app}</td><td class="n">${r.mem.toLocaleString('tr-TR')}</td><td class="n">${r.rating.toFixed(1).replace('.',',')}</td><td><span class="spark">${r.tr.map(v=>`<i style="height:${v*2}px"></i>`).join('')}</span></td><td>${r.chg<-10?'<span class="chip warn">ciro eşiği</span>':r.name.includes('İzmit')?'<span class="chip gold">2. uyarı</span>':r.chg>=15?'<span class="chip good">büyüyor</span>':'<span class="chip grey">normal</span>'}</td></tr>`).join('');document.querySelectorAll('#btable th[data-k]').forEach(th=>th.setAttribute('aria-sort',th.dataset.k===sortK?(sortD<0?'descending':'ascending'):'none'));}
+document.querySelectorAll('#btable th[data-k]').forEach(th=>th.addEventListener('click',()=>{if(sortK===th.dataset.k)sortD*=-1;else{sortK=th.dataset.k;sortD=-1;}renderHQ();}));
+renderHQ();
+document.querySelectorAll('.hq aside button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.hq aside button').forEach(x=>x.setAttribute('aria-selected','false'));b.setAttribute('aria-selected','true');document.querySelectorAll('.hqv').forEach(v=>v.classList.toggle('on',v.id==='h-'+b.dataset.h));}));
+const MSGS=[
+ {src:'Şikayetvar',br:'İzmit',stars:1,txt:'215 TL verdiğim ice white mocha\'nın içinde beyaz katı parçacıklar vardı. Kimse ilgilenmedi.',sent:'olumsuz · ürün kalitesi',draft:'Merhaba, yaşadığınız deneyim için çok üzgünüz; bu bizim standardımız değil. İzmit şube müdürümüz sizinle bugün iletişime geçecek, ücret iadeniz cüzdanınıza yapılacak ve ürün hazırlığı aynı gün denetlendi. Yeniden ağırlamak isteriz. Florida Coffee'},
+ {src:'Google',br:'Kavacık',stars:5,txt:'Gün batımı terası inanılmaz, iced latte tam kıvamında. Uygulamadan sipariş verdim, geldiğimde hazırdı.',sent:'olumlu · deneyim',draft:'Teşekkürler Elif Hanım! Gün batımı terası bizim de favorimiz. Bir dahaki sefere Boğaz Cold Brew\'u denemenizi öneririz; uygulamada sizi bekleyen küçük bir sürpriz bıraktık. Florida Coffee Kavacık'},
+ {src:'Uygulama',br:'Beykoz',stars:3,txt:'Soğuk istedim, sıcak bardakta geldi. Kahve iyiydi ama.',sent:'nötr · sipariş doğruluğu',draft:'Merhaba, uyarınız için teşekkürler. Soğuk/sıcak seçimi artık barista ekranında renkli etiketle görünüyor; Beykoz ekibimizle bugün konuştuk. Bir sonraki soğuk kahveniz bizden, uygulamanıza tanımladık. Florida Coffee'},
+ {src:'Yandex',br:'Çengelköy',stars:4,txt:'Kahve güzel, mekan ferah. Haritada kapalı görünüyor ama açıktı, düzeltin.',sent:'olumlu · veri hatası',draft:'Teşekkürler! Haritadaki "kapalı" bilgisi hatalıydı, düzeltme talebimiz Yandex\'te işlemde. Çengelköy her gün 08:00–23:00 açık. Yine bekleriz. Florida Coffee'}
+];
+let mi=0;
+function renderMsgs(){document.getElementById('msgs').innerHTML=MSGS.map((m,i)=>`<div class="msg" role="button" tabindex="0" aria-selected="${i===mi}" onclick="selMsg(${i})" onkeydown="if(event.key==='Enter')selMsg(${i})"><div class="h"><span>${m.src} · ${m.br}</span><span class="stars">${'★'.repeat(m.stars)}${'☆'.repeat(5-m.stars)}</span></div><div class="b">${m.txt}</div><div style="margin-top:.3rem"><span class="chip ${m.stars<=2?'warn':m.stars===3?'gold':'good'}">${m.sent}</span></div></div>`).join('');document.getElementById('draft').value=MSGS[mi].draft;document.getElementById('draft-meta').textContent=`${MSGS[mi].src} · ${MSGS[mi].br} · ${MSGS[mi].sent}`;}
+function selMsg(i){mi=i;renderMsgs();}
+function regen(){const d=document.getElementById('draft');d.value='(yeniden yazılıyor…)';setTimeout(()=>{d.value=MSGS[mi].draft.replace('Merhaba','Merhaba, öncelikle geri bildiriminiz için teşekkür ederiz.');},600);}
+function toastHQ(t){const e=document.getElementById('hqtoast');e.textContent='✓ '+t;setTimeout(()=>e.textContent='',3000);}
+renderMsgs();
+
+/* ---------- AI chat ---------- */
+const chat=document.getElementById('chat'),quick=document.getElementById('quick');
+function bub(t,dir,card){const d=document.createElement('div');d.className='bub '+dir;d.innerHTML=t+(card?`<div class="card">${card}</div>`:'')+`<span class="tm">${new Date().toLocaleTimeString('tr-TR',{hour:'2-digit',minute:'2-digit'})}</span>`;chat.appendChild(d);chat.scrollTop=chat.scrollHeight;}
+function bot(t,card,delay=700){return new Promise(r=>{const ty=document.createElement('div');ty.className='typing';ty.textContent='yazıyor…';chat.appendChild(ty);chat.scrollTop=chat.scrollHeight;setTimeout(()=>{ty.remove();bub(t,'in',card);r();},delay);});}
+function setQuick(list){quick.innerHTML='';list.forEach(([label,fn])=>{const b=document.createElement('button');b.textContent=label;b.onclick=()=>{quick.innerHTML='';bub(label,'out');fn();};quick.appendChild(b);});}
+function aiLog(i){document.querySelectorAll('#ailog li').forEach((li,k)=>li.classList.toggle('now',k===i));}
+async function resetChat(){chat.innerHTML='';aiLog(0);await bot('Merhaba! Ben Florida Coffee asistanı. Menü, şube saatleri, alerjenler ve sipariş için buradayım. Mesajlarınız KVKK aydınlatma metni kapsamında işlenir: floridacoffee.com.tr/kvkk',null,300);setQuick([['Yakınımda laktozsuz iced latte var mı?',s1],['Şikayetim var',c1],['Franchise almak istiyorum',f1]]);}
+async function s1(){await bot('Konumunuza en yakın şube <b>Kavacık</b> (1,2 km), şu an sakin. Laktozsuz süt mevcut.',`Iced Latte · orta · laktozsuz<br>160 ₺ + 10 ₺ süt = <b>170 ₺</b><br>Tahmini hazırlık 4 dk`);aiLog(1);setQuick([['Evet, sipariş ver',s2],['Beykoz şubesinden olsun',s2b],['Kalori bilgisi?',s3]]);}
+async function s2b(){await bot('Beykoz Kelle İbrahim şu an orta yoğunlukta, tahmini 9 dk. Aynı fiyat: 170 ₺. Devam edeyim mi?');setQuick([['Evet, Beykoz\'dan',s2]]);}
+async function s3(){await bot('Iced Latte orta boy laktozsuz sütle yaklaşık <b>135 kcal</b>, kafein 75 mg. Kaynak: menü besin tablosu.');setQuick([['Tamam, sipariş ver',s2]]);}
+async function s2(){await bot('Siparişinizi uygulama sepetinize yazdım ve cüzdanınızdan ödedim (Plus üyesiniz, bakiye yeterli). Geldiğinizde "Geldim" demeniz yeterli.',`Sipariş #4822 · Alındı<br>+170 çekirdek teslimde yazılacak<br><u>Uygulamada aç</u>`);aiLog(2);setQuick([['Geldim',s4],['Şikayetim var',c1]]);}
+async function s4(){await bot('Baristaya ilettim, hazırlanıyor. 3 dakika içinde tezgahta. Afiyet olsun!');setQuick([['Şikayetim var',c1],['Teşekkürler',end]]);}
+async function c1(){aiLog(3);await bot('Üzgünüm. Hangi şube ve ne oldu? Kısaca yazın, kaydı açıp yetkiliye ileteceğim.');setQuick([['İzmit\'te mocha içinde parçacık vardı',c2]]);}
+async function c2(){await bot('Kaydınızı açtım ve İzmit şube müdürü ile HQ kalite ekibine ilettim. Fiş numaranızı paylaşırsanız iade işlemini başlatırız. Bu konuşmayı bir insan devralıyor; 24 saat içinde aranacaksınız.',`Kayıt #S-1187 · öncelik: yüksek<br>HQ gelen kutusu → Yorumlar · AI`);setQuick([['Fiş: 4819-İZM',c3]]);}
+async function c3(){await bot('Teşekkürler, iade 215 ₺ cüzdanınıza tanımlandı. Kalite ekibimiz şubede aynı gün denetim yapacak. Tekrar özür dileriz.');setQuick([['Teşekkürler',end]]);}
+async function f1(){await bot('Harika! 17 şube, 2 ülke. 3 km bölge koruması, 45 gün eğitim ve merkezi tedarik sunuyoruz. Hangi şehri düşünüyorsunuz ve bütçeniz hangi aralıkta?');setQuick([['Eskişehir, 4–6 M ₺',f2]]);}
+async function f2(){await bot('Eskişehir\'de şubemiz yok, bölge açık. Ön başvurunuzu oluşturdum; franchise ekibimiz 24 saat içinde arayacak. Yatırım hesaplayıcıyı buradan deneyebilirsiniz: floridacoffee.com.tr/franchise/yatirim',`Lead #L-0432 · AI skor hesaplanıyor`);setQuick([['Teşekkürler',end]]);}
+async function end(){await bot('Ben teşekkür ederim. Mutluluğun tadı ile kalın ☕');setQuick([['Baştan başlat',resetChat]]);}
+resetChat();
+
+/* ---------- franchise ---------- */
+const fm=n=>n.toLocaleString('tr-TR');
+function calcF(){const city=+document.getElementById('f-city').value,m2=+document.getElementById('f-m2').value,rev=+document.getElementById('f-rev').value;document.getElementById('f-m2v').textContent=m2;document.getElementById('f-revv').textContent=fm(rev);const inv=Math.round((m2*28000*city+900000)/50000)*50000;const roy=rev*0.05*1.20;const ad=rev*0.01;const margin=rev*0.22-roy-ad;const pb=margin>0?(inv/margin):0;document.getElementById('o-inv').textContent=fm(inv)+' ₺';document.getElementById('o-roy').textContent=fm(Math.round(roy))+' ₺';document.getElementById('o-ad').textContent='≤ '+fm(Math.round(ad))+' ₺';document.getElementById('o-pb').textContent=pb?Math.round(pb)+'–'+Math.round(pb*1.4)+' ay':'—';}
+['f-city','f-m2','f-rev'].forEach(id=>document.getElementById(id).addEventListener('input',calcF));calcF();
+function wiz(p){document.querySelectorAll('.wiz .p').forEach(x=>x.classList.toggle('on',+x.dataset.p===p));document.querySelectorAll('.wiz .prog span').forEach((s,i)=>s.classList.toggle('on',i<Math.min(p,3)));}
+function submitLead(){wiz(4);const b=document.getElementById('w-budget').selectedIndex,e=document.getElementById('w-exp').selectedIndex;const sc=Math.min(97,40+b*12+e*9+(document.getElementById('w-city').value.toLowerCase().includes('eskişehir')?12:4));let n=0;const ring=document.getElementById('ring');const t=setInterval(()=>{n+=3;if(n>=sc){n=sc;clearInterval(t);}ring.style.setProperty('--s',n);document.getElementById('scoreN').textContent=n;},20);document.getElementById('scoreWhy').textContent=`Bütçe ${['düşük','orta','iyi','yüksek'][b]}, deneyim ${['yok','perakende','kafe','franchise'][e]}, bölge boş, 3 ay içinde açılış`;}
+</script>
+</body></html>

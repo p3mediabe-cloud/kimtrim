@@ -1,0 +1,1164 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz'da Bir Gün</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600&display=swap">
+<style>
+:root{
+  /* Ortam: Boğaz'da bir gün — marka paletinden türetildi, kaydırmayla değişir */
+  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F2A22B;
+  /* Marka */
+  --brand:#0A4D5C; --brand-deep:#063744; --amber:#F2A22B; --rust:#D2500E; --cream:#EDE6D8;
+  --ink:#F6F1E8; --ink-2:#BCD0D4; --ink-3:#7E969D;
+  --paper:#F4EEE2; --paper-ink:#0A3D49; --paper-ink-2:#4A6068; --paper-line:#DCD2C0;
+  --glass:rgba(6,24,31,.62); --glass-2:rgba(6,24,31,.80); --hair:rgba(246,241,232,.15); --hair-2:rgba(246,241,232,.30);
+  --ok:#6FC9A4; --busy:#F0916C;
+  --rail:5.5rem;
+  --disp:"Fraunces",Georgia,"Times New Roman",serif;
+  --ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --logo:"Poppins",var(--ui);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#0A1420;color:var(--ink);font-family:var(--ui);font-size:clamp(15px,.55vw + 12px,17px);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%}
+h1,h2,h3,.dsp{font-family:var(--disp);font-variation-settings:"SOFT" 30,"WONK" 1;font-weight:600;letter-spacing:-.015em;text-wrap:balance;margin:0;line-height:1.02}
+h1{font-size:clamp(2.6rem,7.4vw,6rem);font-weight:500}
+h2{font-size:clamp(2rem,4.4vw,3.5rem);font-weight:500}
+h3{font-size:clamp(1.15rem,1.5vw,1.45rem);font-weight:600;line-height:1.15}
+p{margin:0 0 1rem;max-width:62ch}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+button{background:none;border:none;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
+
+/* ---------- ambient sky ---------- */
+.sky{position:fixed;inset:0;z-index:-2;background:
+  radial-gradient(120% 78% at 78% 84%, var(--sky-3) 0%, transparent 58%),
+  radial-gradient(90% 60% at 20% 12%, var(--sky-2) 0%, transparent 62%),
+  linear-gradient(178deg, var(--sky-1) 0%, var(--sky-2) 62%, var(--sky-1) 100%);
+  transition:background .4s linear}
+.sky::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,10,14,.34),rgba(6,10,14,.52) 45%,rgba(6,10,14,.66))}
+.seaband{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:-1;opacity:.5;
+  background:repeating-linear-gradient(97deg,transparent 0 9px,rgba(245,240,232,.05) 9px 10px),
+  linear-gradient(180deg,transparent,rgba(4,8,12,.7));
+  mask-image:linear-gradient(180deg,transparent,#000 40%);animation:drift 26s linear infinite}
+@keyframes drift{to{background-position:340px 0,0 0}}
+@media (prefers-reduced-motion:reduce){.seaband{animation:none}.sky{transition:none}}
+
+
+/* ---------- görsel yuvaları (fotoğraf gelince dolar, gelmezse marka gradyanı) ---------- */
+.ph{margin:0;position:relative;overflow:hidden;border-radius:1.1rem;background:
+  radial-gradient(90% 70% at 20% 15%,rgba(242,162,43,.35),transparent 60%),
+  radial-gradient(70% 60% at 85% 90%,rgba(210,80,14,.35),transparent 60%),
+  linear-gradient(160deg,#0B4353,#052733);isolation:isolate}
+.ph::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(115deg,transparent 0 11px,rgba(246,241,232,.035) 11px 12px);mix-blend-mode:screen}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease,transform 8s ease-out;transform:scale(1.04)}
+.ph.has img{opacity:1;transform:scale(1)}
+.ph.has::before{display:none}
+.ph .cap{position:absolute;left:.9rem;bottom:.8rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,241,232,.75);z-index:1}
+.ph.has .cap{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.ph.r169{aspect-ratio:16/9}.ph.r43{aspect-ratio:4/3}.ph.r11{aspect-ratio:1/1}
+/* kaydırmaya bağlı giriş: yerel CSS, JS yok, ilk kare görünür (0.35'ten başlar) */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .sec .inner > *:not(.hour){animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 38%}
+    .ph{animation:zoomin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+  }
+}
+@keyframes rise{from{opacity:.35;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes zoomin{from{clip-path:inset(6% round 1.1rem)}to{clip-path:inset(0 round 1.1rem)}}
+/* 3B eğilme (şube kartları) ve manyetik buton */
+.tilt{transform-style:preserve-3d;will-change:transform;transition:transform .25s ease,border-color .18s}
+.tilt.live{transition:transform .06s linear}
+.btn.mag{transition:transform .18s cubic-bezier(.2,.8,.2,1),background .2s}
+/* sayılar: gradyan vurgu */
+.proof .v{background:linear-gradient(90deg,var(--ink),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* menü kartları mobilde yatay snap */
+@media (max-width:640px){
+  .prods{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.7rem;padding-bottom:.4rem;scrollbar-width:none}
+  .prods::-webkit-scrollbar{display:none}
+  .prods > *{flex:0 0 72%;scroll-snap-align:start}
+}
+
+/* ---------- kalıcı üst navigasyon ---------- */
+.nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:1.2rem;
+  padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hair)}
+.nav .home{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink);flex:none}
+.mark{width:1.75rem;height:1.75rem;flex:none}
+.wordmark{font-family:var(--logo);font-weight:600;font-size:1.28rem;letter-spacing:-.02em;line-height:1}
+.wordmark small{display:block;font-size:.44rem;letter-spacing:.42em;font-weight:600;color:var(--ink-2);margin-top:.1rem}
+.navlinks{display:flex;gap:.2rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{padding:.42rem .7rem;border-radius:.5rem;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.navlinks a:hover{color:var(--ink);background:rgba(246,241,232,.08)}
+.navlinks a[aria-current="page"]{color:var(--amber)}
+.nav .cta{flex:none}
+@media (max-width:720px){
+  .nav{gap:.6rem;padding:.5rem .8rem}
+  .wordmark{font-size:1.1rem}
+  .navlinks{order:3;width:100%;margin-left:0;padding-top:.15rem}
+  .nav .cta{margin-left:auto}
+}
+
+/* ---------- hour rail ---------- */
+.rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;pointer-events:none}
+.rail .line{position:absolute;top:8vh;bottom:8vh;left:calc(var(--rail)/2);width:1px;background:var(--hair)}
+.rail .fill{position:absolute;top:8vh;left:calc(var(--rail)/2);width:1px;background:var(--amber);height:0;transition:height .2s linear}
+.rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1.5vh;position:relative;pointer-events:auto}
+.rail a{display:flex;align-items:center;gap:.55rem;text-decoration:none;font-size:.68rem;font-variant-numeric:tabular-nums;letter-spacing:.06em;color:var(--ink-3);transition:color .2s}
+.rail a .dot{width:7px;height:7px;border-radius:50%;background:var(--hair-2);flex:none;transition:all .2s}
+.rail a:hover{color:var(--ink-2)}
+.rail a[aria-current="true"]{color:var(--amber);font-weight:700}
+.rail a[aria-current="true"] .dot{background:var(--amber);box-shadow:0 0 0 4px rgba(226,181,90,.18)}
+
+/* ---------- shell ---------- */
+.wrap{margin-left:var(--rail);max-width:none}
+.sec{padding:clamp(4.5rem,10vh,8rem) clamp(1.2rem,5vw,5rem);position:relative;scroll-margin-top:2.6rem}
+.inner{max-width:1180px;margin:0 auto}
+.hour{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.6rem;flex-wrap:wrap}
+.hour .t{font-family:var(--disp);font-size:1.6rem;font-variation-settings:"WONK" 1;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
+.hour .p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
+.lede{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-2);max-width:56ch;margin-top:1.1rem}
+h2 + .lede{margin-top:1.3rem}
+
+/* problem → solution */
+.ps{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,17rem),1fr));gap:0;border:1px solid var(--hair);border-radius:1rem;overflow:hidden;margin:2rem 0 0;background:var(--glass)}
+.ps>div{padding:1.1rem 1.3rem}
+.ps>div+div{border-left:1px solid var(--hair)}
+.ps .k{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:.4rem}
+.ps .prob .k{color:var(--busy)}
+.ps .sol .k{color:#5FC4CB}
+.ps p{margin:0;font-size:.92rem;color:var(--ink-2)}
+@media (max-width:640px){.ps>div+div{border-left:none;border-top:1px solid var(--hair)}}
+
+/* ---------- hero ---------- */
+.hero-bg{position:absolute;inset:0;border-radius:0;background:transparent;z-index:0;pointer-events:none;animation:none!important;clip-path:none!important}
+.hero-bg img{transform:none}
+.hero-bg::before{display:none}
+.hero-bg.has::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,26,.88) 0%,rgba(4,20,26,.55) 55%,rgba(4,20,26,.25) 100%),linear-gradient(180deg,rgba(4,20,26,.2),rgba(4,20,26,.9))}
+.hero .inner{position:relative;z-index:1}
+.hero{min-height:min(92vh,58rem);position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
+.brandline{margin-bottom:clamp(1rem,3vh,2rem)}
+.brandline .s{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600}
+.logo{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--amber);position:relative;flex:none}
+.logo::after{content:"";position:absolute;inset:.62rem;border-radius:50%;background:#0A1420}
+.brandline .n{font-family:var(--disp);font-size:1.15rem;font-weight:600;letter-spacing:.01em}
+.brandline .s{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
+.hero h1 em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1;color:var(--amber)}
+.hero .sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-2);max-width:46ch;margin-top:0}
+.herogrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(1.4rem,3.5vh,2.4rem)}
+@media (max-width:900px){.herogrid{grid-template-columns:1fr}}
+
+/* live card */
+.live{background:var(--glass-2);border:1px solid var(--hair);border-radius:1.2rem;padding:1.3rem 1.4rem;backdrop-filter:blur(14px)}
+.live .top{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-bottom:.9rem}
+.live .now{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);display:flex;align-items:center;gap:.45rem}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 0 rgba(123,211,154,.55);animation:pulse 2.4s infinite}
+.pulse.off{background:var(--busy);box-shadow:none;animation:none}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(123,211,154,0)}100%{box-shadow:0 0 0 0 rgba(123,211,154,0)}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+.live .clock{font-family:var(--disp);font-size:1.5rem;font-variant-numeric:tabular-nums;color:var(--ink)}
+.live .name{font-family:var(--disp);font-size:1.5rem;font-weight:600;margin-bottom:.15rem}
+.live .meta{font-size:.85rem;color:var(--ink-2)}
+.live .sunset{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;font-size:.85rem;color:var(--ink-2)}
+.live .sunset b{font-family:var(--disp);font-size:1.2rem;color:var(--amber);font-variant-numeric:tabular-nums}
+.live .acts{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.72rem 1.15rem;border-radius:.7rem;font-weight:600;font-size:.9rem;border:1px solid transparent;transition:transform .12s,background .2s,border-color .2s;text-decoration:none}
+.btn:hover{transform:translateY(-1px)}
+.btn.solid{background:var(--amber);color:#fff}
+.btn.solid:hover{background:var(--rust)}
+.btn.lamp,.btn.amber{background:var(--amber);color:#2A1703}
+.btn.lamp:hover,.btn.amber:hover{background:#DE8F1C}
+.btn.ghost{border-color:var(--hair-2);color:var(--ink)}
+.btn.ghost:hover{background:rgba(245,240,232,.08)}
+.btn.sm{padding:.45rem .8rem;font-size:.82rem;border-radius:.55rem}
+.btn.dark{background:var(--paper-ink);color:var(--paper)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+
+.scrollcue{display:flex;align-items:center;gap:.7rem;margin-top:clamp(2rem,6vh,4rem);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.scrollcue i{display:block;width:2.4rem;height:1px;background:var(--hair-2);position:relative;overflow:hidden}
+.scrollcue i::after{content:"";position:absolute;inset:0;background:var(--amber);transform:translateX(-100%);animation:sweep 2.6s ease-in-out infinite}
+@keyframes sweep{50%{transform:translateX(100%)}100%{transform:translateX(100%)}}
+@media (prefers-reduced-motion:reduce){.scrollcue i::after{animation:none;transform:none;opacity:.4}}
+
+/* strip of proof numbers */
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:clamp(2.5rem,6vh,4rem)}
+.proof div{background:rgba(9,14,19,.5);padding:1rem 1.1rem}
+.proof .v{font-family:var(--disp);font-size:1.9rem;font-variation-settings:"WONK" 1;line-height:1;font-variant-numeric:tabular-nums}
+.proof .l{font-size:.72rem;color:var(--ink-3);margin-top:.3rem}
+
+/* ---------- generic panel ---------- */
+.panel{background:var(--glass);border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem}
+.grid{display:grid;gap:1rem}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,20rem),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr))}
+.chip{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:999px;font-size:.72rem;font-weight:600;border:1px solid var(--hair-2);color:var(--ink-2)}
+.chip.on{background:var(--amber);color:#241704;border-color:var(--amber)}
+.chip.water{color:#5FC4CB;border-color:rgba(79,179,184,.45)}
+.chip.copper{color:var(--amber);border-color:rgba(224,102,43,.5)}
+.dot-s{width:7px;height:7px;border-radius:50%;display:inline-block}
+.dot-s.g{background:var(--ok)}.dot-s.y{background:var(--amber)}.dot-s.r{background:var(--busy)}
+
+/* ---------- order mini ---------- */
+.order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
+@media (max-width:820px){.order{grid-template-columns:1fr}}
+.opts{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 1rem}
+.opt{padding:.42rem .8rem;border-radius:.6rem;border:1px solid var(--hair-2);font-size:.85rem;font-weight:500;transition:all .15s}
+.opt[aria-pressed="true"]{background:var(--ink);color:#0A1420;border-color:var(--ink);font-weight:600}
+.opt.milk[aria-pressed="true"]{background:#B79BE8;border-color:#B79BE8;color:#20142F}
+.lbl{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.ticket{border:1px dashed var(--hair-2);border-radius:1rem;padding:1.1rem 1.2rem;background:rgba(9,14,19,.45);display:flex;flex-direction:column;min-height:16rem}
+.ticket .no{font-size:.72rem;color:var(--ink-3);letter-spacing:.14em;text-transform:uppercase}
+.ticket .drink{font-family:var(--disp);font-size:1.7rem;margin:.25rem 0 .1rem}
+.ticket .mods{font-size:.85rem;color:var(--ink-2);min-height:2.6em}
+.ticket .price{font-family:var(--disp);font-size:1.4rem;font-variant-numeric:tabular-nums;margin-top:.4rem}
+.steps{display:flex;flex-direction:column;gap:.5rem;margin:1rem 0}
+.stp{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--ink-3)}
+.stp i{width:1.35rem;height:1.35rem;border-radius:50%;border:1.5px solid var(--hair-2);display:grid;place-items:center;font-size:.7rem;font-style:normal;flex:none}
+.stp.done{color:var(--ink)}.stp.done i{background:var(--ok);border-color:var(--ok);color:#08150D}
+.stp.now{color:var(--ink);font-weight:600}.stp.now i{border-color:var(--amber);color:var(--amber)}
+.eta{margin-top:auto;font-size:.85rem;color:var(--ink-2)}
+
+/* ---------- craft / brew ---------- */
+.brewwrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1rem,3vw,2.5rem);align-items:start}
+@media (max-width:900px){.brewwrap{grid-template-columns:1fr}}
+.beancard{border:1px solid var(--hair);border-radius:1.1rem;overflow:hidden;background:var(--glass)}
+.beancard .top{padding:1.6rem 1.4rem;background:linear-gradient(150deg,#3A2214,#14202B)}
+.beancard .top .t{font-family:var(--disp);font-size:1.7rem}
+.beancard .top .s{font-size:.85rem;color:var(--ink-2);margin-top:.2rem}
+.spec{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1rem;padding:1.1rem 1.4rem;font-size:.88rem}
+.spec dt{color:var(--ink-3)}
+.spec dd{margin:0;color:var(--ink);font-variant-numeric:tabular-nums}
+.roastbar{padding:0 1.4rem 1.3rem}
+.roastbar .track{height:.5rem;border-radius:999px;background:linear-gradient(90deg,#C9A176,#8A5230,#3E241A);position:relative;margin:.5rem 0 .35rem}
+.roastbar .pin{position:absolute;top:50%;width:.85rem;height:.85rem;border-radius:50%;background:var(--ink);border:2px solid #0A1420;transform:translate(-50%,-50%)}
+.roastbar .scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--ink-3)}
+.brewtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.brewout{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:1rem;overflow:hidden}
+.brewout div{background:rgba(9,14,19,.55);padding:1rem 1.1rem}
+.brewout .v{font-family:var(--disp);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1}
+.brewout .l{font-size:.7rem;color:var(--ink-3);margin-top:.3rem;letter-spacing:.08em;text-transform:uppercase}
+.brewnote{margin-top:1rem;font-size:.9rem;color:var(--ink-2)}
+.fivestep{counter-reset:st;list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.45rem}
+.fivestep li{counter-increment:st;position:relative;padding-left:1.9rem;font-size:.9rem;color:var(--ink-2)}
+.fivestep li::before{content:counter(st);position:absolute;left:0;top:0;font-family:var(--disp);font-weight:600;color:var(--amber)}
+.fivestep b{color:var(--ink)}
+
+/* ---------- matcher ---------- */
+.moods{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+.mood{padding:.85rem 1.1rem;border-radius:.9rem;border:1px solid var(--hair-2);text-align:left;transition:all .15s;font-weight:500}
+.mood:hover{border-color:var(--amber);transform:translateY(-1px)}
+.mood[aria-pressed="true"]{background:var(--amber);color:#241704;border-color:var(--amber);font-weight:700}
+.match{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.2rem;align-items:center;border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem;background:var(--glass)}
+@media (max-width:760px){.match{grid-template-columns:1fr}}
+.match .n{font-family:var(--disp);font-size:2rem;line-height:1.05}
+.match .why{color:var(--ink-2);margin:.4rem 0 .7rem;max-width:52ch}
+.facts{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.82rem;color:var(--ink-3)}
+.facts b{display:block;font-family:var(--disp);font-size:1.25rem;color:var(--ink);font-variant-numeric:tabular-nums}
+.cupwrap{width:8.5rem;flex:none}
+.cupwrap svg{width:100%;height:auto;display:block}
+
+/* ---------- paper (menu) ---------- */
+.paper{background:var(--paper);color:var(--paper-ink)}
+.paper h2,.paper h3{color:var(--paper-ink)}
+.paper .hour .p{color:var(--paper-ink-2)}
+.paper .hour .t{color:var(--rust)}
+.paper .lede,.paper p{color:var(--paper-ink-2)}
+.paper .lbl{color:var(--paper-ink-2)}
+.mcats{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.5rem 0 1.2rem}
+.mcat{padding:.45rem .95rem;border-radius:999px;border:1px solid var(--paper-line);font-size:.87rem;font-weight:600;color:var(--paper-ink-2)}
+.mcat[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
+.mlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,20rem),1fr));gap:0 2.5rem}
+.mitem{display:grid;grid-template-columns:1fr auto;gap:.4rem 1rem;padding:.95rem 0;border-bottom:1px solid var(--paper-line);align-items:baseline}
+.mitem .n{font-family:var(--disp);font-size:1.12rem;font-weight:600}
+.mitem .d{grid-column:1/-1;font-size:.84rem;color:var(--paper-ink-2);margin-top:-.15rem}
+.mitem .p{font-family:var(--disp);font-size:1.05rem;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mitem .tags{grid-column:1/-1;display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.35rem}
+.tg{font-size:.68rem;padding:.12rem .5rem;border-radius:999px;border:1px solid var(--paper-line);color:var(--paper-ink-2)}
+.tg.v{border-color:#8FBF9A;color:#3D6B48}
+.tg.c{border-color:#D8B48A;color:#8A5A24}
+.paper .note{font-size:.8rem;color:var(--paper-ink-2);opacity:.85}
+.milkbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:1.4rem 0 0;padding:.9rem 1.1rem;border:1px solid var(--paper-line);border-radius:.9rem;background:#FBF8F2;font-size:.87rem;color:var(--paper-ink-2)}
+
+/* ---------- branch finder ---------- */
+.filters{display:flex;gap:.45rem;flex-wrap:wrap;margin:1.4rem 0 1.6rem;align-items:center}
+.fbtn{padding:.45rem .9rem;border-radius:999px;border:1px solid var(--hair-2);font-size:.85rem;font-weight:500;transition:all .15s}
+.fbtn[aria-pressed="true"]{background:#5FC4CB;color:#04252A;border-color:#5FC4CB;font-weight:700}
+.fcount{font-size:.8rem;color:var(--ink-3);margin-left:.3rem}
+.branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr));gap:.9rem}
+.branch{border:1px solid var(--hair);border-radius:1.1rem;padding:1.1rem 1.2rem;background:var(--glass);text-align:left;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s,transform .18s}
+.branch:hover{border-color:var(--amber);transform:translateY(-2px)}
+.branch .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
+.branch .n{font-family:var(--disp);font-size:1.25rem;line-height:1.1}
+.branch .c{font-size:.8rem;color:var(--ink-3)}
+.branch .st{font-size:.78rem;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.branch .st.open{color:var(--ok)}.b .st.closed{color:var(--ink-3)}
+.branch .sun{font-size:.8rem;color:var(--amber);font-variant-numeric:tabular-nums}
+.branch .tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem}
+.branch .tags .chip{font-size:.68rem;padding:.12rem .5rem}
+.empty{border:1px dashed var(--hair-2);border-radius:1rem;padding:2rem;text-align:center;color:var(--ink-3);grid-column:1/-1}
+
+/* detail drawer */
+.drawer{position:fixed;inset:0;z-index:60;display:none;place-items:end center}
+.drawer.on{display:grid}
+.drawer .scrim{position:absolute;inset:0;background:rgba(4,8,12,.72);backdrop-filter:blur(3px)}
+.sheet{position:relative;width:min(46rem,100%);max-height:86vh;overflow:auto;background:#0C161F;border:1px solid var(--hair);border-radius:1.4rem 1.4rem 0 0;padding:1.6rem clamp(1.2rem,4vw,2.2rem) 2rem}
+@media (min-width:800px){.drawer{place-items:center}.sheet{border-radius:1.4rem}}
+.sheet .x{position:absolute;top:1rem;right:1rem;width:2.2rem;height:2.2rem;border-radius:50%;border:1px solid var(--hair-2);display:grid;place-items:center}
+.sheet h3{font-size:1.9rem;margin-bottom:.2rem}
+.sheet .sub{color:var(--ink-2);font-size:.9rem;margin-bottom:1.1rem}
+.hrs{display:grid;grid-template-columns:1fr auto;gap:.25rem .8rem;font-size:.88rem;font-variant-numeric:tabular-nums}
+.hrs .today{color:var(--amber);font-weight:700}
+.faq{margin-top:1.2rem}
+.faq details{border-top:1px solid var(--hair);padding:.6rem 0}
+.faq summary{cursor:pointer;font-weight:600;font-size:.92rem}
+.faq p{margin:.4rem 0 0;font-size:.88rem;color:var(--ink-2)}
+
+/* ---------- loyalty / phone ---------- */
+.loyal{display:grid;grid-template-columns:minmax(0,1fr) 19rem;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+@media (max-width:900px){.loyal{grid-template-columns:1fr}.phone{margin:0 auto}}
+.phone{width:19rem;border-radius:2.2rem;background:#05090D;border:1px solid var(--hair-2);padding:.7rem;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.phone .scr{border-radius:1.7rem;background:linear-gradient(170deg,#12212C,#0A141C);padding:1.1rem 1rem 1.2rem;min-height:33rem;display:flex;flex-direction:column;gap:.8rem}
+.phone .bar{display:flex;justify-content:space-between;font-size:.68rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.card-pts{background:linear-gradient(145deg,#3A2214,#111C25);border:1px solid var(--hair);border-radius:1rem;padding:1rem}
+.card-pts .lv{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700}
+.card-pts .v{font-family:var(--disp);font-size:2.1rem;line-height:1.05;font-variant-numeric:tabular-nums}
+.card-pts .m{font-size:.75rem;color:var(--ink-2)}
+.track{height:5px;border-radius:3px;background:rgba(245,240,232,.14);margin:.6rem 0 .35rem;overflow:hidden}
+.track i{display:block;height:100%;background:var(--amber);width:55%}
+.stamps{display:flex;gap:.28rem;margin-top:.6rem}
+.stamps span{width:1.05rem;height:1.05rem;border-radius:50%;border:1.5px solid rgba(245,240,232,.3)}
+.stamps span.f{background:var(--amber);border-color:var(--amber)}
+.prow{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.7rem .8rem;border:1px solid var(--hair);border-radius:.8rem;font-size:.85rem}
+.prow .t{font-weight:600}
+.prow .s{font-size:.72rem;color:var(--ink-3)}
+.tiers{display:grid;gap:.6rem;margin-top:1.2rem}
+.tier{display:grid;grid-template-columns:auto 1fr auto;gap:.9rem;align-items:center;padding:.85rem 1rem;border:1px solid var(--hair);border-radius:.9rem;background:var(--glass)}
+.tier .tname{font-family:var(--disp);font-size:1.1rem}
+.tier .d{font-size:.85rem;color:var(--ink-2)}
+.tier .r{font-size:.78rem;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tier.hi{border-color:var(--amber)}
+
+/* ---------- night ---------- */
+.night .inner{position:relative}
+.evgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.9rem;margin-top:1.5rem}
+.ev{border:1px solid var(--hair);border-radius:1rem;padding:1.1rem 1.2rem;background:var(--glass)}
+.ev .d{font-family:var(--disp);font-size:1.1rem;color:var(--amber)}
+.ev .t{font-weight:600;margin:.15rem 0 .25rem}
+.ev p{font-size:.85rem;margin:0;color:var(--ink-2)}
+
+/* ---------- franchise ---------- */
+.fr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1rem,3vw,2.5rem);align-items:start}
+@media (max-width:900px){.fr{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.field label{font-size:.8rem;color:var(--ink-2);font-weight:600}
+.field select{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);border-radius:.6rem;padding:.55rem .7rem}
+input[type=range]{width:100%;accent-color:var(--amber);background:transparent}
+.out{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:1rem;overflow:hidden;margin-top:1.2rem}
+.out div{background:rgba(9,14,19,.55);padding:.9rem 1rem}
+.out .l{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
+.out .v{font-family:var(--disp);font-size:1.5rem;font-variant-numeric:tabular-nums;line-height:1.1}
+
+/* ---------- final cta ---------- */
+.final{text-align:center;padding-block:clamp(5rem,14vh,10rem)}
+.final h2{margin:0 auto 1rem;max-width:16ch}
+.final .acts{display:flex;gap:.7rem;justify-content:center;flex-wrap:wrap;margin-top:1.8rem}
+
+/* ---------- footer ---------- */
+footer{background:#060A0E;border-top:1px solid var(--hair);padding:clamp(2.5rem,6vh,4rem) clamp(1.2rem,5vw,5rem) 2rem;font-size:.85rem;color:var(--ink-3)}
+footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:2rem;max-width:1180px;margin:0 auto}
+footer h4{font-family:var(--disp);font-size:1rem;color:var(--ink);margin:0 0 .6rem}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
+footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem}
+
+/* demo banner */
+.demobar{position:sticky;top:0;z-index:71;background:var(--amber);color:#2A1703;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.demobar a{color:#2A1703}
+.rail{top:0}
+
+@media (max-width:860px){
+  :root{--rail:0px}
+  .wrap{margin-left:0}
+  .rail{top:auto;bottom:0;left:0;right:0;width:auto;height:3.2rem;flex-direction:row;background:rgba(6,10,14,.92);border-top:1px solid var(--hair);backdrop-filter:blur(10px);overflow-x:auto;justify-content:flex-start;padding:0 .8rem}
+  .rail .line,.rail .fill{display:none}
+  .rail ol{flex-direction:row;gap:.5rem;align-items:center}
+  .rail a{white-space:nowrap;padding:.3rem .5rem}
+  body{padding-bottom:3.4rem}
+  footer{padding-bottom:2rem}
+}
+</style>
+
+<div class="demobar">Demo · P3Media'nın Florida Coffee için hazırladığı tasarım önerisi. Menü, fiyat ve şube verileri örnektir. <a href="#franchise">Franchise</a></div>
+<div class="sky" id="sky" aria-hidden="true"></div>
+<div class="seaband" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg><span class="wordmark">florida<small>COFFEE</small></span></a>
+  <nav class="navlinks" aria-label="Ana menü">
+    <a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#kulup">Kulüp</a><a href="#gece">Etkinlik</a><a href="#franchise">Franchise</a>
+  </nav>
+  <a class="btn amber sm cta" href="#sabah">Ön sipariş</a>
+</header>
+
+<nav class="rail" aria-label="Günün saatleri">
+  <span class="line" aria-hidden="true"></span><span class="fill" id="railfill" aria-hidden="true"></span>
+  <ol>
+    <li><a href="#safak" data-h="safak"><span class="dot"></span>06:40</a></li>
+    <li><a href="#sabah" data-h="sabah"><span class="dot"></span>08:30</a></li>
+    <li><a href="#kahvemiz" data-h="kahvemiz"><span class="dot"></span>10:00</a></li>
+    <li><a href="#secim" data-h="secim"><span class="dot"></span>13:00</a></li>
+    <li><a href="#menu" data-h="menu"><span class="dot"></span>15:00</a></li>
+    <li><a href="#subeler" data-h="subeler"><span class="dot"></span>19:38</a></li>
+    <li><a href="#kulup" data-h="kulup"><span class="dot"></span>21:00</a></li>
+    <li><a href="#gece" data-h="gece"><span class="dot"></span>23:30</a></li>
+    <li><a href="#franchise" data-h="franchise"><span class="dot"></span>02:00</a></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+
+<!-- ============ 06:40 ŞAFAK ============ -->
+<section class="sec hero" id="safak">
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"></figure>
+  <div class="inner">
+    <div class="brandline"><span class="s">Çengelköy’den Boğaz’a · Taste of Joy</span></div>
+    <h1>Boğaz uyanırken<br>kahve çoktan <em>hazır</em>.</h1>
+    <div class="herogrid">
+      <div>
+        <p class="sub">Çengelköy'de doğduk. Şimdi 17 noktada, iki ülkede, aynı reçeteyle aynı fincanı veriyoruz. Bu sayfa bir günü anlatıyor: kaydırdıkça saat ilerliyor.</p>
+        <div class="scrollcue"><i></i> Kaydırın · gün başlıyor</div>
+      </div>
+      <div class="live" id="livecard">
+        <div class="top">
+          <span class="now"><span class="pulse" id="pulse"></span> Şu an</span>
+          <span class="clock" id="clock">--:--</span>
+        </div>
+        <div class="name" id="nearName">Kavacık</div>
+        <div class="meta" id="nearMeta">Beykoz · Boğaz manzaralı · yükleniyor</div>
+        <div class="sunset">
+          <span>Bugün gün batımı<br><span style="color:var(--ink-3);font-size:.78rem" id="sunsetIn">hesaplanıyor</span></span>
+          <b id="sunsetT">--:--</b>
+        </div>
+        <div class="acts">
+          <a class="btn solid sm" href="#sabah">Ön sipariş ver</a>
+          <a class="btn ghost sm" href="#subeler">Tüm şubeler</a>
+        </div>
+      </div>
+    </div>
+    <div class="proof">
+      <div><div class="v">17</div><div class="l">şube, 2 ülke</div></div>
+      <div><div class="v">45 <span style="font-size:.5em">gün</span></div><div class="l">barista ve işletme eğitimi</div></div>
+      <div><div class="v">18–23<span style="font-size:.5em"> sn</span></div><div class="l">espresso shot standardımız</div></div>
+      <div><div class="v">02:00</div><div class="l">Boğaz şubelerinde kapanış</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08:30 SABAH ============ -->
+<section class="sec" id="sabah">
+  <div class="inner">
+    <div class="hour"><span class="t">08:30</span><span class="p">Sabahın telaşı · Kadıköy</span></div>
+    <h2>Sıra sizi bekletmesin.<br>Kahve sizi beklesin.</h2>
+    <p class="lede">Uygulamadan verdiğiniz sipariş, siz kapıdan girene kadar bekler. "Geldim" dediğinizde hazırlanmaya başlar; bardağınız tezgâha çıktığında hâlâ sıcaktır.</p>
+    <div class="ps">
+      <div class="prob"><div class="k">Sorun</div><p>Sabah yoğunluğunda kasada ortalama 6–8 dakika sıra. Erken sipariş verirsen kahve soğuyor, vermezsen geç kalıyorsun.</p></div>
+      <div class="sol"><div class="k">Çözüm</div><p>Hazırlık, kapıya 200 m yaklaştığınızda ya da "Geldim"e bastığınızda başlar. Sipariş de siz de aynı anda hazır olur.</p></div>
+    </div>
+
+    <figure class="ph r169" data-img="workspace" style="margin-top:1.6rem"><span class="cap">Kadıköy · üst kat çalışma alanı</span></figure>
+    <div class="panel" style="margin-top:1.2rem">
+      <div class="order">
+        <div>
+          <div class="lbl">Ne içiyorsunuz</div>
+          <div class="opts" id="drinks">
+            <button class="opt" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150">Iced Latte</button>
+            <button class="opt" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140">Flat White</button>
+            <button class="opt" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="15">Florida Filtre</button>
+            <button class="opt" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25">Cold Brew</button>
+          </div>
+          <div class="lbl">Boy</div>
+          <div class="opts" id="sizes">
+            <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15">Küçük</button>
+            <button class="opt" aria-pressed="true" data-n="Orta" data-d="0">Orta</button>
+            <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20">Büyük</button>
+          </div>
+          <div class="lbl">Süt</div>
+          <div class="opts" id="milks">
+            <button class="opt milk" aria-pressed="false" data-n="İnek sütü" data-d="0">İnek</button>
+            <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz</button>
+            <button class="opt milk" aria-pressed="false" data-n="Yulaf" data-d="15">Yulaf</button>
+            <button class="opt milk" aria-pressed="false" data-n="Badem" data-d="15">Badem</button>
+          </div>
+          <p style="font-size:.82rem;color:var(--ink-3);margin:0">Süt tercihiniz profile kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında etiketli görünür.</p>
+        </div>
+        <div class="ticket">
+          <div class="no">Sipariş #4821 · Kadıköy</div>
+          <div class="drink" id="tDrink">Iced Latte</div>
+          <div class="mods" id="tMods">Orta · Laktozsuz</div>
+          <div class="price"><span id="tPrice">170</span> ₺</div>
+          <div class="steps" id="tSteps">
+            <div class="stp now" data-s="1"><i>1</i>Sipariş verildi</div>
+            <div class="stp" data-s="2"><i>2</i>Hazırlanıyor</div>
+            <div class="stp" data-s="3"><i>3</i>Tezgâhta hazır</div>
+          </div>
+          <div class="eta" id="tEta">Şubeye vardığınızda hazırlanmaya başlar.</div>
+          <div style="margin-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap">
+            <button class="btn lamp sm" id="tAct">Geldim</button>
+            <button class="btn ghost sm" id="tReset">Baştan</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10:00 KAHVEMİZ ============ -->
+<section class="sec" id="kahvemiz">
+  <div class="inner">
+    <div class="hour"><span class="t">10:00</span><span class="p">Standart · Çekirdek</span></div>
+    <h2>Aynı fincan,<br>on yedi şubede.</h2>
+    <p class="lede">Kavacık’taki latte, Bursa’dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart: tartılan gramaj, kronometreyle izlenen shot, dereceyle kontrol edilen süt. Reçetelerimiz kişisel yoruma açık değildir.</p>
+
+    <div class="brewwrap" style="margin-top:2rem">
+      <div class="beancard">
+        <figure class="ph r43" data-img="barista" style="border-radius:0"><span class="cap">14 g · tartıyla</span></figure>
+        <div class="top">
+          <div class="t">Espresso standardımız</div>
+          <div class="s">Her şubede aynı, göz kararı yok — tartılır</div>
+        </div>
+        <dl class="spec">
+          <dt>Doz</dt><dd>14 g · double shot, tartı ile</dd>
+          <dt>Su sıcaklığı</dt><dd>90–96 °C</dd>
+          <dt>Basınç</dt><dd>9 bar</dd>
+          <dt>Shot süresi</dt><dd>18–23 saniye</dd>
+          <dt>Çıktı</dt><dd>30–60 g</dd>
+          <dt>Süt</dt><dd>60–65 °C mikro köpük</dd>
+          <dt>Fincan</dt><dd>Önceden ısıtılır</dd>
+        </dl>
+        <div class="roastbar">
+          <div class="lbl">Kavurma aralığımız</div>
+          <div class="track"><span class="pin" style="left:52%"></span></div>
+          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
+        </div>
+      </div>
+
+      <div>
+        <figure class="ph r169" data-img="beans" style="margin-bottom:1rem"><span class="cap">Orta kavurma · arabica</span></figure>
+        <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
+        <div class="brewtabs" id="brewtabs">
+          <button class="fbtn" aria-pressed="true" data-b="latin">Latin Amerika</button>
+          <button class="fbtn" aria-pressed="false" data-b="afrika">Afrika</button>
+          <button class="fbtn" aria-pressed="false" data-b="asya">Asya-Pasifik</button>
+        </div>
+        <div class="brewout">
+          <div><div class="v" id="bRatio">Denge</div><div class="l">Karakter</div></div>
+          <div><div class="v" id="bDose">Orta</div><div class="l">Asidite</div></div>
+          <div><div class="v" id="bTemp">Orta</div><div class="l">Gövde</div></div>
+          <div><div class="v" id="bTime">Espresso</div><div class="l">En uygun</div></div>
+        </div>
+        <p class="brewnote" id="bNote">Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil.</p>
+
+        <div class="lbl" style="margin-top:1.6rem">Shot öncesi zorunlu 5 adım</div>
+        <ol class="fivestep">
+          <li><b>Grup başlığı flush edilir</b> — 2–3 saniye su akıtılır, kalıntı temizlenir, sıcaklık dengelenir.</li>
+          <li><b>Portafiltre temizlenir</b> — sepet içi kuru; önceki shot'tan partikül kalmaz.</li>
+          <li><b>Gramaj tartılır</b> — 14 g tartı ile doğrulanır; göz kararı kabul edilmez.</li>
+          <li><b>Tamp uygulanır</b> — eşit basınç, düz yüzey.</li>
+          <li><b>Süre takip edilir</b> — kronometre 18–23 saniye aralığında izlenir.</li>
+        </ol>
+        <p class="brewnote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p>
+      </div>
+    </div>
+  </section>
+
+<!-- ============ 13:00 SEÇİM ============ -->
+<section class="sec" id="secim">
+  <div class="inner">
+    <div class="hour"><span class="t">13:00</span><span class="p">Öğle · seçim yorgunluğu</span></div>
+    <h2>Ne içeceğinizi<br>bilmiyorsanız sorun bizde.</h2>
+    <p class="lede">Menüde 40 satır var, sizin 20 saniyeniz. Nasıl hissettiğinizi söyleyin, gerisini biz eşleştirelim.</p>
+    <figure class="ph r169" data-img="pour" style="margin-top:1.4rem"><span class="cap">9 bar · 18–23 saniye</span></figure>
+    <div class="moods" id="moods">
+      <button class="mood" aria-pressed="true" data-m="uyan">Uyanmam lazım</button>
+      <button class="mood" aria-pressed="false" data-m="odak">Uzun süre odaklanacağım</button>
+      <button class="mood" aria-pressed="false" data-m="serin">Sıcaktan bunaldım</button>
+      <button class="mood" aria-pressed="false" data-m="tatli">Tatlı bir şey istiyorum</button>
+      <button class="mood" aria-pressed="false" data-m="hafif">Kafein az olsun</button>
+      <button class="mood" aria-pressed="false" data-m="sutsuz">Sütsüz içerim</button>
+    </div>
+    <div class="match">
+      <div>
+        <div class="lbl" id="mLabel">Önerimiz</div>
+        <div class="n" id="mName">Flat White</div>
+        <p class="why" id="mWhy">Çift shot espresso, ince dokulu az sütle. Sert bir kafein vuruşunu tek yudumda değil, ilk üç yudumda verir; mideyi de yormaz.</p>
+        <div class="facts">
+          <span><b id="mCaf">180 mg</b>kafein</span>
+          <span><b id="mKcal">140 kcal</b>tam yağlı sütle</span>
+          <span><b id="mPrice">150 ₺</b>orta boy</span>
+          <span><b id="mServe">Sıcak</b>servis</span>
+        </div>
+      </div>
+      <div class="cupwrap" aria-hidden="true">
+        <svg viewBox="0 0 120 140" role="img" aria-label="Fincan">
+          <ellipse cx="60" cy="26" rx="42" ry="13" fill="#0E1A24"/>
+          <path d="M18 26c0 46 8 92 42 92s42-46 42-92" fill="#152430" stroke="rgba(245,240,232,.18)" stroke-width="1.5"/>
+          <path id="cupFill" d="M22 42c2 40 10 72 38 72s36-32 38-72z" fill="#7A4B2A"/>
+          <ellipse id="cupTop" cx="60" cy="42" rx="38" ry="11" fill="#A9713F"/>
+          <ellipse cx="60" cy="26" rx="42" ry="13" fill="none" stroke="rgba(245,240,232,.32)" stroke-width="2"/>
+          <path d="M102 44c14 2 16 22 2 28" fill="none" stroke="rgba(245,240,232,.22)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15:00 MENÜ (paper) ============ -->
+<section class="sec paper" id="menu">
+  <div class="inner">
+    <div class="hour"><span class="t">15:00</span><span class="p">Menü</span></div>
+    <h2>Fiyat, kalori, alerjen.<br>Hepsi burada.</h2>
+    <p class="lede">Şubeye gitmeden görebilmeniz gereken her şey. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfasında görünür.</p>
+    <div class="grid g3" style="margin:1.4rem 0 .4rem"><figure class="ph r11" data-img="latteart"><span class="cap">Flat white</span></figure><figure class="ph r11" data-img="coldbrew"><span class="cap">Boğaz cold brew</span></figure><figure class="ph r11" data-img="cup"><span class="cap">Bardağımız</span></figure></div>
+    <div class="mcats" id="mcats">
+      <button class="mcat" aria-pressed="true" data-c="sicak">Sıcak kahveler</button>
+      <button class="mcat" aria-pressed="false" data-c="soguk">Soğuk kahveler</button>
+      <button class="mcat" aria-pressed="false" data-c="diger">Kahve dışı</button>
+      <button class="mcat" aria-pressed="false" data-c="yiyecek">Yiyecek</button>
+    </div>
+    <div class="mlist" id="mlist"></div>
+    <div class="milkbar">
+      <strong style="color:var(--paper-ink)">Süt seçenekleri:</strong>
+      <span class="tg">İnek sütü · dahil</span><span class="tg">Laktozsuz · +10 ₺</span><span class="tg v">Yulaf · +15 ₺</span><span class="tg v">Badem · +15 ₺</span>
+      <span style="margin-left:auto" class="note">Alerjen bilgisi için baristaya danışın.</span>
+    </div>
+    <p class="note" style="margin-top:1rem">Örnek fiyatlardır; gerçek menü ve fiyatlar merkezden yönetilir ve sayfada otomatik güncellenir.</p>
+  </div>
+</section>
+
+<!-- ============ 19:38 ŞUBELER ============ -->
+<section class="sec" id="subeler">
+  <div class="inner">
+    <div class="hour"><span class="t">19:38</span><span class="p">Gün batımı · Kavacık</span></div>
+    <h2>Manzarayı da<br>menüye koyduk.</h2>
+    <p class="lede">Hangi şubede gün batımı görünür, hangisinde priz vardır, hangisi gece ikiye kadar açıktır? Filtreleyin, o an açık olanları görün. Gün batımı saatleri bugüne göre hesaplanır.</p>
+    <figure class="ph r169" data-img="sunset" style="margin:1.4rem 0 1.6rem"><span class="cap">Beykoz · gün batımı</span></figure>
+    <div class="filters" id="filters">
+      <button class="fbtn" aria-pressed="false" data-f="acik">Şu an açık</button>
+      <button class="fbtn" aria-pressed="false" data-f="manzara">Manzara</button>
+      <button class="fbtn" aria-pressed="false" data-f="gece">Gece açık</button>
+      <button class="fbtn" aria-pressed="false" data-f="calisma">Çalışma alanı</button>
+      <button class="fbtn" aria-pressed="false" data-f="otopark">Otopark</button>
+      <button class="fbtn" aria-pressed="false" data-f="kahvalti">Kahvaltı</button>
+      <span class="fcount" id="fcount"></span>
+    </div>
+    <div class="branches" id="branches"></div>
+  </div>
+</section>
+
+<!-- ============ 21:00 KULÜP ============ -->
+<section class="sec" id="kulup">
+  <div class="inner">
+    <div class="hour"><span class="t">21:00</span><span class="p">FloridaDays Club</span></div>
+    <div class="loyal">
+      <div>
+        <h2>Sadakat kartınız<br>cüzdanınızda kaybolmasın.</h2>
+        <p class="lede">Kartınızı bir kez okutun, bakiyeniz ve damgalarınız uygulamaya geçsin. Sonra tek QR: hem ödeme, hem puan.</p>
+        <div class="ps" style="margin-top:1.4rem">
+          <div class="prob"><div class="k">Sorun</div><p>Karton kart unutuluyor, damgalar kayboluyor, kim kaç kahve içti kimse bilmiyor.</p></div>
+          <div class="sol"><div class="k">Çözüm</div><p>Her harcama 1 ₺ = 1 çekirdek. 10 içecekte biri bizden. Seviye son 6 ayın harcamasıyla belirlenir.</p></div>
+        </div>
+        <div class="tiers">
+          <div class="tier"><span class="tname">Classic</span><span class="d">Doğum günü içeceği · kampanyalara erişim</span><span class="r">0–2.500 ₺</span></div>
+          <div class="tier hi"><span class="tname">Plus</span><span class="d">Ayda 2 boy yükseltme · erken sezon menüsü</span><span class="r">2.500–7.500 ₺</span></div>
+          <div class="tier"><span class="tname">Premium</span><span class="d">Ücretsiz ekstra shot · gün batımında manzaralı masa önceliği</span><span class="r">7.500 ₺ +</span></div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="scr">
+          <div class="bar"><span id="pClock">21:00</span><span>●●●</span></div>
+          <div class="card-pts">
+            <div class="lv">FloridaDays Plus</div>
+            <div class="v">340 <span style="font-size:.9rem;font-family:var(--ui);font-weight:600">çekirdek</span></div>
+            <div class="track"><i></i></div>
+            <div class="m">Premium'a 3.380 ₺ harcama kaldı</div>
+            <div class="stamps"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span><span></span></div>
+            <div class="m" style="margin-top:.5rem">7/10 · 3 kahve sonra biri bizden</div>
+          </div>
+          <div class="prow"><span><span class="t">Her zamanki</span><br><span class="s">Iced latte · orta · laktozsuz</span></span><span class="chip">Tekrarla</span></div>
+          <div class="prow"><span><span class="t">Cüzdan</span><br><span class="s">Multinet, Sodexo, kredi kartı</span></span><span style="font-family:var(--disp);font-size:1.1rem">412 ₺</span></div>
+          <div class="prow"><span><span class="t">Kavacık</span><br><span class="s">1,2 km · gün batımı <span id="pSunset">19:38</span></span></span><span class="chip water">Açık</span></div>
+          <div class="prow"><span><span class="t">Arkadaşına kahve gönder</span><br><span class="s">Telefon numarasıyla</span></span><span class="chip">›</span></div>
+          <div style="margin-top:auto"><button class="btn lamp" style="width:100%">Kartı göster · QR</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 23:30 GECE ============ -->
+<section class="sec night" id="gece">
+  <div class="inner">
+    <div class="hour"><span class="t">23:30</span><span class="p">Gece · Beykoz</span></div>
+    <h2>Şehir susunca<br>Boğaz konuşur.</h2>
+    <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
+    <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><span class="cap">Beykoz · 01:00</span></figure>
+    <div class="evgrid">
+      <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p></div>
+      <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p></div>
+      <div class="ev"><div class="d">Her gün 22:00 sonrası</div><div class="t">Gece filtresi</div><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02:00 FRANCHISE ============ -->
+<section class="sec" id="franchise">
+  <div class="inner">
+    <div class="hour"><span class="t">02:00</span><span class="p">Kepenk kapanır · hesap başlar</span></div>
+    <h2>Bu günü kendi<br>şehrinizde kurun.</h2>
+    <p class="lede">3 km bölge koruması, 45 gün eğitim, merkezi tedarik ve bu dijital altyapının tamamı. Aşağıdaki hesaplayıcı örnek bir yatırım tablosu çıkarır.</p>
+    <div class="fr" style="margin-top:2rem">
+      <div class="panel">
+        <div class="field"><label for="fCity">Konum tipi</label>
+          <select id="fCity"><option value="1.15">İstanbul cadde</option><option value="1" selected>Büyükşehir cadde (Bursa, Sakarya, Samsun)</option><option value="0.85">İlçe / üniversite çevresi</option></select>
+        </div>
+        <div class="field"><label for="fM2">Mağaza alanı: <b id="fM2v">110</b> m²</label><input type="range" id="fM2" min="60" max="220" step="5" value="110"></div>
+        <div class="field"><label for="fRev">Tahmini aylık ciro: <b id="fRevv">1.400.000</b> ₺</label><input type="range" id="fRev" min="500000" max="4000000" step="50000" value="1400000"></div>
+        <div class="out">
+          <div><div class="l">Kuruluş yatırımı</div><div class="v" id="oInv">—</div></div>
+          <div><div class="l">Aylık royalty (%5 + KDV)</div><div class="v" id="oRoy">—</div></div>
+          <div><div class="l">Ulusal reklam (≤ %1)</div><div class="v" id="oAd">—</div></div>
+          <div><div class="l">Örnek geri dönüş</div><div class="v" id="oPb">—</div></div>
+        </div>
+        <p style="font-size:.8rem;color:var(--ink-3);margin:1rem 0 0">Örnek hesaplamadır, teklif değildir. Giriş bedeli ve platform lisansı merkez tarafından belirlenir.</p>
+      </div>
+      <div>
+        <figure class="ph r169" data-img="franchise" style="margin-bottom:1rem"><span class="cap">Kendi şehrinizde bir Florida</span></figure>
+        <div class="grid g2">
+          <div class="panel"><h3>3 km bölge koruması</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">Sözleşme süresince aynı bölgede ikinci Florida açılmaz.</p></div>
+          <div class="panel"><h3>45 gün eğitim</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">30 gün işletme yönetimi, 15 gün barista; açılışta merkez ekibi şubede.</p></div>
+          <div class="panel"><h3>Merkezi tedarik</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">Çekirdek, ambalaj ve ekipman tek kaynaktan; 40 gün vade.</p></div>
+          <div class="panel"><h3>Dijital altyapı dahil</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">Şube sayfanız, uygulamada göründüğünüz yer, sadakat ve raporlama paneli.</p></div>
+        </div>
+        <div class="panel" style="margin-top:1rem">
+          <figure class="ph r169" data-img="sakarya" style="margin-bottom:1rem"><span class="cap">Sakarya · Çark Caddesi</span></figure>
+          <h3 style="margin-bottom:.6rem">Açılmasını istediğimiz bölgeler</h3>
+          <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+            <span class="chip water">Eskişehir</span><span class="chip water">Ankara Çayyolu</span><span class="chip water">İzmir Alsancak</span><span class="chip water">Antalya Lara</span><span class="chip water">Trabzon</span><span class="chip water">Konya</span><span class="chip copper">Saraybosna</span><span class="chip copper">Tiran</span>
+          </div>
+          <a class="btn solid" style="margin-top:1.1rem" href="#basvuru">Başvuru formunu doldur</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec final" id="basvuru">
+  <div class="inner">
+    <h2>Yarın 06:40'ta<br>yeniden başlıyoruz.</h2>
+    <p style="margin:0 auto;color:var(--ink-2)">En yakın Florida'yı bulun, uygulamayı indirin ya da kendi şubenizi açın.</p>
+    <div class="acts">
+      <a class="btn solid" href="#subeler">En yakın şubeyi bul</a>
+      <a class="btn lamp" href="#kulup">Uygulamayı indir</a>
+      <a class="btn ghost" href="#franchise">Franchise başvurusu</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="cols">
+    <div>
+      <h4>Florida Coffee</h4>
+      <p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p>
+    </div>
+    <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#kulup">FloridaDays Club</a></li><li><a href="#franchise">Franchise</a></li></ul></div>
+    <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
+    <div><h4>Kurumsal</h4><ul><li>Kariyer</li><li>KVKK aydınlatma metni</li><li>Çerez politikası</li><li>Kullanıcı sözleşmesi</li><li>İletişim</li></ul></div>
+    <div><h4>Diller</h4><ul><li>Türkçe</li><li>English</li><li>Crnogorski</li></ul></div>
+  </div>
+  <div class="end">
+    <span>Bu sayfa P3Media tarafından Florida Coffee için hazırlanmış bir tasarım demosudur. Veriler örnektir.</span>
+    <span>Platform demosu: HQ paneli, barista ekranı ve AI asistan ayrı prototipte.</span>
+  </div>
+</footer>
+</div>
+
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="scrim" data-close></div>
+  <div class="sheet">
+    <button class="x" data-close aria-label="Kapat">✕</button>
+    <h3 id="dTitle">Şube</h3>
+    <div class="sub" id="dSub"></div>
+    <div class="grid g2">
+      <div class="panel">
+        <div class="lbl" style="margin-bottom:.5rem">Çalışma saatleri</div>
+        <div class="hrs" id="dHours"></div>
+      </div>
+      <div class="panel">
+        <div class="lbl" style="margin-bottom:.5rem">Bugün</div>
+        <div id="dToday" style="font-size:.9rem;color:var(--ink-2)"></div>
+        <div style="margin-top:.8rem;display:flex;gap:.4rem;flex-wrap:wrap" id="dTags"></div>
+      </div>
+    </div>
+    <div class="faq" id="dFaq"></div>
+    <div style="display:flex;gap:.5rem;margin-top:1.3rem;flex-wrap:wrap">
+      <button class="btn solid sm">Bu şubeden ön sipariş ver</button>
+      <button class="btn ghost sm">Yol tarifi al</button>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const fmt = n => n.toLocaleString("tr-TR");
+const pad = n => String(n).padStart(2,"0");
+const hhmm = d => pad(d.getHours()) + ":" + pad(d.getMinutes());
+/* Şubeler kendi saat dilimlerinde okunur; ziyaretçi nerede olursa olsun doğru. */
+const TZ_TR = "Europe/Istanbul", TZ_ME = "Europe/Podgorica";
+const tzOf = b => b.c.includes("Karadağ") ? TZ_ME : TZ_TR;
+const zhm = (d, tz) => new Intl.DateTimeFormat("tr-TR", {timeZone:tz, hourCycle:"h23", hour:"2-digit", minute:"2-digit"}).format(d);
+const zhours = (d, tz) => { const [h,m] = zhm(d,tz).split(":").map(Number); return h + m/60; };
+const zday = (d, tz) => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+  .indexOf(new Intl.DateTimeFormat("en-US", {timeZone:tz, weekday:"short"}).format(d));
+
+/* ---------------- sun times (NOAA / SunCalc core) ---------------- */
+function sunTimes(date, lat, lng){
+  const rad = Math.PI/180, dayMs = 864e5, J1970 = 2440588, J2000 = 2451545;
+  const toJulian = d => d.valueOf()/dayMs - 0.5 + J1970;
+  const fromJulian = j => new Date((j + 0.5 - J1970) * dayMs);
+  const toDays = d => toJulian(d) - J2000;
+  const e = rad * 23.4397;
+  const M = d => rad * (357.5291 + 0.98560028 * d);
+  const L = m => { const C = rad*(1.9148*Math.sin(m) + 0.02*Math.sin(2*m) + 0.0003*Math.sin(3*m)); return m + C + rad*102.9372 + Math.PI; };
+  const dec = l => Math.asin(Math.sin(e) * Math.sin(l));
+  const lw = rad * -lng, phi = rad * lat, d = toDays(date);
+  const n = Math.round(d - 0.0009 - lw/(2*Math.PI));
+  const ds = 0.0009 + lw/(2*Math.PI) + n;
+  const m = M(ds), l = L(m), dc = dec(l);
+  const Jnoon = J2000 + ds + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*l);
+  const h = rad * -0.833;
+  const w = Math.acos((Math.sin(h) - Math.sin(phi)*Math.sin(dc)) / (Math.cos(phi)*Math.cos(dc)));
+  const dsSet = 0.0009 + (w + lw)/(2*Math.PI) + n;
+  const Jset = J2000 + dsSet + 0.0053*Math.sin(m) - 0.0069*Math.sin(2*l);
+  return { set: fromJulian(Jset), rise: fromJulian(Jnoon - (Jset - Jnoon)) };
+}
+
+/* ---------------- branches ---------------- */
+const F = { manzara:"Manzara", gece:"Gece açık", calisma:"Çalışma alanı", otopark:"Otopark", kahvalti:"Kahvaltı", evcil:"Evcil dostu" };
+const B = [
+ {id:"kavacik", n:"Kavacık", c:"Beykoz, İstanbul", lat:41.105, lng:29.085, o:8, k:26, f:["manzara","gece","otopark","evcil"], r:"4,8", rev:312, note:"Üst kat terası tam gün batımına bakar. Hafta içi 09:00–11:00 en sakin saat."},
+ {id:"beykoz", n:"Beykoz Kelle İbrahim", c:"Beykoz, İstanbul", lat:41.1265, lng:29.087, o:9, k:26, f:["manzara","gece","kahvalti","evcil"], r:"4,6", rev:198, note:"Sahil hattında, geç saatlere kadar açık. Hafta sonu kahvaltı 09:00–13:00."},
+ {id:"cengelkoy", n:"Çengelköy", c:"Üsküdar, İstanbul · merkez", lat:41.0533, lng:29.0553, o:8, k:23, f:["manzara","kahvalti"], r:"4,7", rev:540, note:"İlk şubemiz. Cupping akşamları burada yapılır."},
+ {id:"kadikoy", n:"Kadıköy", c:"Kadıköy, İstanbul", lat:40.99, lng:29.027, o:8, k:25, f:["calisma","gece"], r:"4,5", rev:421, note:"Her masada priz, üst katta sessiz çalışma bölgesi."},
+ {id:"talimhane", n:"Taksim Talimhane", c:"Beyoğlu, İstanbul", lat:41.038, lng:28.982, o:7.5, k:25, f:["gece"], r:"4,4", rev:260, note:"Otellere yakın; sabah 07:30'da açılır."},
+ {id:"taksim", n:"Taksim Meydan", c:"Beyoğlu, İstanbul", lat:41.037, lng:28.986, o:7.5, k:26, f:["gece"], r:"4,3", rev:305, note:"Gece ikiye kadar açık; ayaküstü servis hızlıdır."},
+ {id:"bahcesehir", n:"Bahçeşehir", c:"Başakşehir, İstanbul", lat:41.07, lng:28.67, o:8, k:23, f:["calisma","otopark","kahvalti"], r:"4,6", rev:150, note:"Geniş otopark, aile masaları ve çocuk köşesi."},
+ {id:"umraniye", n:"Ümraniye", c:"Ümraniye, İstanbul", lat:41.023, lng:29.116, o:8, k:23, f:["calisma","otopark"], r:"4,5", rev:98, note:"Ofis bölgesinde; öğle arası 12:30–13:30 yoğun."},
+ {id:"esenyurt", n:"Esenyurt", c:"Esenyurt, İstanbul", lat:41.029, lng:28.67, o:8.5, k:23, f:["otopark"], r:"4,2", rev:77, note:"Cadde üstü, hızlı servis odaklı."},
+ {id:"izmit", n:"İzmit Yahyakaptan", c:"Kocaeli", lat:40.772, lng:29.94, o:8, k:23.5, f:["calisma","otopark"], r:"4,4", rev:210, note:"Parkın karşısında; hafta sonu terası açık."},
+ {id:"sakarya", n:"Sakarya Çark Caddesi", c:"Adapazarı", lat:40.78, lng:30.4, o:8, k:24, f:["calisma","kahvalti"], r:"4,6", rev:132, note:"Üniversiteye yakın; sınav dönemi gece yarısına kadar açık."},
+ {id:"bursa", n:"Bursa Nilüfer", c:"Bursa", lat:40.21, lng:28.96, o:8, k:23, f:["calisma","otopark"], r:"4,5", rev:88, note:"Bulvar üstü, geniş iç mekân."},
+ {id:"samsun", n:"Samsun Marina", c:"Atakum", lat:41.34, lng:36.24, o:8, k:24, f:["manzara","kahvalti","otopark"], r:"4,6", rev:140, note:"Marinaya bakar; gün batımı denizin üstünde."},
+ {id:"rize", n:"Rize", c:"Rize merkez", lat:41.02, lng:40.52, o:8, k:23, f:["manzara"], r:"4,7", rev:54, note:"Sahil yolunda; çay ile kahveyi aynı menüde tutuyoruz."},
+ {id:"erzincan", n:"Erzincan", c:"Erzincan merkez", lat:39.75, lng:39.5, o:8.5, k:22.5, f:["calisma"], r:"4,5", rev:41, note:"Şehrin ilk üçüncü dalga kahvecisi."},
+ {id:"podgorica", n:"Podgorica", c:"Karadağ", lat:42.44, lng:19.26, o:8, k:22, f:["calisma"], r:"4,7", rev:66, note:"Karadağ'daki ilk şubemiz. Menü EN/ME."},
+ {id:"budva", n:"Budva", c:"Karadağ · sahil", lat:42.29, lng:18.84, o:8, k:25, f:["manzara","gece"], r:"4,8", rev:120, note:"Adriyatik kıyısında; yaz aylarında gece bire kadar."}
+];
+const DAYS = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
+const hourStr = h => pad(Math.floor(h)%24) + ":" + pad(Math.round((h%1)*60));
+function isOpen(b, now){
+  const h = zhours(now, tzOf(b));
+  const close = b.k;                       // may exceed 24 (past midnight)
+  if (h >= b.o && h < Math.min(close,24)) return true;
+  if (close > 24 && h < close - 24) return true;   // early morning tail
+  return false;
+}
+
+/* ---------------- live card + clock ---------------- */
+const nearest = B[0];
+function tick(){
+  const now = new Date();
+  const c = document.getElementById("clock"); if (c) c.textContent = zhm(now, TZ_TR);
+  const pc = document.getElementById("pClock"); if (pc) pc.textContent = zhm(now, TZ_TR);
+  const open = isOpen(nearest, now);
+  const p = document.getElementById("pulse");
+  p.classList.toggle("off", !open);
+  document.getElementById("nearMeta").innerHTML =
+    nearest.c + " · " + (open ? "<span style='color:var(--ok)'>şu an açık</span>" : "<span style='color:var(--busy)'>şu an kapalı</span>") +
+    " · " + hourStr(nearest.o) + "–" + hourStr(nearest.k);
+  const st = sunTimes(now, nearest.lat, nearest.lng).set;
+  document.getElementById("sunsetT").textContent = zhm(st, tzOf(nearest));
+  document.getElementById("pSunset").textContent = zhm(st, tzOf(nearest));
+  const diff = st - now;
+  document.getElementById("sunsetIn").textContent = diff > 0
+    ? "Kavacık terasına " + Math.floor(diff/36e5) + " sa " + Math.floor(diff%36e5/6e4) + " dk kaldı"
+    : "Bugünkü gün batımı geçti · yarın " + zhm(sunTimes(new Date(now.getTime()+864e5), nearest.lat, nearest.lng).set, tzOf(nearest));
+}
+tick(); setInterval(tick, 20000);
+
+/* ---------------- branch list ---------------- */
+const active = new Set();
+function renderBranches(){
+  const now = new Date();
+  const el = document.getElementById("branches");
+  const list = B.filter(b => [...active].every(f => f === "acik" ? isOpen(b, now) : b.f.includes(f)));
+  document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube";
+  el.innerHTML = list.length ? list.map(b => {
+    const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
+    return `<button class="branch" data-id="${b.id}">
+      <span class="row1"><span><span class="n">${b.n}</span><br><span class="c">${b.c}</span></span>
+      <span class="st ${open?"open":"closed"}"><span class="dot-s ${open?"g":"r"}"></span>${open?"Açık":"Kapalı"}</span></span>
+      <span class="c">${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r} (${b.rev})</span>
+      ${b.f.includes("manzara") ? `<span class="sun">Gün batımı ${ss}</span>` : ""}
+      <span class="tags">${b.f.map(f=>`<span class="chip">${F[f]}</span>`).join("")}</span>
+    </button>`;
+  }).join("") : `<div class="empty">Bu filtrelerle şube yok. Bir filtreyi kaldırın.</div>`;
+  el.querySelectorAll(".branch").forEach(x => x.addEventListener("click", () => openBranch(x.dataset.id)));
+}
+document.querySelectorAll("#filters .fbtn").forEach(btn => btn.addEventListener("click", () => {
+  const f = btn.dataset.f, on = btn.getAttribute("aria-pressed") === "true";
+  btn.setAttribute("aria-pressed", String(!on));
+  on ? active.delete(f) : active.add(f);
+  renderBranches();
+}));
+renderBranches();
+setInterval(renderBranches, 60000);
+
+/* ---------------- branch drawer ---------------- */
+const drawer = document.getElementById("drawer");
+function openBranch(id){
+  const b = B.find(x => x.id === id), now = new Date();
+  const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
+  document.getElementById("dTitle").textContent = "Florida Coffee " + b.n;
+  document.getElementById("dSub").textContent = b.c + " · ★ " + b.r + " (" + b.rev + " yorum)";
+  document.getElementById("dHours").innerHTML = DAYS.map((d,i) =>
+    `<span class="${i===zday(now,tzOf(b))?"today":""}">${d}</span><span class="${i===zday(now,tzOf(b))?"today":""}">${hourStr(b.o)}–${hourStr(b.k)}</span>`).join("");
+  document.getElementById("dToday").innerHTML =
+    (open ? "<b style='color:var(--ok)'>Şu an açık</b>" : "<b style='color:var(--busy)'>Şu an kapalı</b>") +
+    " · bugün " + hourStr(b.o) + "–" + hourStr(b.k) +
+    (b.f.includes("manzara") ? "<br>Gün batımı <b style='color:var(--amber)'>" + ss + "</b>" : "") +
+    "<br><span style='color:var(--ink-3)'>" + b.note + "</span>";
+  document.getElementById("dTags").innerHTML = b.f.map(f => `<span class="chip">${F[f]}</span>`).join("") + `<span class="chip">Wi-Fi</span><span class="chip">Laktozsuz süt</span>`;
+  document.getElementById("dFaq").innerHTML = [
+    ["Kaça kadar açık?", b.n + " her gün " + hourStr(b.o) + "–" + hourStr(b.k) + " saatleri arasında hizmet verir. Bayram günlerinde saatler burada güncellenir."],
+    ["Otopark var mı?", b.f.includes("otopark") ? "Evet, şubeye ait park alanı mevcut." : "Şubeye ait otopark yok; çevrede ücretli otopark bulunur."],
+    ["Laktozsuz süt var mı?", "Evet. Laktozsuz, yulaf ve badem sütü mevcut; tercihinizi uygulamada profilinize kaydedebilirsiniz."],
+    ["Çalışmaya uygun mu?", b.f.includes("calisma") ? "Evet, priz ve sessiz bölge var." : "Sohbet için ideal; uzun çalışma için Kadıköy veya Bahçeşehir şubemizi öneririz."]
+  ].map(([q,a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join("");
+  drawer.classList.add("on");
+  document.body.style.overflow = "hidden";
+  drawer.querySelector(".x").focus();
+}
+drawer.querySelectorAll("[data-close]").forEach(x => x.addEventListener("click", closeDrawer));
+function closeDrawer(){ drawer.classList.remove("on"); document.body.style.overflow = ""; }
+addEventListener("keydown", e => { if (e.key === "Escape" && drawer.classList.contains("on")) closeDrawer(); });
+
+/* ---------------- footer city list ---------------- */
+document.getElementById("fCities").innerHTML =
+  ["İstanbul","Kocaeli","Sakarya","Bursa","Samsun","Rize","Erzincan","Podgorica","Budva"]
+    .map(c => `<li>${c}</li>`).join("");
+
+/* ---------------- order ticket ---------------- */
+const O = { drink:"Iced Latte", base:160, size:"Orta", sizeD:0, milk:"Laktozsuz", milkD:10, step:1 };
+function seg(id, cb){
+  document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => {
+    document.querySelectorAll("#" + id + " .opt").forEach(x => x.setAttribute("aria-pressed","false"));
+    b.setAttribute("aria-pressed","true"); cb(b); paintTicket();
+  }));
+}
+seg("drinks", b => { O.drink = b.dataset.n; O.base = +b.dataset.p; });
+seg("sizes",  b => { O.size = b.dataset.n; O.sizeD = +b.dataset.d; });
+seg("milks",  b => { O.milk = b.dataset.n; O.milkD = +b.dataset.d; });
+function paintTicket(){
+  document.getElementById("tDrink").textContent = O.drink;
+  document.getElementById("tMods").textContent = O.size + " · " + O.milk;
+  document.getElementById("tPrice").textContent = O.base + O.sizeD + O.milkD;
+  document.querySelectorAll("#tSteps .stp").forEach(s => {
+    const n = +s.dataset.s;
+    s.className = "stp" + (n < O.step ? " done" : n === O.step ? " now" : "");
+  });
+  const act = document.getElementById("tAct");
+  act.textContent = O.step === 1 ? "Geldim" : O.step === 2 ? "Hazırlanıyor…" : "Teslim aldım";
+  act.disabled = O.step === 2;
+  document.getElementById("tEta").textContent =
+    O.step === 1 ? "Şubeye vardığınızda hazırlanmaya başlar." :
+    O.step === 2 ? "Barista ekranında en üstte · tahmini 3 dakika" :
+    "Hazır. Teslimde " + (O.base + O.sizeD + O.milkD) + " çekirdek hesabınıza yazılır.";
+}
+document.getElementById("tAct").addEventListener("click", () => {
+  if (O.step === 1){ O.step = 2; paintTicket(); setTimeout(() => { O.step = 3; paintTicket(); }, reduce ? 300 : 1800); }
+  else if (O.step === 3){ O.step = 1; paintTicket(); }
+});
+document.getElementById("tReset").addEventListener("click", () => { O.step = 1; paintTicket(); });
+paintTicket();
+
+/* ---------------- brew guide ---------------- */
+const BREW = {
+  latin:  {r:"Denge", d:"Orta", t:"Orta", s:"Espresso", n:"Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil."},
+  afrika: {r:"Aroma", d:"Yüksek", t:"Hafif–orta", s:"Filtre", n:"Çiçeksi aromalar, kırmızı ve tropikal meyveler, çay benzeri yapı. Canlı ve parlak asidite. Etiyopya, Kenya, Tanzanya. Filtre ve üçüncü dalga demlemeler için tercih edilir."},
+  asya:   {r:"Gövde", d:"Düşük", t:"Full body", s:"Sert içim", n:"Topraksı ve baharatsı notalar, bitter çikolata, tütün ve odunsu aromalar. Yoğun ve kalıcı tat. Endonezya, Vietnam, Hindistan. Sert içim ve yoğun espresso sevenler için."}
+};
+document.querySelectorAll("#brewtabs .fbtn").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#brewtabs .fbtn").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  const k = BREW[b.dataset.b];
+  document.getElementById("bRatio").textContent = k.r;
+  document.getElementById("bDose").textContent  = k.d;
+  document.getElementById("bTemp").textContent  = k.t;
+  document.getElementById("bTime").textContent  = k.s;
+  document.getElementById("bNote").textContent  = k.n;
+}));
+
+/* ---------------- coffee matcher ---------------- */
+const M = {
+  uyan:   {n:"Flat White", w:"Çift shot espresso, ince dokulu az sütle. Kafein vuruşunu ilk üç yudumda verir, mideyi de yormaz.", caf:"180 mg", kcal:"140 kcal", p:"150 ₺", s:"Sıcak", fill:"#A9713F", top:"#C79055"},
+  odak:   {n:"Florida Filtre · V60", w:"1:16 oranında, 92 derecede demlenir. Kafeini espressodan daha yavaş salar; iki saatlik bir çalışmada dalgalanma yaratmaz.", caf:"95 mg", kcal:"5 kcal", p:"120 ₺", s:"Sıcak", fill:"#6B4326", top:"#8A5A33"},
+  serin:  {n:"Cold Brew", w:"16 saat oda sıcaklığında demlenir. Asiditesi düşük olduğu için buzla açıldığında ekşimez; sütsüz de içilir.", caf:"200 mg", kcal:"25 kcal", p:"145 ₺", s:"Soğuk", fill:"#3E2A1C", top:"#573923"},
+  tatli:  {n:"Iced White Mocha", w:"Beyaz çikolata sosu, espresso ve soğuk süt. Tatlı krizini kahveden vazgeçmeden çözer.", caf:"150 mg", kcal:"320 kcal", p:"185 ₺", s:"Soğuk", fill:"#B08462", top:"#CBA07C"},
+  hafif:  {n:"Cortado · tek shot", w:"Tek shot espresso, eşit miktarda süt. Kahve tadını verir ama kafeini yarıya indirir; akşamüstü için doğru seçim.", caf:"75 mg", kcal:"70 kcal", p:"130 ₺", s:"Sıcak", fill:"#9C6B44", top:"#B98A5F"},
+  sutsuz: {n:"Americano", w:"Çift shot espresso ve sıcak su. Sütsüz, şekersiz, 10 kaloriden az; harmanın bergamot notasını en net buradan duyarsınız.", caf:"170 mg", kcal:"8 kcal", p:"115 ₺", s:"Sıcak", fill:"#4A2E1C", top:"#63402A"}
+};
+document.querySelectorAll("#moods .mood").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#moods .mood").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true");
+  const m = M[b.dataset.m];
+  document.getElementById("mName").textContent = m.n;
+  document.getElementById("mWhy").textContent = m.w;
+  document.getElementById("mCaf").textContent = m.caf;
+  document.getElementById("mKcal").textContent = m.kcal;
+  document.getElementById("mPrice").textContent = m.p;
+  document.getElementById("mServe").textContent = m.s;
+  document.getElementById("cupFill").setAttribute("fill", m.fill);
+  document.getElementById("cupTop").setAttribute("fill", m.top);
+}));
+
+/* ---------------- menu ---------------- */
+const MENU = {
+  sicak: [
+    ["Florida Filtre","Günün çekirdeği, V60 · 1:16","120",["5 kcal","95 mg kafein"]],
+    ["Espresso","18 g in / 36 g out","95",["3 kcal","85 mg kafein"]],
+    ["Americano","Çift shot, sıcak su","115",["8 kcal","170 mg"]],
+    ["Flat White","Çift shot, ince süt dokusu","150",["140 kcal","180 mg"]],
+    ["Cortado","Tek shot, eşit süt","130",["70 kcal","75 mg"]],
+    ["Cappuccino","Çift shot, bol köpük","145",["150 kcal","170 mg"]],
+    ["Latte","Çift shot, sıcak süt","150",["190 kcal","170 mg"]],
+    ["Türk Kahvesi","7 g, közde, lokum ile","95",["25 kcal","65 mg"]]
+  ],
+  soguk: [
+    ["Cold Brew","16 saat demleme, 1:8","145",["25 kcal","200 mg"]],
+    ["Boğaz Cold Brew","Tonik ve portakal kabuğu ile · Kavacık, Beykoz","165",["60 kcal","200 mg"]],
+    ["Iced Latte","Espresso, soğuk süt, buz","160",["150 kcal","150 mg"]],
+    ["Iced Americano","Çift shot, buzlu su","125",["10 kcal","170 mg"]],
+    ["Iced White Mocha","Beyaz çikolata sosu ile","185",["320 kcal","150 mg"]],
+    ["Frappe","Blender, kremalı","175",["290 kcal","120 mg"]]
+  ],
+  diger: [
+    ["Matcha Latte","Tören sınıfı matcha","165",["180 kcal","70 mg"]],
+    ["Sıcak Çikolata","%55 bitter","150",["280 kcal","—"]],
+    ["Chai Latte","Ev yapımı baharat konsantresi","155",["210 kcal","40 mg"]],
+    ["Ev Limonatası","Taze sıkım, naneli","110",["90 kcal","—"]],
+    ["Demleme Çay","Rize · bardak","65",["0 kcal","30 mg"]]
+  ],
+  yiyecek: [
+    ["Kavacık Kahvaltı Tabağı","İki kişilik · 09:00–13:00","690",["kahvaltı"]],
+    ["Tereyağlı Kruvasan","Günlük üretim","95",["glüten","süt"]],
+    ["San Sebastian","Dilim","185",["yumurta","süt"]],
+    ["Fıstıklı Cheesecake","Dilim","195",["fıstık","süt"]],
+    ["Avokadolu Ekşi Maya","Yumurta ilaveli","265",["glüten"]],
+    ["Glütensiz Brownie","Vegan","145",["vegan","glütensiz"]]
+  ]
+};
+function renderMenu(cat){
+  document.getElementById("mlist").innerHTML = MENU[cat].map(([n,d,p,tags]) =>
+    `<div class="mitem"><span class="n">${n}</span><span class="p">${p} ₺</span>
+     <span class="d">${d}</span>
+     <span class="tags">${tags.map(t => `<span class="tg ${/vegan|glütensiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></div>`).join("");
+}
+document.querySelectorAll("#mcats .mcat").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#mcats .mcat").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true"); renderMenu(b.dataset.c);
+}));
+renderMenu("sicak");
+
+/* ---------------- franchise calculator ---------------- */
+function calcF(){
+  const city = +document.getElementById("fCity").value;
+  const m2 = +document.getElementById("fM2").value;
+  const rev = +document.getElementById("fRev").value;
+  document.getElementById("fM2v").textContent = m2;
+  document.getElementById("fRevv").textContent = fmt(rev);
+  const inv = Math.round((m2 * 28000 * city + 900000) / 50000) * 50000;
+  const roy = rev * 0.05 * 1.2, ad = rev * 0.01, margin = rev * 0.22 - roy - ad;
+  document.getElementById("oInv").textContent = fmt(inv) + " ₺";
+  document.getElementById("oRoy").textContent = fmt(Math.round(roy)) + " ₺";
+  document.getElementById("oAd").textContent = "≤ " + fmt(Math.round(ad)) + " ₺";
+  document.getElementById("oPb").textContent = margin > 0 ? Math.round(inv/margin) + "–" + Math.round(inv/margin*1.4) + " ay" : "—";
+}
+["fCity","fM2","fRev"].forEach(id => document.getElementById(id).addEventListener("input", calcF));
+calcF();
+
+/* ---------------- görseller: img/<ad>.(jpg|png) varsa yuvaya yerleşir ---------------- */
+document.querySelectorAll(".ph[data-img]").forEach(fig => {
+  if (fig.classList.contains("has")) return;
+  const name = fig.dataset.img;
+  const tryLoad = exts => { if (!exts.length) return;
+    const im = new Image(); im.alt = fig.querySelector(".cap")?.textContent || name; im.loading = "lazy"; im.decoding = "async";
+    im.onload = () => { fig.prepend(im); requestAnimationFrame(() => fig.classList.add("has")); };
+    im.onerror = () => tryLoad(exts.slice(1));
+    im.src = "img/" + name + "." + exts[0]; };
+  tryLoad(["jpg","png","webp"]);
+});
+/* ---------------- 3B eğilme: şube kartları ---------------- */
+const fine = matchMedia("(hover:hover) and (pointer:fine)").matches && !reduce;
+if (fine){
+  document.addEventListener("pointermove", e => {
+    const el = e.target.closest(".branch"); if (!el) return;
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+    el.classList.add("tilt","live"); el.style.transform = `perspective(700px) rotateX(${-y*7}deg) rotateY(${x*9}deg) translateY(-2px)`;
+  });
+  document.addEventListener("pointerout", e => { const el = e.target.closest(".branch"); if (el){ el.classList.remove("live"); el.style.transform = ""; } });
+  /* manyetik butonlar */
+  document.querySelectorAll(".btn").forEach(b => { b.classList.add("mag");
+    b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)`; });
+    b.addEventListener("pointerleave", () => b.style.transform = ""); });
+}
+/* ---------------- ambient sky + rail ---------------- */
+const STOPS = [
+  {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F2A22B"},  // 06:40 şafak
+  {p:0.14, a:"#073846", b:"#0A4D5C", c:"#7FC0C7", g:"#6FBFC6"},  // sabah
+  {p:0.42, a:"#0A4D5C", b:"#12707F", c:"#CDE7E6", g:"#8FD3D6"},  // öğle
+  {p:0.62, a:"#3A1B0C", b:"#A33C10", c:"#F2A22B", g:"#F5C46A"},  // gün batımı
+  {p:0.82, a:"#04161C", b:"#082F3A", c:"#0E4453", g:"#E2B55A"},  // gece
+  {p:1.00, a:"#03121A", b:"#062733", c:"#0A3D49", g:"#C98F3C"}   // kapanış
+];
+const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
+const mix = (x,y,t) => "#" + hex(x).map((v,i) => Math.round(v + (hex(y)[i]-v)*t).toString(16).padStart(2,"0")).join("");
+const sky = document.getElementById("sky"), fill = document.getElementById("railfill");
+const links = [...document.querySelectorAll(".rail a")];
+const secs = links.map(a => document.getElementById(a.getAttribute("href").slice(1)));
+let queued = false;
+function paint(){
+  queued = false;
+  const max = document.documentElement.scrollHeight - innerHeight;
+  const t = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
+  if (!reduce){
+    let i = 0; while (i < STOPS.length - 2 && t > STOPS[i+1].p) i++;
+    const s0 = STOPS[i], s1 = STOPS[i+1];
+    const k = (t - s0.p) / (s1.p - s0.p || 1);
+    sky.style.setProperty("--sky-1", mix(s0.a, s1.a, k));
+    sky.style.setProperty("--sky-2", mix(s0.b, s1.b, k));
+    sky.style.setProperty("--sky-3", mix(s0.c, s1.c, k));
+    document.documentElement.style.setProperty("--glow", mix(s0.g, s1.g, k));
+  }
+  fill.style.height = (t * (innerHeight * 0.84)) + "px";
+  let cur = 0;
+  secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.35) cur = i; });
+  links.forEach((a, i) => a.setAttribute("aria-current", String(i === cur)));
+}
+addEventListener("scroll", () => { if (!queued){ queued = true; requestAnimationFrame(paint); } }, {passive:true});
+addEventListener("resize", paint);
+paint();
+</script>
+</body></html>

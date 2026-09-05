@@ -1,0 +1,390 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Sunum</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root{--bg:#041A22;--bg-2:#072C38;--panel:#0A3846;--ink:#F6F1E8;--ink-2:#BCD0D4;--ink-3:#7E969D;--line:#11495A;--coral:#F2A22B;--coral-deep:#D2500E;--teal:#5FC4CB;--teal-deep:#0A4D5C;--gold:#EFC46B;--good:#6FC9A4;--warn:#F0916C;--brand:#0A4D5C;--amber:#F2A22B;--rust:#D2500E}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,.d{font-family:"Bricolage Grotesque","Public Sans",sans-serif;letter-spacing:-0.015em;text-wrap:balance;margin:0}
+.deck{position:fixed;inset:0;display:grid;place-items:center;background:var(--bg)}
+.slide{width:min(100vw,calc(100vh*16/9));aspect-ratio:16/9;background:var(--bg);color:var(--ink);padding:4.5vmin 6vmin 8vmin;display:none;flex-direction:column;position:relative;font-size:calc(min(100vw,100vh*16/9)/62)}
+.slide.on{display:flex}
+.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:.7em;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.6em}
+h1{font-size:2.6em;line-height:1.02;font-weight:800;max-width:14ch}
+h2{font-size:1.9em;line-height:1.08;font-weight:800;max-width:20ch;margin-bottom:.5em}
+h3{font-size:1.05em;font-weight:700;color:var(--ink)}
+p{font-size:1em;line-height:1.5;color:var(--ink-2);max-width:60ch;margin:0 0 .6em}
+.big{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.4em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.big.coral{color:var(--coral)}.big.teal{color:var(--teal)}.big.gold{color:var(--gold)}
+.cols{display:grid;gap:1.4em;flex:1;align-content:center}
+.c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}.c4{grid-template-columns:repeat(4,1fr)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:.8em;padding:1.1em 1.2em}
+.card h3{margin-bottom:.35em}
+.card p{font-size:.88em;margin:0}
+.card .l{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.card.accent{border-color:var(--coral);background:linear-gradient(160deg,#123E4C,var(--panel))}
+.card.teal{border-color:var(--teal-deep)}
+ul{margin:.3em 0 0;padding-left:1.1em;color:var(--ink-2);font-size:.95em;line-height:1.5}
+li{margin:.25em 0}
+li b{color:var(--ink)}
+.foot{position:absolute;left:6vmin;right:6vmin;bottom:3vmin;display:flex;justify-content:space-between;font-size:.62em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.mark{width:1.35em;height:1.35em;display:inline-block;vertical-align:middle;margin-right:.45em}
+.chip{display:inline-block;padding:.12em .55em;border-radius:999px;font-size:.62em;font-weight:700;font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.04em;vertical-align:middle}
+.chip.coral{background:#3E2409;color:var(--coral)}.chip.teal{background:#0C3C46;color:var(--teal)}.chip.gold{background:#3A2C0D;color:var(--gold)}.chip.good{background:#0F3229;color:var(--good)}.chip.warn{background:#3E2110;color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:.82em;font-variant-numeric:tabular-nums}
+th,td{padding:.5em .7em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-family:"Bricolage Grotesque",sans-serif;font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+td.n{text-align:right;white-space:nowrap}
+td b{color:var(--ink)}
+.bars{display:flex;flex-direction:column;gap:.9em;margin-top:1em}
+.bar{display:grid;grid-template-columns:9em 1fr 6em;align-items:center;gap:.8em;font-size:.95em}
+.bar .t{font-weight:700;font-family:"Bricolage Grotesque",sans-serif}
+.bar .b{height:1.3em;border-radius:.3em;background:var(--teal-deep)}
+.bar .b.me{background:var(--coral)}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:.8em;align-items:stretch;margin-top:.6em}
+.flow .card{text-align:center}
+.flow .card .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.1em;margin-bottom:.2em}
+.api{margin-top:.8em;border:1px dashed var(--teal-deep);border-radius:.6em;padding:.6em 1em;text-align:center;color:var(--teal);font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.9em}
+.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;margin-top:.5em}
+.timeline .card{border-top:.25em solid var(--teal)}
+.timeline .card:nth-child(2){border-top-color:var(--gold)}.timeline .card:nth-child(3){border-top-color:var(--coral)}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:.35em 1em;font-size:.92em;color:var(--ink-2)}
+.kv b{color:var(--ink);font-family:"Bricolage Grotesque",sans-serif}
+.hero{justify-content:center}
+.hero .sub{font-size:1.15em;color:var(--ink-2);max-width:50ch;margin-top:.9em}
+.progress{position:fixed;left:0;bottom:0;height:.35vh;background:var(--coral);width:0;transition:width .25s}
+.counter{position:fixed;right:1.2vw;top:1vh;font-size:.75rem;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.06em}
+.help{position:fixed;left:1.2vw;top:1vh;font-size:.7rem;color:var(--ink-3)}
+.notes{position:fixed;left:0;right:0;bottom:0;background:#020E13;color:var(--ink-2);border-top:1px solid var(--line);padding:.8rem 1.2rem;font-size:.85rem;max-height:32vh;overflow:auto;display:none}
+.notes.on{display:block}
+.notes b{color:var(--gold);font-family:"Bricolage Grotesque",sans-serif}
+.navbtn{position:fixed;top:50%;transform:translateY(-50%);width:3rem;height:3rem;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.3);color:var(--ink-2);font-size:1.2rem;cursor:pointer;display:grid;place-items:center}
+.navbtn:hover{color:var(--ink);border-color:var(--ink-3)}
+.navbtn.prev{left:.8vw}.navbtn.next{right:.8vw}
+.navbtn:focus-visible{outline:2px solid var(--teal)}
+.quote{font-family:"Bricolage Grotesque",sans-serif;font-size:1.5em;font-weight:700;line-height:1.25;color:var(--ink);max-width:24ch;border-left:.25em solid var(--coral);padding-left:.8em;margin:.6em 0}
+@media (prefers-reduced-motion:reduce){.progress{transition:none}}
+</style>
+
+<div class="deck">
+
+<!-- 1 -->
+<section class="slide on hero" data-notes="Açılış: 'Sizi Google'da aradık, ABD'yi bulduk.' Bu cümleyle başlayın. Bugün 15 dakika sunum, 10 dakika demo, kalan süre soru.">
+  <div class="eyebrow"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>P3Media · Florida Coffee Kahve Gıda A.Ş. için · Eylül 2026</div>
+  <h1>Florida Coffee'yi Türkiye'nin en bulunur kahve zinciri yapmak</h1>
+  <div class="sub">Web sitesi, mobil uygulama ve HQ platformu. Sözleşmenizin dijital yükümlülüklerini yerine getiren, her yeni franchise ile büyüyen tek sistem.</div>
+  <div class="foot"><span>Gizli · teklif öncesi sunum</span><span>Demo: Florida Coffee Platform</span></div>
+</section>
+
+<!-- 2 -->
+<section class="slide" data-notes="Rakamlar Semrush Türkiye veritabanı, Eylül 2026. 208.967 sayısını yavaş söyleyin. 'İlk 10'da tek bir kelimeniz yok' cümlesi kalsın. ABD karışıklığını demo SERP sekmesinde göstereceğiz.">
+  <div class="eyebrow">Bugün</div>
+  <h2>Google'da ABD'deki Florida kahvecileriyle karışıyorsunuz</h2>
+  <div class="cols c3">
+    <div class="card accent"><div class="l">floridacoffee.com.tr · Semrush TR sırası</div><div class="big coral">208.967</div><p>33 kelime · 287 ziyaret/ay · ilk 10'da <b style="color:var(--ink)">0</b> kelime</p></div>
+    <div class="card"><div class="l">espressolab.com</div><div class="big">2.708</div><p>3.141 kelime · 143.611 ziyaret/ay</p></div>
+    <div class="card"><div class="l">kahvedunyasi.com</div><div class="big">1.124</div><p>10.864 kelime · 426.933 ziyaret/ay</p></div>
+  </div>
+  <div class="cols c2" style="flex:0;margin-top:1em">
+    <ul><li><b>"florida coffee"</b> araması Kahwa, Lucky Goat, Florida travel bloglarına gidiyor</li><li>Site indekste 3 sayfa: menü, franchise, blog yok</li><li>Yandex Haritalar Çengelköy merkezi <b>"artık faal değil"</b> gösteriyor</li></ul>
+    <ul><li>Instagram 4.046 takipçi; şube hesapları ayrı ayrı</li><li>Uygulama mağazada var, kimse bulamıyor</li><li>Şikayetvar'daki şikayetler yanıtsız</li></ul>
+  </div>
+  <div class="foot"><span>Kaynak: Semrush TR, Eylül 2026 · web araması</span><span>2</span></div>
+</section>
+
+<!-- 3 -->
+<section class="slide" data-notes="Pazar büyürken görünmez olmak en pahalı hata. Boykot hikayesini nazikçe, 'yerli alternatif arayışı' olarak anlatın. Franchise talebi: Ekonomist, 17 zincir 253 girişimci arıyor.">
+  <div class="eyebrow">Fırsat</div>
+  <h2>Pazar patlıyor, yatırımcı arıyor, yerli marka istiyor</h2>
+  <div class="cols c4">
+    <div class="card"><div class="l">Türkiye kahve pazarı 2025</div><div class="big gold">15 <span style="font-size:.5em">milyar ₺</span></div><p>yıllık +%35</p></div>
+    <div class="card"><div class="l">Kişi başı tüketim</div><div class="big">2,5 <span style="font-size:.5em">kg</span></div><p>2026 tahmini; 2010'da 0,4 kg</p></div>
+    <div class="card"><div class="l">Franchise talebi</div><div class="big teal">253</div><p>girişimci 17 zincirde şube arıyor</p></div>
+    <div class="card"><div class="l">Kafe sayısı</div><div class="big">28.000+</div><p>rekabet şubede değil, ekranda</p></div>
+  </div>
+  <div class="cols c2" style="flex:0;margin-top:1em">
+    <div class="card teal"><h3>Starbucks boykotu</h3><p>Şehir merkezi mağazaları kapanıyor; müşteri yerli, hikayesi olan markaya kayıyor. "İstanbul doğumlu, Boğaz manzaralı" hikayesi boşta duruyor.</p></div>
+    <div class="card teal"><h3>Sakarya ve Karadağ</h3><p>Espressolab Sakarya'da 7 şube, zincirler AVM'lerde; Çark Caddesi'nde cadde tipi premium zincir yok. Adriyatik'te ilk Türk kahve zinciri sizsiniz.</p></div>
+  </div>
+  <div class="foot"><span>Kaynaklar: Marketing Türkiye, Karar, Ekonomist, Accio</span><span>3</span></div>
+</section>
+
+<!-- 4 -->
+<section class="slide" data-notes="En güçlü slayt. Sözleşmelerini biz özetledik; maddeleri onlar yazdı. Mesaj: 'Bu platform bir masraf değil, sözleşmenizin 6.32 maddesindeki gelir kalemi.'">
+  <div class="eyebrow">Sözleşmeniz zaten karar vermiş</div>
+  <h2>Franchise sözleşmeniz dijitali merkezileştiriyor. Yazılımı eksik.</h2>
+  <div class="cols c2">
+    <table>
+      <tr><th>Madde</th><th>Hüküm</th><th>Platformda karşılığı</th></tr>
+      <tr><td><b>7.2</b></td><td>Franchise alan kendi sitesini, sosyal hesabını açamaz</td><td>Şube sayfaları merkezi sitede, sosyal içerik merkezi takvimde</td></tr>
+      <tr><td><b>7.4</b></td><td>Önce fiziksel sadakat kartı, sonra mobil uygulama</td><td>Kart → uygulama geçiş kampanyası, tek sadakat motoru</td></tr>
+      <tr><td><b>6.23</b></td><td>Satış, ciro, stok HQ'ya online açık</td><td>POS entegrasyonu, HQ dashboard, otomatik ciro bildirimi</td></tr>
+      <tr><td><b>6.32</b></td><td>Mobil uygulama, yazılım, e-fatura aylık gider kalemi</td><td>Şube başına aylık platform lisansı</td></tr>
+      <tr><td><b>9.3 · 12.3</b></td><td>Gizli müşteri, ciro eşiği</td><td>Denetim modülü, erken uyarı</td></tr>
+    </table>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:1em">
+      <div class="quote">Her yeni franchise, platformun bir müşterisi. Her şube açılışı sizin için gelir.</div>
+      <p>Bugün 15–18 şube. 2027'de 30 şube hedefiyle platform lisansı, uygulamanın ve sitenin maliyetini franchise ağına dağıtır; HQ için net pozitif olur.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Kaynak: Florida Coffee franchise sözleşmesi özet sunumu</span><span>4</span></div>
+</section>
+
+<!-- 5 -->
+<section class="slide" data-notes="Mimariyi bir cümleyle: 'Menü, fiyat ve şube tek yerden girilir; web, uygulama, barista ekranı ve WhatsApp asistanı aynı kaynağı okur.' Teknik detaya girmeyin, sorarlarsa Next.js, Flutter, Supabase.">
+  <div class="eyebrow">Ne inşa ediyoruz</div>
+  <h2>Beş yüz, tek beyin</h2>
+  <div class="flow">
+    <div class="card"><div class="n">Web sitesi</div><p>Şube sayfaları, menü, franchise hunisi, varlık SEO, TR/EN/ME</p></div>
+    <div class="card"><div class="n">Mobil uygulama</div><p>Sadakat, cüzdan, ön sipariş, "Geldim", kampanya</p></div>
+    <div class="card"><div class="n">Barista ekranı</div><p>Modifikasyonlar renkli, POS ve e-fatura otomatik</p></div>
+    <div class="card"><div class="n">HQ + Franchisee</div><p>Ciro, royalty, denetim, tedarik, eğitim, lead pipeline</p></div>
+    <div class="card"><div class="n">AI asistan</div><p>WhatsApp/IG sipariş, yorum yanıtı, içerik, tahmin</p></div>
+  </div>
+  <div class="api">Tek platform API'si · menü, fiyat, şube, kampanya bir kez girilir, her yerde aynı</div>
+  <div class="cols c3" style="flex:0;margin-top:1em">
+    <div class="card"><div class="l">Entegrasyon</div><p>POS/otomasyon, e-fatura entegratörü, iyzico/PayTR, yemek kartları, Yemeksepeti, Google/Yandex işletme profilleri</p></div>
+    <div class="card"><div class="l">Performans</div><p>LCP &lt; 2,0 s, INP &lt; 200 ms, Lighthouse mobil ≥ 90. Google'ın 2026 eşikleri</p></div>
+    <div class="card"><div class="l">Uyum</div><p>KVKK aydınlatma ve açık rıza, Türkiye veri lokasyonu, rol bazlı erişim, sözleşme bitiminde erişim iptali (13.2)</p></div>
+  </div>
+  <div class="foot"><span>Mimari</span><span>5</span></div>
+</section>
+
+<!-- 5b -->
+<section class="slide" data-notes="Bu slayt yeni: barista operasyon el kitabini okuduktan sonra eklendi. Mesaj: 'Icerigi biz uydurmuyoruz, sizin kitabinizdan yaziyoruz.' Demoda Kahvemiz bolumunu acip gosterin — ekrandaki her rakam onlarin kendi standardi.">
+  <div class="eyebrow">İçerik stratejisi</div>
+  <h2>İçeriği uydurmuyoruz.<br>El kitabınızdan yazıyoruz.</h2>
+  <div class="cols c2">
+    <div>
+      <p>El kitabınızı okuduk; demonun "Kahvemiz" bölümünü tamamen ondan kurduk. Ekrandaki her rakam sizin standardınız:</p>
+      <div class="kv" style="margin-top:.8em">
+        <b>14 g</b><span>double shot dozu, tartı ile</span>
+        <b>90–96 °C</b><span>su sıcaklığı</span>
+        <b>9 bar</b><span>basınç</span>
+        <b>18–23 sn</b><span>shot süresi, kronometreyle</span>
+        <b>30–60 g</b><span>çıktı · süt 60–65 °C mikro köpük</span>
+        <b>5 adım</b><span>shot öncesi zorunlu prosedür</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:1em">
+      <div class="quote">Kavacık'taki latte, Bursa'dakiyle aynı olmak zorunda.</div>
+      <div class="card teal"><h3>Neden bu bir SEO avantajı</h3><p>Rakiplerin metinleri genel kahve bilgisi, birbirinin aynı. Ölçülü ve size özel içerik Google'ın yapay zeka özetlerinde alıntılanır; "espresso neden ekşi" gibi yüzlerce bilgi aramasında sizi öne çıkarır.</p></div>
+      <div class="card"><h3>Blog için hazır malzeme</h3><p>Kahve kuşağı, arabica–robusta farkı, kavurma dereceleri, bayat kahve — el kitabında aylarca yetecek içerik var.</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>Kaynak: Florida Coffee barista operasyon el kitabı</span><span></span></div>
+</section>
+
+<!-- 6 -->
+<section class="slide" data-notes="Burada demoya geçin: SERP sekmesi ve Web sekmesi. Kavacık şube sayfasını açın; SSS bloğunu ve 'şu an sakin' etiketini gösterin. 'Rakiplerin hiçbirinde bu sayfa yok.'">
+  <div class="eyebrow">Web sitesi</div>
+  <h2>Türkiye'nin en zengin şube sayfaları ve "Florida Coffee Türkiye" varlığı</h2>
+  <div class="cols c2">
+    <div>
+      <ul>
+        <li><b>Varlık SEO:</b> Wikidata, Organization şeması, tutarlı "Florida Coffee Türkiye" adı → Knowledge Panel; ABD karışıklığı biter</li>
+        <li><b>17 şube sayfası:</b> manzara saatleri, otopark, çalışma alanı, canlı yoğunluk, SSS, yorumlar; CafeOrCoffeeShop + FAQPage şeması</li>
+        <li><b>Menü:</b> 40+ ürün sayfası, besin ve alerjen, şube fiyat grupları</li>
+        <li><b>Franchise hunisi:</b> yatırım hesaplayıcı, başarı videoları, 3 adımlı başvuru, AI lead skoru</li>
+        <li><b>GEO:</b> AI Overview'da alıntılanacak tablo ve soru-cevap yapısı</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="l">Hedef · 12 ay</div>
+      <div class="bars">
+        <div class="bar"><span class="t">Organik kelime</span><div class="b me" style="width:8%"></div><span class="v">33 → 2.000</span></div>
+        <div class="bar"><span class="t">Top 10 kelime</span><div class="b me" style="width:4%"></div><span class="v">0 → 400</span></div>
+        <div class="bar"><span class="t">Ziyaret / ay</span><div class="b me" style="width:6%"></div><span class="v">287 → 30.000</span></div>
+        <div class="bar"><span class="t">Franchise formu / ay</span><div class="b me" style="width:3%"></div><span class="v">0 → 40</span></div>
+      </div>
+      <p style="margin-top:1em;font-size:.8em">Çubuklar bugünkü değerin hedefe oranı. Ölçüm: Semrush, Search Console, CRM.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Demo: Google sekmesi → Web sitesi sekmesi</span><span>6</span></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" data-notes="Demo: Uygulama sekmesi. Iced Latte, laktozsuz, cüzdanla öde, 'Geldim'. Şikayetlerden bahsedin: soğuk kahve sıcak bardakta, laktozsuz süt unutulmuş. 'Bu şikayetler uygulama doğruluğuyla biter.'">
+  <div class="eyebrow">Mobil uygulama</div>
+  <h2>Sadakat, cüzdan ve ön sipariş tek akışta</h2>
+  <div class="cols c3">
+    <div class="card"><h3>FloridaDays Club</h3><p>1 ₺ = 1 çekirdek, 10 içecekte 1 hediye. Classic · Plus · Premium seviyeleri; Premium'a manzaralı masa önceliği. Fiziksel kart QR ile aktarılır (7.4).</p></div>
+    <div class="card"><h3>Cüzdan</h3><p>Kredi kartı, Multinet, Sodexo, Setcard ile yükleme; yüklemede bonus. Tek QR ile ödeme ve puan. Arkadaşa kahve gönder.</p></div>
+    <div class="card"><h3>Ön sipariş ve "Geldim"</h3><p>Boy, sıcak/soğuk, süt ve ekstra zorunlu alanlar. Planlı siparişte hazırlık siz gelince başlar; kahve soğumaz. Barista ekranında laktozsuz mor, soğuk mavi.</p></div>
+  </div>
+  <div class="cols c2" style="flex:0;margin-top:1em">
+    <div class="card accent"><div class="l">Bugünkü şikayetler</div><p>"Soğuk istedim, sıcak bardakta geldi." · "Laktozsuz süt dedim, uygulanmadı." · "Kimse ilgilenmedi."</p></div>
+    <div class="card teal"><div class="l">Uygulama ile</div><p>Modifikasyon POS'a yapısal gider · süt tercihi profilde · teslim sonrası tek dokunuş puan; 1–3 puan HQ'ya anında düşer, 4–5 puan Google yorumuna yönlenir</p></div>
+  </div>
+  <div class="foot"><span>Demo: Mobil uygulama sekmesi</span><span>7</span></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" data-notes="Demo: HQ sekmesi. Esenyurt uyarısını gösterin (12.3). 'Sözleşmenin fesih maddesi bir uyarıya dönüşüyor; fesihten önce müdahale edersiniz.' Sonra Yorumlar · AI sekmesi: İzmit şikayeti ve taslak yanıt.">
+  <div class="eyebrow">HQ paneli ve franchisee portalı</div>
+  <h2>17 şube tek ekranda, sözleşme maddeleri otomatik uyarıya dönüşür</h2>
+  <div class="cols c2">
+    <ul>
+      <li><b>Dashboard:</b> ciro, royalty (%5 + KDV otomatik), uygulama payı, üye, yorum puanı; şube trendi</li>
+      <li><b>Uyarılar:</b> ciro eşiği (12.3), 6 ayda 3. uyarı (6.18), izinsiz kapalı gün (6.28), kamera pasif (6.23), Yandex/GBP veri hatası</li>
+      <li><b>Yorum gelen kutusu:</b> Google, Yandex, uygulama, Şikayetvar tek yerde; AI sentiment ve yanıt taslağı, insan onayı</li>
+      <li><b>Kampanya motoru:</b> şube, seviye, saat hedefli; ROI görünür; şube talepleri HQ onayından geçer (7.2)</li>
+      <li><b>Franchise pipeline:</b> AI lead skoru, 3 km çakışma kontrolü, aşama takibi</li>
+    </ul>
+    <div class="card"><div class="l">Franchisee portalı · şube müdürü</div>
+      <div class="kv" style="margin-top:.6em">
+        <b>6.23</b><span>Ciro bildirimi POS'tan gelir, müdür onaylar</span>
+        <b>6.4 · 6.10</b><span>Merkezi tedarik sepeti, 40 gün vade takibi</span>
+        <b>8</b><span>Video eğitim, sınav, sertifika; yeni personel otomatik atanır</span>
+        <b>9 · 9.3</b><span>Denetim ve gizli müşteri raporları, eksik kapatma sayacı</span>
+        <b>7.2</b><span>Yerel kampanya talebi → HQ onayı</span>
+        <b>13.2</b><span>Sözleşme bitince erişim ve belgeler kapanır</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>Demo: HQ paneli sekmesi</span><span>8</span></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" data-notes="Demo: AI sekmesi, WhatsApp senaryosu. Sonra bu tabloyu gösterin; 'V1' olanlar ilk 4 ayda. Starbucks Deep Brew referansı: kişiselleştirme ortalama siparişi %12 artırdı.">
+  <div class="eyebrow">Yapay zeka</div>
+  <h2>Zaten topladığınız veriyi paraya çeviren altı senaryo</h2>
+  <table>
+    <tr><th>Senaryo</th><th>Veri</th><th>Ne kazandırır</th><th>Faz</th></tr>
+    <tr><td><b>WhatsApp / Instagram sipariş ve destek asistanı</b></td><td>Menü, şube, sadakat API</td><td>7/24 yanıt; şikayet erken yakalama; insana devir</td><td><span class="chip teal">V1</span></td></tr>
+    <tr><td><b>Yorum sentimenti ve yanıt taslağı</b></td><td>Google, Yandex, Şikayetvar, uygulama</td><td>Her yorum 24 saatte yanıtlanır; şube kalite skoru</td><td><span class="chip teal">V1</span></td></tr>
+    <tr><td><b>SEO / GEO içerik motoru</b></td><td>CMS</td><td>17 şube × SSS × 2 dil; blog taslakları</td><td><span class="chip teal">V1</span></td></tr>
+    <tr><td><b>Ciro eşiği ve denetim uyarıları</b></td><td>POS (6.23), denetim raporları</td><td>Fesih riskinden önce müdahale</td><td><span class="chip teal">V1</span></td></tr>
+    <tr><td><b>Kişisel öneri ve ölü saat kampanyası</b></td><td>Sipariş geçmişi, hava, yoğunluk</td><td>Sepet +%10–15 (Starbucks Deep Brew: ort. sipariş +%12)</td><td><span class="chip gold">V2</span></td></tr>
+    <tr><td><b>Talep tahmini, stok ve vardiya</b></td><td>POS × saat × ürün</td><td>Fire düşer; personel maliyeti ±%15 bandında (6.16)</td><td><span class="chip gold">V2</span></td></tr>
+  </table>
+  <p style="margin-top:.8em;font-size:.85em">Yönetişim: KVKK aydınlatma ve açık rıza, yorum yanıtlarında insan onayı, fiyat ve stok her zaman API'den.</p>
+  <div class="foot"><span>Demo: AI asistan sekmesi</span><span>9</span></div>
+</section>
+
+<!-- 10 -->
+<section class="slide" data-notes="Demo: Franchise sekmesi, hesaplayıcı ve başvuru. Rakiplerin franchise sayfaları form; sizinki hesaplayıcı ve video. 'Her lead 10 yıllık royalty.'">
+  <div class="eyebrow">Franchise büyüme motoru</div>
+  <h2>Her lead 10 yıllık royalty. Huniyi hesaplayıcıyla açıyoruz.</h2>
+  <div class="cols c3">
+    <div class="card"><h3>Isıt</h3><p>"Kahve franchise", "kahve bayiliği veren firmalar", "kahve dükkanı açmak maliyeti" aramalarında sayfa; franchise portallarında listeleme ve backlink; referans şube videoları.</p></div>
+    <div class="card"><h3>Hesapla</h3><p>Şehir tipi, m², tahmini ciro → örnek yatırım, royalty %5 + KDV, ulusal reklam ≤ %1, geri dönüş aralığı. Rakamlar HQ panelinden güncellenir.</p></div>
+    <div class="card"><h3>Skorla ve ara</h3><p>3 adımlı başvuru → CRM; AI skor (bütçe, deneyim, bölge boşluğu, zamanlama); 3 km koruma çakışma kontrolü; 24 saat arama SLA.</p></div>
+  </div>
+  <div class="cols c2" style="flex:0;margin-top:1em">
+    <div class="card accent"><div class="l">Bugün</div><p>Franchise sayfası indekste yok. Rakiplerde: Espressolab form, Coffy ayrı subdomain, Kahve Dünyası bedel sayfaları üçüncü taraf sitelerde.</p></div>
+    <div class="card teal"><div class="l">Hedef</div><p>6 ayda ayda 15, 12 ayda ayda 40 nitelikli başvuru. Sakarya, Bursa, Eskişehir, Samsun bölgesel sayfalar.</p></div>
+  </div>
+  <div class="foot"><span>Demo: Franchise sekmesi</span><span>10</span></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" data-notes="Farkı rakiplerin zayıf noktasından kurun. 'Espressolab'ın 1 milyon kullanıcısı var ama manzarası yok.' Manzara sizin ürününüz.">
+  <div class="eyebrow">Fark</div>
+  <h2>Rakipleri kopyalamıyoruz; boşluklarına yerleşiyoruz</h2>
+  <table>
+    <tr><th>Rakip güçlü yanı</th><th>Florida Coffee cevabı</th></tr>
+    <tr><td>Espressolab: 1M uygulama kullanıcısı, cüzdan, O-Club</td><td><b>Aynı mekanikler + manzara:</b> Premium üyeye gün batımı masası; "Geldim" ile hazırlık</td></tr>
+    <tr><td>Kahve Dünyası: 10.864 kelime, e-ticaret, blog</td><td><b>Şube sayfaları ve rehberler:</b> "İstanbul'un manzaralı kahve rotası"; Mi Florida çekirdek satışı faz 2</td></tr>
+    <tr><td>Coffy: tek fiyat, basitlik, dijital-öncelikli</td><td><b>BİFLORİDA</b> ekonomik hat için hazır altyapı (kararı siz verirsiniz)</td></tr>
+    <tr><td>Starbucks: marka gücü</td><td><b>Yerlilik + Boğaz hikayesi;</b> boykot sonrası alternatif</td></tr>
+    <tr><td>Hepsi: harita listesinden ibaret şube sayfaları</td><td><b>Türkiye'nin en zengin şube sayfaları:</b> yoğunluk, manzara saatleri, SSS, etkinlik</td></tr>
+    <tr><td>Hepsi: form odaklı franchise sayfası</td><td><b>Hesaplayıcı + video + AI skor</b></td></tr>
+    <tr><td>Hiçbiri: Karadağ</td><td><b>Adriyatik'te ilk Türk kahve zinciri;</b> EN/ME site katmanı</td></tr>
+  </table>
+  <div class="foot"><span>Rakip analizi: rapor §4</span><span>11</span></div>
+</section>
+
+<!-- 12 -->
+<section class="slide" data-notes="Takvimde net olun: 90 günde site + uygulama v2 canlı. Portal ve AI 6 ayda. Her fazın çıktısı ölçülebilir.">
+  <div class="eyebrow">Yol haritası</div>
+  <h2>90 günde canlı, 6 ayda tam platform, 12 ayda ölçülmüş sonuç</h2>
+  <div class="timeline">
+    <div class="card"><div class="l">0–90 gün</div><h3>Temel ve lansman</h3><ul><li>Keşif, marka kılavuzu, şube verisi (2 hafta)</li><li>Web TR: 17 şube sayfası, menü, franchise hunisi</li><li>Varlık SEO: Wikidata, şema, GBP/Yandex temizliği</li><li>Uygulama v2: sadakat, cüzdan, ön sipariş, kart geçişi</li><li>Yorum gelen kutusu + AI yanıt</li></ul></div>
+    <div class="card"><div class="l">3–6 ay</div><h3>Platform</h3><ul><li>HQ paneli ve franchisee portalı; POS, e-fatura entegrasyonu</li><li>WhatsApp/Instagram asistan</li><li>İçerik motoru, blog, EN/ME sayfalar</li><li>Ölü saat kampanyaları, lead skorlama</li></ul></div>
+    <div class="card"><div class="l">6–12 ay</div><h3>Büyüme</h3><ul><li>Kişisel öneri motoru, talep tahmini</li><li>Mi Florida e-ticaret, abonelik</li><li>AI video ile haftalık içerik</li><li>KPI: 2.000 kelime, 30.000 ziyaret/ay, 60.000 aktif üye, ayda 40 franchise başvurusu</li></ul></div>
+  </div>
+  <div class="foot"><span>Faz planı: rapor §14</span><span>12</span></div>
+</section>
+
+<!-- 13 -->
+<section class="slide" data-notes="P3Media'nın dört yetkinliği bu işte birleşiyor. 'Sözleşmenizi okuduk, rakiplerinizi ölçtük, demoyu yaptık; henüz sözleşme imzalamadık.' Bu, ciddiyetin kanıtı.">
+  <div class="eyebrow">Neden P3Media</div>
+  <h2>Sözleşmenizi ve el kitabınızı okuduk, rakiplerinizi ölçtük, demoyu getirdik</h2>
+  <div class="cols c4">
+    <div class="card"><h3>Görünürlük</h3><p>SEO, varlık SEO, GEO, içerik. Hedefler Semrush ve Search Console ile ölçülür.</p></div>
+    <div class="card"><h3>Marka</h3><p>"Florida Coffee Türkiye" kimliği, alt marka mimarisi (FloridaDays, Mi Florida, BİFLORİDA, Florida Plus), sosyal hesapların merkezileşmesi.</p></div>
+    <div class="card"><h3>Dönüşüm</h3><p>Ön sipariş, sadakat, franchise hunisi. Her ekran bir aksiyona çıkar.</p></div>
+    <div class="card"><h3>Sistem ve AI video</h3><p>HQ paneli, portal, entegrasyonlar; haftalık AI video ile 17 şubenin içeriği merkezden (7.3).</p></div>
+  </div>
+  <div class="card accent" style="margin-top:1em"><div class="l">Bu görüşme için hazırlananlar</div><p>16 bölümlük analiz raporu · 120 kelimelik anahtar kelime listesi · fonksiyonel tasarım dokümanı · marka kimliğinizle giydirilmiş tam ekranlı demo site · platform prototipi · bu sunum. Hepsi teklif imzalanmadan önce.</p></div>
+  <div class="foot"><span>P3Media</span><span>13</span></div>
+</section>
+
+<!-- 14 -->
+<section class="slide" data-notes="Ticari modeli anlatın, rakamı teklife bırakın. Şube başına lisans 6.32'de zaten var; HQ için pozitif nakit. Sorarlarsa aralık verin; toplantıda kesin rakam söylemeyin.">
+  <div class="eyebrow">Ticari model</div>
+  <h2>Kurulum + şube başına lisans + büyüme ortaklığı</h2>
+  <div class="cols c3">
+    <div class="card"><div class="l">1 · Kurulum</div><h3>Web, uygulama v2, HQ paneli</h3><p>Tek seferlik; fazlara bölünmüş ödeme. Kaynak kod ve mağaza hesapları Florida Coffee'ye ait.</p></div>
+    <div class="card teal"><div class="l">2 · Şube başına aylık lisans</div><h3>Sözleşme 6.32'ye uyumlu</h3><p>Uygulama, portal, sunucu, e-posta, entegrasyon bakımı. Franchise alanın mevcut gider kalemi; HQ için net pozitif.</p></div>
+    <div class="card"><div class="l">3 · Büyüme ortaklığı</div><h3>Aylık retainer</h3><p>SEO ve içerik, kampanya yönetimi, AI video, franchise hunisi optimizasyonu. Ulusal reklam bütçesi (7.1) ile uyumlu.</p></div>
+  </div>
+  <div class="cols c2" style="flex:0;margin-top:1em">
+    <div class="card"><div class="l">Sizde kalanlar</div><p>Alan adları, uygulama mağaza hesapları, veri, kaynak kod, sosyal hesaplar (madde 4 ile uyumlu).</p></div>
+    <div class="card"><div class="l">Rakamlar</div><p>Keşif sonrası yazılı teklifte; POS/otomasyon envanteri ve mevcut uygulamanın kaynak kod durumu fiyatı belirler.</p></div>
+  </div>
+  <div class="foot"><span>Teklif: keşif sonrası 5 iş günü</span><span>14</span></div>
+</section>
+
+<!-- 15 -->
+<section class="slide" data-notes="Kapanış teklifi: 30 günlük pilot. Riski düşürür, ilişkiyi başlatır. Kavacık ve Sakarya seçildi çünkü biri manzara, diğeri yeni sözleşme. Pilot çıktıları ölçülebilir ve sözleşmeden bağımsız değerli.">
+  <div class="eyebrow">Başlangıç teklifi</div>
+  <h2>30 günlük pilot: Kavacık ve Sakarya Çark Caddesi</h2>
+  <div class="cols c2">
+    <div>
+      <ul>
+        <li><b>Hafta 1:</b> Yandex "kapalı" hatası, GBP ve NAP temizliği (17 şube), "Florida Coffee Türkiye" varlık kaydı</li>
+        <li><b>Hafta 2:</b> Kavacık ve Sakarya şube sayfaları canlı; şema, SSS, fotoğraf standardı</li>
+        <li><b>Hafta 3:</b> Yorum gelen kutusu ve AI yanıt; Şikayetvar'daki açık şikayetler kapatılır</li>
+        <li><b>Hafta 4:</b> Sakarya açılış kampanyası; ölçüm raporu: sıralama, harita görüntülenme, yol tarifi, arama</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <div class="l">Pilot çıktısı</div>
+      <h3>Ölçülmüş kanıt, sonra tam platform kararı</h3>
+      <p>Pilot sonunda: iki şubede Google Haritalar görüntülenme ve yol tarifi artışı, marka aramasında ABD karışıklığının azalması, yanıtlanmış yorumlar. Beğenirseniz tam platforma geçilir; pilot bedeli kurulumdan düşülür.</p>
+    </div>
+  </div>
+  <div class="foot"><span>Karar: pilot başlangıç tarihi</span><span>15</span></div>
+</section>
+
+<!-- 16 -->
+<section class="slide hero" data-notes="Kapanış: iki soru sorun. 1) Mevcut uygulamanın kaynak kodu sizde mi? 2) POS/otomasyon hangisi? Bu ikisi teklifi belirler. Sonra keşif toplantısı tarihi alın.">
+  <div class="eyebrow"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>Sonraki adım</div>
+  <h1>Bu hafta keşif, gelecek hafta pilot başlangıcı</h1>
+  <div class="cols c2" style="flex:0;margin-top:1.4em">
+    <div class="card"><div class="l">Sizden ihtiyacımız olanlar</div><ul><li>Marka kılavuzu ve görsel arşiv</li><li>Şube listesi, saatler, yöneticiler</li><li>POS/otomasyon ve mevcut uygulama bilgisi</li><li>Alt markaların rolleri</li><li>Fiziksel sadakat kartı durumu</li></ul></div>
+    <div class="card teal"><div class="l">Bizden</div><ul><li>Keşif toplantısı: 90 dakika</li><li>Yazılı teklif: 5 iş günü</li><li>Pilot: 30 gün, ölçülmüş rapor</li><li>Tam platform: 90 günde canlı</li></ul></div>
+  </div>
+  <div class="foot"><span>P3Media · p3media.be@gmail.com</span><span>16</span></div>
+</section>
+
+</div>
+<div class="progress" id="prog"></div>
+<div class="counter" id="ctr"></div>
+<div class="help">← → ilerle · N notlar · F tam ekran</div>
+<button class="navbtn prev" aria-label="Önceki" onclick="go(-1)">‹</button>
+<button class="navbtn next" aria-label="Sonraki" onclick="go(1)">›</button>
+<div class="notes" id="notes"></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];let i=0;
+function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('on',k===i));document.getElementById('prog').style.width=((i+1)/slides.length*100)+'%';document.getElementById('ctr').textContent=(i+1)+' / '+slides.length;document.getElementById('notes').innerHTML='<b>Konuşmacı notu · '+(i+1)+'</b> — '+(slides[i].dataset.notes||'');const f=slides[i].querySelector('.foot span:last-child'); if(f) f.textContent=(i+1);history.replaceState(null,'','#'+(i+1));}
+function go(d){show(i+d);}
+document.addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(1);}else if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);else if(e.key.toLowerCase()==='n')document.getElementById('notes').classList.toggle('on');else if(e.key.toLowerCase()==='f'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}});
+document.querySelector('.deck').addEventListener('click',e=>{if(e.target.closest('a,button'))return;go(e.clientX>innerWidth/2?1:-1);});
+let tx=null;addEventListener('touchstart',e=>tx=e.touches[0].clientX);addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)go(dx<0?1:-1);tx=null;});
+const h=parseInt(location.hash.slice(1));show(isNaN(h)?0:h-1);
+</script>
+</body></html>
