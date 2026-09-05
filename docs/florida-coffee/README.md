@@ -7,6 +7,9 @@
 | `02-sunum.html` | Analiz raporunun okunabilir HTML sürümü |
 | `03-fonksiyonel-tasarim.md` | Site, uygulama, barista ekranı, HQ paneli, franchisee portalı ve AI asistanın nasıl çalıştığı: roller, akışlar, sadakat kuralları, sipariş durum makinesi, veri modeli, kenar durumları |
 | `demo/index.html` | Tıklanabilir demo prototipi: SERP karşılaştırması, web sitesi, mobil uygulama, HQ paneli, WhatsApp AI asistanı, franchise hesaplayıcı |
+| `demo-site/index.html` | "Boğaz'da Bir Gün" demo sitesi; marka kimliği, gerçek el kitabı standartları, etkileşim katmanı, gömülü görseller |
+| `demo-site/gen_images.py` | Nano Banana Pro (`gemini-3-pro-image`) ile 12 marka karesini üretir. `GEMINI_API_KEY` ortam değişkeninden okur, anahtar dosyaya yazılmaz |
+| `demo-site/embed_images.py` | `img/` karelerini JPEG data-URI olarak `index.html` yuvalarına gömer (artifact harici dosya yükleyemez) |
 | `04-sunum-deck.html` | Görüşme sunumu: 16 slayt, ok tuşlarıyla ilerler, `N` konuşmacı notları, `F` tam ekran |
 
 ## Görüşme akışı

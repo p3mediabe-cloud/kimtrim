@@ -58,7 +58,7 @@ def main():
     for name in wanted:
         aspect, prompt = SHOTS[name]
         path = os.path.join(out, name + ".png")
-        if os.path.exists(path): print("atla  ", name); continue
+        if any(os.path.exists(os.path.join(out, name + e)) for e in (".png",".jpg",".webp")): print("atla  ", name); continue
         try:
             img, mime = call(a.model, key, prompt, aspect)
             if "jpeg" in mime: path = path[:-4] + ".jpg"
