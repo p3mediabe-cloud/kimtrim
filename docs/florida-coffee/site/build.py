@@ -10,7 +10,21 @@ from datetime import date
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE = os.path.dirname(ROOT)                 # docs/florida-coffee
 DEMO = os.path.join(BASE, "demo-site", "index.html")
-DIST = os.path.join(BASE, "dist")
+import sys, shutil, argparse
+if sys.version_info < (3, 12): sys.exit("build.py Python 3.12+ ister (iç içe f-string).")
+_ap = argparse.ArgumentParser(); _ap.add_argument("--base", default="", help="alt dizin ön eki, ör. /kimtrim (GitHub Pages)"); _ap.add_argument("--out", default=os.path.join(BASE, "dist"))
+_args = _ap.parse_args()
+DIST = os.path.abspath(_args.out)
+BASEPATH = _args.base.rstrip("/")
+def rebase(txt):
+    """Kök-mutlak href/src bağlantılarını alt dizine taşır (yalnız --base verildiğinde)."""
+    if not BASEPATH: return txt
+    return re.sub(r'(href|src)="/(?!/)', rf'\1="{BASEPATH}/', txt)
+_SRC_DIST = os.path.join(BASE, "dist")
+if DIST != os.path.abspath(_SRC_DIST):
+    for d in ("img", "app", "platform", "sunum"):
+        src = os.path.join(_SRC_DIST, d)
+        if os.path.isdir(src): shutil.copytree(src, os.path.join(DIST, d), dirs_exist_ok=True)
 SITE = "https://floridacoffee.com.tr"        # kanonik (demo noindex)
 TODAY = date.today().isoformat()
 
@@ -443,12 +457,12 @@ page("/404.html", shell('<section class="hero"><div class="wrap"><div class="eye
 # ---------- yaz ----------
 os.makedirs(os.path.join(DIST, "assets"), exist_ok=True)
 open(os.path.join(DIST, "assets", "site.css"), "w", encoding="utf-8").write(CSS)
-open(os.path.join(DIST, "assets", "site.js"), "w", encoding="utf-8").write(JS)
+open(os.path.join(DIST, "assets", "site.js"), "w", encoding="utf-8").write(rebase(JS))
 open(os.path.join(DIST, "favicon.svg"), "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A4D5C"/><circle cx="50" cy="50" r="33" fill="none" stroke="#F6F1E8" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="#F6F1E8"/></svg>')
 n = 0
 for path, html_ in PAGES:
     out = os.path.join(DIST, path.lstrip("/")) if path.endswith(".html") else os.path.join(DIST, path.strip("/"), "index.html")
-    os.makedirs(os.path.dirname(out), exist_ok=True); open(out, "w", encoding="utf-8").write(html_); n += 1
+    os.makedirs(os.path.dirname(out), exist_ok=True); open(out, "w", encoding="utf-8").write(rebase(html_)); n += 1
 # ana sayfa: hikâye demosu (nav bağlantıları gerçek sayfalara)
 site = re.sub(r'<img[^>]*data-embedded[^>]*>', '', demo)
 site = re.sub(r'(<figure class="ph[^"]*?) has(")', r'\1\2', site)
@@ -462,10 +476,10 @@ site = site.replace('<li>Kariyer</li><li>KVKK aydınlatma metni</li><li>Çerez p
 site = site.replace('<li>Türkçe</li><li>English</li><li>Crnogorski</li>','<li>Türkçe</li><li><a href="/en/">English</a></li><li>Crnogorski · yakında</li>')
 home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
   '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/favicon.svg","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"}}, ensure_ascii=False) + '</script></head><body>'
-open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(home_head + site + '</body></html>'); n += 1
+open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(rebase(home_head + site + '</body></html>')); n += 1
 # sitemap + robots + vercel
 urls = ["/"] + [p for p,_ in PAGES if not p.endswith(".html")]
 open(os.path.join(DIST, "sitemap.xml"), "w", encoding="utf-8").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "".join(f'  <url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
 open(os.path.join(DIST, "robots.txt"), "w").write(f"User-agent: *\nDisallow: /\n# Demo: yayında 'Allow: /' ve Sitemap satırı açılır\n# Sitemap: {SITE}/sitemap.xml\n")
 open(os.path.join(DIST, "vercel.json"), "w").write('{"cleanUrls":true,"trailingSlash":true}\n')
-print(f"{n} sayfa yazıldı → dist/ · {len(BRANCHES)} şube · {sum(len(v) for v in MENU.values())} ürün · {len(NEWS)} haber · sitemap {len(urls)} URL")
+print(f"{n} sayfa yazıldı → {os.path.relpath(DIST, BASE)}/ · {len(BRANCHES)} şube · {sum(len(v) for v in MENU.values())} ürün · {len(NEWS)} haber · sitemap {len(urls)} URL")

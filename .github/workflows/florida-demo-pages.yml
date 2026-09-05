@@ -5,7 +5,7 @@ name: florida-demo-pages
 on:
   push:
     branches: [claude/florida-coffee-web-mobile-analysis-mgqj71]
-    paths: [docs/florida-coffee/dist/**, .github/workflows/florida-demo-pages.yml]
+    paths: [docs/florida-coffee/dist/**, docs/florida-coffee/site/**, docs/florida-coffee/demo-site/index.html, .github/workflows/florida-demo-pages.yml]
   workflow_dispatch:
 permissions:
   contents: read
@@ -25,8 +25,13 @@ jobs:
       - uses: actions/configure-pages@v5
         with:
           enablement: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      # Proje sitesi /kimtrim/ altında yayınlanır; bağlantılar bu ön ekle üretilir
+      - run: python3 docs/florida-coffee/site/build.py --base /kimtrim --out "$RUNNER_TEMP/pages"
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: docs/florida-coffee/dist
+          path: ${{ runner.temp }}/pages
       - id: deployment
         uses: actions/deploy-pages@v4
