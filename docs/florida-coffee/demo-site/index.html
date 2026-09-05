@@ -45,6 +45,41 @@ button{background:none;border:none;cursor:pointer}
 @media (prefers-reduced-motion:reduce){.seaband{animation:none}.sky{transition:none}}
 
 
+/* ---------- görsel yuvaları (fotoğraf gelince dolar, gelmezse marka gradyanı) ---------- */
+.ph{position:relative;overflow:hidden;border-radius:1.1rem;background:
+  radial-gradient(90% 70% at 20% 15%,rgba(242,162,43,.35),transparent 60%),
+  radial-gradient(70% 60% at 85% 90%,rgba(210,80,14,.35),transparent 60%),
+  linear-gradient(160deg,#0B4353,#052733);isolation:isolate}
+.ph::before{content:"";position:absolute;inset:0;background:
+  repeating-linear-gradient(115deg,transparent 0 11px,rgba(246,241,232,.035) 11px 12px);mix-blend-mode:screen}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .9s ease,transform 8s ease-out;transform:scale(1.04)}
+.ph.has img{opacity:1;transform:scale(1)}
+.ph.has::before{display:none}
+.ph .cap{position:absolute;left:.9rem;bottom:.8rem;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(246,241,232,.75);z-index:1}
+.ph.has .cap{color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.ph.r169{aspect-ratio:16/9}.ph.r43{aspect-ratio:4/3}.ph.r11{aspect-ratio:1/1}
+/* kaydırmaya bağlı giriş: yerel CSS, JS yok, ilk kare görünür (0.35'ten başlar) */
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .sec .inner > *:not(.hour){animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 38%}
+    .ph{animation:zoomin linear both;animation-timeline:view();animation-range:entry 0% cover 60%}
+  }
+}
+@keyframes rise{from{opacity:.35;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes zoomin{from{clip-path:inset(6% round 1.1rem)}to{clip-path:inset(0 round 1.1rem)}}
+/* 3B eğilme (şube kartları) ve manyetik buton */
+.tilt{transform-style:preserve-3d;will-change:transform;transition:transform .25s ease,border-color .18s}
+.tilt.live{transition:transform .06s linear}
+.btn.mag{transition:transform .18s cubic-bezier(.2,.8,.2,1),background .2s}
+/* sayılar: gradyan vurgu */
+.proof .v{background:linear-gradient(90deg,var(--ink),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+/* menü kartları mobilde yatay snap */
+@media (max-width:640px){
+  .prods{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.7rem;padding-bottom:.4rem;scrollbar-width:none}
+  .prods::-webkit-scrollbar{display:none}
+  .prods > *{flex:0 0 72%;scroll-snap-align:start}
+}
+
 /* ---------- kalıcı üst navigasyon ---------- */
 .nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:1.2rem;
   padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
@@ -98,7 +133,11 @@ h2 + .lede{margin-top:1.3rem}
 @media (max-width:640px){.ps>div+div{border-left:none;border-top:1px solid var(--hair)}}
 
 /* ---------- hero ---------- */
-.hero{min-height:min(92vh,58rem);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
+.hero-bg{position:absolute;inset:0;border-radius:0;background:transparent;z-index:0;pointer-events:none}
+.hero-bg::before{display:none}
+.hero-bg.has::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,26,.88) 0%,rgba(4,20,26,.55) 55%,rgba(4,20,26,.25) 100%),linear-gradient(180deg,rgba(4,20,26,.2),rgba(4,20,26,.9))}
+.hero .inner{position:relative;z-index:1}
+.hero{min-height:min(92vh,58rem);position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
 .brandline{margin-bottom:clamp(1rem,3vh,2rem)}
 .brandline .s{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600}
 .logo{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--amber);position:relative;flex:none}
@@ -382,6 +421,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"></figure>
   <div class="inner">
     <div class="brandline"><span class="s">Çengelköy’den Boğaz’a · Taste of Joy</span></div>
     <h1>Boğaz uyanırken<br>kahve çoktan <em>hazır</em>.</h1>
@@ -482,6 +522,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
     <div class="brewwrap" style="margin-top:2rem">
       <div class="beancard">
+        <figure class="ph r43" data-img="barista" style="border-radius:0"><span class="cap">14 g · tartıyla</span></figure>
         <div class="top">
           <div class="t">Espresso standardımız</div>
           <div class="s">Her şubede aynı, göz kararı yok — tartılır</div>
@@ -576,6 +617,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">15:00</span><span class="p">Menü</span></div>
     <h2>Fiyat, kalori, alerjen.<br>Hepsi burada.</h2>
     <p class="lede">Şubeye gitmeden görebilmeniz gereken her şey. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfasında görünür.</p>
+    <div class="grid g3" style="margin:1.4rem 0 .4rem"><figure class="ph r11" data-img="latteart"><span class="cap">Flat white</span></figure><figure class="ph r11" data-img="coldbrew"><span class="cap">Boğaz cold brew</span></figure><figure class="ph r11" data-img="cup"><span class="cap">Bardağımız</span></figure></div>
     <div class="mcats" id="mcats">
       <button class="mcat" aria-pressed="true" data-c="sicak">Sıcak kahveler</button>
       <button class="mcat" aria-pressed="false" data-c="soguk">Soğuk kahveler</button>
@@ -598,6 +640,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">19:38</span><span class="p">Gün batımı · Kavacık</span></div>
     <h2>Manzarayı da<br>menüye koyduk.</h2>
     <p class="lede">Hangi şubede gün batımı görünür, hangisinde priz vardır, hangisi gece ikiye kadar açıktır? Filtreleyin, o an açık olanları görün. Gün batımı saatleri bugüne göre hesaplanır.</p>
+    <figure class="ph r169" data-img="sunset" style="margin:1.4rem 0 1.6rem"><span class="cap">Beykoz · gün batımı</span></figure>
     <div class="filters" id="filters">
       <button class="fbtn" aria-pressed="false" data-f="acik">Şu an açık</button>
       <button class="fbtn" aria-pressed="false" data-f="manzara">Manzara</button>
@@ -657,6 +700,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">23:30</span><span class="p">Gece · Beykoz</span></div>
     <h2>Şehir susunca<br>Boğaz konuşur.</h2>
     <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
+    <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><span class="cap">Beykoz · 01:00</span></figure>
     <div class="evgrid">
       <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p></div>
       <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p></div>
@@ -687,6 +731,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
         <p style="font-size:.8rem;color:var(--ink-3);margin:1rem 0 0">Örnek hesaplamadır, teklif değildir. Giriş bedeli ve platform lisansı merkez tarafından belirlenir.</p>
       </div>
       <div>
+        <figure class="ph r169" data-img="franchise" style="margin-bottom:1rem"><span class="cap">Kendi şehrinizde bir Florida</span></figure>
         <div class="grid g2">
           <div class="panel"><h3>3 km bölge koruması</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">Sözleşme süresince aynı bölgede ikinci Florida açılmaz.</p></div>
           <div class="panel"><h3>45 gün eğitim</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">30 gün işletme yönetimi, 15 gün barista; açılışta merkez ekibi şubede.</p></div>
@@ -1050,6 +1095,30 @@ function calcF(){
 ["fCity","fM2","fRev"].forEach(id => document.getElementById(id).addEventListener("input", calcF));
 calcF();
 
+/* ---------------- görseller: img/<ad>.(jpg|png) varsa yuvaya yerleşir ---------------- */
+document.querySelectorAll(".ph[data-img]").forEach(fig => {
+  const name = fig.dataset.img;
+  const tryLoad = exts => { if (!exts.length) return;
+    const im = new Image(); im.alt = fig.querySelector(".cap")?.textContent || name; im.loading = "lazy"; im.decoding = "async";
+    im.onload = () => { fig.prepend(im); requestAnimationFrame(() => fig.classList.add("has")); };
+    im.onerror = () => tryLoad(exts.slice(1));
+    im.src = "img/" + name + "." + exts[0]; };
+  tryLoad(["jpg","png","webp"]);
+});
+/* ---------------- 3B eğilme: şube kartları ---------------- */
+const fine = matchMedia("(hover:hover) and (pointer:fine)").matches && !reduce;
+if (fine){
+  document.addEventListener("pointermove", e => {
+    const el = e.target.closest(".branch"); if (!el) return;
+    const r = el.getBoundingClientRect(), x = (e.clientX - r.left)/r.width - .5, y = (e.clientY - r.top)/r.height - .5;
+    el.classList.add("tilt","live"); el.style.transform = `perspective(700px) rotateX(${-y*7}deg) rotateY(${x*9}deg) translateY(-2px)`;
+  });
+  document.addEventListener("pointerout", e => { const el = e.target.closest(".branch"); if (el){ el.classList.remove("live"); el.style.transform = ""; } });
+  /* manyetik butonlar */
+  document.querySelectorAll(".btn").forEach(b => { b.classList.add("mag");
+    b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)`; });
+    b.addEventListener("pointerleave", () => b.style.transform = ""); });
+}
 /* ---------------- ambient sky + rail ---------------- */
 const STOPS = [
   {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F2A22B"},  // 06:40 şafak
