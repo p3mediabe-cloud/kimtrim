@@ -1,19 +1,20 @@
 <title>Boğaz'da Bir Gün</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600&display=swap">
 <style>
 :root{
-  /* ambient sky — interpolated by scroll, seeded at dawn */
-  --sky-1:#0A1420; --sky-2:#1B3042; --sky-3:#B9805F; --glow:#E8A87C;
-  /* fixed palette */
-  --ink:#F5F0E8; --ink-2:#BCC7CD; --ink-3:#8593A0;
-  --paper:#F4EFE6; --paper-ink:#1B1410; --paper-ink-2:#544639; --paper-line:#DED4C6;
-  --copper:#E0662B; --copper-lo:#B84E1C; --lamp:#E2B55A; --water:#4FB3B8; --water-deep:#0E6773;
-  --glass:rgba(9,14,19,.60); --glass-2:rgba(9,14,19,.78); --hair:rgba(245,240,232,.14); --hair-2:rgba(245,240,232,.28);
-  --ok:#7BD39A; --busy:#F0916C;
+  /* Ortam: Boğaz'da bir gün — marka paletinden türetildi, kaydırmayla değişir */
+  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F2A22B;
+  /* Marka */
+  --brand:#0A4D5C; --brand-deep:#063744; --amber:#F2A22B; --rust:#D2500E; --cream:#EDE6D8;
+  --ink:#F6F1E8; --ink-2:#BCD0D4; --ink-3:#7E969D;
+  --paper:#F4EEE2; --paper-ink:#0A3D49; --paper-ink-2:#4A6068; --paper-line:#DCD2C0;
+  --glass:rgba(6,24,31,.62); --glass-2:rgba(6,24,31,.80); --hair:rgba(246,241,232,.15); --hair-2:rgba(246,241,232,.30);
+  --ok:#6FC9A4; --busy:#F0916C;
   --rail:5.5rem;
   --disp:"Fraunces",Georgia,"Times New Roman",serif;
   --ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --logo:"Poppins",var(--ui);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -27,7 +28,7 @@ p{margin:0 0 1rem;max-width:62ch}
 a{color:inherit}
 button,input,select{font:inherit;color:inherit}
 button{background:none;border:none;cursor:pointer}
-:focus-visible{outline:2px solid var(--lamp);outline-offset:3px;border-radius:4px}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:4px}
 
 /* ---------- ambient sky ---------- */
 .sky{position:fixed;inset:0;z-index:-2;background:
@@ -43,23 +44,45 @@ button{background:none;border:none;cursor:pointer}
 @keyframes drift{to{background-position:340px 0,0 0}}
 @media (prefers-reduced-motion:reduce){.seaband{animation:none}.sky{transition:none}}
 
+
+/* ---------- kalıcı üst navigasyon ---------- */
+.nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:1.2rem;
+  padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hair)}
+.nav .home{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink);flex:none}
+.mark{width:1.75rem;height:1.75rem;flex:none}
+.wordmark{font-family:var(--logo);font-weight:600;font-size:1.28rem;letter-spacing:-.02em;line-height:1}
+.wordmark small{display:block;font-size:.44rem;letter-spacing:.42em;font-weight:600;color:var(--ink-2);margin-top:.1rem}
+.navlinks{display:flex;gap:.2rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{padding:.42rem .7rem;border-radius:.5rem;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.navlinks a:hover{color:var(--ink);background:rgba(246,241,232,.08)}
+.navlinks a[aria-current="page"]{color:var(--amber)}
+.nav .cta{flex:none}
+@media (max-width:720px){
+  .nav{gap:.6rem;padding:.5rem .8rem}
+  .wordmark{font-size:1.1rem}
+  .navlinks{order:3;width:100%;margin-left:0;padding-top:.15rem}
+  .nav .cta{margin-left:auto}
+}
+
 /* ---------- hour rail ---------- */
 .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;pointer-events:none}
 .rail .line{position:absolute;top:8vh;bottom:8vh;left:calc(var(--rail)/2);width:1px;background:var(--hair)}
-.rail .fill{position:absolute;top:8vh;left:calc(var(--rail)/2);width:1px;background:var(--lamp);height:0;transition:height .2s linear}
+.rail .fill{position:absolute;top:8vh;left:calc(var(--rail)/2);width:1px;background:var(--amber);height:0;transition:height .2s linear}
 .rail ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1.5vh;position:relative;pointer-events:auto}
 .rail a{display:flex;align-items:center;gap:.55rem;text-decoration:none;font-size:.68rem;font-variant-numeric:tabular-nums;letter-spacing:.06em;color:var(--ink-3);transition:color .2s}
 .rail a .dot{width:7px;height:7px;border-radius:50%;background:var(--hair-2);flex:none;transition:all .2s}
 .rail a:hover{color:var(--ink-2)}
-.rail a[aria-current="true"]{color:var(--lamp);font-weight:700}
-.rail a[aria-current="true"] .dot{background:var(--lamp);box-shadow:0 0 0 4px rgba(226,181,90,.18)}
+.rail a[aria-current="true"]{color:var(--amber);font-weight:700}
+.rail a[aria-current="true"] .dot{background:var(--amber);box-shadow:0 0 0 4px rgba(226,181,90,.18)}
 
 /* ---------- shell ---------- */
 .wrap{margin-left:var(--rail);max-width:none}
 .sec{padding:clamp(4.5rem,10vh,8rem) clamp(1.2rem,5vw,5rem);position:relative;scroll-margin-top:2.6rem}
 .inner{max-width:1180px;margin:0 auto}
 .hour{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.6rem;flex-wrap:wrap}
-.hour .t{font-family:var(--disp);font-size:1.6rem;font-variation-settings:"WONK" 1;color:var(--lamp);font-variant-numeric:tabular-nums;line-height:1}
+.hour .t{font-family:var(--disp);font-size:1.6rem;font-variation-settings:"WONK" 1;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
 .hour .p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 .lede{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-2);max-width:56ch;margin-top:1.1rem}
 h2 + .lede{margin-top:1.3rem}
@@ -70,18 +93,19 @@ h2 + .lede{margin-top:1.3rem}
 .ps>div+div{border-left:1px solid var(--hair)}
 .ps .k{font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;margin-bottom:.4rem}
 .ps .prob .k{color:var(--busy)}
-.ps .sol .k{color:var(--water)}
+.ps .sol .k{color:#5FC4CB}
 .ps p{margin:0;font-size:.92rem;color:var(--ink-2)}
 @media (max-width:640px){.ps>div+div{border-left:none;border-top:1px solid var(--hair)}}
 
 /* ---------- hero ---------- */
 .hero{min-height:min(92vh,58rem);display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
-.brandline{display:flex;align-items:center;gap:.7rem;margin-bottom:clamp(1.5rem,4vh,3rem)}
-.logo{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--copper);position:relative;flex:none}
+.brandline{margin-bottom:clamp(1rem,3vh,2rem)}
+.brandline .s{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600}
+.logo{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--amber);position:relative;flex:none}
 .logo::after{content:"";position:absolute;inset:.62rem;border-radius:50%;background:#0A1420}
 .brandline .n{font-family:var(--disp);font-size:1.15rem;font-weight:600;letter-spacing:.01em}
 .brandline .s{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-.hero h1 em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1;color:var(--lamp)}
+.hero h1 em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1;color:var(--amber)}
 .hero .sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-2);max-width:46ch;margin-top:0}
 .herogrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(1.4rem,3.5vh,2.4rem)}
 @media (max-width:900px){.herogrid{grid-template-columns:1fr}}
@@ -98,14 +122,15 @@ h2 + .lede{margin-top:1.3rem}
 .live .name{font-family:var(--disp);font-size:1.5rem;font-weight:600;margin-bottom:.15rem}
 .live .meta{font-size:.85rem;color:var(--ink-2)}
 .live .sunset{margin-top:.9rem;padding-top:.9rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;font-size:.85rem;color:var(--ink-2)}
-.live .sunset b{font-family:var(--disp);font-size:1.2rem;color:var(--lamp);font-variant-numeric:tabular-nums}
+.live .sunset b{font-family:var(--disp);font-size:1.2rem;color:var(--amber);font-variant-numeric:tabular-nums}
 .live .acts{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
 
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.72rem 1.15rem;border-radius:.7rem;font-weight:600;font-size:.9rem;border:1px solid transparent;transition:transform .12s,background .2s,border-color .2s;text-decoration:none}
 .btn:hover{transform:translateY(-1px)}
-.btn.solid{background:var(--copper);color:#fff}
-.btn.solid:hover{background:var(--copper-lo)}
-.btn.lamp{background:var(--lamp);color:#241704}
+.btn.solid{background:var(--amber);color:#fff}
+.btn.solid:hover{background:var(--rust)}
+.btn.lamp,.btn.amber{background:var(--amber);color:#2A1703}
+.btn.lamp:hover,.btn.amber:hover{background:#DE8F1C}
 .btn.ghost{border-color:var(--hair-2);color:var(--ink)}
 .btn.ghost:hover{background:rgba(245,240,232,.08)}
 .btn.sm{padding:.45rem .8rem;font-size:.82rem;border-radius:.55rem}
@@ -114,7 +139,7 @@ h2 + .lede{margin-top:1.3rem}
 
 .scrollcue{display:flex;align-items:center;gap:.7rem;margin-top:clamp(2rem,6vh,4rem);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
 .scrollcue i{display:block;width:2.4rem;height:1px;background:var(--hair-2);position:relative;overflow:hidden}
-.scrollcue i::after{content:"";position:absolute;inset:0;background:var(--lamp);transform:translateX(-100%);animation:sweep 2.6s ease-in-out infinite}
+.scrollcue i::after{content:"";position:absolute;inset:0;background:var(--amber);transform:translateX(-100%);animation:sweep 2.6s ease-in-out infinite}
 @keyframes sweep{50%{transform:translateX(100%)}100%{transform:translateX(100%)}}
 @media (prefers-reduced-motion:reduce){.scrollcue i::after{animation:none;transform:none;opacity:.4}}
 
@@ -131,11 +156,11 @@ h2 + .lede{margin-top:1.3rem}
 .g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr))}
 .g4{grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr))}
 .chip{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:999px;font-size:.72rem;font-weight:600;border:1px solid var(--hair-2);color:var(--ink-2)}
-.chip.on{background:var(--lamp);color:#241704;border-color:var(--lamp)}
-.chip.water{color:var(--water);border-color:rgba(79,179,184,.45)}
-.chip.copper{color:var(--copper);border-color:rgba(224,102,43,.5)}
+.chip.on{background:var(--amber);color:#241704;border-color:var(--amber)}
+.chip.water{color:#5FC4CB;border-color:rgba(79,179,184,.45)}
+.chip.copper{color:var(--amber);border-color:rgba(224,102,43,.5)}
 .dot-s{width:7px;height:7px;border-radius:50%;display:inline-block}
-.dot-s.g{background:var(--ok)}.dot-s.y{background:var(--lamp)}.dot-s.r{background:var(--busy)}
+.dot-s.g{background:var(--ok)}.dot-s.y{background:var(--amber)}.dot-s.r{background:var(--busy)}
 
 /* ---------- order mini ---------- */
 .order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
@@ -154,7 +179,7 @@ h2 + .lede{margin-top:1.3rem}
 .stp{display:flex;align-items:center;gap:.6rem;font-size:.88rem;color:var(--ink-3)}
 .stp i{width:1.35rem;height:1.35rem;border-radius:50%;border:1.5px solid var(--hair-2);display:grid;place-items:center;font-size:.7rem;font-style:normal;flex:none}
 .stp.done{color:var(--ink)}.stp.done i{background:var(--ok);border-color:var(--ok);color:#08150D}
-.stp.now{color:var(--ink);font-weight:600}.stp.now i{border-color:var(--lamp);color:var(--lamp)}
+.stp.now{color:var(--ink);font-weight:600}.stp.now i{border-color:var(--amber);color:var(--amber)}
 .eta{margin-top:auto;font-size:.85rem;color:var(--ink-2)}
 
 /* ---------- craft / brew ---------- */
@@ -177,12 +202,16 @@ h2 + .lede{margin-top:1.3rem}
 .brewout .v{font-family:var(--disp);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1}
 .brewout .l{font-size:.7rem;color:var(--ink-3);margin-top:.3rem;letter-spacing:.08em;text-transform:uppercase}
 .brewnote{margin-top:1rem;font-size:.9rem;color:var(--ink-2)}
+.fivestep{counter-reset:st;list-style:none;margin:.6rem 0 0;padding:0;display:grid;gap:.45rem}
+.fivestep li{counter-increment:st;position:relative;padding-left:1.9rem;font-size:.9rem;color:var(--ink-2)}
+.fivestep li::before{content:counter(st);position:absolute;left:0;top:0;font-family:var(--disp);font-weight:600;color:var(--amber)}
+.fivestep b{color:var(--ink)}
 
 /* ---------- matcher ---------- */
 .moods{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
 .mood{padding:.85rem 1.1rem;border-radius:.9rem;border:1px solid var(--hair-2);text-align:left;transition:all .15s;font-weight:500}
-.mood:hover{border-color:var(--lamp);transform:translateY(-1px)}
-.mood[aria-pressed="true"]{background:var(--lamp);color:#241704;border-color:var(--lamp);font-weight:700}
+.mood:hover{border-color:var(--amber);transform:translateY(-1px)}
+.mood[aria-pressed="true"]{background:var(--amber);color:#241704;border-color:var(--amber);font-weight:700}
 .match{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.2rem;align-items:center;border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem;background:var(--glass)}
 @media (max-width:760px){.match{grid-template-columns:1fr}}
 .match .n{font-family:var(--disp);font-size:2rem;line-height:1.05}
@@ -196,7 +225,7 @@ h2 + .lede{margin-top:1.3rem}
 .paper{background:var(--paper);color:var(--paper-ink)}
 .paper h2,.paper h3{color:var(--paper-ink)}
 .paper .hour .p{color:var(--paper-ink-2)}
-.paper .hour .t{color:var(--copper-lo)}
+.paper .hour .t{color:var(--rust)}
 .paper .lede,.paper p{color:var(--paper-ink-2)}
 .paper .lbl{color:var(--paper-ink-2)}
 .mcats{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.5rem 0 1.2rem}
@@ -217,17 +246,17 @@ h2 + .lede{margin-top:1.3rem}
 /* ---------- branch finder ---------- */
 .filters{display:flex;gap:.45rem;flex-wrap:wrap;margin:1.4rem 0 1.6rem;align-items:center}
 .fbtn{padding:.45rem .9rem;border-radius:999px;border:1px solid var(--hair-2);font-size:.85rem;font-weight:500;transition:all .15s}
-.fbtn[aria-pressed="true"]{background:var(--water);color:#04252A;border-color:var(--water);font-weight:700}
+.fbtn[aria-pressed="true"]{background:#5FC4CB;color:#04252A;border-color:#5FC4CB;font-weight:700}
 .fcount{font-size:.8rem;color:var(--ink-3);margin-left:.3rem}
 .branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr));gap:.9rem}
 .branch{border:1px solid var(--hair);border-radius:1.1rem;padding:1.1rem 1.2rem;background:var(--glass);text-align:left;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s,transform .18s}
-.branch:hover{border-color:var(--lamp);transform:translateY(-2px)}
+.branch:hover{border-color:var(--amber);transform:translateY(-2px)}
 .branch .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
 .branch .n{font-family:var(--disp);font-size:1.25rem;line-height:1.1}
 .branch .c{font-size:.8rem;color:var(--ink-3)}
 .branch .st{font-size:.78rem;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
 .branch .st.open{color:var(--ok)}.b .st.closed{color:var(--ink-3)}
-.branch .sun{font-size:.8rem;color:var(--lamp);font-variant-numeric:tabular-nums}
+.branch .sun{font-size:.8rem;color:var(--amber);font-variant-numeric:tabular-nums}
 .branch .tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.15rem}
 .branch .tags .chip{font-size:.68rem;padding:.12rem .5rem}
 .empty{border:1px dashed var(--hair-2);border-radius:1rem;padding:2rem;text-align:center;color:var(--ink-3);grid-column:1/-1}
@@ -242,7 +271,7 @@ h2 + .lede{margin-top:1.3rem}
 .sheet h3{font-size:1.9rem;margin-bottom:.2rem}
 .sheet .sub{color:var(--ink-2);font-size:.9rem;margin-bottom:1.1rem}
 .hrs{display:grid;grid-template-columns:1fr auto;gap:.25rem .8rem;font-size:.88rem;font-variant-numeric:tabular-nums}
-.hrs .today{color:var(--lamp);font-weight:700}
+.hrs .today{color:var(--amber);font-weight:700}
 .faq{margin-top:1.2rem}
 .faq details{border-top:1px solid var(--hair);padding:.6rem 0}
 .faq summary{cursor:pointer;font-weight:600;font-size:.92rem}
@@ -255,14 +284,14 @@ h2 + .lede{margin-top:1.3rem}
 .phone .scr{border-radius:1.7rem;background:linear-gradient(170deg,#12212C,#0A141C);padding:1.1rem 1rem 1.2rem;min-height:33rem;display:flex;flex-direction:column;gap:.8rem}
 .phone .bar{display:flex;justify-content:space-between;font-size:.68rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
 .card-pts{background:linear-gradient(145deg,#3A2214,#111C25);border:1px solid var(--hair);border-radius:1rem;padding:1rem}
-.card-pts .lv{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lamp);font-weight:700}
+.card-pts .lv{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700}
 .card-pts .v{font-family:var(--disp);font-size:2.1rem;line-height:1.05;font-variant-numeric:tabular-nums}
 .card-pts .m{font-size:.75rem;color:var(--ink-2)}
 .track{height:5px;border-radius:3px;background:rgba(245,240,232,.14);margin:.6rem 0 .35rem;overflow:hidden}
-.track i{display:block;height:100%;background:var(--copper);width:55%}
+.track i{display:block;height:100%;background:var(--amber);width:55%}
 .stamps{display:flex;gap:.28rem;margin-top:.6rem}
 .stamps span{width:1.05rem;height:1.05rem;border-radius:50%;border:1.5px solid rgba(245,240,232,.3)}
-.stamps span.f{background:var(--copper);border-color:var(--copper)}
+.stamps span.f{background:var(--amber);border-color:var(--amber)}
 .prow{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.7rem .8rem;border:1px solid var(--hair);border-radius:.8rem;font-size:.85rem}
 .prow .t{font-weight:600}
 .prow .s{font-size:.72rem;color:var(--ink-3)}
@@ -271,13 +300,13 @@ h2 + .lede{margin-top:1.3rem}
 .tier .tname{font-family:var(--disp);font-size:1.1rem}
 .tier .d{font-size:.85rem;color:var(--ink-2)}
 .tier .r{font-size:.78rem;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
-.tier.hi{border-color:var(--lamp)}
+.tier.hi{border-color:var(--amber)}
 
 /* ---------- night ---------- */
 .night .inner{position:relative}
 .evgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:.9rem;margin-top:1.5rem}
 .ev{border:1px solid var(--hair);border-radius:1rem;padding:1.1rem 1.2rem;background:var(--glass)}
-.ev .d{font-family:var(--disp);font-size:1.1rem;color:var(--lamp)}
+.ev .d{font-family:var(--disp);font-size:1.1rem;color:var(--amber)}
 .ev .t{font-weight:600;margin:.15rem 0 .25rem}
 .ev p{font-size:.85rem;margin:0;color:var(--ink-2)}
 
@@ -287,7 +316,7 @@ h2 + .lede{margin-top:1.3rem}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
 .field label{font-size:.8rem;color:var(--ink-2);font-weight:600}
 .field select{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);border-radius:.6rem;padding:.55rem .7rem}
-input[type=range]{width:100%;accent-color:var(--copper);background:transparent}
+input[type=range]{width:100%;accent-color:var(--amber);background:transparent}
 .out{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:1rem;overflow:hidden;margin-top:1.2rem}
 .out div{background:rgba(9,14,19,.55);padding:.9rem 1rem}
 .out .l{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700}
@@ -306,8 +335,8 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
 footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem}
 
 /* demo banner */
-.demobar{position:sticky;top:0;z-index:70;background:var(--lamp);color:#241704;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
-.demobar a{color:#241704}
+.demobar{position:sticky;top:0;z-index:71;background:var(--amber);color:#2A1703;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.demobar a{color:#2A1703}
 .rail{top:0}
 
 @media (max-width:860px){
@@ -325,6 +354,14 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <div class="demobar">Demo · P3Media'nın Florida Coffee için hazırladığı tasarım önerisi. Menü, fiyat ve şube verileri örnektir. <a href="#franchise">Franchise</a></div>
 <div class="sky" id="sky" aria-hidden="true"></div>
 <div class="seaband" aria-hidden="true"></div>
+
+<header class="nav">
+  <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg><span class="wordmark">florida<small>COFFEE</small></span></a>
+  <nav class="navlinks" aria-label="Ana menü">
+    <a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#kulup">Kulüp</a><a href="#gece">Etkinlik</a><a href="#franchise">Franchise</a>
+  </nav>
+  <a class="btn amber sm cta" href="#sabah">Ön sipariş</a>
+</header>
 
 <nav class="rail" aria-label="Günün saatleri">
   <span class="line" aria-hidden="true"></span><span class="fill" id="railfill" aria-hidden="true"></span>
@@ -346,14 +383,11 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
   <div class="inner">
-    <div class="brandline">
-      <span class="logo" aria-hidden="true"></span>
-      <span><span class="n">Florida Coffee</span> <span class="s">&nbsp;Taste of Joy</span></span>
-    </div>
+    <div class="brandline"><span class="s">Çengelköy’den Boğaz’a · Taste of Joy</span></div>
     <h1>Boğaz uyanırken<br>kahve çoktan <em>hazır</em>.</h1>
     <div class="herogrid">
       <div>
-        <p class="sub">Çengelköy'de doğduk. Şimdi 17 noktada, iki ülkede, kendi kavurduğumuz çekirdekle aynı fincanı veriyoruz. Bu sayfa bir günü anlatıyor: kaydırdıkça saat ilerliyor.</p>
+        <p class="sub">Çengelköy'de doğduk. Şimdi 17 noktada, iki ülkede, aynı reçeteyle aynı fincanı veriyoruz. Bu sayfa bir günü anlatıyor: kaydırdıkça saat ilerliyor.</p>
         <div class="scrollcue"><i></i> Kaydırın · gün başlıyor</div>
       </div>
       <div class="live" id="livecard">
@@ -375,8 +409,8 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     </div>
     <div class="proof">
       <div><div class="v">17</div><div class="l">şube, 2 ülke</div></div>
-      <div><div class="v">2019</div><div class="l">Çengelköy'den beri</div></div>
-      <div><div class="v">1:16</div><div class="l">filtre demleme oranımız</div></div>
+      <div><div class="v">45 <span style="font-size:.5em">gün</span></div><div class="l">barista ve işletme eğitimi</div></div>
+      <div><div class="v">18–23<span style="font-size:.5em"> sn</span></div><div class="l">espresso shot standardımız</div></div>
       <div><div class="v">02:00</div><div class="l">Boğaz şubelerinde kapanış</div></div>
     </div>
   </div>
@@ -442,56 +476,59 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <!-- ============ 10:00 KAHVEMİZ ============ -->
 <section class="sec" id="kahvemiz">
   <div class="inner">
-    <div class="hour"><span class="t">10:00</span><span class="p">Kavurma · Çekirdek</span></div>
-    <h2>Ne içtiğinizi<br>gizlemiyoruz.</h2>
-    <p class="lede">Harmanın nereden geldiğini, hangi rakımda yetiştiğini, ne zaman kavrulduğunu ve hangi oranla demlendiğini yazıyoruz. İyi kahvenin reçetesi sır değil, standarttır.</p>
+    <div class="hour"><span class="t">10:00</span><span class="p">Standart · Çekirdek</span></div>
+    <h2>Aynı fincan,<br>on yedi şubede.</h2>
+    <p class="lede">Kavacık’taki latte, Bursa’dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart: tartılan gramaj, kronometreyle izlenen shot, dereceyle kontrol edilen süt. Reçetelerimiz kişisel yoruma açık değildir.</p>
 
     <div class="brewwrap" style="margin-top:2rem">
       <div class="beancard">
         <div class="top">
-          <div class="t">Florida Sonbahar Harmanı</div>
-          <div class="s">Bergamot · kayısı · kakao kabuğu</div>
+          <div class="t">Espresso standardımız</div>
+          <div class="s">Her şubede aynı, göz kararı yok — tartılır</div>
         </div>
         <dl class="spec">
-          <dt>Menşe</dt><dd>Etiyopya Yirgacheffe %60 · Brezilya Cerrado %40</dd>
-          <dt>Rakım</dt><dd>1.900–2.100 m</dd>
-          <dt>İşleme</dt><dd>Yıkanmış · doğal</dd>
-          <dt>Hasat</dt><dd>Kasım 2025</dd>
-          <dt>Kavurma</dt><dd>Orta · Agtron 58 · 11 dk 40 sn</dd>
-          <dt>Dinlenme</dt><dd>Kavurmadan 7 gün sonra servis</dd>
+          <dt>Doz</dt><dd>14 g · double shot, tartı ile</dd>
+          <dt>Su sıcaklığı</dt><dd>90–96 °C</dd>
+          <dt>Basınç</dt><dd>9 bar</dd>
+          <dt>Shot süresi</dt><dd>18–23 saniye</dd>
+          <dt>Çıktı</dt><dd>30–60 g</dd>
+          <dt>Süt</dt><dd>60–65 °C mikro köpük</dd>
+          <dt>Fincan</dt><dd>Önceden ısıtılır</dd>
         </dl>
         <div class="roastbar">
-          <div class="lbl">Kavurma derecesi</div>
+          <div class="lbl">Kavurma aralığımız</div>
           <div class="track"><span class="pin" style="left:52%"></span></div>
-          <div class="scale"><span>Açık</span><span>Orta</span><span>Koyu</span></div>
+          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
         </div>
       </div>
 
       <div>
-        <div class="lbl">Demleme rehberi</div>
+        <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
         <div class="brewtabs" id="brewtabs">
-          <button class="fbtn" aria-pressed="true" data-b="v60">V60</button>
-          <button class="fbtn" aria-pressed="false" data-b="chemex">Chemex</button>
-          <button class="fbtn" aria-pressed="false" data-b="french">French Press</button>
-          <button class="fbtn" aria-pressed="false" data-b="cold">Cold Brew</button>
-          <button class="fbtn" aria-pressed="false" data-b="turk">Türk Kahvesi</button>
-          <button class="fbtn" aria-pressed="false" data-b="esp">Espresso</button>
+          <button class="fbtn" aria-pressed="true" data-b="latin">Latin Amerika</button>
+          <button class="fbtn" aria-pressed="false" data-b="afrika">Afrika</button>
+          <button class="fbtn" aria-pressed="false" data-b="asya">Asya-Pasifik</button>
         </div>
         <div class="brewout">
-          <div><div class="v" id="bRatio">1:16</div><div class="l">Oran</div></div>
-          <div><div class="v" id="bDose">15 g</div><div class="l">Doz</div></div>
-          <div><div class="v" id="bTemp">92°C</div><div class="l">Su</div></div>
-          <div><div class="v" id="bTime">2:45</div><div class="l">Süre</div></div>
+          <div><div class="v" id="bRatio">Denge</div><div class="l">Karakter</div></div>
+          <div><div class="v" id="bDose">Orta</div><div class="l">Asidite</div></div>
+          <div><div class="v" id="bTemp">Orta</div><div class="l">Gövde</div></div>
+          <div><div class="v" id="bTime">Espresso</div><div class="l">En uygun</div></div>
         </div>
-        <p class="brewnote" id="bNote">Orta-ince öğütme. 30 ml ile 40 saniye ıslatın, ardından üç turda 240 ml'ye tamamlayın.</p>
-        <div class="grid g2" style="margin-top:1.4rem">
-          <div class="panel"><h3>Baristalarımız 45 gün eğitim alır</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">30 gün işletme, 15 gün barista. Ekstraksiyon, süt dokusu, kalibrasyon ve servis standardı haftalık ölçülür.</p></div>
-          <div class="panel"><h3>Her şubede aynı tarif</h3><p style="margin:0;font-size:.9rem;color:var(--ink-2)">Doz, sıcaklık ve süre merkezden tanımlanır; makineler haftalık kalibre edilir. Kavacık'taki latte Bursa'dakiyle aynı olmalı.</p></div>
-        </div>
+        <p class="brewnote" id="bNote">Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil.</p>
+
+        <div class="lbl" style="margin-top:1.6rem">Shot öncesi zorunlu 5 adım</div>
+        <ol class="fivestep">
+          <li><b>Grup başlığı flush edilir</b> — 2–3 saniye su akıtılır, kalıntı temizlenir, sıcaklık dengelenir.</li>
+          <li><b>Portafiltre temizlenir</b> — sepet içi kuru; önceki shot'tan partikül kalmaz.</li>
+          <li><b>Gramaj tartılır</b> — 14 g tartı ile doğrulanır; göz kararı kabul edilmez.</li>
+          <li><b>Tamp uygulanır</b> — eşit basınç, düz yüzey.</li>
+          <li><b>Süre takip edilir</b> — kronometre 18–23 saniye aralığında izlenir.</li>
+        </ol>
+        <p class="brewnote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <!-- ============ 13:00 SEÇİM ============ -->
 <section class="sec" id="secim">
@@ -684,7 +721,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   <div class="cols">
     <div>
       <h4>Florida Coffee</h4>
-      <p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy · 2019'dan beri</p>
+      <p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p>
     </div>
     <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#kulup">FloridaDays Club</a></li><li><a href="#franchise">Franchise</a></li></ul></div>
     <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
@@ -852,7 +889,7 @@ function openBranch(id){
   document.getElementById("dToday").innerHTML =
     (open ? "<b style='color:var(--ok)'>Şu an açık</b>" : "<b style='color:var(--busy)'>Şu an kapalı</b>") +
     " · bugün " + hourStr(b.o) + "–" + hourStr(b.k) +
-    (b.f.includes("manzara") ? "<br>Gün batımı <b style='color:var(--lamp)'>" + ss + "</b>" : "") +
+    (b.f.includes("manzara") ? "<br>Gün batımı <b style='color:var(--amber)'>" + ss + "</b>" : "") +
     "<br><span style='color:var(--ink-3)'>" + b.note + "</span>";
   document.getElementById("dTags").innerHTML = b.f.map(f => `<span class="chip">${F[f]}</span>`).join("") + `<span class="chip">Wi-Fi</span><span class="chip">Laktozsuz süt</span>`;
   document.getElementById("dFaq").innerHTML = [
@@ -910,12 +947,9 @@ paintTicket();
 
 /* ---------------- brew guide ---------------- */
 const BREW = {
-  v60:    {r:"1:16", d:"15 g", t:"92°C", s:"2:45", n:"Orta-ince öğütme. 30 ml ile 40 saniye ıslatın, ardından üç turda 240 ml'ye tamamlayın."},
-  chemex: {r:"1:15", d:"30 g", t:"93°C", s:"4:00", n:"İri öğütme, kalın filtre. Daha berrak ve çay kıvamında bir fincan verir."},
-  french: {r:"1:12", d:"30 g", t:"94°C", s:"4:00", n:"İri öğütme. 4 dakikada kabuğu kırın, 1 dakika dinlendirip yavaşça bastırın."},
-  cold:   {r:"1:8",  d:"120 g", t:"Oda", s:"16 sa", n:"İri öğütme, oda sıcaklığında demleme. Servis öncesi 1:1 su ile açılır; asiditesi düşük, tatlılığı yüksek."},
-  turk:   {r:"1:10", d:"7 g",  t:"Kısık", s:"3–4 dk", n:"Toz inceliğinde öğütme. Soğuk suyla başlayın, köpüğü fincana paylaştırın, kaynatmayın."},
-  esp:    {r:"18:36", d:"18 g", t:"93°C", s:"27 sn", n:"18 g kahveden 36 g içecek. Akış 9 barda; 25–30 saniye dışına çıkarsa öğütme ayarlanır."}
+  latin:  {r:"Denge", d:"Orta", t:"Orta", s:"Espresso", n:"Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil."},
+  afrika: {r:"Aroma", d:"Yüksek", t:"Hafif–orta", s:"Filtre", n:"Çiçeksi aromalar, kırmızı ve tropikal meyveler, çay benzeri yapı. Canlı ve parlak asidite. Etiyopya, Kenya, Tanzanya. Filtre ve üçüncü dalga demlemeler için tercih edilir."},
+  asya:   {r:"Gövde", d:"Düşük", t:"Full body", s:"Sert içim", n:"Topraksı ve baharatsı notalar, bitter çikolata, tütün ve odunsu aromalar. Yoğun ve kalıcı tat. Endonezya, Vietnam, Hindistan. Sert içim ve yoğun espresso sevenler için."}
 };
 document.querySelectorAll("#brewtabs .fbtn").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#brewtabs .fbtn").forEach(x => x.setAttribute("aria-pressed","false"));
@@ -1018,12 +1052,12 @@ calcF();
 
 /* ---------------- ambient sky + rail ---------------- */
 const STOPS = [
-  {p:0.00, a:"#0A1420", b:"#1B3042", c:"#B9805F", g:"#E8A87C"},  // 06:40 şafak
-  {p:0.14, a:"#102734", b:"#1D5163", c:"#9FD3D8", g:"#7FC8CE"},  // sabah
-  {p:0.42, a:"#123A4C", b:"#1C6A7A", c:"#CBE7E4", g:"#5FC1CB"},  // öğle
-  {p:0.62, a:"#2A150E", b:"#7A2E12", c:"#E0662B", g:"#F5B95C"},  // gün batımı
-  {p:0.82, a:"#080D13", b:"#0E2430", c:"#1C4653", g:"#E2B55A"},  // gece
-  {p:1.00, a:"#060A0E", b:"#0B1A22", c:"#153542", g:"#C79A46"}   // kapanış
+  {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F2A22B"},  // 06:40 şafak
+  {p:0.14, a:"#073846", b:"#0A4D5C", c:"#7FC0C7", g:"#6FBFC6"},  // sabah
+  {p:0.42, a:"#0A4D5C", b:"#12707F", c:"#CDE7E6", g:"#8FD3D6"},  // öğle
+  {p:0.62, a:"#3A1B0C", b:"#A33C10", c:"#F2A22B", g:"#F5C46A"},  // gün batımı
+  {p:0.82, a:"#04161C", b:"#082F3A", c:"#0E4453", g:"#E2B55A"},  // gece
+  {p:1.00, a:"#03121A", b:"#062733", c:"#0A3D49", g:"#C98F3C"}   // kapanış
 ];
 const hex = h => [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)];
 const mix = (x,y,t) => "#" + hex(x).map((v,i) => Math.round(v + (hex(y)[i]-v)*t).toString(16).padStart(2,"0")).join("");
