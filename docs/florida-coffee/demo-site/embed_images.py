@@ -23,6 +23,7 @@ def main():
     ap.add_argument("--q", type=int, default=82)
     ap.add_argument("--src", default="index.html")
     ap.add_argument("--out", default="index.html")
+    ap.add_argument("--videos", default="hero", help="data-URI olarak gömülecek videolar (virgülle); boyut için yalnız hero varsayılan")
     a = ap.parse_args()
     html = open(os.path.join(HERE, a.src), encoding="utf-8").read()
     # önceki gömmeleri temizle
@@ -42,7 +43,22 @@ def main():
         tail = m.group(4)
         return f'<figure class="ph{cls} has"{rest}data-img="{name}"{tail}><img data-embedded alt="" src="{uri}">'
     html = re.sub(r'<figure class="ph([^"]*)"([^>]*?)data-img="([a-z0-9_-]+)"([^>]*)>', sub, html)
+    # marka görselleri (nav/footer kelime işareti) → data-URI
+    def brand(m):
+        p = os.path.join(HERE, "brand", m.group(2) + ".png")
+        if not os.path.exists(p): return m.group(0)
+        return m.group(1) + "data:image/png;base64," + base64.b64encode(open(p, "rb").read()).decode() + m.group(3)
+    html, nb = re.subn(r'(<img class="wm" data-brand="([a-z0-9_-]+)" alt="" src=")[^"]*(")', brand, html)
+    # videolar: seçilenler data-URI, diğerleri video/<ad>.mp4 (artifact'ta yüklenmez, alttaki görsel kalır)
+    vids = set(filter(None, a.videos.split(",")))
+    def vid(m):
+        name = m.group(2); p = os.path.join(HERE, "video", name + ".mp4")
+        if name in vids and os.path.exists(p):
+            return m.group(1) + "data:video/mp4;base64," + base64.b64encode(open(p, "rb").read()).decode() + m.group(3)
+        return m.group(1) + f"video/{name}.mp4" + m.group(3)
+    html, nv = re.subn(r'(<video[^>]*data-vid="([a-z0-9_-]+)"[^>]*><source src=")[^"]*(")', vid, html)
     open(os.path.join(HERE, a.out), "w", encoding="utf-8").write(html)
+    print(f"marka görseli: {nb}, video etiketi: {nv} (gömülü: {', '.join(sorted(vids))})")
     print(f"gömüldü: {len(done)} görsel, toplam {total//1024} KB → {a.out}")
     print(", ".join(done))
 

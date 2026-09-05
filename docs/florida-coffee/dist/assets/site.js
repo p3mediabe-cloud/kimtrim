@@ -65,6 +65,63 @@ function isOpen(b, now){
 }
 
 
+/* ---------- logo canlandırma ---------- */
+(() => {
+  const marks = [...document.querySelectorAll(".mark")];
+  if (!reduce && matchMedia("(pointer:fine)").matches) {
+    let raf = 0, px = 0, py = 0;
+    addEventListener("pointermove", e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(look); }, {passive:true});
+    function look(){ raf = 0; for (const m of marks) { const r = m.getBoundingClientRect(); if (!r.width) continue;
+      const cx = r.left + r.width * .616, cy = r.top + r.height * .408, dx = px - cx, dy = py - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 240) * 4.2;
+      m.style.setProperty("--ex", (dx / d * k).toFixed(2)); m.style.setProperty("--ey", (dy / d * k).toFixed(2)); } }
+  }
+  // kayan şerit: şube adları
+  const mq = document.getElementById("marq");
+  if (mq && typeof B !== "undefined") {
+    const dot = marks[0] ? marks[0].outerHTML.replace(/class="mark[^"]*"/, 'class="mark"') : "·";
+    const seq = B.map(b => `<span>${b.n}${dot}</span>`).join("");
+    mq.innerHTML = seq + seq;
+  }
+  // sayaçlar
+  const cnt = [...document.querySelectorAll("[data-count]")];
+  if (cnt.length) {
+    const run = el => { const to = +el.dataset.count, t0 = performance.now(), dur = reduce ? 0 : 1400;
+      const step = t => { const p = Math.min(1, (t - t0) / (dur || 1)), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); };
+    const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { run(x.target); io.unobserve(x.target); } }), {threshold:.4});
+    cnt.forEach(el => io.observe(el));
+  }
+})();
+/* ---------- /logo canlandırma ---------- */
+
+/* ---------- logo canlandırma ---------- */
+(() => {
+  const marks = [...document.querySelectorAll(".mark")];
+  if (!reduce && matchMedia("(pointer:fine)").matches) {
+    let raf = 0, px = 0, py = 0;
+    addEventListener("pointermove", e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(look); }, {passive:true});
+    function look(){ raf = 0; for (const m of marks) { const r = m.getBoundingClientRect(); if (!r.width) continue;
+      const cx = r.left + r.width * .616, cy = r.top + r.height * .408, dx = px - cx, dy = py - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 240) * 4.2;
+      m.style.setProperty("--ex", (dx / d * k).toFixed(2)); m.style.setProperty("--ey", (dy / d * k).toFixed(2)); } }
+  }
+  // kayan şerit: şube adları
+  const mq = document.getElementById("marq");
+  if (mq && typeof B !== "undefined") {
+    const dot = marks[0] ? marks[0].outerHTML.replace(/class="mark[^"]*"/, 'class="mark"') : "·";
+    const seq = B.map(b => `<span>${b.n}${dot}</span>`).join("");
+    mq.innerHTML = seq + seq;
+  }
+  // sayaçlar
+  const cnt = [...document.querySelectorAll("[data-count]")];
+  if (cnt.length) {
+    const run = el => { const to = +el.dataset.count, t0 = performance.now(), dur = reduce ? 0 : 1400;
+      const step = t => { const p = Math.min(1, (t - t0) / (dur || 1)), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); };
+    const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { run(x.target); io.unobserve(x.target); } }), {threshold:.4});
+    cnt.forEach(el => io.observe(el));
+  }
+})();
+
 const MENU = {
   sicak: [
     ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal","95 mg kafein","sütsüz","vegan"]],

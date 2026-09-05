@@ -21,6 +21,8 @@ def rebase(txt):
     if not BASEPATH: return txt
     return re.sub(r'(href|src)="/(?!/)', rf'\1="{BASEPATH}/', txt)
 _SRC_DIST = os.path.join(BASE, "dist")
+for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST, "img", "brand")), (os.path.join(BASE, "demo-site", "video"), os.path.join(DIST, "video"))):
+    if os.path.isdir(_src): shutil.copytree(_src, _dst, dirs_exist_ok=True)
 if DIST != os.path.abspath(_SRC_DIST):
     for d in ("img", "app", "platform", "sunum"):
         src = os.path.join(_SRC_DIST, d)
@@ -38,6 +40,7 @@ MENU_JS  = between('const MENU = {', '\nlet curCat')
 DIET_JS  = between('const kcalOf', 'function passDiet')
 FLO_JS   = between('/* ================= FLO', '/* bölüm bazlı ipucu')
 HINT_JS  = between('/* bölüm bazlı ipucu', 'setTimeout(() => showHint("safak"), 1800);')
+LOGO_JS  = between('/* ---------- logo canlandırma ---------- */', '/* ---------- /logo canlandırma ---------- */')
 FLO_CSS  = between('/* ---------- Flo asistanı ---------- */', '/* ---------- loyalty / phone ---------- */')
 FLO_HTML = between('<!-- ============ FLO · asistan ============ -->', '<div class="drawer" id="drawer"')
 ROOT_CSS = between(':root{', '*{box-sizing:border-box}')
@@ -47,7 +50,10 @@ NAV_CSS  = between('/* ---------- kalıcı üst navigasyon ---------- */', '/* -
 CHIP_CSS = between('.chip{display:inline-flex', '/* ---------- order mini')
 FILT_CSS = between('.filters{display:flex', '/* detail drawer')
 NEWS_CSS = between('/* ---------- taze ---------- */', '/* ---------- branch finder')
-LOGO_SVG = re.search(r'<svg class="mark" viewBox="0 0 100 100" aria-hidden="true">.*?</svg>', demo).group(0)
+LOGO_SVG = re.search(r'<svg class="mark[^"]*" viewBox="0 0 100 100" aria-hidden="true">.*?</svg>', demo).group(0)
+# nav/footer logosu: gerçek kelime işareti (o delik) + animasyonlu SVG; img kaynağı dist yoluna çevrilir
+LOGO_HTML = re.sub(r'src="[^"]*"', 'src="/img/brand/wordmark-reverse-noo.png"', re.search(r'<span class="logo">.*?</svg></span>', demo, re.S).group(0))
+LOGO_FOOT = LOGO_HTML.replace('class="logo"', 'class="logo foot"').replace(' anim', '')
 
 # JS içindeki şube verisini Python'a da al (sayfa üretimi için)
 B_RAW = re.search(r'const B = \[(.*?)\n\];', demo, re.S).group(1)
@@ -168,7 +174,6 @@ form.f input,form.f select,form.f textarea{{background:rgba(9,14,19,.6);border:1
 .ok{{border:1px solid var(--ok);color:var(--ok);padding:.8rem 1rem;font-size:.9rem}}
 .two{{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(1.2rem,3vw,2.5rem);align-items:start}}@media (max-width:860px){{.two{{grid-template-columns:1fr}}}}
 .imgband{{aspect-ratio:16/7;overflow:hidden;border:1px solid var(--hair)}}.imgband img{{width:100%;height:100%;object-fit:cover;display:block}}
-.demobar{{position:sticky;top:0;z-index:71;background:var(--amber);color:#2A1703;font-size:.74rem;font-weight:600;padding:.4rem 1rem;text-align:center}}
 footer{{background:#030F14;border-top:1px solid var(--hair);padding:clamp(2.5rem,6vh,4rem) 0 2rem;font-size:.85rem;color:var(--ink-3);margin-top:3rem}}
 footer .cols{{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:2rem}}footer h4{{font-family:var(--disp);font-size:.95rem;color:var(--ink);margin:0 0 .6rem}}
 footer ul{{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}}footer a{{text-decoration:none;color:var(--ink-3)}}footer a:hover{{color:var(--ink)}}
@@ -182,6 +187,7 @@ footer .end{{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--hai
 '''
 JS = f'''"use strict";
 {DATA_JS}
+{LOGO_JS}
 {MENU_JS}
 {DIET_JS}
 /* nav aktif */
@@ -233,7 +239,7 @@ def head(title, desc, path, jsonld=None, noindex=True):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{H.escape(title)}</title><meta name="description" content="{H.escape(desc)}">{'<meta name="robots" content="noindex">' if noindex else ''}
-<link rel="canonical" href="{SITE}{path}"><meta name="theme-color" content="#0A4D5C">
+<link rel="canonical" href="{SITE}{path}"><meta name="theme-color" content="#004854">
 <meta property="og:title" content="{H.escape(title)}"><meta property="og:description" content="{H.escape(desc)}"><meta property="og:image" content="{SITE}/img/hero.jpg"><meta property="og:type" content="website">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -246,12 +252,11 @@ def shell(body, page, title, desc, path, jsonld=None, cls=""):
     end = body.find('</section>') + len('</section>') if body.startswith('<section class="hero') else 0
     body = body[:end] + f'<main class="{cls}">' + body[end:] + '</main>'
     return head(title, desc, path, jsonld) + f'''<body data-page="{page}">
-<div class="demobar">Demo · P3Media'nın Florida Coffee için hazırladığı tasarım önerisi · içerik ve fiyatlar örnektir</div>
-<header class="nav"><a class="home" href="/" aria-label="Florida Coffee ana sayfa">{LOGO_SVG}<span class="wordmark">florida<small>COFFEE</small></span></a>
+<header class="nav"><a class="home" href="/" aria-label="Florida Coffee ana sayfa">{LOGO_HTML}</a>
 <nav class="navlinks" aria-label="Ana menü">{nav}</nav><a class="btn amber sm cta" href="/app/">Ön sipariş</a></header>
 {body}
 <footer><div class="wrap"><div class="cols">
-<div><h4>Florida Coffee</h4><p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p></div>
+<div>{LOGO_FOOT}<span class="sr">Florida Coffee</span><p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p></div>
 <div><h4>Keşfet</h4><ul><li><a href="/menu/">Menü</a></li><li><a href="/subeler/">Şubeler</a></li><li><a href="/kahvemiz/">Kahvemiz</a></li><li><a href="/taze/">Taze</a></li><li><a href="/urunler/">Ürünler</a></li><li><a href="/etkinlikler/">Etkinlikler</a></li></ul></div>
 <div><h4>Kulüp ve uygulama</h4><ul><li><a href="/kulup/">FloridaDays Club</a></li><li><a href="/uygulama/">Uygulama</a></li><li><a href="/app/">Uygulama demosu</a></li><li><a href="/hikayemiz/">Hikâyemiz</a></li></ul></div>
 <div><h4>Kurumsal</h4><ul><li><a href="/franchise/">Franchise</a></li><li><a href="/kurumsal/">Kurumsal satış</a></li><li><a href="/kariyer/">Kariyer</a></li><li><a href="/sss/">SSS</a></li><li><a href="/iletisim/">İletişim</a></li></ul></div>
@@ -444,8 +449,8 @@ for k,(t,secs) in LEGAL.items():
 en_branches = "".join(f'<a class="cell" href="/subeler/{b["id"]}/"><h3>{b["n"]}</h3><p>{b["c"]} · {hh(b["o"])}–{hh(b["k"])}</p><span class="more">Branch page →</span></a>' for b in BRANCHES if "manzara" in b["f"] or "Karadağ" in b["c"])
 page("/en/", head("Florida Coffee · Istanbul-born coffee, 17 locations, 2 countries","Florida Coffee: Bosphorus-view cafés in Istanbul, locations across Turkey and Montenegro. Same cup everywhere: 14 g dose, 18–23 s shot.","/en/",
   {"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":"Florida Coffee Turkey","url":f"{SITE}/en/"}).replace('lang="tr"','lang="en"') +
-  f'''<body data-page="safak"><div class="demobar">Demo · design proposal by P3Media · content and prices are examples</div>
-<header class="nav"><a class="home" href="/" aria-label="Florida Coffee home">{LOGO_SVG}<span class="wordmark">florida<small>COFFEE</small></span></a><nav class="navlinks"><a href="/menu/">Menu</a><a href="/subeler/">Locations</a><a href="/kahvemiz/">Our coffee</a><a href="/franchise/">Franchise</a><a href="/">Türkçe</a></nav><a class="btn amber sm cta" href="/app/">Order ahead</a></header>
+  f'''<body data-page="safak">
+<header class="nav"><a class="home" href="/" aria-label="Florida Coffee home">{LOGO_HTML}</a><nav class="navlinks"><a href="/menu/">Menu</a><a href="/subeler/">Locations</a><a href="/kahvemiz/">Our coffee</a><a href="/franchise/">Franchise</a><a href="/">Türkçe</a></nav><a class="btn amber sm cta" href="/app/">Order ahead</a></header>
 <section class="hero img"><div class="bg"><img src="/img/hero.jpg" alt=""></div><div class="wrap"><div class="eyebrow">Istanbul-born · Taste of Joy</div><h1>The Bosphorus wakes up.<br>The coffee is already <span style="color:var(--amber)">ready</span>.</h1><p class="lede">Born in Çengelköy. Now 17 locations in Turkey and Montenegro, one recipe everywhere: 14 g dose weighed, 90–96 °C, 9 bar, 18–23 s shot, milk at 60–65 °C.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/subeler/">Find a location</a><a class="btn ghost" href="/franchise/">Franchise</a></div></div></section>
 <section class="sec"><div class="wrap"><h2 style="margin-bottom:1rem">Sunset terraces and the Adriatic</h2><div class="grid g3">{en_branches}</div><p style="margin-top:1.4rem;font-size:.9rem;color:var(--ink-3)">Full English and Montenegrin site coming with the Podgorica and Budva menus. Ask Flo — our toucan — in English or Turkish.</p></div></section>
 <footer><div class="wrap"><div class="end"><span>© 2026 Florida Coffee · Demo by P3Media</span><a href="/">Türkçe</a></div></div></footer>{FLO_HTML}<script src="/assets/site.js" defer></script></body></html>''')
@@ -458,7 +463,7 @@ page("/404.html", shell('<section class="hero"><div class="wrap"><div class="eye
 os.makedirs(os.path.join(DIST, "assets"), exist_ok=True)
 open(os.path.join(DIST, "assets", "site.css"), "w", encoding="utf-8").write(CSS)
 open(os.path.join(DIST, "assets", "site.js"), "w", encoding="utf-8").write(rebase(JS))
-open(os.path.join(DIST, "favicon.svg"), "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#0A4D5C"/><circle cx="50" cy="50" r="33" fill="none" stroke="#F6F1E8" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="#F6F1E8"/></svg>')
+open(os.path.join(DIST, "favicon.svg"), "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#004854"/><g transform="translate(10 10) scale(.8)"><circle cx="50" cy="50" r="38.3" fill="none" stroke="#EDE6D8" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="#F09C1C"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="#D44808"/><circle cx="61.6" cy="40.8" r="6" fill="#EDE6D8"/></g></svg>')
 n = 0
 for path, html_ in PAGES:
     out = os.path.join(DIST, path.lstrip("/")) if path.endswith(".html") else os.path.join(DIST, path.strip("/"), "index.html")
@@ -466,6 +471,8 @@ for path, html_ in PAGES:
 # ana sayfa: hikâye demosu (nav bağlantıları gerçek sayfalara)
 site = re.sub(r'<img[^>]*data-embedded[^>]*>', '', demo)
 site = re.sub(r'(<figure class="ph[^"]*?) has(")', r'\1\2', site)
+site = re.sub(r'(<img class="wm" data-brand="([a-z0-9_-]+)" alt="" src=")[^"]*(")', r'\1img/brand/\2.png\3', site)
+site = re.sub(r'(<video[^>]*data-vid="([a-z0-9_-]+)"[^>]*><source src=")[^"]*(")', r'\1video/\2.mp4\3', site)
 site = re.sub(r'^<title>.*?</title>\s*', '', site, count=1, flags=re.S)
 site = site.replace('<a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#taze">Taze</a><a href="#urunler">Ürünler</a><a href="#kulup">Kulüp</a><a href="#franchise">Franchise</a>',
                     "".join(f'<a href="{h}">{t}</a>' for t,h in NAV))
@@ -474,7 +481,7 @@ for sec_id, href, label in [("menu","/menu/","Tüm menü ve ürün sayfaları"),
     site = re.sub(rf'(<section class="sec[^"]*" id="{sec_id}">.*?<div class="inner">)', rf'\1<p style="margin:0 0 .5rem"><a class="btn ghost sm" href="{href}">{label}</a></p>', site, count=1, flags=re.S)
 site = site.replace('<li>Kariyer</li><li>KVKK aydınlatma metni</li><li>Çerez politikası</li><li>Kullanıcı sözleşmesi</li><li>İletişim</li>','<li><a href="/kariyer/">Kariyer</a></li><li><a href="/yasal/kvkk/">KVKK aydınlatma metni</a></li><li><a href="/yasal/cerez/">Çerez politikası</a></li><li><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a></li><li><a href="/iletisim/">İletişim</a></li>')
 site = site.replace('<li>Türkçe</li><li>English</li><li>Crnogorski</li>','<li>Türkçe</li><li><a href="/en/">English</a></li><li>Crnogorski · yakında</li>')
-home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
+home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#004854"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
   '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/favicon.svg","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"}}, ensure_ascii=False) + '</script></head><body>'
 open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(rebase(home_head + site + '</body></html>')); n += 1
 # sitemap + robots + vercel

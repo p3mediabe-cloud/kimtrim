@@ -1,9 +1,9 @@
 
 :root{
   /* Ortam: Boğaz'da bir gün — marka paletinden türetildi, kaydırmayla değişir */
-  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F2A22B;
+  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F09C1C;
   /* Marka */
-  --brand:#0A4D5C; --brand-deep:#063744; --amber:#F2A22B; --rust:#D2500E; --cream:#EDE6D8;
+  --brand:#004854; --brand-deep:#063744; --amber:#F09C1C; --rust:#D44808; --cream:#EDE6D8;
   --ink:#F6F1E8; --ink-2:#BCD0D4; --ink-3:#7E969D;
   --paper:#F4EEE2; --paper-ink:#0A3D49; --paper-ink-2:#4A6068; --paper-line:#DCD2C0;
   --glass:rgba(6,24,31,.62); --glass-2:rgba(6,24,31,.80); --hair:rgba(246,241,232,.15); --hair-2:rgba(246,241,232,.30);
@@ -92,9 +92,26 @@ a.cell:hover{background:rgba(10,77,92,.55)}
   padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--hair)}
 .nav .home{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink);flex:none}
-.mark{width:1.75rem;height:1.75rem;flex:none}
-.wordmark{font-family:var(--logo);font-weight:600;font-size:1.28rem;letter-spacing:-.02em;line-height:1}
-.wordmark small{display:block;font-size:.44rem;letter-spacing:.42em;font-weight:600;color:var(--ink-2);margin-top:.1rem}
+/* logo: gerçek kelime işareti (PNG, o harfi delik) + üstüne tam geometrili SVG 'o' — hareket eden tek parça bu */
+.logo{position:relative;display:block;height:2.15rem;width:calc(2.15rem*1965/670);flex:none;color:var(--ink)}
+.logo .wm{position:absolute;inset:0;width:100%;height:100%;display:block}
+.logo .mark{position:absolute;left:18.168%;top:16.716%;width:19.135%;height:56.119%}
+.logo.foot{height:2.6rem;width:calc(2.6rem*1965/670);margin-bottom:.9rem}
+.mark{display:block;overflow:visible;transition:transform .45s cubic-bezier(.3,1.4,.4,1)}
+.mark .ring{stroke-dasharray:241;stroke-dashoffset:0}
+.mark .beak,.mark .chin{transform-box:view-box;transform-origin:50px 50px}
+.mark .eyeg{transform-box:view-box;transform-origin:61.6px 40.8px;translate:calc(var(--ex,0)*1px) calc(var(--ey,0)*1px);transition:translate .25s ease-out}
+.mark .eye{transform-box:view-box;transform-origin:61.6px 40.8px;animation:lg-blink 7s ease-in-out 3.2s infinite}
+.mark.anim .ring{animation:lg-draw 1s cubic-bezier(.3,.7,.2,1) both}
+.mark.anim .beak{animation:lg-sweep .9s .4s cubic-bezier(.2,.8,.2,1) both}
+.mark.anim .chin{animation:lg-pop .5s 1s cubic-bezier(.3,1.5,.4,1) both}
+.mark.anim .eyeg{animation:lg-pop .4s 1.25s cubic-bezier(.3,1.5,.4,1) both}
+.home:hover .mark{transform:rotate(-8deg)}
+@keyframes lg-blink{0%,94%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.08)}}
+@keyframes lg-draw{from{stroke-dashoffset:241}to{stroke-dashoffset:0}}
+@keyframes lg-sweep{from{transform:rotate(-110deg);opacity:0}to{transform:rotate(0);opacity:1}}
+@keyframes lg-pop{from{transform:scale(0)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.mark .eye,.mark.anim .ring,.mark.anim .beak,.mark.anim .chin,.mark.anim .eyeg{animation:none}.mark .eyeg{translate:0 0}}
 .navlinks{display:flex;gap:.2rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
 .navlinks a{position:relative;padding:.42rem .7rem;text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
@@ -105,7 +122,7 @@ a.cell:hover{background:rgba(10,77,92,.55)}
 .nav .cta{flex:none}
 @media (max-width:720px){
   .nav{gap:.6rem;padding:.5rem .8rem;flex-wrap:wrap}
-  .wordmark{font-size:1.1rem}
+  .logo{height:1.75rem;width:calc(1.75rem*1965/670)}
   .navlinks{order:3;width:100%;margin-left:0;padding-top:.15rem}
   .nav .cta{margin-left:auto}
 }
@@ -214,7 +231,6 @@ form.f input,form.f select,form.f textarea{background:rgba(9,14,19,.6);border:1p
 .ok{border:1px solid var(--ok);color:var(--ok);padding:.8rem 1rem;font-size:.9rem}
 .two{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(1.2rem,3vw,2.5rem);align-items:start}@media (max-width:860px){.two{grid-template-columns:1fr}}
 .imgband{aspect-ratio:16/7;overflow:hidden;border:1px solid var(--hair)}.imgband img{width:100%;height:100%;object-fit:cover;display:block}
-.demobar{position:sticky;top:0;z-index:71;background:var(--amber);color:#2A1703;font-size:.74rem;font-weight:600;padding:.4rem 1rem;text-align:center}
 footer{background:#030F14;border-top:1px solid var(--hair);padding:clamp(2.5rem,6vh,4rem) 0 2rem;font-size:.85rem;color:var(--ink-3);margin-top:3rem}
 footer .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:2rem}footer h4{font-family:var(--disp);font-size:.95rem;color:var(--ink);margin:0 0 .6rem}
 footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}footer a{text-decoration:none;color:var(--ink-3)}footer a:hover{color:var(--ink)}

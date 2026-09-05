@@ -1,11 +1,11 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz'da Bir Gün</title><meta name="description" content="Çengelköy'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="https://floridacoffee.com.tr/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Florida Coffee", "alternateName": ["Florida Coffee Türkiye", "Florida Coffee Co."], "url": "https://floridacoffee.com.tr", "logo": "https://floridacoffee.com.tr/favicon.svg", "address": {"@type": "PostalAddress", "streetAddress": "Çengelköy Mah. Görgeç Sok. No:6", "addressLocality": "Üsküdar", "addressRegion": "İstanbul", "addressCountry": "TR"}}</script></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#004854"><title>Florida Coffee · Boğaz'da Bir Gün</title><meta name="description" content="Çengelköy'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="https://floridacoffee.com.tr/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Florida Coffee", "alternateName": ["Florida Coffee Türkiye", "Florida Coffee Co."], "url": "https://floridacoffee.com.tr", "logo": "https://floridacoffee.com.tr/favicon.svg", "address": {"@type": "PostalAddress", "streetAddress": "Çengelköy Mah. Görgeç Sok. No:6", "addressLocality": "Üsküdar", "addressRegion": "İstanbul", "addressCountry": "TR"}}</script></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Poppins:wght@600&display=swap">
 <style>
 :root{
   /* Ortam: Boğaz'da bir gün — marka paletinden türetildi, kaydırmayla değişir */
-  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F2A22B;
+  --sky-1:#05202A; --sky-2:#0B4353; --sky-3:#B87A3E; --glow:#F09C1C;
   /* Marka */
-  --brand:#0A4D5C; --brand-deep:#063744; --amber:#F2A22B; --rust:#D2500E; --cream:#EDE6D8;
+  --brand:#004854; --brand-deep:#063744; --amber:#F09C1C; --rust:#D44808; --cream:#EDE6D8;
   --ink:#F6F1E8; --ink-2:#BCD0D4; --ink-3:#7E969D;
   --paper:#F4EEE2; --paper-ink:#0A3D49; --paper-ink-2:#4A6068; --paper-line:#DCD2C0;
   --glass:rgba(6,24,31,.62); --glass-2:rgba(6,24,31,.80); --hair:rgba(246,241,232,.15); --hair-2:rgba(246,241,232,.30);
@@ -93,9 +93,26 @@ button{background:none;border:none;cursor:pointer}
   padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--hair)}
 .nav .home{display:flex;align-items:center;gap:.55rem;text-decoration:none;color:var(--ink);flex:none}
-.mark{width:1.75rem;height:1.75rem;flex:none}
-.wordmark{font-family:var(--logo);font-weight:600;font-size:1.28rem;letter-spacing:-.02em;line-height:1}
-.wordmark small{display:block;font-size:.44rem;letter-spacing:.42em;font-weight:600;color:var(--ink-2);margin-top:.1rem}
+/* logo: gerçek kelime işareti (PNG, o harfi delik) + üstüne tam geometrili SVG 'o' — hareket eden tek parça bu */
+.logo{position:relative;display:block;height:2.15rem;width:calc(2.15rem*1965/670);flex:none;color:var(--ink)}
+.logo .wm{position:absolute;inset:0;width:100%;height:100%;display:block}
+.logo .mark{position:absolute;left:18.168%;top:16.716%;width:19.135%;height:56.119%}
+.logo.foot{height:2.6rem;width:calc(2.6rem*1965/670);margin-bottom:.9rem}
+.mark{display:block;overflow:visible;transition:transform .45s cubic-bezier(.3,1.4,.4,1)}
+.mark .ring{stroke-dasharray:241;stroke-dashoffset:0}
+.mark .beak,.mark .chin{transform-box:view-box;transform-origin:50px 50px}
+.mark .eyeg{transform-box:view-box;transform-origin:61.6px 40.8px;translate:calc(var(--ex,0)*1px) calc(var(--ey,0)*1px);transition:translate .25s ease-out}
+.mark .eye{transform-box:view-box;transform-origin:61.6px 40.8px;animation:lg-blink 7s ease-in-out 3.2s infinite}
+.mark.anim .ring{animation:lg-draw 1s cubic-bezier(.3,.7,.2,1) both}
+.mark.anim .beak{animation:lg-sweep .9s .4s cubic-bezier(.2,.8,.2,1) both}
+.mark.anim .chin{animation:lg-pop .5s 1s cubic-bezier(.3,1.5,.4,1) both}
+.mark.anim .eyeg{animation:lg-pop .4s 1.25s cubic-bezier(.3,1.5,.4,1) both}
+.home:hover .mark{transform:rotate(-8deg)}
+@keyframes lg-blink{0%,94%,100%{transform:scaleY(1)}96.5%{transform:scaleY(.08)}}
+@keyframes lg-draw{from{stroke-dashoffset:241}to{stroke-dashoffset:0}}
+@keyframes lg-sweep{from{transform:rotate(-110deg);opacity:0}to{transform:rotate(0);opacity:1}}
+@keyframes lg-pop{from{transform:scale(0)}to{transform:scale(1)}}
+@media (prefers-reduced-motion:reduce){.mark .eye,.mark.anim .ring,.mark.anim .beak,.mark.anim .chin,.mark.anim .eyeg{animation:none}.mark .eyeg{translate:0 0}}
 .navlinks{display:flex;gap:.2rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
 .navlinks a{position:relative;padding:.42rem .7rem;text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
@@ -106,7 +123,7 @@ button{background:none;border:none;cursor:pointer}
 .nav .cta{flex:none}
 @media (max-width:720px){
   .nav{gap:.6rem;padding:.5rem .8rem;flex-wrap:wrap}
-  .wordmark{font-size:1.1rem}
+  .logo{height:1.75rem;width:calc(1.75rem*1965/670)}
   .navlinks{order:3;width:100%;margin-left:0;padding-top:.15rem}
   .nav .cta{margin-left:auto}
 }
@@ -152,15 +169,26 @@ h2 + .lede{margin-top:1.3rem}
 .hero-bg::before{display:none}
 .hero-bg.has::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(4,20,26,.88) 0%,rgba(4,20,26,.55) 55%,rgba(4,20,26,.25) 100%),linear-gradient(180deg,rgba(4,20,26,.2),rgba(4,20,26,.9))}
 .hero .inner{position:relative;z-index:1}
+.heromark{width:clamp(3.6rem,6vw,5.2rem);margin-bottom:clamp(.9rem,2.5vh,1.6rem);color:var(--ink);filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
+.heromark .mark{animation:lg-float 7s ease-in-out 2s infinite}
+@keyframes lg-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
+.ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph video.vert{object-fit:contain;backdrop-filter:blur(14px) brightness(.55)}
+@media (prefers-reduced-motion:reduce){.ph video{display:none}.heromark .mark{animation:none}}
 .hero{min-height:min(92vh,58rem);position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
 .brandline{margin-bottom:clamp(1rem,3vh,2rem)}
 .brandline .s{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);font-weight:600}
-.logo{width:2.1rem;height:2.1rem;border-radius:50%;background:var(--amber);position:relative;flex:none}
-.logo::after{content:"";position:absolute;inset:.62rem;border-radius:50%;background:#0A1420}
 .brandline .n{font-family:var(--disp);font-size:1.15rem;font-weight:600;letter-spacing:.01em}
 .brandline .s{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero .sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-2);max-width:46ch;margin-top:0}
+.marq{overflow:hidden;border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);background:rgba(4,20,26,.55);backdrop-filter:blur(8px);position:relative;z-index:1}
+.marq .track{display:flex;width:max-content;padding:.7rem 0;animation:lg-marq 70s linear infinite;font-family:var(--disp);font-size:.76rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+.marq .track span{display:inline-flex;align-items:center;gap:1.4rem;padding-right:1.4rem;white-space:nowrap}
+.marq .track .mark{width:.95rem;height:.95rem;color:var(--ink-3)}
+.marq:hover .track{animation-play-state:paused}
+@keyframes lg-marq{to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.marq .track{animation:none}}
 .herogrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(1.4rem,3.5vh,2.4rem)}
 @media (max-width:900px){.herogrid{grid-template-columns:minmax(0,1fr)}}
 
@@ -468,8 +496,6 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
 footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem}
 
 /* demo banner */
-.demobar{position:sticky;top:0;z-index:71;background:var(--amber);color:#2A1703;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
-.demobar a{color:#2A1703}
 .rail{top:0}
 
 @media (max-width:860px){
@@ -484,12 +510,11 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 }
 </style>
 
-<div class="demobar">Demo · P3Media'nın Florida Coffee için hazırladığı tasarım önerisi. Menü, fiyat ve şube verileri örnektir. <a href="#franchise">Franchise</a></div>
 <div class="sky" id="sky" aria-hidden="true"></div>
 <div class="seaband" aria-hidden="true"></div>
 
 <header class="nav">
-  <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg><span class="wordmark">florida<small>COFFEE</small></span></a>
+  <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><span class="logo"><img class="wm" data-brand="wordmark-reverse-noo" alt="" src="img/brand/wordmark-reverse-noo.png"><svg class="mark anim" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></span></a>
   <nav class="navlinks" aria-label="Ana menü">
     <a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a>
   </nav>
@@ -517,8 +542,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
-  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"></figure>
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted loop playsinline preload="auto" data-vid="hero"><source src="video/hero.mp4" type="video/mp4"></video></figure>
   <div class="inner">
+    <div class="heromark" aria-hidden="true"><svg class="mark anim big" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></div>
     <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
     <h1>Boğaz uyanırken<br>kahve çoktan <em>hazır</em>.</h1>
     <div class="herogrid">
@@ -544,13 +570,14 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       </div>
     </div>
     <div class="proof">
-      <div><div class="v">17</div><div class="l">şube, 2 ülke</div></div>
-      <div><div class="v">45 <span style="font-size:.5em">gün</span></div><div class="l">barista ve işletme eğitimi</div></div>
+      <div><div class="v" data-count="17">17</div><div class="l">şube, 2 ülke</div></div>
+      <div><div class="v"><span data-count="45">45</span> <span style="font-size:.5em">gün</span></div><div class="l">barista ve işletme eğitimi</div></div>
       <div><div class="v">18–23<span style="font-size:.5em"> sn</span></div><div class="l">espresso shot standardımız</div></div>
       <div><div class="v">02:00</div><div class="l">Boğaz şubelerinde kapanış</div></div>
     </div>
   </div>
 </section>
+<div class="marq" aria-hidden="true"><div class="track" id="marq"></div></div>
 
 <!-- ============ 08:30 SABAH ============ -->
 <section class="sec" id="sabah">
@@ -698,7 +725,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">13:00</span><span class="p">Öğle · seçim yorgunluğu</span></div>
     <h2>Ne içeceğinizi<br>bilmiyorsanız sorun bizde.</h2>
     <p class="lede">Menüde 40 satır var, sizin 20 saniyeniz. Nasıl hissettiğinizi söyleyin, gerisini biz eşleştirelim.</p>
-    <figure class="ph r169" data-img="pour" style="margin-top:1.4rem"><span class="cap">9 bar · 18–23 saniye</span></figure>
+    <figure class="ph r169" data-img="pour" style="margin-top:1.4rem"><video class="vid" autoplay muted loop playsinline preload="metadata" data-vid="pour"><source src="video/pour.mp4" type="video/mp4"></video><span class="cap">9 bar · 18–23 saniye</span></figure>
     <div class="moods" id="moods">
       <button class="mood" aria-pressed="true" data-m="uyan">Uyanmam lazım</button>
       <button class="mood" aria-pressed="false" data-m="odak">Uzun süre odaklanacağım</button>
@@ -843,7 +870,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">23:30</span><span class="p">Gece · Beykoz</span></div>
     <h2>Şehir susunca<br>Boğaz konuşur.</h2>
     <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
-    <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><span class="cap">Beykoz · 01:00</span></figure>
+    <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><video class="vid vert" autoplay muted loop playsinline preload="metadata" data-vid="night"><source src="video/night.mp4" type="video/mp4"></video><span class="cap">Beykoz · 01:00</span></figure>
     <div class="evgrid">
       <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p></div>
       <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p></div>
@@ -909,7 +936,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <footer>
   <div class="cols">
     <div>
-      <h4>Florida Coffee</h4>
+      <span class="logo foot"><img class="wm" data-brand="wordmark-reverse-noo" alt="" src="img/brand/wordmark-reverse-noo.png"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></span><span class="sr">Florida Coffee</span>
       <p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p>
     </div>
     <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#kulup">FloridaDays Club</a></li><li><a href="#franchise">Franchise</a></li></ul></div>
@@ -928,12 +955,12 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <!-- ============ FLO · asistan ============ -->
 <button class="flo-fab" id="floFab" aria-haspopup="dialog" aria-controls="flo" aria-expanded="false">
   <span class="flo-hint" id="floHint">Merhaba, ben Flo. Sor bana.</span>
-  <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="#052733" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="#052733"/></svg>
+  <svg class="mark fab" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="#052733" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="#052733"/></g></svg>
   <span class="sr">Flo asistanı aç</span>
 </button>
 <section class="flo" id="flo" role="dialog" aria-modal="false" aria-labelledby="floTitle" hidden>
   <header class="flo-head">
-    <svg viewBox="0 0 100 100" aria-hidden="true" class="flo-mark"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>
+    <svg viewBox="0 0 100 100" aria-hidden="true" class="flo-mark"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F09C1C"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D44808"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>
     <div><div id="floTitle" class="flo-name">Flo</div><div class="flo-sub">Florida Coffee'nin tukanı · <span class="dot-s g"></span> çevrimiçi</div></div>
     <button class="flo-x" id="floClose" aria-label="Kapat">✕</button>
   </header>
@@ -1035,6 +1062,35 @@ function isOpen(b, now){
   return false;
 }
 
+
+/* ---------- logo canlandırma ---------- */
+(() => {
+  const marks = [...document.querySelectorAll(".mark")];
+  if (!reduce && matchMedia("(pointer:fine)").matches) {
+    let raf = 0, px = 0, py = 0;
+    addEventListener("pointermove", e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(look); }, {passive:true});
+    function look(){ raf = 0; for (const m of marks) { const r = m.getBoundingClientRect(); if (!r.width) continue;
+      const cx = r.left + r.width * .616, cy = r.top + r.height * .408, dx = px - cx, dy = py - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 240) * 4.2;
+      m.style.setProperty("--ex", (dx / d * k).toFixed(2)); m.style.setProperty("--ey", (dy / d * k).toFixed(2)); } }
+  }
+  // kayan şerit: şube adları
+  const mq = document.getElementById("marq");
+  if (mq && typeof B !== "undefined") {
+    const dot = marks[0] ? marks[0].outerHTML.replace(/class="mark[^"]*"/, 'class="mark"') : "·";
+    const seq = B.map(b => `<span>${b.n}${dot}</span>`).join("");
+    mq.innerHTML = seq + seq;
+  }
+  // sayaçlar
+  const cnt = [...document.querySelectorAll("[data-count]")];
+  if (cnt.length) {
+    const run = el => { const to = +el.dataset.count, t0 = performance.now(), dur = reduce ? 0 : 1400;
+      const step = t => { const p = Math.min(1, (t - t0) / (dur || 1)), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); };
+      requestAnimationFrame(step); };
+    const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { run(x.target); io.unobserve(x.target); } }), {threshold:.4});
+    cnt.forEach(el => io.observe(el));
+  }
+})();
+/* ---------- /logo canlandırma ---------- */
 /* ---------------- live card + clock ---------------- */
 const nearest = B[0];
 function tick(){
@@ -1456,10 +1512,10 @@ setTimeout(() => showHint("safak"), 1800);
 
 /* ---------------- ambient sky + rail ---------------- */
 const STOPS = [
-  {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F2A22B"},  // 06:40 şafak
-  {p:0.14, a:"#073846", b:"#0A4D5C", c:"#7FC0C7", g:"#6FBFC6"},  // sabah
-  {p:0.42, a:"#0A4D5C", b:"#12707F", c:"#CDE7E6", g:"#8FD3D6"},  // öğle
-  {p:0.62, a:"#3A1B0C", b:"#A33C10", c:"#F2A22B", g:"#F5C46A"},  // gün batımı
+  {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F09C1C"},  // 06:40 şafak
+  {p:0.14, a:"#073846", b:"#004854", c:"#7FC0C7", g:"#6FBFC6"},  // sabah
+  {p:0.42, a:"#004854", b:"#12707F", c:"#CDE7E6", g:"#8FD3D6"},  // öğle
+  {p:0.62, a:"#3A1B0C", b:"#A33C10", c:"#F09C1C", g:"#F5C46A"},  // gün batımı
   {p:0.82, a:"#04161C", b:"#082F3A", c:"#0E4453", g:"#E2B55A"},  // gece
   {p:1.00, a:"#03121A", b:"#062733", c:"#0A3D49", g:"#C98F3C"}   // kapanış
 ];

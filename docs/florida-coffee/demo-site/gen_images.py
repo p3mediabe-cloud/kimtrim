@@ -5,7 +5,7 @@ Kullanım:  GEMINI_API_KEY=... python3 gen_images.py [--model gemini-3-pro-image
 """
 import os, sys, json, base64, time, urllib.request, urllib.error, argparse
 
-BRAND = ("Brand palette: deep petrol teal #0A4D5C, warm amber #F2A22B, burnt orange #D2500E, "
+BRAND = ("Brand palette: deep petrol teal #004854, warm amber #F09C1C, burnt orange #D44808, "
          "soft cream #EDE6D8. Cups are cream paper with a petrol teal lower band and a small toucan-head "
          "emblem made of an amber upper quadrant and burnt-orange lower quadrant. No readable text, no letters, "
          "no watermark. Photorealistic editorial photography, natural light, shallow depth of field, "
