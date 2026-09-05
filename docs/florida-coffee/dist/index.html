@@ -1,4 +1,4 @@
-<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz'da Bir Gün</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz'da Bir Gün</title><meta name="description" content="Çengelköy'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="https://floridacoffee.com.tr/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Organization", "name": "Florida Coffee", "alternateName": ["Florida Coffee Türkiye", "Florida Coffee Co."], "url": "https://floridacoffee.com.tr", "logo": "https://floridacoffee.com.tr/favicon.svg", "address": {"@type": "PostalAddress", "streetAddress": "Çengelköy Mah. Görgeç Sok. No:6", "addressLocality": "Üsküdar", "addressRegion": "İstanbul", "addressCountry": "TR"}}</script></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Poppins:wght@600&display=swap">
 <style>
 :root{
@@ -105,7 +105,7 @@ button{background:none;border:none;cursor:pointer}
 .navlinks a[aria-current="page"]{color:var(--amber)}
 .nav .cta{flex:none}
 @media (max-width:720px){
-  .nav{gap:.6rem;padding:.5rem .8rem}
+  .nav{gap:.6rem;padding:.5rem .8rem;flex-wrap:wrap}
   .wordmark{font-size:1.1rem}
   .navlinks{order:3;width:100%;margin-left:0;padding-top:.15rem}
   .nav .cta{margin-left:auto}
@@ -162,7 +162,7 @@ h2 + .lede{margin-top:1.3rem}
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero .sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-2);max-width:46ch;margin-top:0}
 .herogrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(1.4rem,3.5vh,2.4rem)}
-@media (max-width:900px){.herogrid{grid-template-columns:1fr}}
+@media (max-width:900px){.herogrid{grid-template-columns:minmax(0,1fr)}}
 
 /* live card */
 .live{background:var(--glass-2);border:1px solid var(--hair);border-radius:1.2rem;padding:1.3rem 1.4rem;backdrop-filter:blur(14px)}
@@ -229,7 +229,7 @@ h2 + .lede{margin-top:1.3rem}
 
 /* ---------- order mini ---------- */
 .order{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
-@media (max-width:820px){.order{grid-template-columns:1fr}}
+@media (max-width:820px){.order{grid-template-columns:minmax(0,1fr)}}
 .opts{display:flex;flex-wrap:wrap;gap:.4rem;margin:.3rem 0 1rem}
 .opt{padding:.42rem .8rem;border-radius:.6rem;border:1px solid var(--hair-2);font-size:.85rem;font-weight:500;transition:all .15s}
 .opt[aria-pressed="true"]{background:var(--ink);color:#0A1420;border-color:var(--ink);font-weight:600}
@@ -249,7 +249,7 @@ h2 + .lede{margin-top:1.3rem}
 
 /* ---------- craft / brew ---------- */
 .brewwrap{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(1rem,3vw,2.5rem);align-items:start}
-@media (max-width:900px){.brewwrap{grid-template-columns:1fr}}
+@media (max-width:900px){.brewwrap{grid-template-columns:minmax(0,1fr)}}
 .beancard{border:1px solid var(--hair);border-radius:1.1rem;overflow:hidden;background:var(--glass)}
 .beancard .top{padding:1.6rem 1.4rem;background:linear-gradient(150deg,#3A2214,#14202B)}
 .beancard .top .t{font-family:var(--disp);font-size:1.7rem}
@@ -278,7 +278,7 @@ h2 + .lede{margin-top:1.3rem}
 .mood:hover{border-color:var(--amber);transform:translateY(-1px)}
 .mood[aria-pressed="true"]{background:var(--amber);color:#241704;border-color:var(--amber);font-weight:700}
 .match{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.2rem;align-items:center;border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem;background:var(--glass)}
-@media (max-width:760px){.match{grid-template-columns:1fr}}
+@media (max-width:760px){.match{grid-template-columns:minmax(0,1fr)}}
 .match .n{font-family:var(--disp);font-size:2rem;line-height:1.05}
 .match .why{color:var(--ink-2);margin:.4rem 0 .7rem;max-width:52ch}
 .facts{display:flex;gap:1.4rem;flex-wrap:wrap;font-size:.82rem;color:var(--ink-3)}
@@ -322,7 +322,7 @@ h2 + .lede{margin-top:1.3rem}
 .subscribe .row2{display:flex;gap:.5rem;flex-wrap:wrap}
 .subscribe input{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.75rem .9rem;min-width:16rem;font:inherit}
 .subscribe .ok{grid-column:1/-1;color:var(--ok);font-size:.88rem}
-@media (max-width:760px){.subscribe{grid-template-columns:1fr}.subscribe input{min-width:0;flex:1}}
+@media (max-width:760px){.subscribe{grid-template-columns:minmax(0,1fr)}.subscribe input{min-width:0;flex:1}}
 /* ---------- ürünler ---------- */
 .shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15.5rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:1.4rem}
 .prodcard{background:rgba(6,24,31,.72);display:flex;flex-direction:column}
@@ -412,7 +412,7 @@ h2 + .lede{margin-top:1.3rem}
 
 /* ---------- loyalty / phone ---------- */
 .loyal{display:grid;grid-template-columns:minmax(0,1fr) 19rem;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
-@media (max-width:900px){.loyal{grid-template-columns:1fr}.phone{margin:0 auto}}
+@media (max-width:900px){.loyal{grid-template-columns:minmax(0,1fr)}.phone{margin:0 auto}}
 .phone{width:19rem;border-radius:2.2rem;background:#05090D;border:1px solid var(--hair-2);padding:.7rem;box-shadow:0 30px 60px rgba(0,0,0,.5)}
 .phone .scr{border-radius:1.7rem;background:linear-gradient(170deg,#12212C,#0A141C);padding:1.1rem 1rem 1.2rem;min-height:33rem;display:flex;flex-direction:column;gap:.8rem}
 .phone .bar{display:flex;justify-content:space-between;font-size:.68rem;color:var(--ink-3);font-variant-numeric:tabular-nums}
@@ -445,10 +445,10 @@ h2 + .lede{margin-top:1.3rem}
 
 /* ---------- franchise ---------- */
 .fr{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1rem,3vw,2.5rem);align-items:start}
-@media (max-width:900px){.fr{grid-template-columns:1fr}}
+@media (max-width:900px){.fr{grid-template-columns:minmax(0,1fr)}}
 .field{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
 .field label{font-size:.8rem;color:var(--ink-2);font-weight:600}
-.field select{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);border-radius:.6rem;padding:.55rem .7rem}
+.field select{width:100%;max-width:100%;min-width:0;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);border-radius:.6rem;padding:.55rem .7rem}
 input[type=range]{width:100%;accent-color:var(--amber);background:transparent}
 .out{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:1rem;overflow:hidden;margin-top:1.2rem}
 .out div{background:rgba(9,14,19,.55);padding:.9rem 1rem}
@@ -491,9 +491,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <header class="nav">
   <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg><span class="wordmark">florida<small>COFFEE</small></span></a>
   <nav class="navlinks" aria-label="Ana menü">
-    <a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#taze">Taze</a><a href="#urunler">Ürünler</a><a href="#kulup">Kulüp</a><a href="#franchise">Franchise</a>
+    <a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a>
   </nav>
-  <a class="btn amber sm cta" href="#sabah">Ön sipariş</a>
+  <a class="btn amber sm cta" href="/app/">Ön sipariş</a>
 </header>
 
 <nav class="rail" aria-label="Günün saatleri">
@@ -612,7 +612,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 10:00 KAHVEMİZ ============ -->
 <section class="sec" id="kahvemiz">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/kahvemiz/">Standartların tamamı</a></p>
     <div class="hour"><span class="t">10:00</span><span class="p">Standart · Çekirdek</span></div>
     <h2>Aynı fincan,<br>on yedi şubede.</h2>
     <p class="lede">Kavacık’taki latte, Bursa’dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart: tartılan gramaj, kronometreyle izlenen shot, dereceyle kontrol edilen süt. Reçetelerimiz kişisel yoruma açık değildir.</p>
@@ -672,7 +672,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 11:30 TAZE ============ -->
 <section class="sec" id="taze">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/taze/">Tüm haberler</a></p>
     <div class="hour"><span class="t">11:30</span><span class="p">Taze · yenilikler</span></div>
     <h2>Yeni ne var,<br>ilk siz duyun.</h2>
     <p class="lede">Yeni şube, sezon ürünü, kampanya ve etkinlikler tek akışta. Uygulamada bildirim olarak da gelir; burada filtreleyip okuyun.</p>
@@ -735,7 +735,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 15:00 MENÜ (paper) ============ -->
 <section class="sec paper" id="menu">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/menu/">Tüm menü ve ürün sayfaları</a></p>
     <div class="hour"><span class="t">15:00</span><span class="p">Menü</span></div>
     <h2>Fiyat, kalori, alerjen.<br>Hepsi burada.</h2>
     <p class="lede">Şubeye gitmeden görebilmeniz gereken her şey. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfasında görünür.</p>
@@ -760,7 +760,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 17:00 ÜRÜNLER ============ -->
 <section class="sec" id="urunler">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/urunler/">Tüm ürünler</a></p>
     <div class="hour"><span class="t">17:00</span><span class="p">Ürünler · eve götür</span></div>
     <h2>Aynı çekirdek,<br>sizin mutfağınızda.</h2>
     <p class="lede">Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş verin, şubeden alın; kargo yakında.</p>
@@ -779,7 +779,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 19:38 ŞUBELER ============ -->
 <section class="sec" id="subeler">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/subeler/">Tüm şube sayfaları</a></p>
     <div class="hour"><span class="t">19:38</span><span class="p">Gün batımı · Kavacık</span></div>
     <h2>Manzarayı da<br>menüye koyduk.</h2>
     <p class="lede">Hangi şubede gün batımı görünür, hangisinde priz vardır, hangisi gece ikiye kadar açıktır? Filtreleyin, o an açık olanları görün. Gün batımı saatleri bugüne göre hesaplanır.</p>
@@ -799,7 +799,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 21:00 KULÜP ============ -->
 <section class="sec" id="kulup">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/kulup/">Kulüp ve uygulama</a></p>
     <div class="hour"><span class="t">21:00</span><span class="p">FloridaDays Club</span></div>
     <div class="loyal">
       <div>
@@ -839,7 +839,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 23:30 GECE ============ -->
 <section class="sec night" id="gece">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/etkinlikler/">Etkinlik takvimi</a></p>
     <div class="hour"><span class="t">23:30</span><span class="p">Gece · Beykoz</span></div>
     <h2>Şehir susunca<br>Boğaz konuşur.</h2>
     <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
@@ -854,7 +854,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 02:00 FRANCHISE ============ -->
 <section class="sec" id="franchise">
-  <div class="inner">
+  <div class="inner"><p style="margin:0 0 .5rem"><a class="btn ghost sm" href="/franchise/">Franchise sayfası ve SSS</a></p>
     <div class="hour"><span class="t">02:00</span><span class="p">Kepenk kapanır · hesap başlar</span></div>
     <h2>Bu günü kendi<br>şehrinizde kurun.</h2>
     <p class="lede">3 km bölge koruması, 45 gün eğitim, merkezi tedarik ve bu dijital altyapının tamamı. Aşağıdaki hesaplayıcı örnek bir yatırım tablosu çıkarır.</p>
@@ -914,8 +914,8 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     </div>
     <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#kulup">FloridaDays Club</a></li><li><a href="#franchise">Franchise</a></li></ul></div>
     <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
-    <div><h4>Kurumsal</h4><ul><li>Kariyer</li><li>KVKK aydınlatma metni</li><li>Çerez politikası</li><li>Kullanıcı sözleşmesi</li><li>İletişim</li></ul></div>
-    <div><h4>Diller</h4><ul><li>Türkçe</li><li>English</li><li>Crnogorski</li></ul></div>
+    <div><h4>Kurumsal</h4><ul><li><a href="/kariyer/">Kariyer</a></li><li><a href="/yasal/kvkk/">KVKK aydınlatma metni</a></li><li><a href="/yasal/cerez/">Çerez politikası</a></li><li><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a></li><li><a href="/iletisim/">İletişim</a></li></ul></div>
+    <div><h4>Diller</h4><ul><li>Türkçe</li><li><a href="/en/">English</a></li><li>Crnogorski · yakında</li></ul></div>
   </div>
   <div class="end">
     <span>Bu sayfa P3Media tarafından Florida Coffee için hazırlanmış bir tasarım demosudur. Veriler örnektir.</span>

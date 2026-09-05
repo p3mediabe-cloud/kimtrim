@@ -1,2 +1,4 @@
 User-agent: *
 Disallow: /
+# Demo: yayında 'Allow: /' ve Sitemap satırı açılır
+# Sitemap: https://floridacoffee.com.tr/sitemap.xml
