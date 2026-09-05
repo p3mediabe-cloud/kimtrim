@@ -1,5 +1,5 @@
 <!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#0A4D5C"><title>Florida Coffee · Boğaz'da Bir Gün</title><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..800,0..100,0..1;1,9..144,300..700,0..100,0..1&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Poppins:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Poppins:wght@600&display=swap">
 <style>
 :root{
   /* Ortam: Boğaz'da bir gün — marka paletinden türetildi, kaydırmayla değişir */
@@ -11,18 +11,19 @@
   --glass:rgba(6,24,31,.62); --glass-2:rgba(6,24,31,.80); --hair:rgba(246,241,232,.15); --hair-2:rgba(246,241,232,.30);
   --ok:#6FC9A4; --busy:#F0916C;
   --rail:5.5rem;
-  --disp:"Fraunces",Georgia,"Times New Roman",serif;
-  --ui:"Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --disp:"Outfit","Poppins",system-ui,sans-serif;
+  --ui:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --logo:"Poppins",var(--ui);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{margin:0;background:#0A1420;color:var(--ink);font-family:var(--ui);font-size:clamp(15px,.55vw + 12px,17px);line-height:1.6;-webkit-font-smoothing:antialiased}
 img{max-width:100%}
-h1,h2,h3,.dsp{font-family:var(--disp);font-variation-settings:"SOFT" 30,"WONK" 1;font-weight:600;letter-spacing:-.015em;text-wrap:balance;margin:0;line-height:1.02}
-h1{font-size:clamp(2.6rem,7.4vw,6rem);font-weight:500}
-h2{font-size:clamp(2rem,4.4vw,3.5rem);font-weight:500}
-h3{font-size:clamp(1.15rem,1.5vw,1.45rem);font-weight:600;line-height:1.15}
+h1,h2,h3,.dsp{font-family:var(--disp);font-weight:700;letter-spacing:-.03em;text-wrap:balance;margin:0;line-height:1.02}
+h1{font-size:clamp(2.5rem,7vw,5.6rem);font-weight:800;letter-spacing:-.04em}
+h2{font-size:clamp(1.9rem,4.2vw,3.3rem);font-weight:700}
+h3{font-size:clamp(1.1rem,1.4vw,1.35rem);font-weight:700;line-height:1.15;letter-spacing:-.015em}
 p{margin:0 0 1rem;max-width:62ch}
 a{color:inherit}
 button,input,select{font:inherit;color:inherit}
@@ -79,6 +80,14 @@ button{background:none;border:none;cursor:pointer}
   .prods > *{flex:0 0 72%;scroll-snap-align:start}
 }
 
+
+/* ---------- dik köşe sistemi: kutu olan her şey 0 radius, durum noktaları yuvarlak kalır ---------- */
+:where(.btn,.panel,.ph,.ps,.chip,.opt,.fbtn,.mcat,.mood,.match,.ticket,.card-pts,.prow,.tier,.ev,.beancard,.brewout,.out,.live,.branch,.sheet,.tg,.milkbar,.stp i,.toast,input,select,textarea,.mini div,.guide,.roastbar .track,.track,.brewout div,.out div,.proof div,.nav .cta,.field select,.empty,.g-res,.kp,.localpack div){border-radius:0!important}
+.phone{border-radius:14px}.phone .scr{border-radius:8px}
+.sheet{border-radius:0}
+.stp i{border-radius:0;font-weight:700}
+.chip{border-width:1px}
+
 /* ---------- kalıcı üst navigasyon ---------- */
 .nav{position:sticky;top:0;z-index:60;display:flex;align-items:center;gap:1.2rem;
   padding:.6rem clamp(1rem,4vw,2.5rem);background:rgba(4,20,26,.82);backdrop-filter:blur(14px);
@@ -89,8 +98,10 @@ button{background:none;border:none;cursor:pointer}
 .wordmark small{display:block;font-size:.44rem;letter-spacing:.42em;font-weight:600;color:var(--ink-2);margin-top:.1rem}
 .navlinks{display:flex;gap:.2rem;margin-left:auto;overflow-x:auto;scrollbar-width:none}
 .navlinks::-webkit-scrollbar{display:none}
-.navlinks a{padding:.42rem .7rem;border-radius:.5rem;text-decoration:none;font-size:.88rem;font-weight:600;color:var(--ink-2);white-space:nowrap}
-.navlinks a:hover{color:var(--ink);background:rgba(246,241,232,.08)}
+.navlinks a{position:relative;padding:.42rem .7rem;text-decoration:none;font-size:.82rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-2);white-space:nowrap}
+.navlinks a::after{content:"";position:absolute;left:.7rem;right:.7rem;bottom:.15rem;height:2px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .22s}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a:hover::after,.navlinks a[aria-current="page"]::after{transform:scaleX(1)}
 .navlinks a[aria-current="page"]{color:var(--amber)}
 .nav .cta{flex:none}
 @media (max-width:720px){
@@ -115,8 +126,12 @@ button{background:none;border:none;cursor:pointer}
 .wrap{margin-left:var(--rail);max-width:none}
 .sec{padding:clamp(4.5rem,10vh,8rem) clamp(1.2rem,5vw,5rem);position:relative;scroll-margin-top:2.6rem}
 .inner{max-width:1180px;margin:0 auto}
+body{counter-reset:ch}
+.sec:not(.final){counter-increment:ch}
 .hour{display:flex;align-items:baseline;gap:.8rem;margin-bottom:1.6rem;flex-wrap:wrap}
-.hour .t{font-family:var(--disp);font-size:1.6rem;font-variation-settings:"WONK" 1;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
+.hour::before{content:"Bölüm " counter(ch,decimal-leading-zero);font-family:var(--disp);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);font-weight:700;padding:.25rem .5rem;border:1px solid var(--hair);margin-right:.2rem}
+.paper .hour::before{color:var(--paper-ink-2);border-color:var(--paper-line)}
+.hour .t{font-family:var(--disp);font-size:1.5rem;font-weight:700;color:var(--amber);font-variant-numeric:tabular-nums;line-height:1}
 .hour .p{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3);font-weight:600}
 .lede{font-size:clamp(1.05rem,1.5vw,1.3rem);color:var(--ink-2);max-width:56ch;margin-top:1.1rem}
 h2 + .lede{margin-top:1.3rem}
@@ -144,7 +159,7 @@ h2 + .lede{margin-top:1.3rem}
 .logo::after{content:"";position:absolute;inset:.62rem;border-radius:50%;background:#0A1420}
 .brandline .n{font-family:var(--disp);font-size:1.15rem;font-weight:600;letter-spacing:.01em}
 .brandline .s{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-3)}
-.hero h1 em{font-style:italic;font-variation-settings:"SOFT" 60,"WONK" 1;color:var(--amber)}
+.hero h1 em{font-style:normal;color:var(--amber)}
 .hero .sub{font-size:clamp(1.05rem,1.6vw,1.35rem);color:var(--ink-2);max-width:46ch;margin-top:0}
 .herogrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start;margin-top:clamp(1.4rem,3.5vh,2.4rem)}
 @media (max-width:900px){.herogrid{grid-template-columns:1fr}}
@@ -164,16 +179,27 @@ h2 + .lede{margin-top:1.3rem}
 .live .sunset b{font-family:var(--disp);font-size:1.2rem;color:var(--amber);font-variant-numeric:tabular-nums}
 .live .acts{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.72rem 1.15rem;border-radius:.7rem;font-weight:600;font-size:.9rem;border:1px solid transparent;transition:transform .12s,background .2s,border-color .2s;text-decoration:none}
-.btn:hover{transform:translateY(-1px)}
-.btn.solid{background:var(--amber);color:#fff}
-.btn.solid:hover{background:var(--rust)}
+.btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.6rem;padding:.8rem 1.25rem;border-radius:0;font-family:var(--disp);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid transparent;transition:color .2s,border-color .2s,transform .12s;text-decoration:none}
+.btn::after{content:"→";font-family:var(--ui);font-weight:700;transition:transform .2s}
+.btn:hover::after{transform:translateX(3px)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--ink);transform:translateX(-101%);transition:transform .28s cubic-bezier(.2,.8,.2,1)}
+.btn:hover::before{transform:translateX(0)}
+.btn:active{transform:translateY(1px)}
+
+.btn.solid{background:var(--amber);color:#2A1703}
+.btn.solid:hover{color:#052733}
+.btn.solid::before{background:#F6F1E8}
 .btn.lamp,.btn.amber{background:var(--amber);color:#2A1703}
-.btn.lamp:hover,.btn.amber:hover{background:#DE8F1C}
+.btn.lamp:hover,.btn.amber:hover{color:#052733}
+.btn.lamp::before,.btn.amber::before{background:#F6F1E8}
 .btn.ghost{border-color:var(--hair-2);color:var(--ink)}
+.btn.ghost::before{background:var(--ink)}
+.btn.ghost:hover{color:#052733;border-color:var(--ink)}
 .btn.ghost:hover{background:rgba(245,240,232,.08)}
 .btn.sm{padding:.45rem .8rem;font-size:.82rem;border-radius:.55rem}
 .btn.dark{background:var(--paper-ink);color:var(--paper)}
+.btn.dark::before{background:var(--amber)}
+.btn.dark:hover{color:#2A1703}
 .btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
 
 .scrollcue{display:flex;align-items:center;gap:.7rem;margin-top:clamp(2rem,6vh,4rem);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
@@ -185,7 +211,7 @@ h2 + .lede{margin-top:1.3rem}
 /* strip of proof numbers */
 .proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,10rem),1fr));gap:1px;background:var(--hair);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);margin-top:clamp(2.5rem,6vh,4rem)}
 .proof div{background:rgba(9,14,19,.5);padding:1rem 1.1rem}
-.proof .v{font-family:var(--disp);font-size:1.9rem;font-variation-settings:"WONK" 1;line-height:1;font-variant-numeric:tabular-nums}
+.proof .v{font-family:var(--disp);font-size:1.9rem;line-height:1;font-variant-numeric:tabular-nums}
 .proof .l{font-size:.72rem;color:var(--ink-3);margin-top:.3rem}
 
 /* ---------- generic panel ---------- */
@@ -282,6 +308,36 @@ h2 + .lede{margin-top:1.3rem}
 .paper .note{font-size:.8rem;color:var(--paper-ink-2);opacity:.85}
 .milkbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:1.4rem 0 0;padding:.9rem 1.1rem;border:1px solid var(--paper-line);border-radius:.9rem;background:#FBF8F2;font-size:.87rem;color:var(--paper-ink-2)}
 
+
+/* ---------- taze ---------- */
+.news{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.newsitem{background:rgba(6,24,31,.72);padding:1.1rem 1.2rem;display:flex;flex-direction:column;gap:.45rem;min-height:11rem;transition:background .2s}
+.newsitem:hover{background:rgba(10,77,92,.55)}
+.newsitem .meta{display:flex;justify-content:space-between;gap:.6rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-family:var(--disp);font-weight:700}
+.newsitem .meta b{color:var(--amber)}
+.newsitem h3{font-size:1.05rem}
+.newsitem p{margin:0;font-size:.88rem;color:var(--ink-2)}
+.newsitem .more{margin-top:auto;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);font-family:var(--disp)}
+.subscribe{margin-top:1.4rem;padding:1.1rem 1.2rem;border:1px solid var(--hair);background:var(--glass);display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1rem;align-items:center}
+.subscribe .row2{display:flex;gap:.5rem;flex-wrap:wrap}
+.subscribe input{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.75rem .9rem;min-width:16rem;font:inherit}
+.subscribe .ok{grid-column:1/-1;color:var(--ok);font-size:.88rem}
+@media (max-width:760px){.subscribe{grid-template-columns:1fr}.subscribe input{min-width:0;flex:1}}
+/* ---------- ürünler ---------- */
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,15.5rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:1.4rem}
+.prodcard{background:rgba(6,24,31,.72);display:flex;flex-direction:column}
+.prodcard .ph{border-radius:0;aspect-ratio:4/3}
+.prodcard .pc{padding:1rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.55rem;flex:1}
+.prodcard .ptop{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline}
+.prodcard .price{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.prodcard p{margin:0;font-size:.86rem;color:var(--ink-2)}
+.prodcard .tags{display:flex;gap:.3rem;flex-wrap:wrap}
+.prodcard .btn{margin-top:auto;align-self:flex-start}
+.giftcard{background:linear-gradient(160deg,#123E4C,rgba(6,24,31,.9))}
+/* ---------- menü diyet filtreleri ---------- */
+.dietF{display:flex;gap:.4rem;flex-wrap:wrap;margin:-.4rem 0 1rem}
+.dietF .mcat{font-size:.78rem;padding:.35rem .75rem}
+
 /* ---------- branch finder ---------- */
 .filters{display:flex;gap:.45rem;flex-wrap:wrap;margin:1.4rem 0 1.6rem;align-items:center}
 .fbtn{padding:.45rem .9rem;border-radius:999px;border:1px solid var(--hair-2);font-size:.85rem;font-weight:500;transition:all .15s}
@@ -315,6 +371,44 @@ h2 + .lede{margin-top:1.3rem}
 .faq details{border-top:1px solid var(--hair);padding:.6rem 0}
 .faq summary{cursor:pointer;font-weight:600;font-size:.92rem}
 .faq p{margin:.4rem 0 0;font-size:.88rem;color:var(--ink-2)}
+
+
+/* ---------- Flo asistanı ---------- */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.flo-fab{position:fixed;right:1.2rem;bottom:1.2rem;z-index:80;width:3.6rem;height:3.6rem;background:var(--amber);display:grid;place-items:center;box-shadow:0 12px 30px rgba(0,0,0,.35);transition:transform .15s,background .2s}
+.flo-fab svg{width:2.1rem;height:2.1rem}
+.flo-fab:hover{transform:translateY(-2px);background:#F6B04A}
+.flo-fab[aria-expanded="true"]{background:var(--ink)}
+.flo-hint{position:absolute;right:calc(100% + .7rem);bottom:.4rem;background:var(--ink);color:#052733;font-size:.8rem;font-weight:600;padding:.55rem .8rem;white-space:nowrap;max-width:min(64vw,26rem);text-overflow:ellipsis;overflow:hidden;opacity:0;transform:translateX(6px);transition:opacity .3s,transform .3s;pointer-events:none}
+.flo-hint.on{opacity:1;transform:none}
+.flo-hint::after{content:"";position:absolute;right:-.4rem;bottom:.7rem;border:.4rem solid transparent;border-left-color:var(--ink);border-right:0}
+.flo-fab[aria-expanded="true"] .flo-hint{opacity:0}
+.flo{position:fixed;right:1.2rem;bottom:5.4rem;z-index:81;width:min(24rem,calc(100vw - 2.4rem));max-height:min(36rem,calc(100dvh - 7rem));background:#07202A;border:1px solid var(--hair-2);display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.flo-head{display:flex;align-items:center;gap:.7rem;padding:.8rem .9rem;border-bottom:1px solid var(--hair);background:var(--brand)}
+.flo-mark{width:2rem;height:2rem;color:#052733;background:var(--ink);padding:.2rem}
+.flo-name{font-family:var(--disp);font-weight:800;font-size:1.05rem;line-height:1.1}
+.flo-sub{font-size:.72rem;color:var(--ink-2)}
+.flo-x{margin-left:auto;width:2rem;height:2rem;border:1px solid var(--hair-2);color:var(--ink);display:grid;place-items:center}
+.flo-msgs{flex:1;overflow:auto;padding:.9rem;display:flex;flex-direction:column;gap:.5rem;min-height:12rem;scroll-behavior:smooth}
+.msg{max-width:88%;padding:.6rem .8rem;font-size:.88rem;line-height:1.45;white-space:pre-line}
+.msg.in{background:rgba(246,241,232,.08);border:1px solid var(--hair);align-self:flex-start}
+.msg.out{background:var(--amber);color:#2A1703;align-self:flex-end;font-weight:500}
+.msg.sys{background:transparent;border:1px dashed var(--hair-2);color:var(--ink-2);font-size:.78rem;align-self:stretch;max-width:none}
+.msg b{color:var(--amber)}.msg.out b{color:#2A1703}
+.flo-quick{display:flex;gap:.35rem;flex-wrap:wrap;padding:0 .9rem .6rem}
+.flo-quick button{padding:.35rem .6rem;border:1px solid var(--hair-2);font-size:.76rem;font-weight:600;color:var(--ink);background:rgba(246,241,232,.04)}
+.flo-quick button:hover{border-color:var(--amber);color:var(--amber)}
+.flo-input{display:flex;gap:.4rem;padding:.6rem .9rem;border-top:1px solid var(--hair)}
+.flo-input input{flex:1;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem .75rem;font:inherit;font-size:.9rem;min-width:0}
+.flo-input .btn.sm{padding:.55rem .8rem}
+.flo-input .btn::after{content:none}
+.flo-foot{font-size:.68rem;color:var(--ink-3);padding:.45rem .9rem .6rem;border-top:1px solid var(--hair)}
+.typing{align-self:flex-start;font-size:.8rem;color:var(--ink-3);padding:.2rem .4rem}
+@media (max-width:640px){
+  .flo{right:0;bottom:0;width:100vw;max-height:88dvh;border-left:0;border-right:0;border-bottom:0}
+  .flo-fab{right:.9rem;bottom:4.2rem}
+  .flo-hint{max-width:56vw}
+}
 
 /* ---------- loyalty / phone ---------- */
 .loyal{display:grid;grid-template-columns:minmax(0,1fr) 19rem;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
@@ -397,7 +491,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <header class="nav">
   <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg><span class="wordmark">florida<small>COFFEE</small></span></a>
   <nav class="navlinks" aria-label="Ana menü">
-    <a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#kulup">Kulüp</a><a href="#gece">Etkinlik</a><a href="#franchise">Franchise</a>
+    <a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#taze">Taze</a><a href="#urunler">Ürünler</a><a href="#kulup">Kulüp</a><a href="#franchise">Franchise</a>
   </nav>
   <a class="btn amber sm cta" href="#sabah">Ön sipariş</a>
 </header>
@@ -408,8 +502,10 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <li><a href="#safak" data-h="safak"><span class="dot"></span>06:40</a></li>
     <li><a href="#sabah" data-h="sabah"><span class="dot"></span>08:30</a></li>
     <li><a href="#kahvemiz" data-h="kahvemiz"><span class="dot"></span>10:00</a></li>
+    <li><a href="#taze" data-h="taze"><span class="dot"></span>11:30</a></li>
     <li><a href="#secim" data-h="secim"><span class="dot"></span>13:00</a></li>
     <li><a href="#menu" data-h="menu"><span class="dot"></span>15:00</a></li>
+    <li><a href="#urunler" data-h="urunler"><span class="dot"></span>17:00</a></li>
     <li><a href="#subeler" data-h="subeler"><span class="dot"></span>19:38</a></li>
     <li><a href="#kulup" data-h="kulup"><span class="dot"></span>21:00</a></li>
     <li><a href="#gece" data-h="gece"><span class="dot"></span>23:30</a></li>
@@ -423,7 +519,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <section class="sec hero" id="safak">
   <figure class="ph hero-bg" data-img="hero" aria-hidden="true"></figure>
   <div class="inner">
-    <div class="brandline"><span class="s">Çengelköy’den Boğaz’a · Taste of Joy</span></div>
+    <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
     <h1>Boğaz uyanırken<br>kahve çoktan <em>hazır</em>.</h1>
     <div class="herogrid">
       <div>
@@ -573,6 +669,29 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     </div>
   </section>
 
+
+<!-- ============ 11:30 TAZE ============ -->
+<section class="sec" id="taze">
+  <div class="inner">
+    <div class="hour"><span class="t">11:30</span><span class="p">Taze · yenilikler</span></div>
+    <h2>Yeni ne var,<br>ilk siz duyun.</h2>
+    <p class="lede">Yeni şube, sezon ürünü, kampanya ve etkinlikler tek akışta. Uygulamada bildirim olarak da gelir; burada filtreleyip okuyun.</p>
+    <div class="filters" id="tazeF">
+      <button class="fbtn" aria-pressed="true" data-t="hepsi">Hepsi</button>
+      <button class="fbtn" aria-pressed="false" data-t="sube">Şube</button>
+      <button class="fbtn" aria-pressed="false" data-t="urun">Ürün</button>
+      <button class="fbtn" aria-pressed="false" data-t="kampanya">Kampanya</button>
+      <button class="fbtn" aria-pressed="false" data-t="etkinlik">Etkinlik</button>
+    </div>
+    <div class="news" id="news"></div>
+    <form class="subscribe" id="subscribe" autocomplete="off">
+      <div><div class="lbl">Haber al</div><p style="margin:.2rem 0 0;font-size:.9rem;color:var(--ink-2)">Ayda en fazla iki e-posta. Yeni şube ve sezon ürünleri ilk size.</p></div>
+      <div class="row2"><input type="email" required placeholder="e-posta adresiniz" aria-label="E-posta"><button class="btn amber" type="submit">Kaydol</button></div>
+      <div class="ok" id="subOk" hidden>Kaydedildi. İlk haber Sakarya açılışı olacak.</div>
+    </form>
+  </div>
+</section>
+
 <!-- ============ 13:00 SEÇİM ============ -->
 <section class="sec" id="secim">
   <div class="inner">
@@ -627,6 +746,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <button class="mcat" aria-pressed="false" data-c="diger">Kahve dışı</button>
       <button class="mcat" aria-pressed="false" data-c="yiyecek">Yiyecek</button>
     </div>
+    <div class="dietF" id="dietF"><button class="mcat" aria-pressed="true" data-d="">Hepsi</button><button class="mcat" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>
     <div class="mlist" id="mlist"></div>
     <div class="milkbar">
       <strong style="color:var(--paper-ink)">Süt seçenekleri:</strong>
@@ -634,6 +754,26 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <span style="margin-left:auto" class="note">Alerjen bilgisi için baristaya danışın.</span>
     </div>
     <p class="note" style="margin-top:1rem">Örnek fiyatlardır; gerçek menü ve fiyatlar merkezden yönetilir ve sayfada otomatik güncellenir.</p>
+  </div>
+</section>
+
+
+<!-- ============ 17:00 ÜRÜNLER ============ -->
+<section class="sec" id="urunler">
+  <div class="inner">
+    <div class="hour"><span class="t">17:00</span><span class="p">Ürünler · eve götür</span></div>
+    <h2>Aynı çekirdek,<br>sizin mutfağınızda.</h2>
+    <p class="lede">Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş verin, şubeden alın; kargo yakında.</p>
+    <div class="shop">
+      <article class="prodcard"><figure class="ph r43" data-img="beans"><span class="cap">Sonbahar Harmanı</span></figure>
+        <div class="pc"><div class="ptop"><h3>Sonbahar Harmanı · 250 g</h3><span class="price">420 ₺</span></div><p>Etiyopya %60 · Brezilya %40, orta kavurma. Çekirdek veya öğütülmüş. Kavurma tarihi pakette.</p><div class="tags"><span class="chip">Çekirdek</span><span class="chip">Öğütülmüş</span><span class="chip water">Kavurmadan 7 gün</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
+      <article class="prodcard"><figure class="ph r43" data-img="pour"><span class="cap">Espresso seti</span></figure>
+        <div class="pc"><div class="ptop"><h3>Ev Espresso Seti</h3><span class="price">1.150 ₺</span></div><p>500 g harman, 14 g ölçek kaşığı, barista kartı: doz, süre, sıcaklık. Evde aynı standart.</p><div class="tags"><span class="chip">Hediye</span><span class="chip water">El kitabı standardı</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
+      <article class="prodcard"><figure class="ph r43" data-img="cup"><span class="cap">Termos bardak</span></figure>
+        <div class="pc"><div class="ptop"><h3>Florida Termos · 350 ml</h3><span class="price">650 ₺</span></div><p>Petrol yeşili, çift cidar, tukan amblemli. Şubede kendi bardağınızla %10 indirim.</p><div class="tags"><span class="chip">Merch</span><span class="chip water">%10 indirim</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
+      <article class="prodcard giftcard"><div class="pc"><div class="ptop"><h3>Hediye Kartı</h3><span class="price">250–2.000 ₺</span></div><p>Uygulamadan telefona gönderin; alan kişi bakiyeyi cüzdanına aktarır. Kartona gerek yok.</p><div class="tags"><span class="chip">Dijital</span><span class="chip water">Anında</span></div><a class="btn amber sm" href="#kulup">Hediye gönder</a></div></article>
+    </div>
+    <p class="note" style="font-size:.8rem;color:var(--ink-3);margin-top:1rem">Fiyatlar örnektir; ürün kataloğu merkezden yönetilir.</p>
   </div>
 </section>
 
@@ -756,7 +896,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <section class="sec final" id="basvuru">
   <div class="inner">
-    <h2>Yarın 06:40'ta<br>yeniden başlıyoruz.</h2>
+    <h2>Son bölüm yok.<br>Yarın 06:40'ta yeniden.</h2>
     <p style="margin:0 auto;color:var(--ink-2)">En yakın Florida'yı bulun, uygulamayı indirin ya da kendi şubenizi açın.</p>
     <div class="acts">
       <a class="btn solid" href="#subeler">En yakın şubeyi bul</a>
@@ -783,6 +923,25 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   </div>
 </footer>
 </div>
+
+
+<!-- ============ FLO · asistan ============ -->
+<button class="flo-fab" id="floFab" aria-haspopup="dialog" aria-controls="flo" aria-expanded="false">
+  <span class="flo-hint" id="floHint">Merhaba, ben Flo. Sor bana.</span>
+  <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="33" fill="none" stroke="#052733" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="#052733"/></svg>
+  <span class="sr">Flo asistanı aç</span>
+</button>
+<section class="flo" id="flo" role="dialog" aria-modal="false" aria-labelledby="floTitle" hidden>
+  <header class="flo-head">
+    <svg viewBox="0 0 100 100" aria-hidden="true" class="flo-mark"><circle cx="50" cy="50" r="33" fill="none" stroke="currentColor" stroke-width="17"/><path d="M50 50 L50 8.5 A41.5 41.5 0 0 0 8.5 50 Z" fill="#F2A22B"/><path d="M50 50 L26 50 A24 24 0 0 0 50 74 Z" fill="#D2500E"/><circle cx="63" cy="43" r="6" fill="currentColor"/></svg>
+    <div><div id="floTitle" class="flo-name">Flo</div><div class="flo-sub">Florida Coffee'nin tukanı · <span class="dot-s g"></span> çevrimiçi</div></div>
+    <button class="flo-x" id="floClose" aria-label="Kapat">✕</button>
+  </header>
+  <div class="flo-msgs" id="floMsgs" aria-live="polite"></div>
+  <div class="flo-quick" id="floQuick"></div>
+  <form class="flo-input" id="floForm" autocomplete="off"><input id="floIn" type="text" placeholder="Bir şey sor: en yakın şube, fiyat, franchise…" aria-label="Mesaj"><button class="btn amber sm" type="submit">Gönder</button></form>
+  <div class="flo-foot">Demo: kural tabanlı motor. Canlıda Claude API'ye bağlanır; menü, şube ve sadakat verisi aynı kaynaktan gelir.</div>
+</section>
 
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
   <div class="scrim" data-close></div>
@@ -1037,29 +1196,29 @@ document.querySelectorAll("#moods .mood").forEach(b => b.addEventListener("click
 /* ---------------- menu ---------------- */
 const MENU = {
   sicak: [
-    ["Florida Filtre","Günün çekirdeği, V60 · 1:16","120",["5 kcal","95 mg kafein"]],
-    ["Espresso","18 g in / 36 g out","95",["3 kcal","85 mg kafein"]],
-    ["Americano","Çift shot, sıcak su","115",["8 kcal","170 mg"]],
+    ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal","95 mg kafein","sütsüz","vegan"]],
+    ["Espresso","14 g double shot · 18–23 sn","95",["3 kcal","85 mg kafein","sütsüz","vegan"]],
+    ["Americano","Çift shot, sıcak su","115",["8 kcal","170 mg","sütsüz","vegan"]],
     ["Flat White","Çift shot, ince süt dokusu","150",["140 kcal","180 mg"]],
     ["Cortado","Tek shot, eşit süt","130",["70 kcal","75 mg"]],
     ["Cappuccino","Çift shot, bol köpük","145",["150 kcal","170 mg"]],
     ["Latte","Çift shot, sıcak süt","150",["190 kcal","170 mg"]],
-    ["Türk Kahvesi","7 g, közde, lokum ile","95",["25 kcal","65 mg"]]
+    ["Türk Kahvesi","7 g, közde, lokum ile","95",["25 kcal","65 mg","sütsüz"]]
   ],
   soguk: [
-    ["Cold Brew","16 saat demleme, 1:8","145",["25 kcal","200 mg"]],
-    ["Boğaz Cold Brew","Tonik ve portakal kabuğu ile · Kavacık, Beykoz","165",["60 kcal","200 mg"]],
+    ["Cold Brew","16 saat demleme","145",["25 kcal","200 mg","sütsüz","vegan"]],
+    ["Boğaz Cold Brew","Tonik ve portakal kabuğu ile · Kavacık, Beykoz","165",["60 kcal","200 mg","sütsüz","vegan"]],
     ["Iced Latte","Espresso, soğuk süt, buz","160",["150 kcal","150 mg"]],
-    ["Iced Americano","Çift shot, buzlu su","125",["10 kcal","170 mg"]],
+    ["Iced Americano","Çift shot, buzlu su","125",["10 kcal","170 mg","sütsüz","vegan"]],
     ["Iced White Mocha","Beyaz çikolata sosu ile","185",["320 kcal","150 mg"]],
     ["Frappe","Blender, kremalı","175",["290 kcal","120 mg"]]
   ],
   diger: [
     ["Matcha Latte","Tören sınıfı matcha","165",["180 kcal","70 mg"]],
-    ["Sıcak Çikolata","%55 bitter","150",["280 kcal","—"]],
+    ["Sıcak Çikolata","%55 bitter","150",["280 kcal","kafeinsiz"]],
     ["Chai Latte","Ev yapımı baharat konsantresi","155",["210 kcal","40 mg"]],
-    ["Ev Limonatası","Taze sıkım, naneli","110",["90 kcal","—"]],
-    ["Demleme Çay","Rize · bardak","65",["0 kcal","30 mg"]]
+    ["Ev Limonatası","Taze sıkım, naneli","110",["90 kcal","kafeinsiz","vegan","sütsüz"]],
+    ["Demleme Çay","Rize · bardak","65",["0 kcal","30 mg","vegan","sütsüz"]]
   ],
   yiyecek: [
     ["Kavacık Kahvaltı Tabağı","İki kişilik · 09:00–13:00","690",["kahvaltı"]],
@@ -1070,17 +1229,62 @@ const MENU = {
     ["Glütensiz Brownie","Vegan","145",["vegan","glütensiz"]]
   ]
 };
+let curCat = "sicak", diet = "";
+const kcalOf = tags => { const t = tags.find(x => /kcal/.test(x)); return t ? parseInt(t) : 999; };
+const cafOf = tags => { if (tags.some(x => /kafeinsiz/.test(x))) return 0; const t = tags.find(x => /mg/.test(x)); return t ? parseInt(t) : 0; };
+function passDiet(tags){
+  if (!diet) return true;
+  if (diet === "hafif") return kcalOf(tags) < 100;
+  if (diet === "vegan") return tags.includes("vegan");
+  if (diet === "sutsuz") return tags.includes("sütsüz") || tags.includes("vegan");
+  if (diet === "azkafein") return cafOf(tags) < 80;
+  if (diet === "glutensiz") return !tags.includes("glüten");
+  return true;
+}
 function renderMenu(cat){
-  document.getElementById("mlist").innerHTML = MENU[cat].map(([n,d,p,tags]) =>
+  curCat = cat || curCat;
+  const items = MENU[curCat].filter(([,,,tags]) => passDiet(tags));
+  document.getElementById("mlist").innerHTML = items.length ? items.map(([n,d,p,tags]) =>
     `<div class="mitem"><span class="n">${n}</span><span class="p">${p} ₺</span>
      <span class="d">${d}</span>
-     <span class="tags">${tags.map(t => `<span class="tg ${/vegan|glütensiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></div>`).join("");
+     <span class="tags">${tags.filter(t => !["sütsüz"].includes(t) || diet === "sutsuz").map(t => `<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></div>`).join("")
+    : `<p class="note" style="padding:1rem 0">Bu filtrede bu kategoride ürün yok; başka bir kategoriye bakın.</p>`;
 }
 document.querySelectorAll("#mcats .mcat").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#mcats .mcat").forEach(x => x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true"); renderMenu(b.dataset.c);
 }));
+document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#dietF .mcat").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true"); diet = b.dataset.d; renderMenu();
+}));
 renderMenu("sicak");
+
+
+/* ---------------- taze: haber akışı ---------------- */
+const NEWS = [
+  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Şubeyi gör", href:"#subeler"},
+  {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Menüde gör", href:"#menu"},
+  {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Nasıl yapılır", href:"#kulup"},
+  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Etkinlikler", href:"#gece"},
+  {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Şubeyi gör", href:"#subeler"},
+  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Ürünlere git", href:"#urunler"},
+  {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Uygulama", href:"#kulup"},
+  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Yer ayır", href:"#gece"}
+];
+const TL = {sube:"Şube", urun:"Ürün", kampanya:"Kampanya", etkinlik:"Etkinlik"};
+let newsF = "hepsi";
+function renderNews(){
+  const list = NEWS.filter(n => newsF === "hepsi" || n.t === newsF);
+  document.getElementById("news").innerHTML = list.map(n =>
+    `<article class="newsitem"><div class="meta"><b>${TL[n.t]}</b><span>${n.d}</span></div><h3>${n.h}</h3><p>${n.p}</p><a class="more" href="${n.href}">${n.m} →</a></article>`).join("");
+}
+document.querySelectorAll("#tazeF .fbtn").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#tazeF .fbtn").forEach(x => x.setAttribute("aria-pressed","false"));
+  b.setAttribute("aria-pressed","true"); newsF = b.dataset.t; renderNews();
+}));
+renderNews();
+document.getElementById("subscribe").addEventListener("submit", e => { e.preventDefault(); document.getElementById("subOk").hidden = false; e.target.querySelector("input").value = ""; });
 
 /* ---------------- franchise calculator ---------------- */
 function calcF(){
@@ -1124,6 +1328,132 @@ if (fine){
     b.addEventListener("pointermove", e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX-r.left-r.width/2)*.18}px,${(e.clientY-r.top-r.height/2)*.28}px)`; });
     b.addEventListener("pointerleave", () => b.style.transform = ""); });
 }
+
+/* ================= FLO — Florida Coffee'nin tukanı (kural tabanlı demo motoru) ================= */
+const floEl = document.getElementById("flo"), fab = document.getElementById("floFab"), msgs = document.getElementById("floMsgs"),
+      quick = document.getElementById("floQuick"), floIn = document.getElementById("floIn"), floHint = document.getElementById("floHint");
+const norm = t => t.toLowerCase().replace(/i̇/g,"i").replace(/[^a-zçğıöşü0-9 ]/g," ").replace(/\s+/g," ").trim();
+const has = (t, ...ws) => ws.some(w => t.includes(w));
+const fmtTL = n => n.toLocaleString("tr-TR") + " ₺";
+const store = { get(k){ try{ return JSON.parse(localStorage.getItem("flo:"+k)); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem("flo:"+k, JSON.stringify(v)); }catch(e){} } };
+let lead = null;  // aktif lead akışı
+
+function bubble(text, dir="in", chips){
+  const d = document.createElement("div"); d.className = "msg " + dir; d.innerHTML = text; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+  setQuick(chips || []); return d;
+}
+function setQuick(list){ quick.innerHTML = ""; list.forEach(([label, send]) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.onclick = () => userSays(send || label); quick.appendChild(b); }); }
+function say(text, chips){ return new Promise(r => { const t = document.createElement("div"); t.className = "typing"; t.textContent = "Flo yazıyor…"; msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
+  setTimeout(() => { t.remove(); bubble(text, "in", chips); r(); }, reduce ? 120 : 420 + Math.min(900, text.length * 6)); }); }
+
+/* --- bilgi tabanı --- */
+const MENU_ALL = Object.entries(MENU).flatMap(([cat, arr]) => arr.map(([n,d,p,tags]) => ({cat, n, d, p:+p, tags})));
+const findProduct = t => MENU_ALL.find(x => t.includes(norm(x.n))) || MENU_ALL.find(x => norm(x.n).split(" ").some(w => w.length > 3 && t.includes(w)));
+const findBranch = t => B.find(b => t.includes(norm(b.n))) || B.find(b => norm(b.n).split(" ").some(w => w.length > 4 && t.includes(w)));
+const branchLine = b => { const now = new Date(), open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
+  return `<b>${b.n}</b> · ${b.c}\n${open ? "Şu an açık" : "Şu an kapalı"} · ${hourStr(b.o)}–${hourStr(b.k)}${b.f.includes("manzara") ? ` · gün batımı ${ss}` : ""}\n${b.note}`; };
+const DEFAULT_CHIPS = [["En yakın şube"],["Menü ve fiyatlar"],["Franchise almak istiyorum","franchise"],["Kahveniz neden aynı?","standart"],["Sadakat kartı"]];
+
+const INTENTS = [
+ { id:"selam", test:t => has(t,"merhaba","selam","hey","günaydın","iyi akşamlar","naber"),
+   reply:() => ["Merhaba! Ben <b>Flo</b>, Florida Coffee'nin tukanı. Şube, menü, sadakat ve franchise konularında yanınızdayım. Ne lazım?", DEFAULT_CHIPS] },
+ { id:"franchise", test:t => has(t,"franchise","bayilik","bayi","yatırım","şube açmak","dükkan açmak","işletme açmak","ortak olmak"),
+   reply:() => ["Kendi şehrinizde bir Florida — harika. Kısa özet:\n• <b>3 km bölge koruması</b>, 10 yıl sözleşme\n• <b>45 gün eğitim</b>: 30 gün işletme + 15 gün barista\n• Merkezi tedarik, 40 gün vade\n• Royalty ciro %5 + KDV, ulusal reklam en fazla %1\n• Web sitesi, uygulama ve raporlama paneli dahil\n\nİsterseniz 2 dakikada ön başvurunuzu alayım; ekibimiz 24 saat içinde arar.",
+     [["Başvuruyu başlat","lead"],["Yatırım ne kadar?","yatırım tutarı"],["Hangi şehirler açık?","açık şehirler"]]] },
+ { id:"yatirim", test:t => has(t,"yatırım tutarı","ne kadar yatırım","maliyet","bütçe ne","kaç para","giriş bedeli"),
+   reply:() => ["Kuruluş yatırımı konuma ve metrekareye göre değişir; büyükşehir caddesinde 100–120 m² için örnek hesap <b>3,5–4,5 M ₺</b> bandında çıkıyor. Sayfadaki hesaplayıcı canlı bir tablo verir; kesin rakam keşif görüşmesinde.",
+     [["Hesaplayıcıya git","#franchise"],["Başvuruyu başlat","lead"]]] },
+ { id:"sehirler", test:t => has(t,"açık şehir","hangi şehir","nereler açık","bölge"),
+   reply:() => ["Öncelikli bölgelerimiz: <b>Eskişehir, Ankara Çayyolu, İzmir Alsancak, Antalya Lara, Trabzon, Konya</b>; yurt dışında Saraybosna ve Tiran. Mevcut 17 şubemizin 3 km çevresi korumalı, o yüzden çakışma kontrolünü başvuruda otomatik yapıyoruz.",
+     [["Başvuruyu başlat","lead"],["Şubeleri gör","#subeler"]]] },
+ { id:"lead", test:t => t === "lead" || has(t,"başvur","başvuru","kaydımı al","aramanızı istiyorum"),
+   reply:() => { lead = {step:0, data:{}}; return ["Süper. Dört kısa soru. <b>Adınız ve soyadınız?</b>", []]; } },
+ { id:"insan", test:t => has(t,"insan","yetkili","gerçek biri","müşteri hizmet","şikayet","sorun yaşadım"),
+   reply:() => ["Anlıyorum. Sizi bir insana aktarıyorum; telefon numaranızı yazarsanız 1 saat içinde ararız. İsterseniz burada da anlatın, kaydı açıp şube müdürüne iletirim.", [["Numaramı bırakayım","lead"],["Burada anlatacağım","şikayetimi yazacağım"]]] },
+ { id:"sikayet2", test:t => has(t,"şikayetimi yazacağım"), reply:() => ["Dinliyorum. Hangi şube ve ne oldu? Yazdığınız her şey kayıt numarasıyla HQ kalite ekibine gider.", []] },
+ { id:"yakin", test:t => has(t,"en yakın","yakınımda","nerede","yakın şube","konum"),
+   reply:() => { const b = B[0]; return [`Konum izni olmadan tahminim <b>${b.n}</b>:\n${branchLine(b)}\n\nBaşka bir semt söyleyin, oradaki şubeyi anlatayım.`, [["Beykoz"],["Kadıköy"],["Sakarya"],["Tüm şubeler","#subeler"]]]; } },
+ { id:"sube", test:t => !!findBranch(t) || has(t,"şube","saat","kaça kadar","açık mı","kapalı mı","gün batımı"),
+   reply:t => { const b = findBranch(t); if (b) return [branchLine(b), [["Yol tarifi","#subeler"],["Ön sipariş","#sabah"],["Başka şube"]]];
+     const now = new Date(), open = B.filter(x => isOpen(x, now)).length; return [`Şu an <b>${open}/${B.length}</b> şubemiz açık. Hangi semtteydiniz? Kavacık, Beykoz, Çengelköy, Kadıköy, Taksim, Bahçeşehir, Ümraniye, Esenyurt, İzmit, Sakarya, Bursa, Samsun, Rize, Erzincan, Podgorica, Budva.`, [["Kavacık"],["Kadıköy"],["Sakarya"]]]; } },
+ { id:"manzara", test:t => has(t,"manzara","boğaz","teras","gün batımı"),
+   reply:() => { const now = new Date(); const v = B.filter(b => b.f.includes("manzara")).map(b => `• <b>${b.n}</b> — gün batımı ${zhm(sunTimes(now,b.lat,b.lng).set, tzOf(b))}${isOpen(b,now) ? "" : " (şu an kapalı)"}`).join("\n");
+     return [`Manzaralı şubelerimiz ve bugünkü gün batımı saatleri:\n${v}\n\nPremium üyeler gün batımı için masa ayırabilir.`, [["Kavacık'ı anlat","kavacık"],["Kulüp seviyeleri","sadakat"]]]; } },
+ { id:"fiyat", test:t => !!findProduct(t) || has(t,"fiyat","kaç lira","ne kadar","menü","içecek","kahve çeşit"),
+   reply:t => { const p = findProduct(t); if (p) return [`<b>${p.n}</b> — ${fmtTL(p.p)} (İstanbul, orta boy)\n${p.d}\n${p.tags.filter(x=>/kcal|mg|kafeinsiz/.test(x)).join(" · ")}\nSüt: inek dahil, laktozsuz +10 ₺, yulaf/badem +15 ₺.`, [["Sipariş ver","#sabah"],["Başka ürün","menü"],["Hafif seçenekler","hafif"]]];
+     return ["Menüde 4 kategori var: sıcak kahveler (95–150 ₺), soğuk kahveler (125–185 ₺), kahve dışı ve yiyecek. Bir ürün adı söyleyin, fiyat ve kaloriyi vereyim.", [["Flat White"],["Cold Brew"],["Iced Latte"],["Menüye git","#menu"]]]; } },
+ { id:"hafif", test:t => has(t,"hafif","kalori","diyet","şekersiz","vegan","laktoz","sütsüz","glüten","kafeinsiz","az kafein"),
+   reply:t => { let list = MENU_ALL; if (has(t,"vegan")) list = list.filter(x=>x.tags.includes("vegan")); else if (has(t,"kafeinsiz","az kafein")) list = list.filter(x=>cafOf(x.tags) < 80); else if (has(t,"glüten")) list = list.filter(x=>!x.tags.includes("glüten")); else if (has(t,"laktoz","sütsüz")) list = list.filter(x=>x.tags.includes("sütsüz")); else list = list.filter(x=>kcalOf(x.tags) < 100);
+     const v = list.slice(0,6).map(x=>`• ${x.n} — ${fmtTL(x.p)} · ${x.tags.filter(y=>/kcal/.test(y))[0]||""}`).join("\n"); return [`Size uyanlar:\n${v}\n\nLaktoz için laktozsuz, yulaf ve badem sütü her şubede var; tercihiniz uygulama profilinize kaydedilir.`, [["Menüde filtrele","#menu"],["Sipariş ver","#sabah"]]]; } },
+ { id:"standart", test:t => has(t,"standart","aynı","kalite","neden","doz","gram","shot","süt sıcaklığı","bar","kavurma","çekirdek","nereden"),
+   reply:() => ["Her şubede aynı fincan, çünkü reçete kişisel yoruma açık değil:\n• Doz <b>14 g</b> double shot, tartıyla\n• Su <b>90–96 °C</b>, basınç <b>9 bar</b>\n• Shot <b>18–23 sn</b>, çıktı 30–60 g\n• Süt <b>60–65 °C</b> mikro köpük\n• Shot öncesi zorunlu 5 adım\nHarman: Etiyopya Yirgacheffe %60, Brezilya Cerrado %40, orta kavurma.", [["5 adım nedir?","beş adım"],["Kahve kuşağı","kuşak"],["Bölüme git","#kahvemiz"]]] },
+ { id:"besadim", test:t => has(t,"beş adım","5 adım"),
+   reply:() => ["Shot öncesi zorunlu 5 adım:\n1. Grup başlığı flush — 2–3 sn su, kalıntı temizlenir\n2. Portafiltre temizlenir, sepet kuru\n3. Gramaj tartılır — 14 g, göz kararı yok\n4. Tamp — eşit basınç, düz yüzey\n5. Süre — kronometre, 18–23 sn\nBirini atlamak zincir standardına aykırı.", [["Kavurma","kavurma"],["Menü","menü"]]] },
+ { id:"kusak", test:t => has(t,"kuşak","etiyopya","brezilya","afrika","latin","asya","asidite"),
+   reply:() => ["Kahve kuşağı üç karakter verir:\n• <b>Latin Amerika</b> — denge, fındık, kakao, karamel; espresso için en stabil\n• <b>Afrika</b> — aroma ve canlı asidite, çiçeksi, meyvemsi; filtre için\n• <b>Asya-Pasifik</b> — gövde, topraksı, bitter çikolata; sert içim\nHarmanımız Latin Amerika + Afrika.", [["Standartlar","standart"],["Ürünler","#urunler"]]] },
+ { id:"sadakat", test:t => has(t,"sadakat","kart","puan","çekirdek kazan","kulüp","club","seviye","premium","plus","damga","ücretsiz kahve","bedava"),
+   reply:() => ["<b>FloridaDays Club</b>:\n• 1 ₺ = 1 çekirdek, 10 içecekte biri bizden\n• Seviye son 6 ay harcamayla: Classic (0–2.500 ₺), Plus (2.500–7.500 ₺), Premium (7.500 ₺+)\n• Plus: ayda 2 boy yükseltme · Premium: ücretsiz ekstra shot, gün batımında masa önceliği\n• Fiziksel kartınızı tek taramayla uygulamaya aktarın\nÖdeme + puan tek QR.", [["Kartı nasıl aktarırım?","kart aktar"],["Uygulama","#kulup"]]] },
+ { id:"kartaktar", test:t => has(t,"kart aktar","aktar","taşı"),
+   reply:() => ["Uygulamada <b>Kart → Kartımı tara</b>: karttaki kodu okutun, damgalar ve bakiye anında hesabınıza geçer. Kart sonra da çalışır; ikisi tek hesaptır.", [["Uygulamayı indir","#kulup"]]] },
+ { id:"siparis", test:t => has(t,"sipariş","ön sipariş","geldim","sıra","beklemek","teslim","kurye","yemeksepeti","getir"),
+   reply:() => ["Ön sipariş şöyle çalışır: şube ve içeceği seçin, ödeyin; hazırlık siz <b>\"Geldim\"</b> deyince ya da şubeye 200 m yaklaşınca başlar — kahve soğumaz. Teslimat için Yemeksepeti'ndeyiz; kendi kuryemiz yakında.", [["Nasıl görünüyor?","#sabah"],["En yakın şube","en yakın"]]] },
+ { id:"etkinlik", test:t => has(t,"etkinlik","akustik","cupping","konser","müzik","rezervasyon","masa"),
+   reply:() => ["Bu hafta:\n• <b>Perşembe 21:00</b> — Akustik set, Kavacık terası (yer ayırma uygulamadan)\n• <b>Ayın ilk Cumartesi'si</b> — Cupping, Çengelköy, 12 kişi, ücretsiz\n• Her gün 22:00 sonrası kafeinsiz filtre aynı fiyat", [["Yer ayır","#gece"],["Premium masa önceliği","sadakat"]]] },
+ { id:"urun", test:t => has(t,"satın","eve","paket","termos","hediye kartı","hediye","ürün","kapsül","kargo"),
+   reply:() => ["Eve götürebilecekleriniz: <b>Sonbahar Harmanı 250 g</b> (420 ₺), <b>Ev Espresso Seti</b> (1.150 ₺), <b>Florida Termos</b> (650 ₺, kendi bardağınızla %10 indirim) ve <b>dijital hediye kartı</b>. Şu an uygulamadan ön sipariş, şubeden teslim; kargo yakında.", [["Ürünlere git","#urunler"],["Hediye gönder","#kulup"]]] },
+ { id:"yeni", test:t => has(t,"yeni","haber","yenilik","kampanya","indirim","açılış"),
+   reply:() => ["Taze olanlar: Sakarya'da yeni adres (Şal Sokak), Boğaz Cold Brew sezonu, kart → uygulama kampanyası (ilk kahve bizden), hafta içi 14–16 soğuk kahvelerde %20. Hepsi \"Taze\" bölümünde.", [["Taze bölümü","#taze"],["Haber al","#taze"]]] },
+ { id:"iletisim", test:t => has(t,"iletişim","telefon","mail","e-posta","adres","merkez","nerede merkez"),
+   reply:() => ["Merkez: Çengelköy Mah. Görgeç Sok. No:6, Üsküdar / İstanbul. Şube telefonları şube kartlarında; franchise için buradan ön başvuru alabilirim.", [["Şubeler","#subeler"],["Franchise","franchise"]]] },
+ { id:"kim", test:t => has(t,"kimsin","nesin","flo","tukan","adın"),
+   reply:() => ["Ben Flo — logodaki tukan. Florida Coffee'nin şubelerini, menüsünü ve standartlarını bilirim; franchise başvurunuzu da alırım. Gerçek bir insana ihtiyaç olursa aktarırım.", DEFAULT_CHIPS] },
+ { id:"tesekkur", test:t => has(t,"teşekkür","sağol","eyvallah","süper","harika"),
+   reply:() => ["Ben teşekkür ederim. Mutluluğun tadıyla kalın ☕", DEFAULT_CHIPS] },
+];
+
+async function leadStep(t){
+  const d = lead.data; const raw = floIn.value || t;
+  if (lead.step === 0){ d.name = t.replace(/\b\w/g, c => c.toUpperCase()); lead.step = 1; return say(`Teşekkürler ${d.name.split(" ")[0]}. <b>Telefon numaranız?</b>`); }
+  if (lead.step === 1){ const digits = t.replace(/\D/g,""); if (digits.length < 10) return say("Numarayı 05xx xxx xx xx biçiminde yazabilir misiniz?"); d.phone = digits; lead.step = 2; return say("<b>Hangi şehir veya ilçe</b> için düşünüyorsunuz?"); }
+  if (lead.step === 2){ d.city = t; lead.step = 3; return say("<b>Yatırım bütçeniz</b> hangi aralıkta?", [["2 M ₺ altı"],["2–4 M ₺"],["4–6 M ₺"],["6 M ₺ üstü"]]); }
+  if (lead.step === 3){ d.budget = t; lead.step = 4; return say("Son soru: <b>işletme deneyiminiz</b> var mı?", [["Yok"],["Perakende"],["Kafe / restoran işlettim"],["Franchise sahibiyim"]]); }
+  if (lead.step === 4){ d.exp = t;
+    const bIdx = ["2 m altı","2 4","4 6","6 m üstü"].findIndex(k => norm(d.budget).includes(k.split(" ")[0]) && (k==="2 m altı"?norm(d.budget).includes("altı"):k==="6 m üstü"?norm(d.budget).includes("üstü"):true));
+    const eIdx = ["yok","perakende","kafe","franchise"].findIndex(k => norm(d.exp).includes(k));
+    const near = B.find(b => norm(d.city).split(" ").some(w => w.length>3 && norm(b.n+" "+b.c).includes(w)));
+    const score = Math.min(97, 40 + Math.max(0,bIdx)*12 + Math.max(0,eIdx)*9 + (near ? 2 : 14));
+    d.score = score; d.at = new Date().toISOString(); store.set("lead", d); lead = null;
+    return say(`Başvurunuz alındı, ${d.name.split(" ")[0]}. Kayıt <b>#L-${String(Math.floor(1000+Math.random()*9000))}</b>.\n• Bölge: ${d.city}${near ? ` — dikkat: ${near.n} şubemize yakın, 3 km kontrolü yapılır` : " — bölge açık görünüyor"}\n• Ön değerlendirme puanı: <b>${score}/100</b>\n\nFranchise ekibimiz <b>24 saat içinde</b> ${d.phone.replace(/(\d{4})(\d{3})(\d{2})(\d{2})/,"$1 $2 $3 $4")} numarasından arayacak. E-postanıza yatırım özeti ve \"Neden Florida\" videosu gidecek.`, [["Yatırım hesaplayıcı","#franchise"],["Teşekkürler"]]); }
+}
+
+async function userSays(text){
+  const t0 = text.trim(); if (!t0) return;
+  if (t0.startsWith("#")){ closeFlo(); document.querySelector(t0)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); return; }
+  bubble(t0.replace(/</g,"&lt;"), "out"); floIn.value = "";
+  const t = norm(t0);
+  if (lead) return leadStep(t0);
+  const it = INTENTS.find(i => i.test(t));
+  if (it){ const [txt, chips] = it.reply(t); return say(txt, chips); }
+  return say("Bunu tam anlayamadım. Şunlardan biri mi?", [["En yakın şube"],["Menü ve fiyatlar"],["Franchise","franchise"],["Sadakat kartı"],["Bir insanla konuşmak istiyorum","insan"]]);
+}
+function openFlo(){ floEl.hidden = false; fab.setAttribute("aria-expanded","true"); if (!msgs.children.length){
+  const now = new Date(), ss = zhm(sunTimes(now, B[0].lat, B[0].lng).set, tzOf(B[0]));
+  bubble(`Merhaba! Ben <b>Flo</b>, Florida Coffee'nin tukanı. Bugün Kavacık'ta gün batımı <b>${ss}</b>. Şube, menü, sadakat ya da franchise — ne lazım?`, "in", DEFAULT_CHIPS);
+  const prev = store.get("lead"); if (prev) bubble(`Not: daha önce bir franchise ön başvurusu bırakmışsınız (${prev.city}, puan ${prev.score}). Ekibimiz iletişime geçecek.`, "sys"); }
+  setTimeout(() => floIn.focus(), 50); }
+function closeFlo(){ floEl.hidden = true; fab.setAttribute("aria-expanded","false"); }
+fab.addEventListener("click", () => floEl.hidden ? openFlo() : closeFlo());
+document.getElementById("floClose").addEventListener("click", closeFlo);
+document.getElementById("floForm").addEventListener("submit", e => { e.preventDefault(); userSays(floIn.value); });
+addEventListener("keydown", e => { if (e.key === "Escape" && !floEl.hidden) closeFlo(); });
+
+/* bölüm bazlı ipucu balonu: hikâyenin anlatıcısı Flo */
+const HINTS = { safak:"Günaydın! Gün batımı {ss}. Sor bana.", sabah:"Sıra beklemeden nasıl olur, anlatayım mı?", kahvemiz:"14 g neden tartılır? Sor.", taze:"Sakarya'da yeni adres var. Detay?", secim:"Karar veremedin mi? Bana söyle.", menu:"Kalori ve alerjen sorabilirsin.", urunler:"Harmanı eve götürmek ister misin?", subeler:"Sana en yakın şubeyi söyleyeyim.", kulup:"Kartını uygulamaya aktarmayı anlatayım.", gece:"Perşembe Kavacık'ta akustik var.", franchise:"Kendi şehrinde Florida? 2 dakikada başvuru.", basvuru:"Franchise başvurusu için buradayım." };
+let lastHint = "", hintTimer;
+function showHint(id){ if (id === lastHint || !floEl.hidden) return; lastHint = id; const ss = zhm(sunTimes(new Date(), B[0].lat, B[0].lng).set, tzOf(B[0]));
+  floHint.textContent = (HINTS[id] || HINTS.safak).replace("{ss}", ss); floHint.classList.add("on"); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 5200); }
+setTimeout(() => showHint("safak"), 1800);
+
 /* ---------------- ambient sky + rail ---------------- */
 const STOPS = [
   {p:0.00, a:"#05202A", b:"#0B4353", c:"#B87A3E", g:"#F2A22B"},  // 06:40 şafak
@@ -1156,6 +1486,7 @@ function paint(){
   let cur = 0;
   secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.35) cur = i; });
   links.forEach((a, i) => a.setAttribute("aria-current", String(i === cur)));
+  if (typeof showHint === "function" && secs[cur]) showHint(secs[cur].id);
 }
 addEventListener("scroll", () => { if (!queued){ queued = true; requestAnimationFrame(paint); } }, {passive:true});
 addEventListener("resize", paint);
