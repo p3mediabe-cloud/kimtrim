@@ -306,10 +306,9 @@ footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.3rem}
 footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem}
 
 /* demo banner */
-.demobar{position:fixed;top:0;left:0;right:0;z-index:70;background:var(--lamp);color:#241704;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
+.demobar{position:sticky;top:0;z-index:70;background:var(--lamp);color:#241704;font-size:.76rem;font-weight:600;padding:.4rem clamp(1rem,4vw,2rem);display:flex;gap:.8rem;justify-content:center;align-items:center;flex-wrap:wrap}
 .demobar a{color:#241704}
-body{padding-top:1.9rem}
-.rail{top:1.9rem}
+.rail{top:0}
 
 @media (max-width:860px){
   :root{--rail:0px}
@@ -318,7 +317,8 @@ body{padding-top:1.9rem}
   .rail .line,.rail .fill{display:none}
   .rail ol{flex-direction:row;gap:.5rem;align-items:center}
   .rail a{white-space:nowrap;padding:.3rem .5rem}
-  footer{padding-bottom:4.5rem}
+  body{padding-bottom:3.4rem}
+  footer{padding-bottom:2rem}
 }
 </style>
 
