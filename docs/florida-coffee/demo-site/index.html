@@ -729,6 +729,13 @@ const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const fmt = n => n.toLocaleString("tr-TR");
 const pad = n => String(n).padStart(2,"0");
 const hhmm = d => pad(d.getHours()) + ":" + pad(d.getMinutes());
+/* Şubeler kendi saat dilimlerinde okunur; ziyaretçi nerede olursa olsun doğru. */
+const TZ_TR = "Europe/Istanbul", TZ_ME = "Europe/Podgorica";
+const tzOf = b => b.c.includes("Karadağ") ? TZ_ME : TZ_TR;
+const zhm = (d, tz) => new Intl.DateTimeFormat("tr-TR", {timeZone:tz, hourCycle:"h23", hour:"2-digit", minute:"2-digit"}).format(d);
+const zhours = (d, tz) => { const [h,m] = zhm(d,tz).split(":").map(Number); return h + m/60; };
+const zday = (d, tz) => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+  .indexOf(new Intl.DateTimeFormat("en-US", {timeZone:tz, weekday:"short"}).format(d));
 
 /* ---------------- sun times (NOAA / SunCalc core) ---------------- */
 function sunTimes(date, lat, lng){
@@ -776,7 +783,7 @@ const B = [
 const DAYS = ["Pazar","Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi"];
 const hourStr = h => pad(Math.floor(h)%24) + ":" + pad(Math.round((h%1)*60));
 function isOpen(b, now){
-  const h = now.getHours() + now.getMinutes()/60;
+  const h = zhours(now, tzOf(b));
   const close = b.k;                       // may exceed 24 (past midnight)
   if (h >= b.o && h < Math.min(close,24)) return true;
   if (close > 24 && h < close - 24) return true;   // early morning tail
@@ -787,8 +794,8 @@ function isOpen(b, now){
 const nearest = B[0];
 function tick(){
   const now = new Date();
-  const c = document.getElementById("clock"); if (c) c.textContent = hhmm(now);
-  const pc = document.getElementById("pClock"); if (pc) pc.textContent = hhmm(now);
+  const c = document.getElementById("clock"); if (c) c.textContent = zhm(now, TZ_TR);
+  const pc = document.getElementById("pClock"); if (pc) pc.textContent = zhm(now, TZ_TR);
   const open = isOpen(nearest, now);
   const p = document.getElementById("pulse");
   p.classList.toggle("off", !open);
@@ -796,12 +803,12 @@ function tick(){
     nearest.c + " · " + (open ? "<span style='color:var(--ok)'>şu an açık</span>" : "<span style='color:var(--busy)'>şu an kapalı</span>") +
     " · " + hourStr(nearest.o) + "–" + hourStr(nearest.k);
   const st = sunTimes(now, nearest.lat, nearest.lng).set;
-  document.getElementById("sunsetT").textContent = hhmm(st);
-  document.getElementById("pSunset").textContent = hhmm(st);
+  document.getElementById("sunsetT").textContent = zhm(st, tzOf(nearest));
+  document.getElementById("pSunset").textContent = zhm(st, tzOf(nearest));
   const diff = st - now;
   document.getElementById("sunsetIn").textContent = diff > 0
     ? "Kavacık terasına " + Math.floor(diff/36e5) + " sa " + Math.floor(diff%36e5/6e4) + " dk kaldı"
-    : "Bugünkü gün batımı geçti · yarın " + hhmm(sunTimes(new Date(now.getTime()+864e5), nearest.lat, nearest.lng).set);
+    : "Bugünkü gün batımı geçti · yarın " + zhm(sunTimes(new Date(now.getTime()+864e5), nearest.lat, nearest.lng).set, tzOf(nearest));
 }
 tick(); setInterval(tick, 20000);
 
@@ -813,7 +820,7 @@ function renderBranches(){
   const list = B.filter(b => [...active].every(f => f === "acik" ? isOpen(b, now) : b.f.includes(f)));
   document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube";
   el.innerHTML = list.length ? list.map(b => {
-    const open = isOpen(b, now), ss = hhmm(sunTimes(now, b.lat, b.lng).set);
+    const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
     return `<button class="branch" data-id="${b.id}">
       <span class="row1"><span><span class="n">${b.n}</span><br><span class="c">${b.c}</span></span>
       <span class="st ${open?"open":"closed"}"><span class="dot-s ${open?"g":"r"}"></span>${open?"Açık":"Kapalı"}</span></span>
@@ -837,11 +844,11 @@ setInterval(renderBranches, 60000);
 const drawer = document.getElementById("drawer");
 function openBranch(id){
   const b = B.find(x => x.id === id), now = new Date();
-  const open = isOpen(b, now), ss = hhmm(sunTimes(now, b.lat, b.lng).set);
+  const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
   document.getElementById("dTitle").textContent = "Florida Coffee " + b.n;
   document.getElementById("dSub").textContent = b.c + " · ★ " + b.r + " (" + b.rev + " yorum)";
   document.getElementById("dHours").innerHTML = DAYS.map((d,i) =>
-    `<span class="${i===now.getDay()?"today":""}">${d}</span><span class="${i===now.getDay()?"today":""}">${hourStr(b.o)}–${hourStr(b.k)}</span>`).join("");
+    `<span class="${i===zday(now,tzOf(b))?"today":""}">${d}</span><span class="${i===zday(now,tzOf(b))?"today":""}">${hourStr(b.o)}–${hourStr(b.k)}</span>`).join("");
   document.getElementById("dToday").innerHTML =
     (open ? "<b style='color:var(--ok)'>Şu an açık</b>" : "<b style='color:var(--busy)'>Şu an kapalı</b>") +
     " · bugün " + hourStr(b.o) + "–" + hourStr(b.k) +
