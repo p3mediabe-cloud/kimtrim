@@ -9,6 +9,7 @@
 | `demo/index.html` | Tıklanabilir demo prototipi: SERP karşılaştırması, web sitesi, mobil uygulama, HQ paneli, WhatsApp AI asistanı, franchise hesaplayıcı |
 | `demo-site/index.html` | "Boğaz'da Bir Gün" demo sitesi; marka kimliği, gerçek el kitabı standartları, etkileşim katmanı, gömülü görseller |
 | `demo-site/gen_images.py` | Nano Banana Pro (`gemini-3-pro-image`) ile 22 marka karesini üretir (12 temel kare + Instagram arşivi yerine üretilen sahne seti: ekip, eğitim, akustik, cupping, hasat, kavurma, açılış, kurumsal, teslim rafı, gece filtresi). Gerçek çekimler geldiğinde `img/<ad>.jpg` dosyası değişir, şablon değişmez. `GEMINI_API_KEY` ortam değişkeninden okur, anahtar dosyaya yazılmaz |
+| `site/build.py --public <kök URL>` | Paylaşım kartları: her sayfa için 1200×630 markalı `img/og/<ad>.jpg` (fotoğraf + gradyan + logo) ve mutlak `og:image` / `twitter:card` etiketleri; Pages akışı `--public https://p3mediabe-cloud.github.io/kimtrim` geçer. Pillow gerekir |
 | `demo-site/gen_video.py` | Veo 3.1 (`veo-3.1-fast-generate-preview`) ile 3 marka klibi (hero 16:9, pour 16:9, night 9:16); ilk kare `img/` karesinden, hedef orana kırpılarak verilir. `GEMINI_API_KEY` ortam değişkeninden okur |
 | `demo-site/brand/` | Franchise sunumundan çıkarılan gerçek logo: orijinal, koyu zemin için krem sürüm ve "o" harfi delinmiş kelime işaretleri (delik yerine animasyonlu SVG "o" oturur) |
 | `demo-site/video/` | Üretilen klipler; ana sayfa hero, Kahvemiz (pour) ve Gece (night) bölümlerinde arka plan videosu |
