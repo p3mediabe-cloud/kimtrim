@@ -1406,10 +1406,11 @@ document.querySelectorAll(".ph[data-img]").forEach(fig => {
   if (fig.classList.contains("has")) return;
   const name = fig.dataset.img;
   const tryLoad = exts => { if (!exts.length) return;
+    // önce belgeye ekle, sonra src ver: belgede olmayan lazy görseli tarayıcı hiç indirmez
     const im = new Image(); im.alt = fig.querySelector(".cap")?.textContent || name; im.loading = "lazy"; im.decoding = "async";
-    im.onload = () => { fig.prepend(im); requestAnimationFrame(() => fig.classList.add("has")); };
-    im.onerror = () => tryLoad(exts.slice(1));
-    im.src = "img/" + name + "." + exts[0]; };
+    im.onload = () => requestAnimationFrame(() => fig.classList.add("has"));
+    im.onerror = () => { im.remove(); tryLoad(exts.slice(1)); };
+    fig.prepend(im); im.src = "img/" + name + "." + exts[0]; };
   tryLoad(["jpg","png","webp"]);
 });
 /* ---------------- 3B eğilme: şube kartları ---------------- */
