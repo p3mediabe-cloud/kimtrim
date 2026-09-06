@@ -44,6 +44,7 @@ HINT_JS  = between('/* bölüm bazlı ipucu', 'setTimeout(() => showHint("safak"
 LOGO_JS  = between('/* ---------- logo canlandırma ---------- */', '/* ---------- /logo canlandırma ---------- */')
 FLO_CSS  = between('/* ---------- Flo asistanı ---------- */', '/* ---------- loyalty / phone ---------- */')
 FLO_HTML = between('<!-- ============ FLO · asistan ============ -->', '<div class="drawer" id="drawer"')
+FLO_HTML = re.sub(r'<script id="(subeimg|menuimg)" type="application/json">.*?</script>', r'<script id="\1" type="application/json">{}</script>', FLO_HTML, flags=re.S)
 ROOT_CSS = between(':root{', '*{box-sizing:border-box}')
 BTN_CSS  = between('.btn{position:relative', '.scrollcue{')
 SQ_CSS   = between('/* ---------- dik köşe sistemi', '/* ---------- kalıcı üst navigasyon')

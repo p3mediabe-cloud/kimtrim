@@ -237,3 +237,17 @@ RoyaltyStatement(id, branchId, month, grossRevenue, royalty, status)
 | Franchise | Yatırım hesaplayıcı ve 3 adımlı form, lead skoru |
 
 Demo veriler örnektir; gerçek menü, fiyat ve şube verisi keşif aşamasında yüklenecektir.
+
+## 8c. Flo asistanı v2 · işletmeye göre tasarım
+
+**Kim konuşur, ne ister:** misafir (şube/saat, gün batımı, fiyat-kalori-alerjen, "ne içsem", sipariş, yer ayırma, kart aktarımı, şikâyet/övgü), franchise adayı (yatırım, bölge, süreç, ön başvuru), iş adayı (barista/müdür, şehir, müsaitlik), kurumsal alıcı (ofis ikramı, etkinlik barı, toplu hediye kartı), basın/iş birliği (insan aktarımı).
+
+**Nasıl çalışır (demo motoru, canlıda Claude API + aynı veri):**
+- **Bağlam:** sayfa/bölüm, saat dilimi, en yakın şube ve gün batımı; ipucu balonu bölüme göre değişir ve **tıklanınca o soruyu doğrudan yanıtlar** (sadece sohbeti açmaz).
+- **Görev akışları (slot doldurma):** sipariş (içecek → boy → süt → şube → zaman → onay; ana sayfada sipariş panelini doldurur ve siparişi verir, alt sayfalarda uygulamaya yönlendirir), franchise ön başvurusu (puanlı), kariyer ön kaydı (şube eşleştirme), kurumsal talep, geri bildirim kaydı (kayıt no, 1 saatte arama), etkinlik yer ayırma, fiziksel kart aktarımı (3 adım). "Vazgeç" her adımda çıkar.
+- **Hafıza:** ad, süt tercihi, favori şube, son sipariş ("her zamanki" tek dokunuş), ziyaret sayısı; tarayıcıda, canlıda üye profilinde.
+- **Öneri motoru:** ruh hâli (uyan, odak, serin, tatlı, hafif, sütsüz) + saat dilimi + diyet filtresi; gerçek ürün fotoğraflı kartlar, "Sipariş ver" ve ürün sayfası bağlantısı.
+- **Anlama:** Türkçe karakter katlama (sube = şube), kısa sözcüklerde tam eşleşme, en uzun ürün/şube adı eşleşmesi, puanlı niyet seçimi, SSS bilgi tabanında sözcük araması, İngilizce algılama, evet/hayır bağlamı.
+- **İnsan aktarımı:** WhatsApp bağlantısı ve geri arama kaydı; olumsuz duygu sözcüklerinde şikâyet akışı otomatik açılır.
+- **Ölçüm:** niyet sayaçları (en çok sorulanlar, tamamlanan sipariş/başvuru/kayıt) HQ paneline akar.
+- **Marka:** buton ve sekme simgesi (favicon) başlıktaki göz kırpan tukan; yeni mesajda amber rozet.

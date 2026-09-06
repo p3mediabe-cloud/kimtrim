@@ -444,129 +444,390 @@ if (fC) { const fmt = n => n.toLocaleString("tr-TR"); const calc = () => { const
   const inv=Math.round((m2*28000*city+900000)/50000)*50000, roy=rev*0.05*1.2, ad=rev*0.01, margin=rev*0.22-roy-ad;
   document.getElementById("oInv").textContent=fmt(inv)+" ₺"; document.getElementById("oRoy").textContent=fmt(Math.round(roy))+" ₺"; document.getElementById("oAd").textContent="≤ "+fmt(Math.round(ad))+" ₺"; document.getElementById("oPb").textContent=margin>0?Math.round(inv/margin)+"–"+Math.round(inv/margin*1.4)+" ay":"—"; };
   ["fCity","fM2","fRev"].forEach(id => document.getElementById(id).addEventListener("input", calc)); calc(); }
-/* ================= FLO — Florida Coffee'nin tukanı (kural tabanlı demo motoru) ================= */
+/* ================= FLO — Florida Coffee'nin tukanı · v2 (bağlam, görev akışları, hafıza, kartlar) ================= */
 const floEl = document.getElementById("flo"), fab = document.getElementById("floFab"), msgs = document.getElementById("floMsgs"),
-      quick = document.getElementById("floQuick"), floIn = document.getElementById("floIn"), floHint = document.getElementById("floHint");
-const norm = t => t.toLowerCase().replace(/i̇/g,"i").replace(/[^a-zçğıöşü0-9 ]/g," ").replace(/\s+/g," ").trim();
-const has = (t, ...ws) => ws.some(w => t.includes(w));
+      quick = document.getElementById("floQuick"), floIn = document.getElementById("floIn"), floHint = document.getElementById("floHint"),
+      floCtx = document.getElementById("floCtx");
+const fold = s => s.toLowerCase().replace(/i̇/g,"i").replace(/[çğıöşüâîû]/g, c => ({"ç":"c","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","â":"a","î":"i","û":"u"})[c]);
+const norm = t => fold(t).replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+const hit = (t, k) => { k = fold(k); return k.length <= 4 && !k.includes(" ") ? (" " + t + " ").includes(" " + k + " ") : t.includes(k); };
+const has = (t, ...ws) => ws.some(w => hit(t, w));
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
 const fmtTL = n => n.toLocaleString("tr-TR") + " ₺";
 const store = { get(k){ try{ return JSON.parse(localStorage.getItem("flo:"+k)); }catch(e){ return null; } }, set(k,v){ try{ localStorage.setItem("flo:"+k, JSON.stringify(v)); }catch(e){} } };
-let lead = null;  // aktif lead akışı
+const mem = Object.assign({ name:"", branch:"", milk:"", lastOrder:null, visits:0, seen:[] }, store.get("mem") || {});
+const remember = () => store.set("mem", mem);
+const stat = id => { const s = store.get("stats") || {}; s[id] = (s[id] || 0) + 1; store.set("stats", s); };
+let flow = null, pending = null;   // aktif görev akışı · bekleyen evet/hayır
 
-function bubble(text, dir="in", chips){
-  const d = document.createElement("div"); d.className = "msg " + dir; d.innerHTML = text; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
-  setQuick(chips || []); return d;
-}
-function setQuick(list){ quick.innerHTML = ""; list.forEach(([label, send]) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.onclick = () => userSays(send || label); quick.appendChild(b); }); }
-function say(text, chips){ return new Promise(r => { const t = document.createElement("div"); t.className = "typing"; t.textContent = "Flo yazıyor…"; msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
-  setTimeout(() => { t.remove(); bubble(text, "in", chips); r(); }, reduce ? 120 : 420 + Math.min(900, text.length * 6)); }); }
+/* --- bağlam: sayfa, saat, şube --- */
+const PAGE = document.body.dataset.page || "safak", PATH = location.pathname;
+let ctxSection = PAGE;
+const IMG = typeof MENUIMG !== "undefined" ? MENUIMG : {};
+const slugOf = s => norm(s).replace(/ /g,"-");
+const pimg = s => IMG[s] ? `<img src="${IMG[s]}" alt="" loading="lazy">` : `<img src="/img/menu/${s}.jpg" alt="" loading="lazy" onerror="this.remove()">`;
+const bimg = id => (typeof SUBEIMG !== "undefined" && SUBEIMG[id]) ? `<img src="${SUBEIMG[id]}" alt="" loading="lazy">` : `<img src="/img/subeler/${id}.jpg" alt="" loading="lazy" onerror="this.remove()">`;
+const hourNow = () => new Date().getHours();
+const daypart = () => { const h = hourNow(); return h < 11 ? "sabah" : h < 15 ? "ogle" : h < 19 ? "ikindi" : h < 23 ? "aksam" : "gece"; };
+const greetWord = () => ({sabah:"Günaydın", ogle:"İyi günler", ikindi:"İyi günler", aksam:"İyi akşamlar", gece:"İyi geceler"})[daypart()];
+const homeBranch = () => B.find(b => b.id === mem.branch) || B[0];
+const sunsetOf = b => zhm(sunTimes(new Date(), b.lat, b.lng).set, tzOf(b));
+const openNow = () => B.filter(b => isOpen(b, new Date()));
 
 /* --- bilgi tabanı --- */
-const MENU_ALL = Object.entries(MENU).flatMap(([cat, arr]) => arr.map(([n,d,p,tags]) => ({cat, n, d, p:+p, tags})));
-const findProduct = t => MENU_ALL.find(x => t.includes(norm(x.n))) || MENU_ALL.find(x => norm(x.n).split(" ").some(w => w.length > 3 && t.includes(w)));
-const findBranch = t => B.find(b => t.includes(norm(b.n))) || B.find(b => norm(b.n).split(" ").some(w => w.length > 4 && t.includes(w)));
-const branchLine = b => { const now = new Date(), open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
-  return `<b>${b.n}</b> · ${b.c}\n${open ? "Şu an açık" : "Şu an kapalı"} · ${hourStr(b.o)}–${hourStr(b.k)}${b.f.includes("manzara") ? ` · gün batımı ${ss}` : ""}\n${b.note}`; };
-const DEFAULT_CHIPS = [["En yakın şube"],["Menü ve fiyatlar"],["Franchise almak istiyorum","franchise"],["Kahveniz neden aynı?","standart"],["Sadakat kartı"]];
-
-const INTENTS = [
- { id:"selam", test:t => has(t,"merhaba","selam","hey","günaydın","iyi akşamlar","naber"),
-   reply:() => ["Merhaba! Ben <b>Flo</b>, Florida Coffee'nin tukanı. Şube, menü, sadakat ve franchise konularında yanınızdayım. Ne lazım?", DEFAULT_CHIPS] },
- { id:"franchise", test:t => has(t,"franchise","bayilik","bayi","yatırım","şube açmak","dükkan açmak","işletme açmak","ortak olmak"),
-   reply:() => ["Kendi şehrinizde bir Florida — harika. Kısa özet:\n• <b>3 km bölge koruması</b>, 10 yıl sözleşme\n• <b>45 gün eğitim</b>: 30 gün işletme + 15 gün barista\n• Merkezi tedarik, 40 gün vade\n• Royalty ciro %5 + KDV, ulusal reklam en fazla %1\n• Web sitesi, uygulama ve raporlama paneli dahil\n\nİsterseniz 2 dakikada ön başvurunuzu alayım; ekibimiz 24 saat içinde arar.",
-     [["Başvuruyu başlat","lead"],["Yatırım ne kadar?","yatırım tutarı"],["Hangi şehirler açık?","açık şehirler"]]] },
- { id:"yatirim", test:t => has(t,"yatırım tutarı","ne kadar yatırım","maliyet","bütçe ne","kaç para","giriş bedeli"),
-   reply:() => ["Kuruluş yatırımı konuma ve metrekareye göre değişir; büyükşehir caddesinde 100–120 m² için örnek hesap <b>3,5–4,5 M ₺</b> bandında çıkıyor. Sayfadaki hesaplayıcı canlı bir tablo verir; kesin rakam keşif görüşmesinde.",
-     [["Hesaplayıcıya git","#franchise"],["Başvuruyu başlat","lead"]]] },
- { id:"sehirler", test:t => has(t,"açık şehir","hangi şehir","nereler açık","bölge"),
-   reply:() => ["Öncelikli bölgelerimiz: <b>Eskişehir, Ankara Çayyolu, İzmir Alsancak, Antalya Lara, Trabzon, Konya</b>; yurt dışında Saraybosna ve Tiran. Mevcut 17 şubemizin 3 km çevresi korumalı, o yüzden çakışma kontrolünü başvuruda otomatik yapıyoruz.",
-     [["Başvuruyu başlat","lead"],["Şubeleri gör","#subeler"]]] },
- { id:"lead", test:t => t === "lead" || has(t,"başvur","başvuru","kaydımı al","aramanızı istiyorum"),
-   reply:() => { lead = {step:0, data:{}}; return ["Süper. Dört kısa soru. <b>Adınız ve soyadınız?</b>", []]; } },
- { id:"insan", test:t => has(t,"insan","yetkili","gerçek biri","müşteri hizmet","şikayet","sorun yaşadım"),
-   reply:() => ["Anlıyorum. Sizi bir insana aktarıyorum; telefon numaranızı yazarsanız 1 saat içinde ararız. İsterseniz burada da anlatın, kaydı açıp şube müdürüne iletirim.", [["Numaramı bırakayım","lead"],["Burada anlatacağım","şikayetimi yazacağım"]]] },
- { id:"sikayet2", test:t => has(t,"şikayetimi yazacağım"), reply:() => ["Dinliyorum. Hangi şube ve ne oldu? Yazdığınız her şey kayıt numarasıyla HQ kalite ekibine gider.", []] },
- { id:"yakin", test:t => has(t,"en yakın","yakınımda","nerede","yakın şube","konum"),
-   reply:() => { const b = B[0]; return [`Konum izni olmadan tahminim <b>${b.n}</b>:\n${branchLine(b)}\n\nBaşka bir semt söyleyin, oradaki şubeyi anlatayım.`, [["Beykoz"],["Kadıköy"],["Sakarya"],["Tüm şubeler","#subeler"]]]; } },
- { id:"sube", test:t => !!findBranch(t) || has(t,"şube","saat","kaça kadar","açık mı","kapalı mı","gün batımı"),
-   reply:t => { const b = findBranch(t); if (b) return [branchLine(b), [["Yol tarifi","#subeler"],["Ön sipariş","#sabah"],["Başka şube"]]];
-     const now = new Date(), open = B.filter(x => isOpen(x, now)).length; return [`Şu an <b>${open}/${B.length}</b> şubemiz açık. Hangi semtteydiniz? Kavacık, Beykoz, Çengelköy, Kadıköy, Taksim, Bahçeşehir, Ümraniye, Esenyurt, İzmit, Sakarya, Bursa, Samsun, Rize, Erzincan, Podgorica, Budva.`, [["Kavacık"],["Kadıköy"],["Sakarya"]]]; } },
- { id:"manzara", test:t => has(t,"manzara","boğaz","teras","gün batımı"),
-   reply:() => { const now = new Date(); const v = B.filter(b => b.f.includes("manzara")).map(b => `• <b>${b.n}</b> — gün batımı ${zhm(sunTimes(now,b.lat,b.lng).set, tzOf(b))}${isOpen(b,now) ? "" : " (şu an kapalı)"}`).join("\n");
-     return [`Manzaralı şubelerimiz ve bugünkü gün batımı saatleri:\n${v}\n\nPremium üyeler gün batımı için masa ayırabilir.`, [["Kavacık'ı anlat","kavacık"],["Kulüp seviyeleri","sadakat"]]]; } },
- { id:"fiyat", test:t => !!findProduct(t) || has(t,"fiyat","kaç lira","ne kadar","menü","içecek","kahve çeşit"),
-   reply:t => { const p = findProduct(t); if (p) return [`<b>${p.n}</b> — ${fmtTL(p.p)} (İstanbul, orta boy)\n${p.d}\n${p.tags.filter(x=>/kcal|mg|kafeinsiz/.test(x)).join(" · ")}\nSüt: inek dahil, laktozsuz +10 ₺, yulaf/badem +15 ₺.`, [["Sipariş ver","#sabah"],["Başka ürün","menü"],["Hafif seçenekler","hafif"]]];
-     return ["Menüde 4 kategori var: sıcak kahveler (95–150 ₺), soğuk kahveler (125–185 ₺), kahve dışı ve yiyecek. Bir ürün adı söyleyin, fiyat ve kaloriyi vereyim.", [["Flat White"],["Cold Brew"],["Iced Latte"],["Menüye git","#menu"]]]; } },
- { id:"hafif", test:t => has(t,"hafif","kalori","diyet","şekersiz","vegan","laktoz","sütsüz","glüten","kafeinsiz","az kafein"),
-   reply:t => { let list = MENU_ALL; if (has(t,"vegan")) list = list.filter(x=>x.tags.includes("vegan")); else if (has(t,"kafeinsiz","az kafein")) list = list.filter(x=>cafOf(x.tags) < 80); else if (has(t,"glüten")) list = list.filter(x=>!x.tags.includes("glüten")); else if (has(t,"laktoz","sütsüz")) list = list.filter(x=>x.tags.includes("sütsüz")); else list = list.filter(x=>kcalOf(x.tags) < 100);
-     const v = list.slice(0,6).map(x=>`• ${x.n} — ${fmtTL(x.p)} · ${x.tags.filter(y=>/kcal/.test(y))[0]||""}`).join("\n"); return [`Size uyanlar:\n${v}\n\nLaktoz için laktozsuz, yulaf ve badem sütü her şubede var; tercihiniz uygulama profilinize kaydedilir.`, [["Menüde filtrele","#menu"],["Sipariş ver","#sabah"]]]; } },
- { id:"standart", test:t => has(t,"standart","aynı","kalite","neden","doz","gram","shot","süt sıcaklığı","bar","kavurma","çekirdek","nereden"),
-   reply:() => ["Her şubede aynı fincan, çünkü reçete kişisel yoruma açık değil:\n• Doz <b>14 g</b> double shot, tartıyla\n• Su <b>90–96 °C</b>, basınç <b>9 bar</b>\n• Shot <b>18–23 sn</b>, çıktı 30–60 g\n• Süt <b>60–65 °C</b> mikro köpük\n• Shot öncesi zorunlu 5 adım\nHarman: Etiyopya Yirgacheffe %60, Brezilya Cerrado %40, orta kavurma.", [["5 adım nedir?","beş adım"],["Kahve kuşağı","kuşak"],["Bölüme git","#kahvemiz"]]] },
- { id:"besadim", test:t => has(t,"beş adım","5 adım"),
-   reply:() => ["Shot öncesi zorunlu 5 adım:\n1. Grup başlığı flush — 2–3 sn su, kalıntı temizlenir\n2. Portafiltre temizlenir, sepet kuru\n3. Gramaj tartılır — 14 g, göz kararı yok\n4. Tamp — eşit basınç, düz yüzey\n5. Süre — kronometre, 18–23 sn\nBirini atlamak zincir standardına aykırı.", [["Kavurma","kavurma"],["Menü","menü"]]] },
- { id:"kusak", test:t => has(t,"kuşak","etiyopya","brezilya","afrika","latin","asya","asidite"),
-   reply:() => ["Kahve kuşağı üç karakter verir:\n• <b>Latin Amerika</b> — denge, fındık, kakao, karamel; espresso için en stabil\n• <b>Afrika</b> — aroma ve canlı asidite, çiçeksi, meyvemsi; filtre için\n• <b>Asya-Pasifik</b> — gövde, topraksı, bitter çikolata; sert içim\nHarmanımız Latin Amerika + Afrika.", [["Standartlar","standart"],["Ürünler","#urunler"]]] },
- { id:"sadakat", test:t => has(t,"sadakat","kart","puan","çekirdek kazan","kulüp","club","seviye","premium","plus","damga","ücretsiz kahve","bedava"),
-   reply:() => ["<b>FloridaDays Club</b>:\n• 1 ₺ = 1 çekirdek, 10 içecekte biri bizden\n• Seviye son 6 ay harcamayla: Classic (0–2.500 ₺), Plus (2.500–7.500 ₺), Premium (7.500 ₺+)\n• Plus: ayda 2 boy yükseltme · Premium: ücretsiz ekstra shot, gün batımında masa önceliği\n• Fiziksel kartınızı tek taramayla uygulamaya aktarın\nÖdeme + puan tek QR.", [["Kartı nasıl aktarırım?","kart aktar"],["Uygulama","#kulup"]]] },
- { id:"kartaktar", test:t => has(t,"kart aktar","aktar","taşı"),
-   reply:() => ["Uygulamada <b>Kart → Kartımı tara</b>: karttaki kodu okutun, damgalar ve bakiye anında hesabınıza geçer. Kart sonra da çalışır; ikisi tek hesaptır.", [["Uygulamayı indir","#kulup"]]] },
- { id:"siparis", test:t => has(t,"sipariş","ön sipariş","geldim","sıra","beklemek","teslim","kurye","yemeksepeti","getir"),
-   reply:() => ["Ön sipariş şöyle çalışır: şube ve içeceği seçin, ödeyin; hazırlık siz <b>\"Geldim\"</b> deyince ya da şubeye 200 m yaklaşınca başlar — kahve soğumaz. Teslimat için Yemeksepeti'ndeyiz; kendi kuryemiz yakında.", [["Nasıl görünüyor?","#sabah"],["En yakın şube","en yakın"]]] },
- { id:"etkinlik", test:t => has(t,"etkinlik","akustik","cupping","konser","müzik","rezervasyon","masa"),
-   reply:() => ["Bu hafta:\n• <b>Perşembe 21:00</b> — Akustik set, Kavacık terası (yer ayırma uygulamadan)\n• <b>Ayın ilk Cumartesi'si</b> — Cupping, Çengelköy, 12 kişi, ücretsiz\n• Her gün 22:00 sonrası kafeinsiz filtre aynı fiyat", [["Yer ayır","#gece"],["Premium masa önceliği","sadakat"]]] },
- { id:"urun", test:t => has(t,"satın","eve","paket","termos","hediye kartı","hediye","ürün","kapsül","kargo"),
-   reply:() => ["Eve götürebilecekleriniz: <b>Sonbahar Harmanı 250 g</b> (420 ₺), <b>Ev Espresso Seti</b> (1.150 ₺), <b>Florida Termos</b> (650 ₺, kendi bardağınızla %10 indirim) ve <b>dijital hediye kartı</b>. Şu an uygulamadan ön sipariş, şubeden teslim; kargo yakında.", [["Ürünlere git","#urunler"],["Hediye gönder","#kulup"]]] },
- { id:"yeni", test:t => has(t,"yeni","haber","yenilik","kampanya","indirim","açılış"),
-   reply:() => ["Taze olanlar: Sakarya'da yeni adres (Şal Sokak), Boğaz Cold Brew sezonu, kart → uygulama kampanyası (ilk kahve bizden), hafta içi 14–16 soğuk kahvelerde %20. Hepsi \"Taze\" bölümünde.", [["Taze bölümü","#taze"],["Haber al","#taze"]]] },
- { id:"iletisim", test:t => has(t,"iletişim","telefon","mail","e-posta","adres","merkez","nerede merkez"),
-   reply:() => ["Merkez: Çengelköy Mah. Görgeç Sok. No:6, Üsküdar / İstanbul. Şube telefonları şube kartlarında; franchise için buradan ön başvuru alabilirim.", [["Şubeler","#subeler"],["Franchise","franchise"]]] },
- { id:"kim", test:t => has(t,"kimsin","nesin","flo","tukan","adın"),
-   reply:() => ["Ben Flo — logodaki tukan. Florida Coffee'nin şubelerini, menüsünü ve standartlarını bilirim; franchise başvurunuzu da alırım. Gerçek bir insana ihtiyaç olursa aktarırım.", DEFAULT_CHIPS] },
- { id:"tesekkur", test:t => has(t,"teşekkür","sağol","eyvallah","süper","harika"),
-   reply:() => ["Ben teşekkür ederim. Mutluluğun tadıyla kalın ☕", DEFAULT_CHIPS] },
+const MENU_ALL = Object.entries(MENU).flatMap(([cat, arr]) => arr.map(([n,d,p,tags]) => ({cat, n, d, p:+p, tags, slug: slugOf(n)})));
+const findProduct = t => MENU_ALL.filter(x => t.includes(norm(x.n))).sort((a, b) => b.n.length - a.n.length)[0] || MENU_ALL.find(x => norm(x.n).split(" ").some(w => w.length > 4 && hit(t, w)));
+const findBranch = t => B.filter(b => t.includes(norm(b.n))).sort((a, b) => b.n.length - a.n.length)[0] || B.find(b => norm(b.n).split(" ").some(w => w.length > 4 && t.includes(w))) || B.find(b => norm(b.c).split(/[ ,·]+/).some(w => w.length > 4 && t.includes(w)));
+const pathProduct = () => { const m = PATH.match(/\/menu\/([a-z0-9-]+)\//); return m ? MENU_ALL.find(x => x.slug === m[1]) : null; };
+const FLO_EVENTS = [
+  {d:4, h:"Akustik set", w:"Kavacık terası · Perşembe 21:00", b:"kavacik"},
+  {d:6, h:"Cupping", w:"Çengelköy · ayın ilk Cumartesi'si 11:00", b:"cengelkoy"},
+  {d:3, h:"Latte art atölyesi", w:"Kadıköy · Çarşamba 19:00 · 8 kişi", b:"kadikoy"},
+  {d:0, h:"Kahvaltı sofrası", w:"Beykoz · Bahçeşehir · Samsun · Pazar 09:00", b:"beykoz"},
+];
+const FAQ = [
+  ["laktozsuz sut var mi bitkisel yulaf badem", "Evet. Laktozsuz +10 ₺, yulaf ve badem +15 ₺; her şubede. Tercihinizi uygulama profilinize kaydederseniz bir daha söylemeniz gerekmez, barista ekranında etiketli görünür."],
+  ["wifi internet sifre", "Tüm şubelerde ücretsiz Wi-Fi var; şifre fişte ve tezgâhta. Kadıköy, Sakarya ve Bahçeşehir'de uzun çalışmaya uygun priz düzeni var."],
+  ["priz calisma alani laptop", "Çalışma alanı olan şubeler: Kadıköy (üst kat), Sakarya Çark Caddesi, Bahçeşehir, Ümraniye. Hafta içi 10–12 en sakin saatler."],
+  ["otopark park", "Şubeye ait otopark: Kavacık, Bahçeşehir, İzmit, Bursa Nilüfer, Samsun Marina. Diğerlerinde çevrede ücretli otopark."],
+  ["evcil kopek kedi", "Bahçeli ve teraslı şubelerimiz evcil dostu: Kavacık, Beykoz, Çengelköy, Podgorica, Budva. İç mekânda kucak boyu kabul."],
+  ["kahvalti", "Kahvaltı: Beykoz, Bahçeşehir ve Samsun'da hafta sonu 09:00–13:00 iki kişilik kahvaltı sofrası; hafta içi tüm şubelerde tost, kruvasan, granola."],
+  ["dogum gunu", "Classic üyeler dahil herkese doğum gününde bir içecek bizden; uygulamada doğum tarihinizi ekleyin, o gün otomatik tanımlanır."],
+  ["ogrenci indirim", "Sakarya, Kadıköy ve Erzincan'da öğrenci kimliğiyle hafta içi 14–16 filtre kahve %20 indirimli; uygulamada öğrenci profili açın."],
+  ["fatura e fatura kurumsal", "Şubede fiş, uygulamada e-arşiv fatura otomatik; kurumsal siparişlerde şirket bilgilerinizi bir kez kaydedin."],
+  ["gluten glutensiz alerjen", "Glütensiz: Glütensiz Brownie, granola kâsesi (yulafı sertifikalı). Alerjen etiketleri her üründe; emin değilseniz baristaya sorun."],
+  ["cocuk bebek mama sandalye", "Bahçeşehir ve Beykoz'da çocuk köşesi ve mama sandalyesi var; sıcak çikolata ve milkshake çocuk boyu servis edilir."],
+  ["uygulama indir ios android", "Uygulama iOS ve Android'de. Ön sipariş, Geldim, cüzdan, sadakat tek yerde; kurulum bir dakika."],
+  ["kapali gun bayram tatil", "Bayramın ilk günü öğleden sonra açılıyoruz; diğer günler normal saatler. Şube sayfasında bayram saatleri güncellenir."],
+  ["ingilizce english menu", "English menu is available in every branch; Podgorica and Budva teams speak English and Montenegrin."],
 ];
 
-async function leadStep(t){
-  const d = lead.data; const raw = floIn.value || t;
-  if (lead.step === 0){ d.name = t.replace(/\b\w/g, c => c.toUpperCase()); lead.step = 1; return say(`Teşekkürler ${d.name.split(" ")[0]}. <b>Telefon numaranız?</b>`); }
-  if (lead.step === 1){ const digits = t.replace(/\D/g,""); if (digits.length < 10) return say("Numarayı 05xx xxx xx xx biçiminde yazabilir misiniz?"); d.phone = digits; lead.step = 2; return say("<b>Hangi şehir veya ilçe</b> için düşünüyorsunuz?"); }
-  if (lead.step === 2){ d.city = t; lead.step = 3; return say("<b>Yatırım bütçeniz</b> hangi aralıkta?", [["2 M ₺ altı"],["2–4 M ₺"],["4–6 M ₺"],["6 M ₺ üstü"]]); }
-  if (lead.step === 3){ d.budget = t; lead.step = 4; return say("Son soru: <b>işletme deneyiminiz</b> var mı?", [["Yok"],["Perakende"],["Kafe / restoran işlettim"],["Franchise sahibiyim"]]); }
-  if (lead.step === 4){ d.exp = t;
-    const bIdx = ["2 m altı","2 4","4 6","6 m üstü"].findIndex(k => norm(d.budget).includes(k.split(" ")[0]) && (k==="2 m altı"?norm(d.budget).includes("altı"):k==="6 m üstü"?norm(d.budget).includes("üstü"):true));
-    const eIdx = ["yok","perakende","kafe","franchise"].findIndex(k => norm(d.exp).includes(k));
-    const near = B.find(b => norm(d.city).split(" ").some(w => w.length>3 && norm(b.n+" "+b.c).includes(w)));
-    const score = Math.min(97, 40 + Math.max(0,bIdx)*12 + Math.max(0,eIdx)*9 + (near ? 2 : 14));
-    d.score = score; d.at = new Date().toISOString(); store.set("lead", d); lead = null;
-    return say(`Başvurunuz alındı, ${d.name.split(" ")[0]}. Kayıt <b>#L-${String(Math.floor(1000+Math.random()*9000))}</b>.\n• Bölge: ${d.city}${near ? ` — dikkat: ${near.n} şubemize yakın, 3 km kontrolü yapılır` : " — bölge açık görünüyor"}\n• Ön değerlendirme puanı: <b>${score}/100</b>\n\nFranchise ekibimiz <b>24 saat içinde</b> ${d.phone.replace(/(\d{4})(\d{3})(\d{2})(\d{2})/,"$1 $2 $3 $4")} numarasından arayacak. E-postanıza yatırım özeti ve \"Neden Florida\" videosu gidecek.`, [["Yatırım hesaplayıcı","#franchise"],["Teşekkürler"]]); }
+/* --- mesaj ve kartlar --- */
+function bubble(html, dir="in", chips){
+  const d = document.createElement("div"); d.className = "msg " + dir; d.innerHTML = html; msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+  if (chips) setQuick(chips); if (dir === "in" && floEl.hidden) badge(true); return d;
+}
+function setQuick(list){ quick.innerHTML = ""; (list || []).forEach(([label, send]) => { const b = document.createElement("button"); b.type = "button"; b.textContent = label; b.onclick = () => userSays(send || label); quick.appendChild(b); }); }
+function say(html, chips){ return new Promise(r => { const t = document.createElement("div"); t.className = "typing"; t.innerHTML = "<i></i><i></i><i></i>"; msgs.appendChild(t); msgs.scrollTop = msgs.scrollHeight;
+  setTimeout(() => { t.remove(); bubble(html, "in", chips); r(); }, reduce ? 100 : 380 + Math.min(800, html.replace(/<[^>]+>/g,"").length * 5)); }); }
+const card = (inner, cls="") => `<div class="fcard-msg ${cls}">${inner}</div>`;
+function productCard(p, note){
+  const facts = p.tags.filter(x => /kcal|mg|kafeinsiz|vegan|glütensiz/.test(x)).slice(0,3).map(x => `<span>${x}</span>`).join("");
+  return card(`${pimg(p.slug)}<div><b>${p.n}</b><small>${p.d}</small><em>${fmtTL(p.p)} <span>orta boy</span></em><div class="ff">${facts}</div>${note ? `<p>${note}</p>` : ""}
+    <div class="fa"><button type="button" data-send="sipariş: ${p.n}">Sipariş ver</button><a href="/menu/${p.slug}/">Ürün sayfası</a></div></div>`, "prod");
+}
+function branchCard(b){
+  const now = new Date(), open = isOpen(b, now);
+  return card(`${bimg(b.id)}<div><b>${b.n}</b><small>${b.c}</small><em class="${open ? "ok" : "off"}">${open ? "Şu an açık" : "Şu an kapalı"} · ${hourStr(b.o)}–${hourStr(b.k)}</em>${b.f.includes("manzara") ? `<small>Gün batımı ${sunsetOf(b)}</small>` : ""}<p>${b.note}</p>
+    <div class="fa"><button type="button" data-send="sipariş şube: ${b.n}">Buradan sipariş</button><a href="https://www.google.com/maps/search/?api=1&query=${b.lat},${b.lng}" target="_blank" rel="noopener">Yol tarifi</a><a href="/subeler/${b.id}/">Şube sayfası</a></div></div>`, "branch");
+}
+msgs.addEventListener("click", e => { const b = e.target.closest("[data-send]"); if (b) userSays(b.dataset.send); });
+
+/* --- öneri motoru: ruh hâli + saat + diyet --- */
+function recommend(t){
+  const pick = names => names.map(n => MENU_ALL.find(x => x.n === n)).filter(Boolean);
+  if (has(t,"uyan","enerji","yorgun","uyku","uykusuz","sert")) return ["Uyanmanız lazım; sert ama mideyi yormayan üçlü:", pick(["Flat White","Espresso","Cold Brew"])];
+  if (has(t,"odak","calis","ders","sinav","uzun sure","toplanti")) return ["Uzun odak için kafeini yavaş salanlar:", pick(["Florida Filtre","V60","Americano"])];
+  if (has(t,"sicak hava","serin","bunal","buz","soguk bir","yaz")) return ["Serinleten seçenekler:", pick(["Boğaz Cold Brew","Iced Latte","Hibiskus Soğuk Çay"])];
+  if (has(t,"tatli","seker","canim ceker","cikolata")) return ["Tatlı krizi için:", pick(["Iced White Mocha","San Sebastian","Caramel Latte"])];
+  if (has(t,"hafif","az kafein","kafeinsiz","aksam","gece","uyumadan")) return ["Akşam içilir, uykuyu bozmaz:", pick(["Cortado","Bitki Çayı","Sıcak Çikolata"])];
+  if (has(t,"sutsuz","laktoz","vegan")) return ["Sütsüz ve vegan seçenekler:", pick(["Americano","Cold Brew","Florida Filtre"])];
+  if (has(t,"kahvalti","ac","yemek","atistir")) return ["Yanına bir şeyler:", pick(["Kavacık Kahvaltı Tabağı","Avokadolu Ekşi Maya","Tereyağlı Kruvasan"])];
+  const dp = daypart();
+  if (dp === "sabah") return ["Sabah için en çok sipariş edilenler:", pick(["Flat White","Florida Filtre","Iced Latte"])];
+  if (dp === "ogle" || dp === "ikindi") return ["Öğleden sonra en iyi giden üçlü:", pick(["Iced Latte","Cold Brew","Cappuccino"])];
+  return ["Bu saatte hafif olsun:", pick(["Cortado","Türk Kahvesi","Sıcak Çikolata"])];
 }
 
-async function userSays(text){
-  const t0 = text.trim(); if (!t0) return;
-  if (t0.startsWith("#")){ closeFlo(); document.querySelector(t0)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); return; }
-  bubble(t0.replace(/</g,"&lt;"), "out"); floIn.value = "";
-  const t = norm(t0);
-  if (lead) return leadStep(t0);
-  const it = INTENTS.find(i => i.test(t));
-  if (it){ const [txt, chips] = it.reply(t); return say(txt, chips); }
-  return say("Bunu tam anlayamadım. Şunlardan biri mi?", [["En yakın şube"],["Menü ve fiyatlar"],["Franchise","franchise"],["Sadakat kartı"],["Bir insanla konuşmak istiyorum","insan"]]);
+/* --- görev akışları (slot doldurma) --- */
+const SIZES = {"kucuk":["Küçük",-15],"orta":["Orta",0],"buyuk":["Büyük",20]}, MILKS = {"inek":["İnek sütü",0],"laktozsuz":["Laktozsuz",10],"yulaf":["Yulaf",15],"badem":["Badem",15]};
+const FLOWS = {
+  order: {
+    start(d){ flow = {id:"order", step:0, data:d || {}}; return next(); },
+    steps: [
+      { ask: d => d.drink ? null : ["Ne içiyorsunuz? Ürün adı yazın ya da seçin.", [["Iced Latte"],["Flat White"],["Florida Filtre"],["Cold Brew"],["Ne önerirsin?","öner"]]],
+        take: (d, t) => { if (has(t,"oner","onerir","oneri","ne icsem","tavsiye","karar")) { const [l, list] = recommend(t); return l + list.map(p => productCard(p)).join("") + "Hangisi olsun?"; } const p = findProduct(t); if (!p) return "Menüde bulamadım; başka bir ad deneyin (örn. Flat White)."; d.drink = p; if (p.tags.includes("sütsüz") || p.cat === "yiyecek" || p.cat === "diger") d.milk = ["—",0]; } },
+      { ask: d => d.size ? null : [`<b>${d.drink.n}</b>, hangi boy?`, [["Küçük · −15 ₺","küçük"],["Orta","orta"],["Büyük · +20 ₺","büyük"]]],
+        take: (d, t) => { const k = Object.keys(SIZES).find(k => t.includes(k)); if (!k) return "Küçük, orta ya da büyük?"; d.size = SIZES[k]; } },
+      { ask: d => d.milk ? null : [mem.milk ? `Süt tercihiniz <b>${mem.milk}</b> kayıtlı; öyle mi kalsın?` : "Süt?", mem.milk ? [["Evet, "+mem.milk, mem.milk],["İnek"],["Yulaf"],["Badem"]] : [["İnek"],["Laktozsuz · +10 ₺","laktozsuz"],["Yulaf · +15 ₺","yulaf"],["Badem · +15 ₺","badem"]]],
+        take: (d, t) => { const k = Object.keys(MILKS).find(k => t.includes(k)) || (has(t,"evet","olur","kalsin") && mem.milk ? Object.keys(MILKS).find(k => fold(mem.milk).includes(k)) : null); if (!k) return "İnek, laktozsuz, yulaf ya da badem?"; d.milk = MILKS[k]; mem.milk = MILKS[k][0]; remember(); } },
+      { ask: d => d.branch ? null : [`Hangi şubeden? Size en yakın <b>${homeBranch().n}</b> görünüyor.`, [[homeBranch().n],["Kadıköy"],["Kavacık"],["Başka şube","şube listesi"]]],
+        take: (d, t) => { if (has(t,"sube listesi")) return "Şubeler: " + B.map(b => b.n).join(", ") + ". Hangisi?"; const b = findBranch(t); if (!b) return "Şube adını yazar mısınız? (örn. Kadıköy)"; d.branch = b; mem.branch = b.id; remember(); } },
+      { ask: d => d.when ? null : ["Ne zaman hazır olsun?", [["Geldiğimde"],["10 dk sonra"],["Şimdi"]]],
+        take: (d, t) => { d.when = t.includes("geld") ? "Geldiğimde" : has(t,"10") ? "10 dk sonra" : has(t,"simdi","hemen") ? "Şimdi" : null; if (!d.when) return "Geldiğimde, 10 dk sonra ya da şimdi?"; } },
+      { ask: d => { const total = d.drink.p + d.size[1] + d.milk[1]; d.total = total;
+          return [card(`${pimg(d.drink.slug)}<div><b>${d.drink.n}</b><small>${d.size[0]}${d.milk[1] !== undefined && d.milk[0] !== "—" ? " · " + d.milk[0] : ""} · ${d.branch.n} · ${d.when}</small><em>${fmtTL(total)} <span>+${total} çekirdek</span></em><p>Ödeme cüzdandan (412 ₺). Onaylıyor musunuz?</p></div>`, "prod"), [["Onayla"],["Boyu değiştir","boy değiştir"],["Vazgeç"]]]; },
+        take: (d, t) => { if (has(t,"boy degistir")) { d.size = null; flow.step = 0; return ""; } if (!(t.startsWith("onay") || has(t,"evet","tamam","olur","onayliyorum"))) return "Onaylamak için \"Onayla\" yazın ya da vazgeçin."; d.ok = true; } },
+    ],
+    done(d){
+      const code = "FC·" + Math.floor(4800 + Math.random() * 200); mem.lastOrder = {drink:d.drink.n, size:d.size[0], milk:d.milk[0], branch:d.branch.id, when:d.when}; remember(); stat("order_done");
+      const panel = document.getElementById("drinks");
+      if (panel) { const click = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
+        click("drinks", d.drink.n); click("sizes", d.size[0]); if (d.milk[0] !== "—") click("milks", d.milk[0]); click("whens", d.when === "Geldiğimde" ? "geldigimde" : d.when === "Şimdi" ? "simdi" : "10dk");
+        const sel = document.getElementById("oBranch"); if (sel && [...sel.options].some(o => o.value === d.branch.n)) { sel.value = d.branch.n; sel.dispatchEvent(new Event("change")); }
+        const act = document.getElementById("tAct"); if (act) act.click(); }
+      return [`Sipariş <b>${code}</b> ${d.branch.n} şubesine iletildi. ${d.when === "Geldiğimde" ? "Kapıya 200 m kala ya da \"Geldim\" deyince hazırlanmaya başlar." : "Hazırlanıyor; tezgâhta kodunuzu gösterin."}${panel ? " Sipariş panelinde de görüyorsunuz." : ""}`,
+        panel ? [["Paneli göster","#sabah"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]] : [["Uygulamada aç","/app/"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]]];
+    }
+  },
+  lead: {
+    start(){ flow = {id:"lead", step:0, data:{}}; return next(); },
+    steps: [
+      { ask: () => ["Süper. Dört kısa soru. <b>Adınız ve soyadınız?</b>", []], take: (d, t, raw) => { if (raw.length < 3) return "Adınızı yazar mısınız?"; d.name = raw.split(" ").map(w => w ? w[0].toLocaleUpperCase("tr") + w.slice(1) : w).join(" "); mem.name = d.name.split(" ")[0]; remember(); } },
+      { ask: d => [`Teşekkürler ${d.name.split(" ")[0]}. <b>Telefon numaranız?</b>`, []], take: (d, t) => { const digits = t.replace(/\D/g,""); if (digits.length < 10) return "Numarayı 05xx xxx xx xx biçiminde yazabilir misiniz?"; d.phone = digits; } },
+      { ask: () => ["<b>Hangi şehir veya ilçe</b> için düşünüyorsunuz?", [["Eskişehir"],["Ankara"],["İzmir"],["Antalya"]]], take: (d, t, raw) => { d.city = raw; } },
+      { ask: () => ["<b>Yatırım bütçeniz</b> hangi aralıkta?", [["2 M ₺ altı"],["2–4 M ₺"],["4–6 M ₺"],["6 M ₺ üstü"]]], take: (d, t, raw) => { d.budget = raw; } },
+      { ask: () => ["Son soru: <b>işletme deneyiminiz</b> var mı?", [["Yok"],["Perakende"],["Kafe / restoran işlettim"],["Franchise sahibiyim"]]], take: (d, t, raw) => { d.exp = raw; } },
+    ],
+    done(d){
+      const bIdx = has(norm(d.budget),"alti") ? 0 : has(norm(d.budget),"ustu") ? 3 : has(norm(d.budget),"4 6","4-6") ? 2 : 1;
+      const eIdx = ["yok","perakende","kafe","franchise"].findIndex(k => norm(d.exp).includes(k));
+      const near = B.find(b => norm(d.city).split(" ").some(w => w.length > 3 && norm(b.n + " " + b.c).includes(w)));
+      d.score = Math.min(97, 40 + bIdx * 12 + Math.max(0, eIdx) * 9 + (near ? 2 : 14)); d.at = new Date().toISOString(); store.set("lead", d); stat("lead_done");
+      return [`Başvurunuz alındı, ${d.name.split(" ")[0]}. Kayıt <b>#L-${Math.floor(1000 + Math.random() * 9000)}</b>.\n• Bölge: ${esc(d.city)}${near ? ` — ${near.n} şubemize yakın, 3 km kontrolü yapılır` : " — bölge açık görünüyor"}\n• Ön değerlendirme: <b>${d.score}/100</b>\n\nFranchise ekibimiz <b>24 saat içinde</b> ${d.phone.replace(/(\d{4})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4")} numarasını arayacak.`, [["Yatırım hesaplayıcı","/franchise/"],["Franchise SSS","/franchise/sss/"],["Başka bir şey"]]];
+    }
+  },
+  career: {
+    start(){ flow = {id:"career", step:0, data:{}}; return next(); },
+    steps: [
+      { ask: () => ["Barista olmak için deneyim şart değil; 45 günlük eğitimimiz var. <b>Adınız?</b>", []], take: (d, t, raw) => { if (raw.length < 2) return "Adınızı yazar mısınız?"; d.name = raw.split(" ").map(w => w ? w[0].toLocaleUpperCase("tr") + w.slice(1) : w).join(" "); mem.name = d.name.split(" ")[0]; remember(); } },
+      { ask: () => ["<b>Hangi şehirde</b> çalışmak istersiniz?", [["İstanbul"],["Sakarya"],["Bursa"],["Samsun"]]], take: (d, t, raw) => { d.city = raw; } },
+      { ask: () => ["<b>Pozisyon?</b>", [["Barista"],["Şube müdürü"],["Mutfak"],["Kalite uzmanı"]]], take: (d, t, raw) => { d.role = raw; } },
+      { ask: () => ["<b>Ne zaman başlayabilirsiniz?</b>", [["Hemen"],["2 hafta içinde"],["1 ay sonra"]]], take: (d, t, raw) => { d.avail = raw; } },
+    ],
+    done(d){ store.set("career", d); stat("career_done");
+      const branches = B.filter(b => norm(b.c + " " + b.n).includes(norm(d.city))).slice(0,3);
+      return [`Ön kaydınız açıldı, ${d.name.split(" ")[0]}. ${branches.length ? "Size uygun şubeler: <b>" + branches.map(b => b.n).join(", ") + "</b>." : "Şube eşleştirmesi şehir bazında yapılacak."} Açık vardiya doğduğunda yapay zekâ size sorar, yanıtınızı kayda alır; "Hemen" diyen adaylar aynı gün başlar.\nTam profil için 4 adımlı başvuruyu tamamlayın (3 dakika).`, [["Başvuruyu tamamla","/kariyer/basvuru/"],["Barista eğitimi nasıl?","eğitim"],["Başka bir şey"]]]; }
+  },
+  corporate: {
+    start(){ flow = {id:"corporate", step:0, data:{}}; return next(); },
+    steps: [
+      { ask: () => ["Ofis ikramı, etkinlik kahve barı ya da toplu hediye kartı; hepsinde 1 iş günü içinde teklif. <b>Hangisi?</b>", [["Ofis ikramı"],["Etkinlik barı"],["Toplu hediye kartı"]]], take: (d, t, raw) => { d.type = raw; } },
+      { ask: () => ["<b>Kaç kişi</b> için?", [["10–25"],["25–100"],["100+"]]], take: (d, t, raw) => { d.people = raw; } },
+      { ask: () => ["<b>Şirket adı ve telefon?</b>", []], take: (d, t, raw) => { if (raw.replace(/\D/g,"").length < 10) return "Telefonu da ekler misiniz? (05xx…)"; d.contact = raw; } },
+    ],
+    done(d){ store.set("corporate", d); stat("corporate_done"); return [`Talebiniz alındı: <b>${esc(d.type)}</b>, ${esc(d.people)} kişi. Kurumsal ekibimiz 1 iş günü içinde teklifle döner. Bütçe fikri için hesaplayıcı kurumsal sayfada.`, [["Kurumsal sayfa","/kurumsal/"],["Başka bir şey"]]]; }
+  },
+  feedback: {
+    start(d){ flow = {id:"feedback", step:0, data:d || {}}; return next(); },
+    steps: [
+      { ask: d => d.branch ? null : ["Üzgünüm. <b>Hangi şubede</b> oldu?", B.slice(0,4).map(b => [b.n])], take: (d, t, raw) => { const b = findBranch(t); if (!b) return "Şube adını yazar mısınız?"; d.branch = b; } },
+      { ask: d => d.text ? null : ["<b>Ne oldu?</b> Kısaca anlatın; yazdıklarınız kayıt numarasıyla şube müdürüne ve kalite ekibine gider.", []], take: (d, t, raw) => { if (raw.length < 6) return "Biraz daha detay verebilir misiniz?"; d.text = raw; } },
+      { ask: () => ["Sizi arayalım mı? <b>Telefon</b> yazın ya da geçin.", [["Geç"]]], take: (d, t, raw) => { d.phone = has(t,"gec") ? "" : raw.replace(/\D/g,""); } },
+    ],
+    done(d){ const id = "K-" + Math.floor(10000 + Math.random() * 90000); store.set("feedback", Object.assign(d, {id})); stat("feedback_done");
+      return [`Kayıt <b>#${id}</b> açıldı: ${d.branch.n}. ${d.phone ? "Şube müdürü <b>1 saat içinde</b> arayacak." : "Yanıt uygulama bildirimi olarak gelecek."} Bir sonraki ziyaretinizde bir içecek bizden; uygulamanıza tanımlandı.`, [["Bir insanla konuş","insan"],["Başka bir şey"]]]; }
+  },
+  reserve: {
+    start(d){ flow = {id:"reserve", step:0, data:d || {}}; return next(); },
+    steps: [
+      { ask: d => d.ev ? null : ["Hangi etkinlik?", FLO_EVENTS.map(e => [e.h])], take: (d, t) => { const e = FLO_EVENTS.find(e => t.includes(norm(e.h).split(" ")[0])); if (!e) return "Etkinlik adını seçer misiniz?"; d.ev = e; } },
+      { ask: () => ["<b>Kaç kişi?</b>", [["1"],["2"],["3–4"],["5+"]]], take: (d, t, raw) => { d.people = raw; } },
+      { ask: () => ["<b>Telefon numaranız?</b> Hatırlatmayı oraya gönderelim.", []], take: (d, t) => { const digits = t.replace(/\D/g,""); if (digits.length < 10) return "05xx ile başlayan numara?"; d.phone = digits; } },
+    ],
+    done(d){ stat("reserve_done"); return [`Yeriniz ayrıldı: <b>${d.ev.h}</b>, ${d.ev.w}, ${esc(d.people)} kişi. Etkinlikten 3 saat önce hatırlatma gelir; Plus ve Premium üyelere öncelikli masa.`, [["Takvime ekle","/etkinlikler/"],["Başka bir şey"]]]; }
+  },
+};
+async function next(){
+  const F = FLOWS[flow.id];
+  while (flow.step < F.steps.length) { const q = F.steps[flow.step].ask(flow.data); if (q) return say(q[0], q[1]); flow.step++; }
+  const [txt, chips] = F.done(flow.data); flow = null; return say(txt, chips);
 }
-function openFlo(){ floEl.hidden = false; fab.setAttribute("aria-expanded","true"); if (!msgs.children.length){
-  const now = new Date(), ss = zhm(sunTimes(now, B[0].lat, B[0].lng).set, tzOf(B[0]));
-  bubble(`Merhaba! Ben <b>Flo</b>, Florida Coffee'nin tukanı. Bugün Kavacık'ta gün batımı <b>${ss}</b>. Şube, menü, sadakat ya da franchise — ne lazım?`, "in", DEFAULT_CHIPS);
-  const prev = store.get("lead"); if (prev) bubble(`Not: daha önce bir franchise ön başvurusu bırakmışsınız (${prev.city}, puan ${prev.score}). Ekibimiz iletişime geçecek.`, "sys"); }
-  setTimeout(() => floIn.focus(), 50); }
+async function flowStep(raw){
+  const t = norm(raw);
+  if (has(t,"vazgec","iptal","bosver","cikis")) { flow = null; return say("Tamam, iptal ettim. Başka ne yapabilirim?", defaultChips()); }
+  const F = FLOWS[flow.id]; const err = F.steps[flow.step].take(flow.data, t, raw.trim());
+  if (err) { flow.miss = (flow.miss || 0) + 1; return say(err, flow.miss >= 2 ? [["Vazgeç"]] : undefined); }
+  flow.step++; return next();
+}
+
+/* --- niyetler: anahtar kelime puanı, en yüksek kazanır --- */
+const defaultChips = () => [
+  mem.lastOrder ? ["Her zamanki · " + mem.lastOrder.drink, "her zamanki"] : ["Sipariş ver","sipariş"],
+  ["En yakın şube"], ["Ne içsem?","öner"], ["Franchise","franchise"], ["Bir insanla konuş","insan"]];
+const INTENTS = [
+ { id:"selam", kw:["merhaba","selam","hey","gunaydin","iyi aksamlar","naber","iyi gunler"], w:3,
+   reply:() => [`${greetWord()}${mem.name ? " " + mem.name : ""}! Ben <b>Flo</b>. Sipariş, şube, menü, sadakat, franchise, kariyer; ne lazımsa buradayım.`, defaultChips()] },
+ { id:"usual", kw:["her zamanki","yine ayni","ayni siparis","son siparis"], w:4,
+   reply:() => { const o = mem.lastOrder; if (!o) return ["Henüz kayıtlı bir siparişiniz yok; ilkini birlikte verelim mi?", [["Sipariş ver","sipariş"]]];
+     const p = MENU_ALL.find(x => x.n === o.drink), b = B.find(x => x.id === o.branch) || B[0]; return FLOWS.order.start({drink:p, size:SIZES[Object.keys(SIZES).find(k => fold(o.size).includes(k))], milk:MILKS[Object.keys(MILKS).find(k => fold(o.milk).includes(k))] || ["—",0], branch:b, when:o.when}), null; } },
+ { id:"order", kw:["siparis","on siparis","siparis ver","siparis: ","geldim","sira","beklemek"], w:4,
+   reply:t => { const m = t.match(/siparis sube (.+)/); if (m) return FLOWS.order.start({branch: findBranch(m[1]) || B[0]}), null;
+     const p = (t.includes("siparis") ? findProduct(t.replace(/^siparis\s*/, "")) : null) || pathProduct(); return FLOWS.order.start(p ? {drink:p} : {}), null; } },
+ { id:"oner", kw:["oner","ne icsem","ne icmeli","tavsiye","karar veremedim","onerir misin","hangisini","ne alsam"], w:3,
+   reply:t => { const [lead, list] = recommend(t); return [lead + list.map(p => productCard(p)).join(""), [["Sipariş ver","sipariş"],["Başka öner","öner tatlı"],["Menüye git","/menu/"]]]; } },
+ { id:"mood", kw:["uyan","uykusuz","yorgun","odaklan","ders calis","sicaktan","bunal","tatli bir sey","canim ceker","kafein az","gece kahve","serin"], w:2,
+   reply:t => INTENTS.find(i => i.id === "oner").reply(t) },
+ { id:"franchise", kw:["franchise","bayilik","bayi","yatirim","sube acmak","dukkan acmak","isletme acmak","ortak olmak","kendi sehrim"], w:3,
+   reply:() => ["Kendi şehrinizde bir Florida; kısa özet:\n• <b>3 km bölge koruması</b>, 10 yıl sözleşme\n• <b>45 gün eğitim</b>: 30 gün işletme + 15 gün barista\n• Merkezi tedarik, 40 gün vade · royalty %5 + KDV\n• Web, uygulama ve raporlama paneli dahil\n\n2 dakikada ön başvurunuzu alayım; ekibimiz 24 saat içinde arar.",
+     [["Başvuruyu başlat","lead"],["Yatırım ne kadar?","yatırım tutarı"],["Hangi şehirler açık?","açık şehirler"],["Franchise sayfası","/franchise/"]]] },
+ { id:"yatirim", kw:["yatirim tutari","ne kadar yatirim","maliyet","butce ne","kac para","giris bedeli","geri donus"], w:3,
+   reply:() => ["Kuruluş yatırımı konuma ve metrekareye göre değişir; büyükşehir caddesinde 100–120 m² için örnek hesap <b>3,5–4,5 M ₺</b>. Hesaplayıcı canlı tablo verir; kesin rakam keşif görüşmesinde.", [["Hesaplayıcı","/franchise/"],["Başvuruyu başlat","lead"]]] },
+ { id:"sehirler", kw:["acik sehir","hangi sehir","nereler acik","bolge","hangi iller"], w:3,
+   reply:() => ["Öncelikli bölgeler: <b>Eskişehir, Ankara Çayyolu, İzmir Alsancak, Antalya Lara, Trabzon, Konya</b>; yurt dışında Saraybosna ve Tiran. Mevcut 17 şubenin 3 km çevresi korumalı; çakışma kontrolü başvuruda otomatik.", [["Başvuruyu başlat","lead"],["Bölge kontrolü","/franchise/"]]] },
+ { id:"lead", kw:["lead","basvuruyu baslat","basvurmak istiyorum","kaydimi al","aramanizi istiyorum","on basvuru"], w:5, reply:() => (FLOWS.lead.start(), null) },
+ { id:"career", kw:["is basvurusu","barista olmak","calismak istiyorum","is ariyorum","kariyer","eleman","personel","staj","ise alim","is ilani","cv"], w:4, reply:() => (FLOWS.career.start(), null) },
+ { id:"egitim", kw:["egitim","barista egitimi","45 gun","sertifika"], w:2,
+   reply:() => ["Barista yolculuğu 45 gün: 15 gün akademi (doz, shot, süt dokusu, 5 adım), 30 gün şubede usta barista yanında. Sonunda sınav ve sertifika; sertifikalılar 6 ayda vardiya lideri olabilir.", [["Başvur","kariyer"],["Kariyer sayfası","/kariyer/"]]] },
+ { id:"corporate", kw:["kurumsal","ofis","toplu","etkinlik bari","catering","ikram","sirket","toplanti icin"], w:3, reply:() => (FLOWS.corporate.start(), null) },
+ { id:"sikayet", kw:["sikayet","sorun yasadim","kotu","berbat","soguk geldi","yanlis","bekledim","ilgilenmedi","rezalet","memnun degilim","iade","bozuk"], w:4, reply:() => (FLOWS.feedback.start(), null) },
+ { id:"ovgu", kw:["cok iyiydi","harikaydi","bayildim","tebrik","ellerine saglik","muhtesem"], w:3,
+   reply:() => ["Bunu duymak çok güzel; hangi şubeydi? Ekibe ileteyim, sizin adınıza bir teşekkür notu gitsin.", B.slice(0,4).map(b => [b.n, "övgü şube " + b.n])] },
+ { id:"ovgu2", kw:["ovgu sube"], w:5, reply:t => { const b = findBranch(t); stat("praise"); return [`${b ? b.n : "Şube"} ekibine iletildi. Google'da da paylaşırsanız ekibin primine yansıyor.`, [["Google'da değerlendir","https://www.google.com/maps/search/?api=1&query=Florida+Coffee"],["Başka bir şey"]]]; } },
+ { id:"insan", kw:["insan","yetkili","gercek biri","musteri hizmet","temsilci","canli destek","whatsapp","arayin beni"], w:4,
+   reply:() => ["Sizi bir insana aktarıyorum. WhatsApp'tan yazabilir ya da numaranızı bırakabilirsiniz; mesai içinde 1 saatte dönüş.", [["WhatsApp'tan yaz","https://wa.me/905000000000"],["Numaramı bırak","numaramı bırakacağım"],["Sorunumu anlatacağım","şikayet"]]] },
+ { id:"numara", kw:["numarami birakacagim"], w:5, reply:() => (FLOWS.feedback.start({branch: homeBranch(), text:"Geri arama talebi"}), null) },
+ { id:"yakin", kw:["en yakin","yakinimda","yakin sube","konum","neresi yakin","nerede siz"], w:3,
+   reply:() => { const b = homeBranch(); return [`Konum izni olmadan tahminim <b>${b.n}</b>:` + branchCard(b) + "Başka bir semt söyleyin, oradaki şubeyi göstereyim.", [["Kadıköy"],["Taksim"],["Sakarya"],["Tüm şubeler","/subeler/"]]]; } },
+ { id:"acik", kw:["acik mi","kacta acil","kaca kadar","saat kac","kapali mi","su an acik","gece acik","calisma saat"], w:3,
+   reply:t => { const b = findBranch(t); if (b) return [branchCard(b), [["Buradan sipariş","sipariş şube: " + b.n],["Başka şube"]]];
+     const o = openNow(); const late = B.filter(x => x.k >= 25).map(x => x.n).join(", "); return [`Şu an <b>${o.length}/${B.length}</b> şube açık. Gece 02:00'a kadar açık olanlar: <b>${late}</b>. Hangi şubeyi soruyorsunuz?`, [["Kavacık"],["Kadıköy"],["Taksim"],["Tüm şubeler","/subeler/"]]]; } },
+ { id:"sube", kw:["sube","subeler","subeniz","nerede","adres"], w:2,
+   reply:t => { const b = findBranch(t); if (b) return [branchCard(b), [["Buradan sipariş","sipariş şube: " + b.n],["Yol tarifi","yol tarifi " + b.n],["Başka şube"]]];
+     return [`${B.length} şube, iki ülke: ${B.map(x => x.n).join(", ")}. Hangisi?`, [["Kavacık"],["Kadıköy"],["Budva"],["Harita","/subeler/"]]]; } },
+ { id:"yol", kw:["yol tarifi","nasil giderim","harita","navigasyon"], w:4,
+   reply:t => { const b = findBranch(t) || homeBranch(); return [`<b>${b.n}</b> için yol tarifi hazır.`, [["Google Maps'te aç", `https://www.google.com/maps/search/?api=1&query=${b.lat},${b.lng}`],["Şube sayfası", `/subeler/${b.id}/`]]]; } },
+ { id:"manzara", kw:["manzara","bogaz","teras","gun batimi","gunbatimi","deniz"], w:3,
+   reply:() => { const now = new Date(); const v = B.filter(b => b.f.includes("manzara")).map(b => `• <b>${b.n}</b> — gün batımı ${sunsetOf(b)}${isOpen(b, now) ? "" : " (şu an kapalı)"}`).join("\n");
+     return [`Manzaralı şubeler ve bugünkü gün batımı:\n${v}\n\nPremium üyeler gün batımı için masa ayırabilir.`, [["Kavacık'ı göster","kavacık"],["Masa ayır","yer ayır"],["Kulüp seviyeleri","sadakat"]]]; } },
+ { id:"fiyat", kw:["fiyat","kac lira","ne kadar","menu","icecek","kahve cesit","kalori","kac kalori","kafein","alerjen","icinde ne var"], w:2,
+   reply:t => { const p = findProduct(t); if (p) return [productCard(p, "Süt: inek dahil, laktozsuz +10 ₺, yulaf/badem +15 ₺. Boy: küçük −15, büyük +20 ₺."), [["Sipariş ver","sipariş: " + p.n],["Benzer öner","öner"],["Menü","/menu/"]]];
+     return ["Menüde 4 kategori: sıcak kahveler (95–150 ₺), soğuk kahveler (125–185 ₺), kahve dışı ve yiyecek. Ürün adı söyleyin; fiyat, kalori ve alerjeni göstereyim.", [["Flat White"],["Cold Brew"],["San Sebastian"],["Menüye git","/menu/"]]]; } },
+ { id:"hafif", kw:["hafif","diyet","sekersiz","vegan","laktoz","sutsuz","gluten","kafeinsiz","az kafein","dusuk kalori"], w:3,
+   reply:t => { let list = MENU_ALL; if (has(t,"vegan")) list = list.filter(x => x.tags.includes("vegan")); else if (has(t,"kafeinsiz","az kafein")) list = list.filter(x => cafOf(x.tags) < 80); else if (has(t,"gluten")) list = list.filter(x => x.tags.includes("glütensiz")); else if (has(t,"laktoz","sutsuz")) list = list.filter(x => x.tags.includes("sütsüz")); else list = list.filter(x => kcalOf(x.tags) < 100);
+     return [(has(t,"laktoz","sutsuz") ? "Laktozsuz, yulaf ve badem sütü her şubede (+10 / +15 ₺); tercihiniz profile kaydedilir. Sütsüz içilenler:" : "Size uyanlar:") + list.slice(0,3).map(p => productCard(p)).join("") + (list.length > 3 ? `<small>+${list.length - 3} ürün daha menüde filtrelenebilir.</small>` : ""), [["Menüde filtrele","/menu/"],["Sipariş ver","sipariş"]]]; } },
+ { id:"standart", kw:["standart","ayni","kalite","doz","gram","shot","sut sicakligi","bar","kavurma","cekirdek","nereden","neden tartilir","14 g"], w:2,
+   reply:() => ["Her şubede aynı fincan; reçete kişisel yoruma açık değil:\n• Doz <b>14 g</b> double shot, tartıyla (1 g sapma shot'ı 2–3 sn kaydırır)\n• Su <b>90–96 °C</b>, basınç <b>9 bar</b>\n• Shot <b>18–23 sn</b>, çıktı 30–60 g\n• Süt <b>60–65 °C</b> mikro köpük\nHarman: Etiyopya Yirgacheffe %60, Brezilya Cerrado %40, orta kavurma.", [["5 adım nedir?","beş adım"],["Shot simülatörü","/kahvemiz/"],["Bu standartla ne içsem?","öner uyan"]]] },
+ { id:"besadim", kw:["bes adim","5 adim"], w:4,
+   reply:() => ["Shot öncesi zorunlu 5 adım:\n1. Grup başlığı flush, 2–3 sn su\n2. Portafiltre temiz, sepet kuru\n3. Gramaj tartılır, 14 g\n4. Tamp: eşit basınç, düz yüzey\n5. Süre: kronometre, 18–23 sn\nBirini atlamak zincir standardına aykırı.", [["Kahvemiz sayfası","/kahvemiz/"],["Sipariş ver","sipariş"]]] },
+ { id:"sadakat", kw:["sadakat","kart","puan","cekirdek kazan","kulup","club","seviye","premium","plus","damga","ucretsiz kahve","bedava","floridadays"], w:2,
+   reply:() => ["<b>FloridaDays Club</b>:\n• 1 ₺ = 1 çekirdek, 10 içecekte biri bizden\n• Seviye son 6 ay harcamayla: Classic, Plus (2.500 ₺+), Premium (7.500 ₺+)\n• Plus: ayda 2 boy yükseltme · Premium: ücretsiz ekstra shot, gün batımı masası\n• Ödeme + puan tek QR", [["Kartımı aktar","kart aktar"],["Ne kadar kazanırım?","hesapla"],["Kulüp sayfası","/kulup/"]]] },
+ { id:"hesapla", kw:["hesapla","ne kadar kazanirim","kac cekirdek","haftada"], w:3,
+   reply:t => { const w = parseInt((t.match(/(\d+)/) || [])[1]) || 5; const yearly = w * 52 * 150; const tier = yearly / 2 >= 7500 ? "Premium" : yearly / 2 >= 2500 ? "Plus" : "Classic";
+     return [`Haftada ${w} kahve (ortalama 150 ₺) ile yılda <b>${yearly.toLocaleString("tr-TR")} çekirdek</b>, <b>${Math.floor(w * 52 / 10)} hediye içecek</b> ve <b>${tier}</b> seviyesi. Farklı bir sayı yazın, yeniden hesaplayayım.`, [["Haftada 3","hesapla 3"],["Haftada 10","hesapla 10"],["Hesaplayıcı","/kulup/"]]]; } },
+ { id:"kartaktar", kw:["kart aktar","aktar","tasi","fiziksel kart","damgalarim"], w:4,
+   reply:() => (pending = {yes: () => say("1/3 · Uygulamada <b>Kart</b> sekmesine girin.", [["Sonraki","aktar 2"]]) },
+     ["Fiziksel kartınızı 3 adımda uygulamaya taşıyalım; damgalar ve bakiye anında geçer. Başlayalım mı?", [["Evet, başlayalım","evet"],["Uygulamayı indir","/uygulama/"]]]) },
+ { id:"aktar2", kw:["aktar 2"], w:6, reply:() => ["2/3 · <b>Kartımı tara</b>'ya dokunun, karttaki kodu kameraya gösterin.", [["Sonraki","aktar 3"]]] },
+ { id:"aktar3", kw:["aktar 3"], w:6, reply:() => ["3/3 · Damgalar ve bakiye hesabınıza yazıldı; kart da çalışmaya devam eder. Aktarımı tamamlayanlara <b>ilk sipariş küçük boy kahve bizden</b>.", [["Sipariş ver","sipariş"],["Kulüp sayfası","/kulup/"]]] },
+ { id:"etkinlik", kw:["etkinlik","akustik","cupping","konser","muzik","atolye","latte art","program"], w:3,
+   reply:() => ["Bu hafta:\n" + FLO_EVENTS.map(e => `• <b>${e.h}</b> — ${e.w}`).join("\n"), [["Yer ayır","yer ayır"],["Etkinlik takvimi","/etkinlikler/"]]] },
+ { id:"reserve", kw:["yer ayir","rezervasyon","masa ayir","masa istiyorum","kayit ol"], w:4, reply:() => (FLOWS.reserve.start(), null) },
+ { id:"urun", kw:["satin","eve","paket","termos","hediye karti","hediye","urun","kapsul","kargo","harman","cekirdek al"], w:2,
+   reply:() => ["Eve götürebilecekleriniz: <b>Sonbahar Harmanı 250 g</b> (420 ₺), <b>Ev Espresso Seti</b> (1.150 ₺), <b>Florida Termos</b> (650 ₺; kendi bardağınızla %10 indirim), <b>dijital hediye kartı</b> (250–2.000 ₺). Uygulamadan ön sipariş, şubeden teslim; kargo yakında.", [["Ürünler","/urunler/"],["Hediye gönder","/urunler/hediye-karti/"]]] },
+ { id:"yeni", kw:["yeni","haber","yenilik","kampanya","indirim","acilis","olu saat"], w:2,
+   reply:() => { const late = hourNow() >= 14 && hourNow() < 16; return [`${late ? "<b>Şu an ölü saat kampanyası aktif:</b> yoğunluğu düşük şubelerde soğuk kahveler %20 indirimli.\n" : ""}Taze olanlar: Sakarya'da yeni adres, Boğaz Cold Brew sezonu, kart → uygulama kampanyası (ilk kahve bizden), hafta içi 14–16 soğuk kahvelerde %20.`, [["Haberler","/taze/"],["Sipariş ver","sipariş"]]]; } },
+ { id:"uygulama", kw:["uygulama","app","indir","ios","android","telefonuma"], w:2,
+   reply:() => ["Uygulama iOS ve Android'de: ön sipariş, \"Geldim\", cüzdan, sadakat, kampanyalar. Kurulum bir dakika; kartını aktaran herkese ilk sipariş küçük boy kahve bizden.", [["Uygulama sayfası","/uygulama/"],["Tarayıcıda dene","/app/"]]] },
+ { id:"iletisim", kw:["iletisim","telefon","mail","e posta","merkez","genel mudurluk","basin","is birligi","sponsor"], w:2,
+   reply:() => ["Merkez: Çengelköy Mah. Görgeç Sok. No:6, Üsküdar / İstanbul · merhaba@floridacoffee.com.tr · +90 216 000 00 00. Şube telefonları şube sayfalarında; basın ve iş birliği için iletişim formu.", [["İletişim sayfası","/iletisim/"],["Bir insanla konuş","insan"]]] },
+ { id:"kim", kw:["kimsin","nesin","sen kim","flo","tukan","adin ne","robot"], w:2,
+   reply:() => ["Ben Flo, logodaki tukan. Şubeleri, menüyü, standartları ve kampanyaları bilirim; sipariş alır, franchise ve iş başvurusu açar, şikâyeti kayda geçirir, gerektiğinde bir insana aktarırım. Canlıda Claude API ile konuşuyorum; burada kural tabanlı demo.", defaultChips()] },
+ { id:"isim", kw:["benim adim","adim"], w:3,
+   reply:(t, raw) => { const m = raw.match(/(?:benim adım|adım)\s+([A-Za-zÇĞİÖŞÜçğıöşü]{2,})/i); if (!m) return ["Adınızı nasıl yazayım?", []]; mem.name = m[1][0].toUpperCase() + m[1].slice(1); remember(); return [`Memnun oldum, ${mem.name}. Bir dahaki sefere adınla karşılarım.`, defaultChips()]; } },
+ { id:"tesekkur", kw:["tesekkur","sagol","eyvallah","super","harika","tamamdir","iyi bayram"], w:2,
+   reply:() => ["Ben teşekkür ederim. Mutluluğun tadıyla kalın ☕", defaultChips()] },
+ { id:"evet", kw:["evet","olur","tamam","hadi","baslayalim","istiyorum","aynen"], w:1,
+   reply:() => { if (pending) { const p = pending; pending = null; p.yes(); return null; } return ["Neye evet dediğinizi anlayamadım; şunlardan biriyle devam edelim mi?", defaultChips()]; } },
+ { id:"hayir", kw:["hayir","yok","istemiyorum","gerek yok","kalsin"], w:1,
+   reply:() => { pending = null; return ["Tamam. Başka bir şey?", defaultChips()]; } },
+ { id:"baska", kw:["baska bir sey","baska","menu basa","ana menu"], w:1, reply:() => ["Buyurun, ne lazım?", defaultChips()] },
+];
+const EN_WORDS = ["where","menu","price","open","hours","franchise","how","what","order","nearest","location","thanks","hello","hi "];
+function matchIntent(t){
+  let best = null, bestScore = 0;
+  for (const it of INTENTS) { let s = 0; for (const k of it.kw) if (hit(t, k)) s += it.w + k.length / 8; if (s > bestScore) { best = it; bestScore = s; } }
+  return bestScore >= 1.5 ? best : null;
+}
+const STOP = new Set(["var","mi","mu","ne","bir","icin","nasil","nerede","ile","den","dan","olur","misiniz","misin","bana","ben","siz","ama","her","cok","daha"]);
+function faqLookup(t){
+  let best = null, bs = 0; const words = t.split(" ").filter(w => w.length > 2 && !STOP.has(w));
+  for (const [k, a] of FAQ) { const s = words.filter(w => k.includes(w)).length; if (s > bs) { bs = s; best = a; } }
+  return bs >= 1 ? best : null;
+}
+async function userSays(text){
+  const raw = String(text).trim(); if (!raw) return;
+  if (raw.startsWith("#")){ closeFlo(); document.querySelector(raw)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); return; }
+  if (raw.startsWith("/") || raw.startsWith("http")){ location.href = raw; return; }
+  bubble(esc(raw), "out"); floIn.value = "";
+  const t = norm(raw);
+  if (flow) return flowStep(raw);
+  if (EN_WORDS.some(w => t.includes(w)) && !has(t,"sube","menu ve")) { stat("en"); return say("I can help in English too: 17 locations in Türkiye and Montenegro, same recipe everywhere (14 g dose, 18–23 s shot). Locations, menu and the app are on the English page.", [["English page","/en/"],["Nearest location","en yakın"],["Menu","/menu/"]]); }
+  const p = findProduct(t), b = findBranch(t);
+  const it = matchIntent(t);
+  if (it) { stat(it.id); const r = it.reply(t, raw); if (r === null || r === undefined) return; return say(r[0], r[1]); }
+  if (p) { stat("product"); return say(productCard(p, "Süt: inek dahil, laktozsuz +10 ₺, yulaf/badem +15 ₺."), [["Sipariş ver","sipariş: " + p.n],["Benzer öner","öner"]]); }
+  if (b) { stat("branch"); return say(branchCard(b), [["Buradan sipariş","sipariş şube: " + b.n],["Başka şube"]]); }
+  const f = faqLookup(t); if (f) { stat("faq"); return say(f, defaultChips()); }
+  stat("fallback");
+  return say("Bunu tam anlayamadım. Şunlardan biri mi?", [["Sipariş ver","sipariş"],["En yakın şube"],["Ne içsem?","öner"],["Franchise","franchise"],["Bir insanla konuş","insan"]]);
+}
+
+/* --- panel, rozet, favicon --- */
+function paintCtx(){ if (!floCtx) return; const b = homeBranch(), open = isOpen(b, new Date()); floCtx.innerHTML = `<span class="dot-s ${open ? "g" : "r"}"></span>${b.n} · ${open ? "açık" : "kapalı"} · gün batımı ${sunsetOf(b)}`; }
+function greet(){
+  const b = homeBranch(), dp = daypart(); mem.visits++; remember(); paintCtx();
+  const hello = mem.name ? `${greetWord()}, ${mem.name}!` : `${greetWord()}! Ben <b>Flo</b>, Florida Coffee'nin tukanı.`;
+  const line = dp === "sabah" ? `Sıra beklemeden kahve için sipariş alabilirim; ${b.n} ${isOpen(b, new Date()) ? "açık" : "birazdan açılıyor"}.` : dp === "aksam" ? `${b.n}'ta gün batımı <b>${sunsetOf(b)}</b>; manzaralı masa ister misiniz?` : dp === "gece" ? "Gece 02:00'a kadar açık şubelerimiz var; kafeinsiz filtre aynı fiyat." : `Şu an ${openNow().length} şube açık. Ne lazım?`;
+  bubble(`${hello} ${line}`, "in", defaultChips());
+  const lead = store.get("lead"); if (lead && !mem.seen.includes("lead")) { bubble(`Not: franchise ön başvurunuz kayıtlı (${esc(lead.city)}, puan ${lead.score}). Ekibimiz arayacak.`, "sys"); mem.seen.push("lead"); remember(); }
+}
+function openFlo(){ floEl.hidden = false; fab.setAttribute("aria-expanded","true"); floHint.classList.remove("on"); badge(false); if (!msgs.children.length) greet(); setTimeout(() => floIn.focus(), 50); }
 function closeFlo(){ floEl.hidden = true; fab.setAttribute("aria-expanded","false"); }
 fab.addEventListener("click", () => floEl.hidden ? openFlo() : closeFlo());
 document.getElementById("floClose").addEventListener("click", closeFlo);
 document.getElementById("floForm").addEventListener("submit", e => { e.preventDefault(); userSays(floIn.value); });
 addEventListener("keydown", e => { if (e.key === "Escape" && !floEl.hidden) closeFlo(); });
+function badge(on){ fab.classList.toggle("has-new", !!on); setFavicon(false, !!on); }
+/* favicon: başlıktaki tukan, göz kırpar; yeni mesajda amber nokta */
+const favLink = (() => { let l = document.querySelector('link[rel="icon"]'); if (!l) { l = document.createElement("link"); l.rel = "icon"; document.head.appendChild(l); } l.type = "image/svg+xml"; return l; })();
+function favSVG(closed, dot){ return "data:image/svg+xml," + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#004854"/><g transform="translate(10 10) scale(.8)"><circle cx="50" cy="50" r="38.3" fill="none" stroke="#EDE6D8" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="#F09C1C"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="#D44808"/>${closed ? '<rect x="55" y="39.5" width="13" height="2.6" rx="1.3" fill="#004854"/>' : '<circle cx="61.6" cy="40.8" r="6" fill="#004854"/>'}</g>${dot ? '<circle cx="84" cy="16" r="11" fill="#F09C1C" stroke="#004854" stroke-width="4"/>' : ""}</svg>`); }
+let favDot = false;
+function setFavicon(closed, dot){ if (dot !== undefined) favDot = dot; favLink.href = favSVG(closed, favDot); }
+setFavicon(false, false);
+if (!reduce) setInterval(() => { if (document.hidden) return; setFavicon(true); setTimeout(() => setFavicon(false), 140); }, 6000 + Math.random() * 3000);
+/* fab: göz, ipucu gösterilince ona bakar */
+const fabEye = fab.querySelector(".eyeg");
+function glance(x, y, ms){ if (!fabEye || reduce) return; fabEye.style.setProperty("--ex", x); fabEye.style.setProperty("--ey", y); setTimeout(() => { fabEye.style.setProperty("--ex", 0); fabEye.style.setProperty("--ey", 0); }, ms || 1400); }
+if (!reduce) setInterval(() => { if (!document.hidden && Math.random() < .5) glance((Math.random() * 6 - 3).toFixed(1), (Math.random() * 3 - 1.5).toFixed(1), 900); }, 5000);
 
 
-/* bölüm bazlı ipucu balonu: hikâyenin anlatıcısı Flo */
-const HINTS = { safak:"Günaydın! Gün batımı {ss}. Sor bana.", sabah:"Sıra beklemeden nasıl olur, anlatayım mı?", kahvemiz:"14 g neden tartılır? Sor.", taze:"Sakarya'da yeni adres var. Detay?", secim:"Karar veremedin mi? Bana söyle.", menu:"Kalori ve alerjen sorabilirsin.", urunler:"Harmanı eve götürmek ister misin?", subeler:"Sana en yakın şubeyi söyleyeyim.", kulup:"Kartını uygulamaya aktarmayı anlatayım.", gece:"Perşembe Kavacık'ta akustik var.", franchise:"Kendi şehrinde Florida? 2 dakikada başvuru.", basvuru:"Franchise başvurusu için buradayım." };
-let lastHint = "", hintTimer;
-function showHint(id){ if (id === lastHint || !floEl.hidden) return; lastHint = id; const ss = zhm(sunTimes(new Date(), B[0].lat, B[0].lng).set, tzOf(B[0]));
-  floHint.textContent = (HINTS[id] || HINTS.safak).replace("{ss}", ss); floHint.classList.add("on"); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 5200); }
+/* bölüm bazlı ipucu balonu: hikâyenin anlatıcısı Flo · tıklanınca o soruyu yanıtlar */
+const HINTS = {
+  safak:    {t:"{selam} Gün batımı {ss}. Sıra beklemeden kahve ister misin?", s:"sipariş"},
+  sabah:    {t:"Sıra beklemeden nasıl olur? Siparişi ben alayım.", s:"sipariş"},
+  kahvemiz: {t:"14 g neden tartılır? Anlatayım.", s:"14 g neden tartılır"},
+  taze:     {t:"Sakarya'da yeni adres var; kampanyaları da söyleyeyim.", s:"yenilikler"},
+  secim:    {t:"Karar veremedin mi? Nasıl hissettiğini söyle, ben seçeyim.", s:"ne içsem"},
+  menu:     {t:"Kalori, kafein, alerjen; hangi ürünü soruyorsun?", s:"menü ve fiyatlar"},
+  urunler:  {t:"Harmanı eve götürmek ister misin?", s:"eve götür"},
+  subeler:  {t:"Sana en yakın şubeyi söyleyeyim mi?", s:"en yakın şube"},
+  kulup:    {t:"Kartını uygulamaya aktarmayı anlatayım.", s:"kart aktar"},
+  gece:     {t:"Perşembe Kavacık'ta akustik var; yer ayırayım mı?", s:"etkinlikler"},
+  franchise:{t:"Kendi şehrinde Florida? 2 dakikada ön başvuru.", s:"franchise"},
+  basvuru:  {t:"Franchise başvurusu için buradayım.", s:"franchise"},
+  kariyer:  {t:"Barista olmak deneyim istemez; ön kaydını 1 dakikada alayım.", s:"kariyer"},
+  kurumsal: {t:"Ofis ikramı mı, etkinlik barı mı? Teklif 1 iş günü.", s:"kurumsal"},
+  iletisim: {t:"Bir insanla konuşmak istersen aktarırım.", s:"bir insanla konuş"},
+  sss:      {t:"Soruyu bana yaz, SSS'de aramana gerek yok.", s:"laktozsuz süt var mı"},
+  uygulama: {t:"Uygulamada neler var, göstereyim mi?", s:"uygulama"},
+  app:      {t:"Demo siparişi birlikte verelim mi?", s:"sipariş"},
+  etkinlikler:{t:"Bu haftanın programı bende; yer ayırayım mı?", s:"etkinlikler"},
+  product:  {t:"{p} hakkında ne sormak istersin? Fiyat, kalori, süt.", s:"{p}"},
+  branch:   {t:"{b} şu an {open}. Buradan sipariş vereyim mi?", s:"sipariş şube: {b}"},
+};
+function pageHint(){
+  const m = PATH.match(/\/menu\/([a-z0-9-]+)\//); if (m) { const p = MENU_ALL.find(x => x.slug === m[1]); if (p) return Object.assign({}, HINTS.product, {t: HINTS.product.t.replace("{p}", p.n), s: p.n}); }
+  const mb = PATH.match(/\/subeler\/([a-z0-9-]+)\//); if (mb) { const b = B.find(x => x.id === mb[1]); if (b) return {t: HINTS.branch.t.replace("{b}", b.n).replace("{open}", isOpen(b, new Date()) ? "açık" : "kapalı"), s: HINTS.branch.s.replace("{b}", b.n)}; }
+  const seg = PATH.split("/").filter(Boolean); const key = seg.find(x => HINTS[x] && x !== "basvuru") || (seg.includes("basvuru") ? "franchise" : null);
+  return HINTS[key] || HINTS[PAGE] || HINTS.safak;
+}
+let lastHint = "", hintTimer, hintSend = "";
+function showHint(id){ if (id === lastHint || !floEl.hidden) return; lastHint = id; ctxSection = id;
+  const h = document.body.dataset.page ? pageHint() : (HINTS[id] || HINTS.safak);
+  const ss = sunsetOf(homeBranch()); hintSend = h.s;
+  floHint.textContent = h.t.replace("{ss}", ss).replace("{selam}", mem.name ? `${greetWord()} ${mem.name}!` : `${greetWord()}!`);
+  floHint.classList.add("on"); glance(-4, 0, 1600); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 6500); }
+floHint.addEventListener("click", e => { e.stopPropagation(); floHint.classList.remove("on"); openFlo(); if (hintSend) userSays(hintSend); });
 
 showHint(document.body.dataset.page || "safak");
