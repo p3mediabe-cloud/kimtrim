@@ -92,6 +92,17 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
+// hero: iki klip, sonda çapraz geçiş — tek klibin başa sarması göze batıyordu
+document.querySelectorAll(".ph").forEach(fig => {
+  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
+  const FADE = 1.4; let cur = 0; v[1].classList.add("out");
+  v.forEach((el, i) => el.addEventListener("timeupdate", () => {
+    if (i !== cur || !el.duration || el.currentTime < el.duration - FADE || el.dataset.sw) return;
+    el.dataset.sw = "1"; const n = v[1 - i]; n.currentTime = 0; cur = 1 - i;
+    n.play().then(() => { n.classList.remove("out"); el.classList.add("out"); }).catch(() => { el.currentTime = 0; el.play(); cur = i; delete el.dataset.sw; });
+    setTimeout(() => { el.pause(); delete el.dataset.sw; }, FADE * 1000 + 100);
+  }));
+});
 /* ---------- /logo canlandırma ---------- */
 
 /* ---------- logo canlandırma ---------- */
@@ -121,6 +132,17 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
+// hero: iki klip, sonda çapraz geçiş — tek klibin başa sarması göze batıyordu
+document.querySelectorAll(".ph").forEach(fig => {
+  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
+  const FADE = 1.4; let cur = 0; v[1].classList.add("out");
+  v.forEach((el, i) => el.addEventListener("timeupdate", () => {
+    if (i !== cur || !el.duration || el.currentTime < el.duration - FADE || el.dataset.sw) return;
+    el.dataset.sw = "1"; const n = v[1 - i]; n.currentTime = 0; cur = 1 - i;
+    n.play().then(() => { n.classList.remove("out"); el.classList.add("out"); }).catch(() => { el.currentTime = 0; el.play(); cur = i; delete el.dataset.sw; });
+    setTimeout(() => { el.pause(); delete el.dataset.sw; }, FADE * 1000 + 100);
+  }));
+});
 
 const MENU = {
   sicak: [

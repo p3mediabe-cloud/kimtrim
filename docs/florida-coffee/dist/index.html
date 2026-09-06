@@ -172,7 +172,8 @@ h2 + .lede{margin-top:1.3rem}
 .heromark{width:clamp(3.6rem,6vw,5.2rem);margin-bottom:clamp(.9rem,2.5vh,1.6rem);color:var(--ink);filter:drop-shadow(0 10px 30px rgba(0,0,0,.35))}
 .heromark .mark{animation:lg-float 7s ease-in-out 2s infinite}
 @keyframes lg-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
-.ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:opacity 1.4s ease}
+.ph video.out{opacity:0}
 .ph video.vert{object-fit:contain;backdrop-filter:blur(14px) brightness(.55)}
 @media (prefers-reduced-motion:reduce){.ph video{display:none}.heromark .mark{animation:none}}
 .hero{min-height:min(92vh,58rem);position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
@@ -542,7 +543,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
-  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted loop playsinline preload="auto" data-vid="hero"><source src="video/hero.mp4" type="video/mp4"></video></figure>
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero"><source src="video/hero.mp4" type="video/mp4"></video><video class="vid" muted playsinline preload="auto" data-vid="hero2"><source src="video/hero2.mp4" type="video/mp4"></video></figure>
   <div class="inner">
     <div class="heromark" aria-hidden="true"><svg class="mark anim big" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></div>
     <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
@@ -1090,6 +1091,17 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
+// hero: iki klip, sonda çapraz geçiş — tek klibin başa sarması göze batıyordu
+document.querySelectorAll(".ph").forEach(fig => {
+  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
+  const FADE = 1.4; let cur = 0; v[1].classList.add("out");
+  v.forEach((el, i) => el.addEventListener("timeupdate", () => {
+    if (i !== cur || !el.duration || el.currentTime < el.duration - FADE || el.dataset.sw) return;
+    el.dataset.sw = "1"; const n = v[1 - i]; n.currentTime = 0; cur = 1 - i;
+    n.play().then(() => { n.classList.remove("out"); el.classList.add("out"); }).catch(() => { el.currentTime = 0; el.play(); cur = i; delete el.dataset.sw; });
+    setTimeout(() => { el.pause(); delete el.dataset.sw; }, FADE * 1000 + 100);
+  }));
+});
 /* ---------- /logo canlandırma ---------- */
 /* ---------------- live card + clock ---------------- */
 const nearest = B[0];
