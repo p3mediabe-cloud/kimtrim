@@ -21,7 +21,7 @@ def rebase(txt):
     if not BASEPATH: return txt
     return re.sub(r'(href|src)="/(?!/)', rf'\1="{BASEPATH}/', txt)
 _SRC_DIST = os.path.join(BASE, "dist")
-for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST, "img", "brand")), (os.path.join(BASE, "demo-site", "video"), os.path.join(DIST, "video")), (os.path.join(BASE, "demo-site", "img", "menu"), os.path.join(DIST, "img", "menu"))):
+for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST, "img", "brand")), (os.path.join(BASE, "demo-site", "video"), os.path.join(DIST, "video")), (os.path.join(BASE, "demo-site", "img", "menu"), os.path.join(DIST, "img", "menu")), (os.path.join(BASE, "demo-site", "img", "subeler"), os.path.join(DIST, "img", "subeler"))):
     if os.path.isdir(_src): shutil.copytree(_src, _dst, dirs_exist_ok=True)
 if DIST != os.path.abspath(_SRC_DIST):
     for d in ("img", "app", "platform", "sunum"):
@@ -115,6 +115,107 @@ JOBS = [
 
 # ---------- şablon ----------
 NAV = [("Menü","/menu/"),("Şubeler","/subeler/"),("Kahvemiz","/kahvemiz/"),("Taze","/taze/"),("Ürünler","/urunler/"),("Kulüp","/kulup/"),("Franchise","/franchise/")]
+EXTRA_CSS = r'''
+/* ---------- menü: ürün ızgarası ---------- */
+.mbar{position:sticky;top:3.3rem;z-index:30;background:rgba(237,230,216,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);padding:.7rem 0}
+.mbar .wrap{display:flex;flex-direction:column;gap:.55rem;align-items:center}
+.mbar .row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+.mbar .search{width:min(100%,22rem);border:1px solid var(--paper-line);background:#fff;padding:.5rem .8rem;font:inherit;color:var(--paper-ink)}
+.mcat.sm{padding:.35rem .75rem;font-size:.78rem}
+.msec{padding:clamp(2rem,5vh,3.5rem) 0 0}
+.msec .mhead{text-align:center;margin-bottom:1.4rem}
+.msec .mhead h2{font-size:clamp(1.5rem,3vw,2.2rem)}
+.msec .mhead p{margin:.3rem auto 0;color:var(--paper-ink-2);font-size:.9rem;max-width:52ch}
+.msec[hidden]{display:none}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,13.5rem),1fr));gap:1px;background:var(--paper-line);border:1px solid var(--paper-line)}
+.pcard{background:#FBF8F2;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:background .2s}
+.pcard:hover{background:#fff}
+.pcard[hidden]{display:none}
+.pcard .pimg{aspect-ratio:1/1;overflow:hidden;background:var(--paper-line);position:relative}
+.pcard .pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.pcard:hover .pimg img{transform:scale(1.04)}
+.pcard .pimg .pph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-size:3rem;font-weight:800;color:var(--amber)}
+.pcard .pbody{padding:.9rem 1rem 1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.pcard .prow{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline}
+.pcard h3{font-size:1.02rem;letter-spacing:-.01em}
+.pcard .pp{font-family:var(--disp);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pcard .pd{font-size:.82rem;color:var(--paper-ink-2);margin:0}
+.pcard .ptags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:auto;padding-top:.4rem}
+.mnote{text-align:center;color:var(--paper-ink-2);font-size:.82rem;margin:1.2rem auto 0;max-width:60ch}
+.mempty{text-align:center;padding:2.5rem 1rem;color:var(--paper-ink-2)}
+.mempty[hidden]{display:none}
+@media (max-width:640px){.pgrid{grid-template-columns:1fr 1fr}.pcard .pbody{padding:.6rem .7rem .8rem;gap:.25rem}.pcard h3{font-size:.9rem}.pcard .pd{font-size:.74rem}.pcard .pp{font-size:.9rem}.pcard .ptags .tg{font-size:.6rem}}
+/* ---------- ürün detay ---------- */
+.pdp{padding:clamp(1.2rem,3vh,2rem) 0 clamp(3rem,7vh,5rem)}
+.pdp .crumbs{justify-content:center;margin-bottom:1.4rem}
+.pdp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+@media (max-width:860px){.pdp-grid{grid-template-columns:1fr}}
+.pdp-media{position:sticky;top:4.2rem}
+.pdp-media .big{aspect-ratio:1/1;overflow:hidden;background:var(--paper-line);border:1px solid var(--paper-line)}
+.pdp-media .big img{width:100%;height:100%;object-fit:cover;display:block}
+.pdp-media .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-top:0}
+.pdp-media .mini div{background:#FBF8F2;padding:.7rem .5rem;text-align:center}
+.pdp-media .mini b{display:block;font-family:var(--disp);font-size:1.05rem}
+.pdp-media .mini span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink-2)}
+.pdp-info .eyebrow{color:var(--rust)}
+.pdp-info h1{font-size:clamp(2rem,4.5vw,3.4rem)}
+.pdp-info .lede{margin-top:.6rem}
+.pdp .price{display:flex;align-items:baseline;gap:.7rem;margin:1.2rem 0 .3rem}
+.pdp .price b{font-family:var(--disp);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pdp .price span{color:var(--paper-ink-2);font-size:.85rem}
+.opt{margin-top:1rem}
+.opt .lbl{margin-bottom:.45rem}
+.opt .pills{display:flex;gap:.4rem;flex-wrap:wrap}
+.opt .pill{border:1px solid var(--paper-line);background:#fff;padding:.45rem .8rem;font-size:.85rem;font-weight:600;color:var(--paper-ink-2);cursor:pointer;font-family:var(--ui)}
+.opt .pill[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
+.opt .pill small{font-weight:500;opacity:.8}
+.pdp .cta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);margin-top:1.6rem}
+.facts div{background:#FBF8F2;padding:.85rem 1rem}
+.facts .l{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-ink-2);font-weight:700;font-family:var(--disp)}
+.facts .v{margin-top:.2rem;font-weight:600}
+.howto{margin-top:1.6rem;border-left:3px solid var(--amber);padding:.2rem 0 .2rem 1rem;color:var(--paper-ink-2);font-size:.92rem}
+.howto b{color:var(--paper-ink)}
+.pair{padding:0 0 clamp(3rem,7vh,5rem)}
+.pair h2{text-align:center;font-size:clamp(1.4rem,2.6vw,2rem);margin-bottom:1.2rem}
+.pair .sub{text-align:center;color:var(--paper-ink-2);margin:-.8rem auto 1.4rem;font-size:.9rem}
+/* ---------- şube kartı fotoğrafı ---------- */
+.cell .bimg{margin:-1.1rem -1.2rem .5rem;aspect-ratio:16/9;overflow:hidden;background:var(--hair)}
+.cell .bimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.cell:hover .bimg img{transform:scale(1.04)}
+.bphoto{aspect-ratio:16/9;overflow:hidden;border:1px solid var(--hair);margin-bottom:1.2rem}
+.bphoto img{width:100%;height:100%;object-fit:cover;display:block}
+'''
+EXTRA_JS = r'''
+/* menü: filtre + arama (statik kartlar) */
+(() => {
+  const cards = [...document.querySelectorAll(".pcard")]; if (!cards.length) return;
+  let diet = "", q = "";
+  const nrm = t => (t || "").toLowerCase().replace(/i̇/g, "i").replace(/[^a-zçğıöşü0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  const pass = c => { const t = c.dataset.tags, k = +c.dataset.kcal || 0, mg = +c.dataset.mg || 0;
+    if (diet === "hafif" && !(k < 100 && c.dataset.kcal)) return false;
+    if (diet === "vegan" && !t.includes("vegan")) return false;
+    if (diet === "sutsuz" && !t.includes("sütsüz")) return false;
+    if (diet === "azkafein" && !(mg < 100)) return false;
+    if (diet === "glutensiz" && !t.includes("glütensiz")) return false;
+    if (q && !nrm(c.dataset.name + " " + c.dataset.desc).includes(nrm(q))) return false;
+    return true; };
+  const apply = () => { let total = 0;
+    document.querySelectorAll(".msec").forEach(sec => { let n = 0; sec.querySelectorAll(".pcard").forEach(c => { const ok = pass(c); c.hidden = !ok; if (ok) n++; }); sec.hidden = !n; const cnt = sec.querySelector(".cnt"); if (cnt) cnt.textContent = n + " ürün"; total += n; });
+    const e = document.getElementById("mempty"); if (e) e.hidden = total > 0; };
+  document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#dietF .mcat").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); diet = b.dataset.d; apply(); }));
+  const si = document.getElementById("msearch"); if (si) si.addEventListener("input", () => { q = si.value.trim(); apply(); });
+  document.querySelectorAll("#mcats a").forEach(a => a.addEventListener("click", () => { document.querySelectorAll("#mcats a").forEach(x => x.setAttribute("aria-pressed", "false")); a.setAttribute("aria-pressed", "true"); }));
+})();
+/* ürün detay: boy ve süt seçimi fiyatı günceller */
+(() => {
+  const pr = document.getElementById("pdpPrice"); if (!pr) return;
+  const base = +pr.dataset.base; let size = 0, milk = 0;
+  const upd = () => { pr.textContent = (base + size + milk) + " ₺"; };
+  document.querySelectorAll("[data-size]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-size]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); size = +b.dataset.size; upd(); }));
+  document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
+})();
+'''
 CSS = f'''
 {ROOT_CSS}
 *{{box-sizing:border-box}}[hidden]{{display:none!important}}
@@ -158,6 +259,7 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 {FILT_CSS}
 {NEWS_CSS}
 {FLO_CSS}
+{EXTRA_CSS}
 .hrs{{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
@@ -191,6 +293,7 @@ footer .end{{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--hai
 JS = f'''"use strict";
 {DATA_JS}
 {LOGO_JS}
+{EXTRA_JS}
 {MENU_JS}
 {DIET_JS}
 /* nav aktif */
@@ -219,7 +322,7 @@ if (bl) {{
   const active = new Set();
   const render = () => {{ const now = new Date(); const list = B.filter(b => [...active].every(f => f==="acik" ? isOpen(b,now) : b.f.includes(f)));
     document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube";
-    bl.innerHTML = list.map(b => {{ const open = isOpen(b,now); return `<a class="cell" href="/subeler/${{b.id}}/"><div style="display:flex;justify-content:space-between;gap:.5rem"><h3>${{b.n}}</h3><span style="font-size:.78rem;color:${{open?"var(--ok)":"var(--ink-3)"}}">${{open?"Açık":"Kapalı"}}</span></div><p>${{b.c}} · ${{hourStr(b.o)}}–${{hourStr(b.k)}} · ★ ${{b.r}}</p>${{b.f.includes("manzara")?`<p style="color:var(--amber)">Gün batımı ${{zhm(sunTimes(now,b.lat,b.lng).set,tzOf(b))}}</p>`:""}}<div style="display:flex;gap:.3rem;flex-wrap:wrap">${{b.f.map(f=>`<span class="chip">${{F2[f]}}</span>`).join("")}}</div><span class="more">Şube sayfası →</span></a>`; }}).join(""); }};
+    bl.innerHTML = list.map(b => {{ const open = isOpen(b,now); return `<a class="cell" href="/subeler/${{b.id}}/"><figure class="bimg"><img src="/img/subeler/${{b.id}}.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></figure><div style="display:flex;justify-content:space-between;gap:.5rem"><h3>${{b.n}}</h3><span style="font-size:.78rem;color:${{open?"var(--ok)":"var(--ink-3)"}}">${{open?"Açık":"Kapalı"}}</span></div><p>${{b.c}} · ${{hourStr(b.o)}}–${{hourStr(b.k)}} · ★ ${{b.r}}</p>${{b.f.includes("manzara")?`<p style="color:var(--amber)">Gün batımı ${{zhm(sunTimes(now,b.lat,b.lng).set,tzOf(b))}}</p>`:""}}<div style="display:flex;gap:.3rem;flex-wrap:wrap">${{b.f.map(f=>`<span class="chip">${{F2[f]}}</span>`).join("")}}</div><span class="more">Şube sayfası →</span></a>`; }}).join(""); }};
   document.querySelectorAll("#filters .fbtn").forEach(btn => btn.addEventListener("click", () => {{ const f = btn.dataset.f, on = btn.getAttribute("aria-pressed")==="true"; btn.setAttribute("aria-pressed", String(!on)); on ? active.delete(f) : active.add(f); render(); }}));
   render();
 }}
@@ -277,27 +380,76 @@ PAGES = []  # (path, html)
 def page(path, html_): PAGES.append((path, html_))
 
 # ---------- MENÜ ----------
-cats = "".join(f'<button class="mcat" aria-pressed="{"true" if i==0 else "false"}" data-c="{k}">{v}</button>' for i,(k,v) in enumerate(CATN.items()))
-diet = '<div class="mcats" id="dietF"><button class="mcat" aria-pressed="true" data-d="">Hepsi</button><button class="mcat" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>'
+def tagnum(tags, key):
+    for t in tags:
+        if key in t:
+            m = re.search(r"\d+", t)
+            if m: return int(m.group(0))
+    return None
+def has_menu_img(sl): return os.path.exists(os.path.join(BASE, "demo-site", "img", "menu", sl + ".jpg"))
+def pcard(it):
+    sl = slug(it["n"]); kcal = tagnum(it["tags"], "kcal"); mg = tagnum(it["tags"], "mg")
+    img = f'<img src="/img/menu/{sl}.jpg" alt="{it["n"]}" loading="lazy" decoding="async">' if has_menu_img(sl) else f'<span class="pph">{it["n"][0]}</span>'
+    small = [t for t in it["tags"] if ("kcal" in t or "mg" in t)]
+    badges = [t for t in it["tags"] if t in ("vegan","glütensiz","kafeinsiz")]
+    tags = "".join(f'<span class="tg c">{t}</span>' for t in small) + "".join(f'<span class="tg v">{t}</span>' for t in badges)
+    return (f'<a class="pcard" href="/menu/{sl}/" data-name="{it["n"]}" data-desc="{it["d"]}" data-tags="{" ".join(it["tags"])}" data-kcal="{kcal if kcal is not None else ""}" data-mg="{mg if mg is not None else ""}">'
+            f'<div class="pimg">{img}</div><div class="pbody"><div class="prow"><h3>{it["n"]}</h3><span class="pp">{it["p"]} ₺</span></div><p class="pd">{it["d"]}</p><div class="ptags">{tags}</div></div></a>')
+CATLEDE = {"sicak":"Espresso bazlı içecekler ve elde demlemeler. Her shot 14 g, 18–23 saniye.","soguk":"Cold brew 16 saat demlenir; buzlu espresso içeceklerinde shot buza dökülür.","diger":"Kahve içmeyenler için: çikolata, çay, matcha, taze sıkım ve mevsimlik içecekler.","yiyecek":"Günlük üretim; alerjen bilgisi her üründe, baristada da sorabilirsiniz."}
+cats = "".join(f'<a class="mcat sm" aria-pressed="{"true" if i==0 else "false"}" href="#c-{k}">{v}</a>' for i,(k,v) in enumerate(CATN.items()))
+diet = '<div class="row" id="dietF"><button class="mcat sm" aria-pressed="true" data-d="">Hepsi</button><button class="mcat sm" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat sm" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat sm" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat sm" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat sm" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>'
+msecs = "".join(f'<section class="msec" id="c-{c}"><div class="mhead"><h2>{CATN[c]}</h2><p>{CATLEDE[c]} <span class="cnt">{len(items)} ürün</span></p></div><div class="pgrid">{"".join(pcard(it) for it in items)}</div></section>' for c, items in MENU.items())
 menu_ld = {"@context":"https://schema.org","@type":"Menu","name":"Florida Coffee Menü","hasMenuSection":[{"@type":"MenuSection","name":CATN[c],"hasMenuItem":[{"@type":"MenuItem","name":i["n"],"description":i["d"],"offers":{"@type":"Offer","price":i["p"],"priceCurrency":"TRY"}} for i in items]} for c,items in MENU.items()]}
-page("/menu/", shell(hero("Bölüm 15:00 · Menü","Fiyat, kalori, alerjen.<br>Hepsi burada.","Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfalarında. Süt: inek dahil, laktozsuz +10 ₺, yulaf ve badem +15 ₺.",[("Menü",None)]) +
-  f'<section class="sec"><div class="wrap"><div class="mcats" id="mcats">{cats}</div>{diet}<div id="mlist"></div><p style="font-size:.8rem;margin-top:1rem">Örnek fiyatlar; gerçek menü merkezden yönetilir ve otomatik güncellenir.</p></div></section>',
-  "menu","Menü ve Fiyatlar · Florida Coffee","Florida Coffee menüsü: sıcak ve soğuk kahveler, kahve dışı içecekler ve yiyecekler; kalori, kafein ve alerjen bilgisiyle.","/menu/",menu_ld,"paper"))
+page("/menu/", shell(hero("Bölüm 15:00 · Menü","Fiyat, kalori, alerjen.<br>Hepsi burada.",f"{sum(len(v) for v in MENU.values())} ürün, dört kategori. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfalarında. Süt: inek dahil, laktozsuz +10 ₺, yulaf ve badem +15 ₺.",[("Menü",None)]) +
+  f'<div class="mbar"><div class="wrap"><div class="row" id="mcats">{cats}</div>{diet}<input class="search" id="msearch" type="search" placeholder="Ürün ara: latte, vegan, cheesecake…" aria-label="Menüde ara"></div></div>'
+  f'<div class="wrap">{msecs}<p class="mempty" id="mempty" hidden>Bu filtreyle ürün yok. Filtreyi kaldırın ya da başka bir şey arayın.</p>'
+  f'<section class="sec"><div class="grid g3"><div class="cell"><h3>Süt seçenekleri</h3><p>İnek sütü dahil · laktozsuz +10 ₺ · yulaf ve badem +15 ₺. Tercihinizi uygulamada profilinize kaydedin, her siparişte hatırlanır.</p></div><div class="cell"><h3>Boylar</h3><p>Küçük −15 ₺ · orta · büyük +20 ₺. Fiyatlar orta boy içindir.</p></div><div class="cell"><h3>Alerjenler</h3><p>Her üründe etiket var; kuruyemiş, süt, glüten ve yumurta belirtilir. Emin değilseniz baristaya sorun.</p></div></div><p class="mnote">Örnek fiyatlar; gerçek menü merkezden yönetilir ve şube fiyat grubuna göre otomatik güncellenir.</p></div></section></div>',
+  "menu","Menü ve Fiyatlar · Florida Coffee","Florida Coffee menüsü: sıcak ve soğuk kahveler, kahve dışı içecekler ve yiyecekler; fotoğraf, kalori, kafein ve alerjen bilgisiyle.","/menu/",menu_ld,"paper"))
+
+ESPRESSO = {"Espresso","Americano","Cortado","Flat White","Cappuccino","Latte","Caramel Latte","Vanilla Latte","Mocha","White Mocha","Caramel Macchiato","Iced Americano","Iced Latte","Iced Caramel Latte","Iced Mocha","Iced White Mocha","Frappe","Çikolatalı Frappe","Affogato"}
+BREW = {"Florida Filtre","V60","Chemex","Iced Filtre"}
+def howto(it, c):
+    n = it["n"]
+    if n in ESPRESSO: return "<b>Her şubede aynı reçete.</b> 14 g doz tartıyla, 90–96 °C su, 9 bar, 18–23 saniyede 30–60 g çıktı. Sütlü içeceklerde süt 60–65 °C'ye kadar ısıtılır; ipeksi mikro köpük, büyük kabarcık yok."
+    if n in BREW: return "<b>Günün çekirdeği, taze öğütüm.</b> Kavurma tarihi 7–21 gün arası çekirdek, demleme öncesi öğütülür; 90–96 °C su ile kontrollü akış. Çekirdek tahtada yazar, baristaya sorabilirsiniz."
+    if "Türk Kahvesi" in n: return "<b>7 g, közde.</b> İnce öğütüm, soğuk suyla başlanır, köpüğü kaçırmadan yavaş pişirilir; lokum ve suyla servis."
+    if "Cold Brew" in n: return "<b>16 saat soğuk demleme.</b> Kaba öğütüm, oda sıcaklığında su, 16 saat; süzülüp 48 saat içinde tüketilir. Sıcak temas yok, asit düşük."
+    if c == "diger": return "<b>Kahve içermez</b> ya da düşük kafeinli. Şuruplar ve konsantreler şubede hazırlanır; şeker oranı azaltılabilir."
+    return "<b>Günlük üretim.</b> Merkez mutfaktan her sabah şubeye gelir; gün sonunda kalan satılmaz. Alerjen bilgisi etikette ve baristada."
+def pairings(it, c):
+    foods = MENU["yiyecek"]; drinks = MENU["sicak"] + MENU["soguk"]
+    pool = drinks if c == "yiyecek" else foods
+    k = sum(ord(ch) for ch in it["n"])
+    return [pool[(k + i * 7) % len(pool)] for i in range(3)]
 for c, items in MENU.items():
     for it in items:
-        sl = slug(it["n"]); kcal = next((t for t in it["tags"] if "kcal" in t), None); caf = next((t for t in it["tags"] if "mg" in t), None)
-        ld = {"@context":"https://schema.org","@type":"MenuItem","name":it["n"],"description":it["d"],"offers":{"@type":"Offer","price":it["p"],"priceCurrency":"TRY"}}
-        if kcal: ld["nutrition"] = {"@type":"NutritionInformation","calories":kcal}
-        others = "".join(f'<a class="cell" href="/menu/{slug(o["n"])}/"><h3>{o["n"]}</h3><p>{o["d"]}</p><span class="more">{o["p"]} ₺ →</span></a>' for o in items if o is not it)[:4000]
-        has_img = os.path.exists(os.path.join(BASE, "demo-site", "img", "menu", sl + ".jpg"))
+        sl = slug(it["n"]); kcal = tagnum(it["tags"], "kcal"); mg = tagnum(it["tags"], "mg")
+        kcal_s = next((t for t in it["tags"] if "kcal" in t), None); caf_s = next((t for t in it["tags"] if "mg" in t), None)
+        has_img = has_menu_img(sl)
+        ld = {"@context":"https://schema.org","@type":"MenuItem","name":it["n"],"description":it["d"],"offers":{"@type":"Offer","price":it["p"],"priceCurrency":"TRY","availability":"https://schema.org/InStock"}}
+        if kcal_s: ld["nutrition"] = {"@type":"NutritionInformation","calories":kcal_s}
         if has_img: ld["image"] = f"{SITE}/img/menu/{sl}.jpg"
-        photo = f'<figure class="ph r11" style="margin-bottom:1.2rem"><img src="/img/menu/{sl}.jpg" alt="{it["n"]}" style="position:static;width:100%;aspect-ratio:1/1;object-fit:cover;display:block;opacity:1;transform:none"></figure>' if has_img else ""
-        page(f"/menu/{sl}/", shell(hero(CATN[c], it["n"], it["d"], [("Menü","/menu/"),(it["n"],None)], f"menu/{sl}" if has_img else None) +
-          f'''<section class="sec"><div class="wrap two"><div><div class="panel"><dl class="kv"><dt>Fiyat</dt><dd><b>{it["p"]} ₺</b> · İstanbul, orta boy</dd>{f'<dt>Enerji</dt><dd>{kcal}</dd>' if kcal else ''}{f'<dt>Kafein</dt><dd>{caf}</dd>' if caf else ''}<dt>Süt</dt><dd>İnek dahil · laktozsuz +10 ₺ · yulaf, badem +15 ₺</dd><dt>Etiketler</dt><dd>{" · ".join(t for t in it["tags"] if not ("kcal" in t or "mg" in t)) or "—"}</dd></dl>
-          <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">En yakın şube</a></div></div>
-          <p style="margin-top:1.2rem;font-size:.9rem">Her şubede aynı reçete: 14 g doz tartıyla, 90–96 °C, 9 bar, 18–23 sn. <a href="/kahvemiz/">Standartlarımız →</a></p></div>
-          <div>{photo}<div class="lbl" style="margin-bottom:.6rem">Aynı kategoriden</div><div class="grid g2">{others}</div></div></div></section>''',
-          "menu", f"{it['n']} · Fiyat ve Kalori · Florida Coffee", f"{it['n']}: {it['d']}. {it['p']} ₺.", f"/menu/{sl}/", ld, "paper"))
+        drink = c != "yiyecek"; milky = drink and "sütsüz" not in it["tags"] and "vegan" not in it["tags"]
+        allergens = [t for t in it["tags"] if t in ("glüten","süt","yumurta","fıstık","ceviz")]
+        diet_b = [t for t in it["tags"] if t in ("vegan","glütensiz","kafeinsiz","sütsüz")]
+        big = f'<img src="/img/menu/{sl}.jpg" alt="{it["n"]}">' if has_img else f'<span class="pph" style="display:grid;place-items:center;height:100%;font-family:var(--disp);font-size:5rem;color:var(--amber)">{it["n"][0]}</span>'
+        mini = f'<div><b>{kcal if kcal is not None else "—"}</b><span>kcal</span></div><div><b>{mg if mg is not None else ("0" if "kafeinsiz" in it["tags"] else "—")}</b><span>mg kafein</span></div><div><b>{it["p"]} ₺</b><span>orta boy</span></div>' if drink else f'<div><b>{CATN[c]}</b><span>kategori</span></div><div><b>{", ".join(allergens) if allergens else "—"}</b><span>alerjen</span></div><div><b>{it["p"]} ₺</b><span>fiyat</span></div>'
+        sizes = '<div class="opt"><div class="lbl">Boy</div><div class="pills"><button class="pill" data-size="-15" aria-pressed="false">Küçük <small>−15 ₺</small></button><button class="pill" data-size="0" aria-pressed="true">Orta</button><button class="pill" data-size="20" aria-pressed="false">Büyük <small>+20 ₺</small></button></div></div>' if drink else ""
+        milk = '<div class="opt"><div class="lbl">Süt</div><div class="pills"><button class="pill" data-milk="0" aria-pressed="true">İnek</button><button class="pill" data-milk="10" aria-pressed="false">Laktozsuz <small>+10 ₺</small></button><button class="pill" data-milk="15" aria-pressed="false">Yulaf <small>+15 ₺</small></button><button class="pill" data-milk="15" aria-pressed="false">Badem <small>+15 ₺</small></button></div></div>' if milky else ""
+        facts = (f'<div><div class="l">Enerji</div><div class="v">{kcal_s or "—"}</div></div><div><div class="l">Kafein</div><div class="v">{caf_s or ("Kafeinsiz" if "kafeinsiz" in it["tags"] else "—")}</div></div>'
+                 f'<div><div class="l">Uygunluk</div><div class="v">{", ".join(diet_b) if diet_b else "Standart"}</div></div><div><div class="l">Alerjen</div><div class="v">{", ".join(allergens) if allergens else ("Süt içerir" if milky else "Belirtilmedi")}</div></div>')
+        pair = "".join(pcard(p) for p in pairings(it, c))
+        others = "".join(pcard(o) for o in items if o is not it)[:16000]
+        page(f"/menu/{sl}/", shell(
+          f'''<section class="pdp"><div class="wrap"><div class="crumbs"><a href="/">Ana sayfa</a> › <a href="/menu/">Menü</a> › <a href="/menu/#c-{c}">{CATN[c]}</a> › {it["n"]}</div>
+          <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}</div><div class="mini">{mini}</div></div>
+          <div class="pdp-info"><div class="eyebrow">{CATN[c]}</div><h1>{it["n"]}</h1><p class="lede">{it["d"]}</p>
+          <div class="price"><b id="pdpPrice" data-base="{it["p"]}">{it["p"]} ₺</b><span>İstanbul şubeleri · Anadolu ve Karadağ fiyatı şube sayfasında</span></div>{sizes}{milk}
+          <div class="cta"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">En yakın şube</a></div>
+          <div class="facts">{facts}</div><p class="howto">{howto(it, c)} <a href="/kahvemiz/">Standartlarımız →</a></p></div></div></div></section>
+          <section class="pair"><div class="wrap"><h2>Birlikte iyi gider</h2><p class="sub">{"Bu içeceğin yanına baristalarımızın önerdiği üç lezzet." if drink else "Bu ürünün yanına en çok sipariş edilen üç içecek."}</p><div class="pgrid">{pair}</div></div></section>
+          <section class="pair"><div class="wrap"><h2>{CATN[c]} · diğerleri</h2><div class="pgrid">{others}</div><p class="mnote"><a href="/menu/#c-{c}">Tüm {CATN[c].lower()} →</a></p></div></section>''',
+          "menu", f"{it['n']} · {it['p']} ₺ · Florida Coffee", f"{it['n']}: {it['d']}. {it['p']} ₺.{' ' + kcal_s + '.' if kcal_s else ''}", f"/menu/{sl}/", ld, "paper"))
 
 # ---------- ŞUBELER ----------
 filters = "".join(f'<button class="fbtn" aria-pressed="false" data-f="{k}">{v}</button>' for k,v in [("acik","Şu an açık"),("manzara","Manzara"),("gece","Gece açık"),("calisma","Çalışma alanı"),("otopark","Otopark"),("kahvalti","Kahvaltı")])
@@ -316,14 +468,17 @@ for b in BRANCHES:
            ("Laktozsuz süt var mı?", "Evet. Laktozsuz, yulaf ve badem sütü mevcut; tercihinizi uygulamada profilinize kaydedebilirsiniz."),
            ("Çalışmaya uygun mu?", "Evet, priz ve sessiz bölge var." if "calisma" in b["f"] else "Sohbet için ideal; uzun çalışma için Kadıköy veya Bahçeşehir şubemizi öneririz.")]
     ld_faq = {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq]}
-    img = "sunset" if "manzara" in b["f"] else ("night" if "gece" in b["f"] else "workspace")
+    has_b = os.path.exists(os.path.join(BASE, "demo-site", "img", "subeler", b["id"] + ".jpg"))
+    img = f"subeler/{b['id']}" if has_b else ("sunset" if "manzara" in b["f"] else ("night" if "gece" in b["f"] else "workspace"))
+    if has_b: ld["image"] = f"{SITE}/img/subeler/{b['id']}.jpg"
+    bphoto = f'<figure class="bphoto"><img src="/img/subeler/{b["id"]}.jpg" alt="Florida Coffee {b["n"]}"></figure>' if has_b else ""
     page(f"/subeler/{b['id']}/", shell(hero(b["c"], f"Florida Coffee {b['n']}", b["note"], [("Şubeler","/subeler/"),(b["n"],None)], img,
         f'<div style="margin-top:1rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center"><span class="panel" style="padding:.5rem .8rem;font-size:.88rem" data-branch="{b["id"]}">…</span>' + "".join(f'<span class="chip">{FEAT[f]}</span>' for f in b["f"]) + '</div>') +
       f'''<section class="sec"><div class="wrap two"><div>
         <div class="panel"><div class="lbl" style="margin-bottom:.6rem">Çalışma saatleri</div><div class="hrs">{"".join(f"<span>{d}</span><span>{hh(b['o'])}–{hh(b['k'])}</span>" for d in ["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"])}</div>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem"><a class="btn amber" href="/app/">Bu şubeden ön sipariş</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query={b['lat']},{b['lng']}" rel="noopener">Yol tarifi</a></div></div>
         <div class="faq" style="margin-top:1.4rem"><div class="lbl" style="margin-bottom:.4rem">Sık sorulanlar</div>{"".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q,a in faq)}</div></div>
-        <div><div class="lbl" style="margin-bottom:.6rem">Yakın şubeler</div><div class="grid" style="grid-template-columns:1fr">{"".join(f'<a class="cell" href="/subeler/{x["id"]}/"><h3>{x["n"]}</h3><p>{x["c"]} · {hh(x["o"])}–{hh(x["k"])}</p><span class="more">Şube sayfası →</span></a>' for x in near)}</div>
+        <div>{bphoto}<div class="lbl" style="margin-bottom:.6rem">Yakın şubeler</div><div class="grid" style="grid-template-columns:1fr">{"".join(f'<a class="cell" href="/subeler/{x["id"]}/"><h3>{x["n"]}</h3><p>{x["c"]} · {hh(x["o"])}–{hh(x["k"])}</p><span class="more">Şube sayfası →</span></a>' for x in near)}</div>
         <p style="margin-top:1.2rem;font-size:.85rem;color:var(--ink-3)">Puan ★ {b["r"]} · {b["rev"]} yorum (örnek). Yorumlar Google ve Yandex'ten otomatik çekilir.</p></div></div></section>''',
       "subeler", f"Florida Coffee {b['n']} · Saatler, Özellikler, Yol Tarifi", f"Florida Coffee {b['n']} ({b['c']}): {hh(b['o'])}–{hh(b['k'])}. {b['note']}", f"/subeler/{b['id']}/", [ld, ld_faq]))
 
@@ -478,6 +633,7 @@ for path, html_ in PAGES:
 site = re.sub(r'<img[^>]*data-embedded[^>]*>', '', demo)
 site = re.sub(r'(<figure class="ph[^"]*?) has(")', r'\1\2', site)
 site = re.sub(r'(<img class="wm" data-brand="([a-z0-9_-]+)" alt="" src=")[^"]*(")', r'\1img/brand/\2.png\3', site)
+site = re.sub(r'<script id="subeimg" type="application/json">.*?</script>', '<script id="subeimg" type="application/json">{}</script>', site, count=1, flags=re.S)
 site = re.sub(r'<script id="menuimg" type="application/json">.*?</script>', '<script id="menuimg" type="application/json">{}</script>', site, count=1, flags=re.S)
 site = re.sub(r'(<video[^>]*data-vid="([a-z0-9_-]+)"[^>]*><source src=")[^"]*(")', r'\1video/\2.mp4\3', site)
 site = re.sub(r'^<title>.*?</title>\s*', '', site, count=1, flags=re.S)

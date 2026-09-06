@@ -401,6 +401,9 @@ h2 + .lede{margin-top:1.3rem}
 .branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr));gap:.9rem}
 .branch{border:1px solid var(--hair);border-radius:1.1rem;padding:1.1rem 1.2rem;background:var(--glass);text-align:left;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s,transform .18s}
 .branch:hover{border-color:var(--amber);transform:translateY(-2px)}
+.branch .bph{display:block;margin:-1.1rem -1.2rem .6rem;aspect-ratio:16/9;overflow:hidden;background:var(--hair)}
+.branch .bph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.branch:hover .bph img{transform:scale(1.04)}
 .branch .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
 .branch .n{font-family:var(--disp);font-size:1.25rem;line-height:1.1}
 .branch .c{font-size:.8rem;color:var(--ink-3)}
@@ -997,6 +1000,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   <div class="flo-foot">Demo: kural tabanlı motor. Canlıda Claude API'ye bağlanır; menü, şube ve sadakat verisi aynı kaynaktan gelir.</div>
 </section>
 
+<script id="subeimg" type="application/json">{}</script>
 <script id="menuimg" type="application/json">{}</script>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
   <div class="scrim" data-close></div>
@@ -1161,6 +1165,7 @@ tick(); setInterval(tick, 20000);
 
 /* ---------------- branch list ---------------- */
 const active = new Set();
+const SUBEIMG = (() => { try { return JSON.parse(document.getElementById("subeimg")?.textContent || "{}"); } catch (e) { return {}; } })();
 function renderBranches(){
   const now = new Date();
   const el = document.getElementById("branches");
@@ -1169,6 +1174,7 @@ function renderBranches(){
   el.innerHTML = list.length ? list.map(b => {
     const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
     return `<button class="branch" data-id="${b.id}">
+      <span class="bph"><img src="${SUBEIMG[b.id] || ("img/subeler/" + b.id + ".jpg")}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></span>
       <span class="row1"><span><span class="n">${b.n}</span><br><span class="c">${b.c}</span></span>
       <span class="st ${open?"open":"closed"}"><span class="dot-s ${open?"g":"r"}"></span>${open?"Açık":"Kapalı"}</span></span>
       <span class="c">${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r} (${b.rev})</span>

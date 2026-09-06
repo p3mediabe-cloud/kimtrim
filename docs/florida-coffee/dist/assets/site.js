@@ -158,6 +158,36 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   });
 });
 
+
+/* menü: filtre + arama (statik kartlar) */
+(() => {
+  const cards = [...document.querySelectorAll(".pcard")]; if (!cards.length) return;
+  let diet = "", q = "";
+  const nrm = t => (t || "").toLowerCase().replace(/i̇/g, "i").replace(/[^a-zçğıöşü0-9 ]/g, " ").replace(/\s+/g, " ").trim();
+  const pass = c => { const t = c.dataset.tags, k = +c.dataset.kcal || 0, mg = +c.dataset.mg || 0;
+    if (diet === "hafif" && !(k < 100 && c.dataset.kcal)) return false;
+    if (diet === "vegan" && !t.includes("vegan")) return false;
+    if (diet === "sutsuz" && !t.includes("sütsüz")) return false;
+    if (diet === "azkafein" && !(mg < 100)) return false;
+    if (diet === "glutensiz" && !t.includes("glütensiz")) return false;
+    if (q && !nrm(c.dataset.name + " " + c.dataset.desc).includes(nrm(q))) return false;
+    return true; };
+  const apply = () => { let total = 0;
+    document.querySelectorAll(".msec").forEach(sec => { let n = 0; sec.querySelectorAll(".pcard").forEach(c => { const ok = pass(c); c.hidden = !ok; if (ok) n++; }); sec.hidden = !n; const cnt = sec.querySelector(".cnt"); if (cnt) cnt.textContent = n + " ürün"; total += n; });
+    const e = document.getElementById("mempty"); if (e) e.hidden = total > 0; };
+  document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#dietF .mcat").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); diet = b.dataset.d; apply(); }));
+  const si = document.getElementById("msearch"); if (si) si.addEventListener("input", () => { q = si.value.trim(); apply(); });
+  document.querySelectorAll("#mcats a").forEach(a => a.addEventListener("click", () => { document.querySelectorAll("#mcats a").forEach(x => x.setAttribute("aria-pressed", "false")); a.setAttribute("aria-pressed", "true"); }));
+})();
+/* ürün detay: boy ve süt seçimi fiyatı günceller */
+(() => {
+  const pr = document.getElementById("pdpPrice"); if (!pr) return;
+  const base = +pr.dataset.base; let size = 0, milk = 0;
+  const upd = () => { pr.textContent = (base + size + milk) + " ₺"; };
+  document.querySelectorAll("[data-size]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-size]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); size = +b.dataset.size; upd(); }));
+  document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
+})();
+
 const MENU = {
   sicak: [
     ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal", "95 mg kafein", "sütsüz", "vegan"]],
@@ -249,7 +279,7 @@ if (bl) {
   const active = new Set();
   const render = () => { const now = new Date(); const list = B.filter(b => [...active].every(f => f==="acik" ? isOpen(b,now) : b.f.includes(f)));
     document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube";
-    bl.innerHTML = list.map(b => { const open = isOpen(b,now); return `<a class="cell" href="/subeler/${b.id}/"><div style="display:flex;justify-content:space-between;gap:.5rem"><h3>${b.n}</h3><span style="font-size:.78rem;color:${open?"var(--ok)":"var(--ink-3)"}">${open?"Açık":"Kapalı"}</span></div><p>${b.c} · ${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r}</p>${b.f.includes("manzara")?`<p style="color:var(--amber)">Gün batımı ${zhm(sunTimes(now,b.lat,b.lng).set,tzOf(b))}</p>`:""}<div style="display:flex;gap:.3rem;flex-wrap:wrap">${b.f.map(f=>`<span class="chip">${F2[f]}</span>`).join("")}</div><span class="more">Şube sayfası →</span></a>`; }).join(""); };
+    bl.innerHTML = list.map(b => { const open = isOpen(b,now); return `<a class="cell" href="/subeler/${b.id}/"><figure class="bimg"><img src="/img/subeler/${b.id}.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></figure><div style="display:flex;justify-content:space-between;gap:.5rem"><h3>${b.n}</h3><span style="font-size:.78rem;color:${open?"var(--ok)":"var(--ink-3)"}">${open?"Açık":"Kapalı"}</span></div><p>${b.c} · ${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r}</p>${b.f.includes("manzara")?`<p style="color:var(--amber)">Gün batımı ${zhm(sunTimes(now,b.lat,b.lng).set,tzOf(b))}</p>`:""}<div style="display:flex;gap:.3rem;flex-wrap:wrap">${b.f.map(f=>`<span class="chip">${F2[f]}</span>`).join("")}</div><span class="more">Şube sayfası →</span></a>`; }).join(""); };
   document.querySelectorAll("#filters .fbtn").forEach(btn => btn.addEventListener("click", () => { const f = btn.dataset.f, on = btn.getAttribute("aria-pressed")==="true"; btn.setAttribute("aria-pressed", String(!on)); on ? active.delete(f) : active.add(f); render(); }));
   render();
 }

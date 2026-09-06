@@ -136,6 +136,9 @@ a.cell:hover{background:rgba(10,77,92,.55)}
 .branches{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,17.5rem),1fr));gap:.9rem}
 .branch{border:1px solid var(--hair);border-radius:1.1rem;padding:1.1rem 1.2rem;background:var(--glass);text-align:left;display:flex;flex-direction:column;gap:.45rem;transition:border-color .18s,transform .18s}
 .branch:hover{border-color:var(--amber);transform:translateY(-2px)}
+.branch .bph{display:block;margin:-1.1rem -1.2rem .6rem;aspect-ratio:16/9;overflow:hidden;background:var(--hair)}
+.branch .bph img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.branch:hover .bph img{transform:scale(1.04)}
 .branch .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:.6rem}
 .branch .n{font-family:var(--disp);font-size:1.25rem;line-height:1.1}
 .branch .c{font-size:.8rem;color:var(--ink-3)}
@@ -214,6 +217,77 @@ a.cell:hover{background:rgba(10,77,92,.55)}
   .flo-hint{max-width:56vw}
 }
 
+
+
+/* ---------- menü: ürün ızgarası ---------- */
+.mbar{position:sticky;top:3.3rem;z-index:30;background:rgba(237,230,216,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);padding:.7rem 0}
+.mbar .wrap{display:flex;flex-direction:column;gap:.55rem;align-items:center}
+.mbar .row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
+.mbar .search{width:min(100%,22rem);border:1px solid var(--paper-line);background:#fff;padding:.5rem .8rem;font:inherit;color:var(--paper-ink)}
+.mcat.sm{padding:.35rem .75rem;font-size:.78rem}
+.msec{padding:clamp(2rem,5vh,3.5rem) 0 0}
+.msec .mhead{text-align:center;margin-bottom:1.4rem}
+.msec .mhead h2{font-size:clamp(1.5rem,3vw,2.2rem)}
+.msec .mhead p{margin:.3rem auto 0;color:var(--paper-ink-2);font-size:.9rem;max-width:52ch}
+.msec[hidden]{display:none}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,13.5rem),1fr));gap:1px;background:var(--paper-line);border:1px solid var(--paper-line)}
+.pcard{background:#FBF8F2;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:background .2s}
+.pcard:hover{background:#fff}
+.pcard[hidden]{display:none}
+.pcard .pimg{aspect-ratio:1/1;overflow:hidden;background:var(--paper-line);position:relative}
+.pcard .pimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease}
+.pcard:hover .pimg img{transform:scale(1.04)}
+.pcard .pimg .pph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-size:3rem;font-weight:800;color:var(--amber)}
+.pcard .pbody{padding:.9rem 1rem 1rem;display:flex;flex-direction:column;gap:.35rem;flex:1}
+.pcard .prow{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline}
+.pcard h3{font-size:1.02rem;letter-spacing:-.01em}
+.pcard .pp{font-family:var(--disp);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+.pcard .pd{font-size:.82rem;color:var(--paper-ink-2);margin:0}
+.pcard .ptags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:auto;padding-top:.4rem}
+.mnote{text-align:center;color:var(--paper-ink-2);font-size:.82rem;margin:1.2rem auto 0;max-width:60ch}
+.mempty{text-align:center;padding:2.5rem 1rem;color:var(--paper-ink-2)}
+.mempty[hidden]{display:none}
+@media (max-width:640px){.pgrid{grid-template-columns:1fr 1fr}.pcard .pbody{padding:.6rem .7rem .8rem;gap:.25rem}.pcard h3{font-size:.9rem}.pcard .pd{font-size:.74rem}.pcard .pp{font-size:.9rem}.pcard .ptags .tg{font-size:.6rem}}
+/* ---------- ürün detay ---------- */
+.pdp{padding:clamp(1.2rem,3vh,2rem) 0 clamp(3rem,7vh,5rem)}
+.pdp .crumbs{justify-content:center;margin-bottom:1.4rem}
+.pdp-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:start}
+@media (max-width:860px){.pdp-grid{grid-template-columns:1fr}}
+.pdp-media{position:sticky;top:4.2rem}
+.pdp-media .big{aspect-ratio:1/1;overflow:hidden;background:var(--paper-line);border:1px solid var(--paper-line)}
+.pdp-media .big img{width:100%;height:100%;object-fit:cover;display:block}
+.pdp-media .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);border-top:0}
+.pdp-media .mini div{background:#FBF8F2;padding:.7rem .5rem;text-align:center}
+.pdp-media .mini b{display:block;font-family:var(--disp);font-size:1.05rem}
+.pdp-media .mini span{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink-2)}
+.pdp-info .eyebrow{color:var(--rust)}
+.pdp-info h1{font-size:clamp(2rem,4.5vw,3.4rem)}
+.pdp-info .lede{margin-top:.6rem}
+.pdp .price{display:flex;align-items:baseline;gap:.7rem;margin:1.2rem 0 .3rem}
+.pdp .price b{font-family:var(--disp);font-size:2.2rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pdp .price span{color:var(--paper-ink-2);font-size:.85rem}
+.opt{margin-top:1rem}
+.opt .lbl{margin-bottom:.45rem}
+.opt .pills{display:flex;gap:.4rem;flex-wrap:wrap}
+.opt .pill{border:1px solid var(--paper-line);background:#fff;padding:.45rem .8rem;font-size:.85rem;font-weight:600;color:var(--paper-ink-2);cursor:pointer;font-family:var(--ui)}
+.opt .pill[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
+.opt .pill small{font-weight:500;opacity:.8}
+.pdp .cta{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem}
+.facts{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--paper-line);border:1px solid var(--paper-line);margin-top:1.6rem}
+.facts div{background:#FBF8F2;padding:.85rem 1rem}
+.facts .l{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-ink-2);font-weight:700;font-family:var(--disp)}
+.facts .v{margin-top:.2rem;font-weight:600}
+.howto{margin-top:1.6rem;border-left:3px solid var(--amber);padding:.2rem 0 .2rem 1rem;color:var(--paper-ink-2);font-size:.92rem}
+.howto b{color:var(--paper-ink)}
+.pair{padding:0 0 clamp(3rem,7vh,5rem)}
+.pair h2{text-align:center;font-size:clamp(1.4rem,2.6vw,2rem);margin-bottom:1.2rem}
+.pair .sub{text-align:center;color:var(--paper-ink-2);margin:-.8rem auto 1.4rem;font-size:.9rem}
+/* ---------- şube kartı fotoğrafı ---------- */
+.cell .bimg{margin:-1.1rem -1.2rem .5rem;aspect-ratio:16/9;overflow:hidden;background:var(--hair)}
+.cell .bimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.cell:hover .bimg img{transform:scale(1.04)}
+.bphoto{aspect-ratio:16/9;overflow:hidden;border:1px solid var(--hair);margin-bottom:1.2rem}
+.bphoto img{width:100%;height:100%;object-fit:cover;display:block}
 
 .hrs{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}.kv dt{color:var(--ink-3)}.kv dd{margin:0}
