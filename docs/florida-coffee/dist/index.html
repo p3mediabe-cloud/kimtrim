@@ -173,7 +173,7 @@ h2 + .lede{margin-top:1.3rem}
 .heromark .mark{animation:lg-float 7s ease-in-out 2s infinite}
 @keyframes lg-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
 .ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ph .veil{position:absolute;inset:0;background:#04141A;opacity:0;transition:opacity 1.6s ease-in-out;pointer-events:none}
+.ph .veil{position:absolute;inset:0;background:#04141A;opacity:0;transition:opacity .9s ease-in-out;pointer-events:none}
 .ph .veil.on{opacity:1}
 .ph video.vert{object-fit:contain;backdrop-filter:blur(14px) brightness(.55)}
 @media (prefers-reduced-motion:reduce){.ph video{display:none}.heromark .mark{animation:none}}
@@ -544,7 +544,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
-  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero" data-fadeloop data-rate=".8"><source src="video/hero.mp4" type="video/mp4"></video></figure>
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero" data-fadeloop data-rate=".5"><source src="video/hero.mp4" type="video/mp4"></video></figure>
   <div class="inner">
     <div class="heromark" aria-hidden="true"><svg class="mark anim big" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></div>
     <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
@@ -1096,7 +1096,7 @@ function isOpen(b, now){
 document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   if (reduce) return;
   const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
-  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const rate = +v.dataset.rate || 1, FADE = .9; let arming = false;
   const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
   v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
   veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});

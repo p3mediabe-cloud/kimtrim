@@ -96,7 +96,7 @@ function isOpen(b, now){
 document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   if (reduce) return;
   const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
-  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const rate = +v.dataset.rate || 1, FADE = .9; let arming = false;
   const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
   v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
   veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
@@ -143,7 +143,7 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   if (reduce) return;
   const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
-  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const rate = +v.dataset.rate || 1, FADE = .9; let arming = false;
   const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
   v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
   veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
