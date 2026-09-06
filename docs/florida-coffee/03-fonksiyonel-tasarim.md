@@ -159,6 +159,32 @@ Tek veri kaynağı: menü, fiyat, şube ve kampanya yalnızca HQ panelinden giri
 - Yetenekler: en yakın şube, menü sorusu, alerjen/süt sorusu, sipariş oluşturma (üye ise uygulama sepetine yazar ve ödeme linki gönderir), sipariş durumu, şikayet alma (HQ'ya kayıt, insan devri), franchise ön bilgi (lead oluşturma).
 - Kurallar: fiyat ve stok her zaman API'den; emin olmadığında insana devret; her konuşma HQ gelen kutusunda; KVKK aydınlatma ilk mesajda.
 
+## 8b. AI destekli aday havuzu (İK CRM) nasıl çalışır
+
+**Amaç:** Başvuru bir dosyada beklemesin; her açık vardiya, havuzdaki müsait adaya dakikalar içinde sorulsun ve kesin bir yanıtla kapansın.
+
+**Aday tarafı (site + uygulama)**
+- Dört adımlı başvuru (kimlik, tercihler, beceri öz değerlendirmesi, tanışma). "Profil gücü" göstergesi ve adım başına motivasyon notu; tam profil eşleştirme isabetini artırır.
+- Aday durumu: `müsait` / `2 hafta sonra` / `meşgul` / `havuzdan çıktı`. Aday istediği an değiştirir.
+- Her bildirim bir **soru**dur ve tek dokunuşla üç yanıttan biriyle kapanır: Evet / Hayır / 2 hafta sonra. Serbest metin yok; yanıtsız bildirim bırakılmaz.
+- SLA: 4 saatte yanıt yoksa hatırlatma; 24 saatte yanıt yoksa aday `belirsiz` olur, öncelik sırası düşer. Yanıt oranı yüksek adaylar sırada önde kalır.
+
+**HQ / şube müdürü tarafı**
+- Açık vardiya kaydı (şube, gün, saat, pozisyon) → yapay zekâ havuzu puanlar → ilk N adaya soru gider → ilk "Evet" ile vardiya kapanır, diğerlerine "dolduruldu" bilgisi gider.
+- Şube müdürü yalnız onaylar; arama, mesajlaşma ve takip otomatiktir. Kapanma süresi, yanıt oranı ve gelmeme oranı panelde.
+
+**Eşleştirme puanı (örnek ağırlıklar)**
+- Tercih edilen şube +35 · şehir uyumu +20 · vardiya uyumu (gece/sabah/hafta sonu) +6–12 · pozisyon-şube uyumu +5 · beceri puanı ≥4 +4 · yanıt oranı ve gelmeme geçmişi ±10.
+- Mesafe ve ulaşım süresi (adres verilirse) puana girer; 45 dakikanın üstü uyarı üretir.
+
+**Veri modeli (ek)**
+- `Candidate`(id, ad, iletişim, şehir, pozisyon, beceriler{}, diller, başlangıç, durum, öncelik, rıza_havuz, rıza_kvkk, silinme_tarihi)
+- `ShiftNeed`(id, şube, pozisyon, başlangıç, bitiş, ihtiyaç_sayısı, durum)
+- `Match`(candidate, shift_need, puan, gerekçeler[])
+- `Ask`(match, kanal, gönderim, son_yanıt_tarihi, yanıt∈{evet,hayır,sonra,∅}, yanıt_süresi)
+
+**Kenar durumları:** aday üç kez üst üste "Hayır" derse tercihleri yeniden sorulur; gelmeme durumunda şube müdürü işaretler, öncelik düşer; 18 yaş altı başvurular reddedilir; "artık arama" sonrası 30 gün içinde silme.
+
 ## 9. Veri modeli (özet)
 
 ```

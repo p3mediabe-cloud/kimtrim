@@ -219,6 +219,85 @@ EXTRA_JS = r'''
   document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
 })();
 '''
+EXTRA_CSS3 = r'''
+/* ---------- v9: aday başvurusu + CRM ---------- */
+.meter{border:1px solid var(--hair);background:var(--glass);padding:.9rem 1rem;display:grid;gap:.5rem;position:sticky;top:4.2rem;z-index:5}
+.meter .row{display:flex;justify-content:space-between;font-size:.8rem;color:var(--ink-2)}
+.meter .bar{height:6px;background:var(--hair);position:relative;overflow:hidden}
+.meter .bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--amber),var(--ok));transition:width .5s cubic-bezier(.3,.7,.2,1)}
+.meter b{font-family:var(--disp);color:var(--amber)}
+.pills{display:flex;gap:.4rem;flex-wrap:wrap}
+.pill{border:1px solid var(--hair-2);background:transparent;padding:.45rem .8rem;font-size:.85rem;font-weight:600;color:var(--ink-2);cursor:pointer;font-family:var(--ui)}
+.pill[aria-pressed="true"]{background:var(--ink);color:#0A1420;border-color:var(--ink)}
+.pill small{font-weight:500;opacity:.8}
+form.f .pills{margin-top:.2rem}
+.skill{display:grid;grid-template-columns:9rem 1fr 2.2rem;gap:.7rem;align-items:center;font-size:.85rem;color:var(--ink-2)}
+.skill input{accent-color:var(--amber);width:100%}
+.skill b{font-family:var(--disp);text-align:right}
+.match{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.match a{display:grid;grid-template-columns:5.5rem 1fr auto;gap:.9rem;align-items:center;background:rgba(9,14,19,.55);padding:.8rem;text-decoration:none;color:inherit}
+.match a:hover{background:rgba(10,77,92,.5)}
+.match img{width:5.5rem;height:3.5rem;object-fit:cover;display:block}
+.match h3{font-size:1rem}
+.match p{margin:.15rem 0 0;font-size:.78rem;color:var(--ink-2)}
+.match .pct{font-family:var(--disp);font-size:1.4rem;font-weight:800;color:var(--amber)}
+.inbox{display:grid;gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.inbox .msg{background:rgba(9,14,19,.55);padding:.9rem 1rem;display:grid;gap:.5rem}
+.inbox .from{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);font-family:var(--disp);font-weight:700;display:flex;justify-content:space-between}
+.inbox .from span{color:var(--ink-3)}
+.inbox .q{font-weight:600}
+.inbox .acts{display:flex;gap:.4rem;flex-wrap:wrap}
+.inbox .msg.done{opacity:.75}
+.inbox .msg.done .acts{display:none}
+.inbox .ans{font-size:.82rem;color:var(--ok)}
+.cstatus{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--hair);padding:.5rem .8rem;font-family:var(--disp);font-weight:700;font-size:.85rem}
+.cstatus i{width:.6rem;height:.6rem;background:var(--ok)}
+.cstatus.busy i{background:var(--busy)}
+.cstatus.soon i{background:var(--amber)}
+.kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.kpi div{background:rgba(9,14,19,.55);padding:.7rem;text-align:center}
+.kpi b{display:block;font-family:var(--disp);font-size:1.3rem}
+.kpi span{font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.motive{border-left:3px solid var(--amber);padding:.3rem 0 .3rem 1rem;color:var(--ink-2);font-size:.9rem;margin:.4rem 0 1rem}
+.motive b{color:var(--ink)}
+#applyDone[hidden]{display:none}
+'''
+EXTRA_JS3 = r'''
+/* ---------- v9: aday başvurusu, eşleştirme ve CRM önizlemesi ---------- */
+(() => {
+  const f = document.getElementById("applyForm"); if (!f || typeof B === "undefined") return;
+  const T = m => (typeof showToast === "function") && showToast(m);
+  const q = new URLSearchParams(location.search); const pos = q.get("pos"); if (pos) { const sel = f.querySelector("#aPos"); if (sel) [...sel.options].forEach(o => { if (o.textContent === pos) sel.value = pos; }); }
+  // şube tercih çipleri (veriden)
+  const bp = document.getElementById("aBranches"); bp.innerHTML = B.map(b => `<button type="button" class="pill" data-multi data-id="${b.id}" aria-pressed="false">${b.n}</button>`).join("");
+  f.querySelectorAll("[data-multi]").forEach(p => p.addEventListener("click", () => { p.setAttribute("aria-pressed", String(p.getAttribute("aria-pressed") !== "true")); meter(); }));
+  f.querySelectorAll("[data-one] .pill").forEach(p => p.addEventListener("click", () => { p.closest("[data-one]").querySelectorAll(".pill").forEach(x => x.setAttribute("aria-pressed", "false")); p.setAttribute("aria-pressed", "true"); meter(); }));
+  f.querySelectorAll(".skill input").forEach(r => { const out = r.closest(".skill").querySelector("b"); const u = () => out.textContent = r.value; r.addEventListener("input", () => { u(); meter(); }); u(); });
+  const MSG = [[0,"Başlayalım: adınızı yazın, gerisi kolay."],[25,"İyi gidiyor. Tercihleriniz eşleştirmeyi %40 daha isabetli yapar."],[50,"Yarısı bitti. Beceri puanları vardiya liderinin ilk baktığı şey."],[75,"Neredeyse tamam. Tam profil 10 gün içinde deneme vardiyası şansını artırır."],[100,"Profil tam. Gönderin; eşleştirme anında hazır."]];
+  function meter(){ const fields = [...f.querySelectorAll("input:not([type=range]):not([type=checkbox]), select, textarea")]; let filled = fields.filter(x => x.value.trim()).length, total = fields.length + 3;
+    if (f.querySelectorAll("[data-multi][aria-pressed=true]").length) filled++; if (f.querySelectorAll("[data-one] .pill[aria-pressed=true]").length >= 2) filled++; if (f.querySelector("#aKvkk")?.checked) filled++;
+    const p = Math.round(filled / total * 100); document.getElementById("mBar").style.width = p + "%"; document.getElementById("mPct").textContent = p + "%"; document.getElementById("mMsg").textContent = MSG.filter(m => p >= m[0]).slice(-1)[0][1]; }
+  f.addEventListener("input", meter); meter();
+  f.addEventListener("submit", e => { e.preventDefault();
+    const name = f.querySelector("#aName").value.trim().split(" ")[0] || "Aday", city = f.querySelector("#aCity").value, shifts = [...f.querySelectorAll("#aShifts .pill[aria-pressed=true]")].map(x => x.dataset.v), start = f.querySelector("#aStart .pill[aria-pressed=true]")?.dataset.v || "hemen", pref = new Set([...f.querySelectorAll("[data-multi][aria-pressed=true]")].map(x => x.dataset.id)), position = f.querySelector("#aPos").value;
+    const skills = Object.fromEntries([...f.querySelectorAll(".skill input")].map(r => [r.dataset.k, +r.value]));
+    const scored = B.map(b => { let sc = 20, why = []; if (pref.has(b.id)) { sc += 35; why.push("tercihiniz"); } if (b.c.includes(city)) { sc += 20; why.push(city); } if (shifts.includes("gece") && b.f.includes("gece")) { sc += 12; why.push("gece vardiyası"); } if (shifts.includes("sabah") && b.f.includes("kahvalti")) { sc += 10; why.push("kahvaltı servisi"); } if (shifts.includes("haftasonu") && b.f.includes("manzara")) { sc += 6; why.push("hafta sonu yoğun"); } if (position === "Şube Müdürü" && b.f.includes("calisma")) { sc += 5; } if (skills.espresso >= 4) sc += 4; return { b, sc: Math.min(98, sc), why }; }).sort((x, y) => y.sc - x.sc).slice(0, 3);
+    document.getElementById("mName").textContent = name; document.getElementById("mPos").textContent = position;
+    document.getElementById("matchList").innerHTML = scored.map(m => `<a href="/subeler/${m.b.id}/"><img src="/img/subeler/${m.b.id}.jpg" alt="" onerror="this.remove()"><div><h3>${m.b.n}</h3><p>${m.b.c} · ${m.why.length ? m.why.join(", ") : "genel uygunluk"} · ${hourStr(m.b.o)}–${hourStr(m.b.k)}</p></div><span class="pct">%${m.sc}</span></a>`).join("");
+    const startTxt = { hemen: "Hemen", "2hafta": "2 hafta sonra", "1ay": "1 ay sonra" }[start];
+    const top = scored[0].b, second = scored[1]?.b || top;
+    const inbox = [{ from: "Flo · İK", when: "bugün 10:12", q: `${name}, ${top.n} şubesinde ${shifts.includes("gece") ? "Perşembe 16:00–00:00" : "Cumartesi 09:00–17:00"} bir deneme vardiyası açıldı. Gelebilir misin?` },
+                   { from: "Flo · İK", when: "yarın 09:00", q: `${second.n} için ${position.toLowerCase()} ihtiyacı doğdu; ${startTxt.toLowerCase()} başlayabilir misin?` },
+                   { from: "Flo · İK", when: "haftaya", q: "Müsaitlik durumun hâlâ geçerli mi? 'Evet' dersen havuzda öncelikli kalırsın." }];
+    let answered = 0; const ib = document.getElementById("inbox"); ib.innerHTML = inbox.map((m, i) => `<div class="msg" data-i="${i}"><div class="from">${m.from}<span>${m.when}</span></div><div class="q">${m.q}</div><div class="acts"><button type="button" class="btn amber sm" data-a="Evet, uygun">Evet</button><button type="button" class="btn ghost sm" data-a="Bu sefer değil">Hayır</button><button type="button" class="btn ghost sm" data-a="2 hafta sonra">2 hafta sonra</button></div><div class="ans" hidden></div></div>`).join("");
+    ib.querySelectorAll("[data-a]").forEach(bt => bt.addEventListener("click", () => { const msg = bt.closest(".msg"); msg.classList.add("done"); const a = msg.querySelector(".ans"); a.hidden = false; a.textContent = "Yanıtın: " + bt.dataset.a + " · kayıt altına alındı, şube müdürüne iletildi."; answered++; document.getElementById("kAns").textContent = Math.round(answered / inbox.length * 100) + "%"; document.getElementById("kTime").textContent = "0:" + String(8 + answered * 3).padStart(2, "0"); if (bt.dataset.a.startsWith("Evet")) { T("Şube müdürü bilgilendirildi · takvimine eklendi"); setStatus("busy", "Vardiyaya atandı · " + top.n); } else if (bt.dataset.a.startsWith("2")) setStatus("soon", "2 hafta sonra müsait"); }));
+    const setStatus = (k, t) => { const el = document.getElementById("cStatus"); el.className = "cstatus " + k; el.querySelector("span").textContent = t; };
+    document.querySelectorAll("[data-status]").forEach(bt => bt.addEventListener("click", () => setStatus(bt.dataset.status, bt.textContent)));
+    setStatus(start === "hemen" ? "" : "soon", start === "hemen" ? "Havuzda · müsait" : "Havuzda · " + startTxt.toLowerCase() + " müsait");
+    document.getElementById("applyWrap").hidden = true; const done = document.getElementById("applyDone"); done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "start" }); T("Başvurun alındı, " + name + ". Eşleştirme hazır.");
+  });
+})();
+'''
 EXTRA_CSS2 = r'''
 /* ---------- v8 ortak: alt sayfa bileşenleri ---------- */
 .split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
@@ -273,13 +352,13 @@ EXTRA_CSS2 = r'''
 .quiz .res b{font-family:var(--disp);font-size:1.3rem;display:block}
 .qprog{display:flex;gap:.3rem}.qprog i{flex:1;height:3px;background:var(--hair)}.qprog i.on{background:var(--amber)}
 .timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);counter-reset:tl}
-.timeline div{background:rgba(9,14,19,.55);padding:1rem 1.1rem;counter-increment:tl;position:relative;cursor:default}
-.timeline div::before{content:counter(tl,decimal-leading-zero);font-family:var(--disp);font-size:.7rem;letter-spacing:.2em;color:var(--amber);font-weight:700;display:block;margin-bottom:.4rem}
+.timeline>div{background:rgba(9,14,19,.55);padding:1rem 1.1rem;counter-increment:tl;position:relative;cursor:default}
+.timeline>div::before{content:counter(tl,decimal-leading-zero);font-family:var(--disp);font-size:.7rem;letter-spacing:.2em;color:var(--amber);font-weight:700;display:block;margin-bottom:.4rem}
 .timeline h3{font-size:1rem;margin-bottom:.3rem}
 .timeline p{margin:0;font-size:.85rem;color:var(--ink-2)}
-.timeline div.on{background:rgba(10,77,92,.5)}
+.timeline>div.on{background:rgba(10,77,92,.5)}
 .timeline .pht{margin:-1rem -1.1rem .7rem;border:0;aspect-ratio:16/8}
-.paper .timeline div{background:#FBF8F2}.paper .timeline p{color:var(--paper-ink-2)}
+.paper .timeline>div{background:#FBF8F2}.paper .timeline p{color:var(--paper-ink-2)}
 .tcard{background:rgba(6,24,31,.72);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:background .2s}
 .tcard:hover{background:rgba(10,77,92,.55)}
 .tcard[hidden]{display:none}
@@ -315,8 +394,8 @@ EXTRA_CSS2 = r'''
 .stamps button.on{background:var(--amber);border-style:solid;border-color:var(--amber);color:#2A1703}
 .stamps button:last-child.on{background:var(--ok);border-color:var(--ok)}
 .stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
-.stepper div{background:rgba(9,14,19,.55);padding:1.1rem;transition:background .3s}
-.stepper div.on{background:rgba(10,77,92,.55)}
+.stepper>div{background:rgba(9,14,19,.55);padding:1.1rem;transition:background .3s}
+.stepper>div.on{background:rgba(10,77,92,.55)}
 .stepper .n{font-family:var(--disp);font-size:2rem;font-weight:800;color:var(--amber);line-height:1}
 .stepper h3{font-size:1rem;margin:.4rem 0 .2rem}
 .stepper p{margin:0;font-size:.85rem;color:var(--ink-2)}
@@ -463,6 +542,7 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 {FLO_CSS}
 {EXTRA_CSS}
 {EXTRA_CSS2}
+{EXTRA_CSS3}
 .hrs{{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
@@ -498,6 +578,7 @@ JS = f'''"use strict";
 {LOGO_JS}
 {EXTRA_JS}
 {EXTRA_JS2}
+{EXTRA_JS3}
 (() => {{ const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
   const paint = () => {{ const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; }};
   paint(); setInterval(paint, 60000); }})();
@@ -860,14 +941,59 @@ page("/kurumsal/", shell(hero("Kurumsal","Toplantınıza kahve,<br>etkinliğiniz
   <div class="split top" style="margin-top:2.5rem"><div>{sh("Etkinlik barı için örnek bütçe","Kişi sayısı ve süre; gerisi otomatik.")}<div class="calc"><label>Kişi <b><span id="cpP">150</span></b><input type="range" id="cpPeople" min="30" max="600" step="10" value="150"></label><label>Süre <b><span id="cpH">4</span> saat</b><input type="range" id="cpHours" min="2" max="10" value="4"></label><div class="out"><div><b id="cpCups">—</b><span>tahmini fincan</span></div><div><b id="cpBar">—</b><span>kurulum</span></div><div><b id="cpCost" style="color:var(--amber)">—</b><span>örnek bütçe</span></div></div></div></div>
   <form class="f panel"><label>Kurum<input required></label><label>Ad Soyad<input required></label><label>E-posta<input type="email" required></label><label>İhtiyaç<select><option>Ofis ikramı</option><option>Etkinlik kahve barı</option><option>Toplu hediye kartı</option><option>Diğer</option></select></label><label>Not<textarea rows="3"></textarea></label><button class="btn amber" type="submit">Talep bırak</button><div class="ok" hidden>Alındı. 1 iş günü içinde dönüş yapacağız.</div></form></div></div></section>''',
   "kulup","Kurumsal Satış · Florida Coffee","Florida Coffee kurumsal: ofis ikramı, etkinlik kahve barı, toplu hediye kartı; örnek bütçe hesaplayıcı.","/kurumsal/"))
-jobs = "".join(f'<div class="cell" data-f="{j["loc"].split(" ")[0].lower()}"><div class="lbl">{j["loc"]} · {j["type"]}</div><h3>{j["t"]}</h3><p>{j["d"]}</p><button class="btn amber sm" data-apply="{j["t"]}" style="align-self:flex-start">Başvur</button></div>' for j in JOBS)
+jobs = "".join(f'<div class="cell" data-f="{j["loc"].split(" ")[0].lower()}"><div class="lbl">{j["loc"]} · {j["type"]}</div><h3>{j["t"]}</h3><p>{j["d"]}</p><a class="btn amber sm" href="/kariyer/basvuru/?pos={j["t"].replace(" ","%20")}" style="align-self:flex-start">Başvur</a></div>' for j in JOBS)
 page("/kariyer/", shell(hero("Kariyer","Barista standardı üretir.<br>Siz de üretin.","Her barista hazırladığı her fincanla markayı temsil eder. Deneyim şart değil; 45 günlük eğitimimiz var.",[("Kariyer",None)],"barista") +
-  f'''<section class="sec"><div class="wrap">{sh("Açık pozisyonlar","Şehre göre süzün; Başvur'a dokunun, form pozisyonla dolsun.")}<div class="filters" data-filter="#jobs .cell" style="margin:0 0 1rem"><button class="fbtn" data-f="hepsi" aria-pressed="true">Hepsi</button><button class="fbtn" data-f="i̇stanbul" aria-pressed="false">İstanbul</button><button class="fbtn" data-f="sakarya" aria-pressed="false">Sakarya</button></div><div class="grid g3" id="jobs">{jobs}</div>
+  f'''<section class="sec"><div class="wrap">{sh("Açık pozisyonlar","Şehre göre süzün; Başvur'a dokunun, dört adımlık başvuru pozisyonla açılsın.")}<div class="filters" data-filter="#jobs .cell" style="margin:0 0 1rem"><button class="fbtn" data-f="hepsi" aria-pressed="true">Hepsi</button><button class="fbtn" data-f="i̇stanbul" aria-pressed="false">İstanbul</button><button class="fbtn" data-f="sakarya" aria-pressed="false">Sakarya</button></div><div class="grid g3" id="jobs">{jobs}</div>
   {sh("Barista yolculuğu","İlk günden şube müdürlüğüne.")}<div class="stepper" data-auto><div><div class="n">1</div><h3>15 gün eğitim</h3><p>Ekstraksiyon, süt dokusu, latte art, hijyen.</p></div><div><div class="n">2</div><h3>Sertifika</h3><p>Standart testi: 14 g, 18–23 sn, 60–65 °C.</p></div><div><div class="n">3</div><h3>Şube</h3><p>Front bar / back bar; haftalık kalibrasyon.</p></div><div><div class="n">4</div><h3>Vardiya lideri</h3><p>Denetim ve gizli müşteri puanına göre.</p></div><div><div class="n">5</div><h3>Şube müdürü</h3><p>30 gün işletme eğitimi; yeni açılışlarda görev.</p></div></div>
-  <div class="split top" style="margin-top:2.5rem" id="basvur"><form class="f panel"><label>Ad Soyad<input required></label><label>Telefon<input type="tel" required></label><label>E-posta<input type="email" required></label><label>Pozisyon<select id="jobPos">{"".join(f"<option>{j['t']}</option>" for j in JOBS)}</select></label><label>Şehir<select><option>İstanbul</option><option>Sakarya</option><option>Diğer</option></select></label><label>Not<textarea rows="3" placeholder="Deneyim, uygun günler"></textarea></label><button class="btn amber" type="submit">Başvur</button><div class="ok" hidden>Başvurunuz alındı. 3 iş günü içinde dönüş.</div></form>
+  <div class="split top" style="margin-top:2.5rem" id="basvur"><div class="panel"><div class="lbl" style="margin-bottom:.5rem">Başvuru nasıl işler</div><h3>Formu bir kez doldurun, sonra biz sizi bulalım.</h3><p style="color:var(--ink-2);margin:.5rem 0 1rem">Dört adım, üç dakika. Profiliniz yapay zekâ destekli aday havuzuna girer; açık vardiya doğduğunda size sorulur, yanıtınız kayda alınır, müsaitseniz hemen başlarsınız.</p><div class="kpi" style="margin-bottom:1rem"><div><b>4</b><span>adım</span></div><div><b>3 dk</b><span>süre</span></div><div><b>24 sa</b><span>ilk temas</span></div></div><a class="btn amber" href="/kariyer/basvuru/">Başvuruya başla</a></div>
   <div>{cells([("","Nasıl çalışıyoruz","FIFO zorunlu; front bar / back bar net görev ayrımı; haftalık kalibrasyon, aylık kalite denetimi.",""),("","Yan haklar","Vardiya yemeği, günlük kahve, sağlık sigortası, şubeler arası transfer.",""),("","Gelişim","Kalite ve eğitim ekibine geçiş; yeni şube açılışlarında görev.","")], "g3")}</div></div></div></section>''',
   "kahvemiz","Kariyer · Florida Coffee","Florida Coffee'de barista, şube müdürü ve kalite uzmanı pozisyonları; barista yolculuğu ve başvuru.","/kariyer/",
   [{"@context":"https://schema.org","@type":"JobPosting","title":j["t"],"description":j["d"],"datePosted":TODAY,"employmentType":"FULL_TIME","hiringOrganization":{"@type":"Organization","name":"Florida Coffee"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":j["loc"].split("·")[0].strip(),"addressCountry":"TR"}}} for j in JOBS]))
+
+# ---------- KARİYER · BAŞVURU (aday CRM) ----------
+SHIFTS = [("sabah","Sabah 07–15"),("aksam","Akşam 15–23"),("gece","Gece 23–02"),("haftasonu","Hafta sonu"),("yarizamanli","Yarı zamanlı")]
+SKILLS = [("espresso","Espresso & doz"),("sut","Süt köpüğü / latte art"),("kasa","Kasa & POS"),("iletisim","Müşteri iletişimi"),("hijyen","Hijyen & FIFO")]
+page("/kariyer/basvuru/", shell(hero("Kariyer · Başvuru","Dört adım, üç dakika.<br>Sonra biz sizi buluruz.","Formu bitiren adayları yapay zekâ şubelerle eşleştirir; açık vardiya doğduğunda size sorar, yanıtınızı kayda alır, müsaitseniz hemen başlarsınız.",[("Kariyer","/kariyer/"),("Başvuru",None)],"barista") +
+  f'''<section class="sec"><div class="wrap"><div class="split top" id="applyWrap">
+  <form class="f panel" id="applyForm" data-steps novalidate>
+    <div class="meter"><div class="row"><span>Profil gücü</span><b id="mPct">0%</b></div><div class="bar"><i id="mBar"></i></div><div class="row"><span id="mMsg">Başlayalım</span></div></div>
+    <div class="fsteps"><i class="on"></i><i></i><i></i><i></i></div>
+    <div data-step="1"><div class="lbl">1 · Kimlik</div><p class="motive"><b>Neden soruyoruz?</b> Şehir ve yaş bilgisi hangi şubelerin size yakın olduğunu belirler; başka bir şeye kullanılmaz.</p>
+      <label>Ad Soyad<input id="aName" required placeholder="Adınız Soyadınız"></label><label>Telefon<input type="tel" required placeholder="05xx xxx xx xx"></label><label>E-posta<input type="email" required></label>
+      <label>Şehir<select id="aCity">{"".join(f"<option>{c}</option>" for c in ["İstanbul","Kocaeli","Adapazarı","Bursa","Atakum","Rize","Erzincan","Karadağ"])}</select></label><label>Doğum yılı<input type="number" min="1960" max="2010" placeholder="2001"></label>
+      <button type="button" class="btn amber" data-next>Devam</button></div>
+    <div data-step="2" hidden><div class="lbl">2 · Tercihler</div><p class="motive"><b>Burası eşleştirmenin kalbi.</b> İşaretlediğiniz şubeler ve vardiyalar, size gelecek soruları belirler.</p>
+      <label>Pozisyon<select id="aPos">{"".join(f"<option>{j['t']}</option>" for j in JOBS)}</select></label>
+      <label>Tercih ettiğiniz şubeler <small>· birden çok seçin</small></label><div class="pills" id="aBranches"></div>
+      <label style="margin-top:.6rem">Vardiya tercihi <small>· en az iki</small></label><div class="pills" id="aShifts">{"".join(f'<button type="button" class="pill" data-multi data-v="{k}" aria-pressed="false">{v}</button>' for k,v in SHIFTS)}</div>
+      <label style="margin-top:.6rem">Ne zaman başlayabilirsiniz?</label><div class="pills" id="aStart" data-one><button type="button" class="pill" data-v="hemen" aria-pressed="true">Hemen</button><button type="button" class="pill" data-v="2hafta" aria-pressed="false">2 hafta sonra</button><button type="button" class="pill" data-v="1ay" aria-pressed="false">1 ay sonra</button></div>
+      <div style="display:flex;gap:.5rem;margin-top:.6rem"><button type="button" class="btn ghost" data-prev>Geri</button><button type="button" class="btn amber" data-next>Devam</button></div></div>
+    <div data-step="3" hidden><div class="lbl">3 · Deneyim ve beceriler</div><p class="motive"><b>Dürüst puanlayın.</b> Düşük puan elenme değil, eğitim planı demek: 15 günlük programı buna göre kurarız.</p>
+      <label>Kafe / restoran deneyimi<select><option>Yok</option><option>1 yıldan az</option><option>1–3 yıl</option><option>3 yıl üstü</option></select></label>
+      <div style="display:grid;gap:.6rem;margin:.2rem 0 .6rem">{"".join(f'<div class="skill"><span>{v}</span><input type="range" min="1" max="5" value="3" data-k="{k}"><b>3</b></div>' for k,v in SKILLS)}</div>
+      <label>Diller<input placeholder="Türkçe, İngilizce…"></label><label>Sertifika / eğitim<input placeholder="SCA, hijyen belgesi, barista kursu…"></label>
+      <div style="display:flex;gap:.5rem;margin-top:.6rem"><button type="button" class="btn ghost" data-prev>Geri</button><button type="button" class="btn amber" data-next>Devam</button></div></div>
+    <div data-step="4" hidden><div class="lbl">4 · Tanışalım</div><p class="motive"><b>Son adım.</b> Havuzda kalmayı kabul edenlere açık vardiya doğduğunda önce sorulur.</p>
+      <label>Kendinizi bir cümleyle anlatın<textarea rows="3" placeholder="Sabah insanıyım, kalabalıkta sakin kalırım…"></textarea></label>
+      <label>60 saniyelik tanışma videosu <small>· isteğe bağlı</small><input type="file" accept="video/*,audio/*"></label>
+      <label style="display:flex;gap:.5rem;align-items:center;text-transform:none;letter-spacing:0"><input type="checkbox" id="aKvkk" required style="width:auto"> KVKK aydınlatma metnini okudum; verilerim işe alım için işlensin.</label>
+      <label style="display:flex;gap:.5rem;align-items:center;text-transform:none;letter-spacing:0"><input type="checkbox" checked style="width:auto"> Aday havuzunda kal; açık vardiya doğduğunda bana sor.</label>
+      <div style="display:flex;gap:.5rem;margin-top:.6rem"><button type="button" class="btn ghost" data-prev>Geri</button><button class="btn amber" type="submit">Başvuruyu gönder</button></div></div>
+  </form>
+  <div>{sh("Sonra ne olur","Başvurunuz bir dosyada beklemez; yapay zekâ destekli aday havuzu sizinle temasta kalır.")}
+    <div class="stepper" data-auto><div><div class="n">1</div><h3>Profil</h3><p>Şehir, şube, vardiya, beceri; 3 dakika.</p></div><div><div class="n">2</div><h3>Eşleştirme</h3><p>Yapay zekâ mesafe, vardiya ve beceriye göre şubeleri puanlar.</p></div><div><div class="n">3</div><h3>Soru</h3><p>Açık vardiya doğunca size sorar: evet / hayır / sonra.</p></div><div><div class="n">4</div><h3>Kesin yanıt</h3><p>Her bildirim bir cevapla kapanır; belirsizlik kalmaz.</p></div><div><div class="n">5</div><h3>Başla</h3><p>Müsaitseniz şube müdürü aynı gün arar; deneme vardiyası.</p></div></div>
+    <div class="grid g2" style="margin-top:1px"><div class="cell"><h3>Her bildirim bir sorudur</h3><p>Tek dokunuşla yanıt: Evet, Hayır, 2 hafta sonra. 4 saatte yanıt yoksa hatırlatma; 24 saatte "belirsiz" olur, öncelik düşer.</p></div><div class="cell"><h3>Havuzdan çıkmak serbest</h3><p>"Artık arama" deyin, 30 gün sonra veriler silinir. Yeniden başvurmak tek dokunuş.</p></div></div>
+    <div class="panel" style="margin-top:1px"><div class="lbl" style="margin-bottom:.5rem">HQ · aday havuzu (örnek)</div><div class="kpi"><div><b>42</b><span>müsait aday</span></div><div><b>2</b><span>bugün açık vardiya</span></div><div><b>1 sa</b><span>ortalama kapanma</span></div></div><p style="margin:.7rem 0 0;font-size:.85rem;color:var(--ink-2)">Kadıköy Cmt 09–17: yapay zekâ 3 adaya sordu, 2 evet, vardiya 52 dakikada kapandı. Şube müdürü sadece onayladı.</p></div>
+  </div></div>
+  <div id="applyDone" hidden><div class="split top"><div>{sh("Teşekkürler, <span id=mName>aday</span>.","Profiliniz havuzda. Yapay zekâ en uygun üç şubeyi puanladı; açık vardiya doğduğunda önce size sorulacak.")}
+    <div class="lbl" style="margin-bottom:.5rem">Eşleşen şubeler · <span id="mPos"></span></div><div class="match" id="matchList"></div>
+    <div style="display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;margin-top:1rem"><span class="cstatus" id="cStatus"><i></i><span>Havuzda · müsait</span></span><span style="font-size:.8rem;color:var(--ink-3)">Durumu değiştir:</span><button class="btn ghost sm" data-status="">Müsait</button><button class="btn ghost sm" data-status="soon">2 hafta sonra</button><button class="btn ghost sm" data-status="busy">Meşgul</button></div></div>
+    <div><div class="lbl" style="margin-bottom:.5rem">Aday paneli · gelen sorular (önizleme)</div><div class="inbox" id="inbox"></div>
+    <div class="kpi" style="margin-top:1px"><div><b id="kAns">0%</b><span>yanıt oranı</span></div><div><b id="kTime">—</b><span>ort. yanıt süresi</span></div><div><b>1.</b><span>öncelik sırası</span></div></div>
+    <p style="margin:.8rem 0 0;font-size:.85rem;color:var(--ink-3)">Yanıt oranı yükseldikçe öncelik sıranız korunur; açık vardiyalar önce yanıt verenlere gider.</p></div></div></div>
+  </div></section>''',
+  "kahvemiz","İş Başvurusu · Florida Coffee","Florida Coffee iş başvurusu: dört adımda profil, yapay zekâ ile şube eşleştirme, açık vardiyada anında soru ve kesin yanıt; aday havuzu.","/kariyer/basvuru/"))
+
 FAQC = {"Ön sipariş":"siparis","Laktozsuz":"menu","FloridaDays":"kulup","Fiziksel":"kulup","Her şubede":"menu","Hangi şubeler":"sube","Franchise":"franchise","Evcil":"sube","Kurumsal":"kurumsal","Kargo":"urun"}
 faqc = [(q,a,next((v for k,v in FAQC.items() if q.startswith(k)), "genel")) for q,a in FAQ]
 page("/sss/", shell(hero("SSS","Sık sorulanlar.","Ön sipariş, süt seçenekleri, sadakat, şubeler, franchise. Arayın ya da Flo'ya sorun.",[("SSS",None)]) +

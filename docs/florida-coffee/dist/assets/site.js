@@ -286,6 +286,42 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   document.querySelectorAll("[data-ask-flo]").forEach(b => b.addEventListener("click", () => { const fab = document.getElementById("floFab"); if (fab) fab.click(); }));
 })();
 
+
+/* ---------- v9: aday başvurusu, eşleştirme ve CRM önizlemesi ---------- */
+(() => {
+  const f = document.getElementById("applyForm"); if (!f || typeof B === "undefined") return;
+  const T = m => (typeof showToast === "function") && showToast(m);
+  const q = new URLSearchParams(location.search); const pos = q.get("pos"); if (pos) { const sel = f.querySelector("#aPos"); if (sel) [...sel.options].forEach(o => { if (o.textContent === pos) sel.value = pos; }); }
+  // şube tercih çipleri (veriden)
+  const bp = document.getElementById("aBranches"); bp.innerHTML = B.map(b => `<button type="button" class="pill" data-multi data-id="${b.id}" aria-pressed="false">${b.n}</button>`).join("");
+  f.querySelectorAll("[data-multi]").forEach(p => p.addEventListener("click", () => { p.setAttribute("aria-pressed", String(p.getAttribute("aria-pressed") !== "true")); meter(); }));
+  f.querySelectorAll("[data-one] .pill").forEach(p => p.addEventListener("click", () => { p.closest("[data-one]").querySelectorAll(".pill").forEach(x => x.setAttribute("aria-pressed", "false")); p.setAttribute("aria-pressed", "true"); meter(); }));
+  f.querySelectorAll(".skill input").forEach(r => { const out = r.closest(".skill").querySelector("b"); const u = () => out.textContent = r.value; r.addEventListener("input", () => { u(); meter(); }); u(); });
+  const MSG = [[0,"Başlayalım: adınızı yazın, gerisi kolay."],[25,"İyi gidiyor. Tercihleriniz eşleştirmeyi %40 daha isabetli yapar."],[50,"Yarısı bitti. Beceri puanları vardiya liderinin ilk baktığı şey."],[75,"Neredeyse tamam. Tam profil 10 gün içinde deneme vardiyası şansını artırır."],[100,"Profil tam. Gönderin; eşleştirme anında hazır."]];
+  function meter(){ const fields = [...f.querySelectorAll("input:not([type=range]):not([type=checkbox]), select, textarea")]; let filled = fields.filter(x => x.value.trim()).length, total = fields.length + 3;
+    if (f.querySelectorAll("[data-multi][aria-pressed=true]").length) filled++; if (f.querySelectorAll("[data-one] .pill[aria-pressed=true]").length >= 2) filled++; if (f.querySelector("#aKvkk")?.checked) filled++;
+    const p = Math.round(filled / total * 100); document.getElementById("mBar").style.width = p + "%"; document.getElementById("mPct").textContent = p + "%"; document.getElementById("mMsg").textContent = MSG.filter(m => p >= m[0]).slice(-1)[0][1]; }
+  f.addEventListener("input", meter); meter();
+  f.addEventListener("submit", e => { e.preventDefault();
+    const name = f.querySelector("#aName").value.trim().split(" ")[0] || "Aday", city = f.querySelector("#aCity").value, shifts = [...f.querySelectorAll("#aShifts .pill[aria-pressed=true]")].map(x => x.dataset.v), start = f.querySelector("#aStart .pill[aria-pressed=true]")?.dataset.v || "hemen", pref = new Set([...f.querySelectorAll("[data-multi][aria-pressed=true]")].map(x => x.dataset.id)), position = f.querySelector("#aPos").value;
+    const skills = Object.fromEntries([...f.querySelectorAll(".skill input")].map(r => [r.dataset.k, +r.value]));
+    const scored = B.map(b => { let sc = 20, why = []; if (pref.has(b.id)) { sc += 35; why.push("tercihiniz"); } if (b.c.includes(city)) { sc += 20; why.push(city); } if (shifts.includes("gece") && b.f.includes("gece")) { sc += 12; why.push("gece vardiyası"); } if (shifts.includes("sabah") && b.f.includes("kahvalti")) { sc += 10; why.push("kahvaltı servisi"); } if (shifts.includes("haftasonu") && b.f.includes("manzara")) { sc += 6; why.push("hafta sonu yoğun"); } if (position === "Şube Müdürü" && b.f.includes("calisma")) { sc += 5; } if (skills.espresso >= 4) sc += 4; return { b, sc: Math.min(98, sc), why }; }).sort((x, y) => y.sc - x.sc).slice(0, 3);
+    document.getElementById("mName").textContent = name; document.getElementById("mPos").textContent = position;
+    document.getElementById("matchList").innerHTML = scored.map(m => `<a href="/subeler/${m.b.id}/"><img src="/img/subeler/${m.b.id}.jpg" alt="" onerror="this.remove()"><div><h3>${m.b.n}</h3><p>${m.b.c} · ${m.why.length ? m.why.join(", ") : "genel uygunluk"} · ${hourStr(m.b.o)}–${hourStr(m.b.k)}</p></div><span class="pct">%${m.sc}</span></a>`).join("");
+    const startTxt = { hemen: "Hemen", "2hafta": "2 hafta sonra", "1ay": "1 ay sonra" }[start];
+    const top = scored[0].b, second = scored[1]?.b || top;
+    const inbox = [{ from: "Flo · İK", when: "bugün 10:12", q: `${name}, ${top.n} şubesinde ${shifts.includes("gece") ? "Perşembe 16:00–00:00" : "Cumartesi 09:00–17:00"} bir deneme vardiyası açıldı. Gelebilir misin?` },
+                   { from: "Flo · İK", when: "yarın 09:00", q: `${second.n} için ${position.toLowerCase()} ihtiyacı doğdu; ${startTxt.toLowerCase()} başlayabilir misin?` },
+                   { from: "Flo · İK", when: "haftaya", q: "Müsaitlik durumun hâlâ geçerli mi? 'Evet' dersen havuzda öncelikli kalırsın." }];
+    let answered = 0; const ib = document.getElementById("inbox"); ib.innerHTML = inbox.map((m, i) => `<div class="msg" data-i="${i}"><div class="from">${m.from}<span>${m.when}</span></div><div class="q">${m.q}</div><div class="acts"><button type="button" class="btn amber sm" data-a="Evet, uygun">Evet</button><button type="button" class="btn ghost sm" data-a="Bu sefer değil">Hayır</button><button type="button" class="btn ghost sm" data-a="2 hafta sonra">2 hafta sonra</button></div><div class="ans" hidden></div></div>`).join("");
+    ib.querySelectorAll("[data-a]").forEach(bt => bt.addEventListener("click", () => { const msg = bt.closest(".msg"); msg.classList.add("done"); const a = msg.querySelector(".ans"); a.hidden = false; a.textContent = "Yanıtın: " + bt.dataset.a + " · kayıt altına alındı, şube müdürüne iletildi."; answered++; document.getElementById("kAns").textContent = Math.round(answered / inbox.length * 100) + "%"; document.getElementById("kTime").textContent = "0:" + String(8 + answered * 3).padStart(2, "0"); if (bt.dataset.a.startsWith("Evet")) { T("Şube müdürü bilgilendirildi · takvimine eklendi"); setStatus("busy", "Vardiyaya atandı · " + top.n); } else if (bt.dataset.a.startsWith("2")) setStatus("soon", "2 hafta sonra müsait"); }));
+    const setStatus = (k, t) => { const el = document.getElementById("cStatus"); el.className = "cstatus " + k; el.querySelector("span").textContent = t; };
+    document.querySelectorAll("[data-status]").forEach(bt => bt.addEventListener("click", () => setStatus(bt.dataset.status, bt.textContent)));
+    setStatus(start === "hemen" ? "" : "soon", start === "hemen" ? "Havuzda · müsait" : "Havuzda · " + startTxt.toLowerCase() + " müsait");
+    document.getElementById("applyWrap").hidden = true; const done = document.getElementById("applyDone"); done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "start" }); T("Başvurun alındı, " + name + ". Eşleştirme hazır.");
+  });
+})();
+
 (() => { const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
   const paint = () => { const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; };
   paint(); setInterval(paint, 60000); })();
