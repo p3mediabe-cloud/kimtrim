@@ -641,6 +641,11 @@ form.f .pills{margin-top:.2rem}
 }
 
 
+/* v15: sahne seti */
+.origin3{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.origin3 .pht:first-child{grid-column:1/-1}
+.split .pht+.grid,.split p+.pht{margin-top:1rem}
+@media (max-width:640px){.origin3 .pht:not(:first-child){display:none}}
+
 /* v14: yorumlar, hediye kartı, uygulama indir (mobil), haber al, mobil sıkıştırma */
 .reviews{display:flex;gap:.8rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.4rem}
 .reviews::-webkit-scrollbar{display:none}

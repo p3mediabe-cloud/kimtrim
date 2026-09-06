@@ -251,3 +251,21 @@ Demo veriler örnektir; gerçek menü, fiyat ve şube verisi keşif aşamasında
 - **İnsan aktarımı:** WhatsApp bağlantısı ve geri arama kaydı; olumsuz duygu sözcüklerinde şikâyet akışı otomatik açılır.
 - **Ölçüm:** niyet sayaçları (en çok sorulanlar, tamamlanan sipariş/başvuru/kayıt) HQ paneline akar.
 - **Marka:** buton ve sekme simgesi (favicon) başlıktaki göz kırpan tukan; yeni mesajda amber rozet.
+
+## 13. Görsel dil · sahne seti (Instagram arşivi yerine)
+
+Müşterinin Instagram arşivi teklif aşamasında elde edilemedi; bekleme yerine markaya özel bir sahne seti üretildi. Palet (#004854, #F09C1C, #D44808, krem), tukan amblemli bardak ve krem önlük her karede sabit tutulur.
+
+| Kare | Kullanıldığı yer |
+|---|---|
+| ekip | /kariyer/ kahraman, /hikayemiz/, ana sayfa son bölüm arka planı |
+| egitim | /kariyer/basvuru/ kahraman, /kariyer/ eğitim kartı, /franchise/ 45 gün eğitim, latte art atölyesi |
+| akustik | ana sayfa gece bölümü, /etkinlikler/ kahraman ve kart, haber kartı |
+| cupping | gece etkinlik kartı, /etkinlikler/ kart, haber kartı |
+| gecefiltre | gece filtresi kartları |
+| hasat, kavurma | ana sayfa ve /kahvemiz/ "Çekirdek nereden geliyor" |
+| acilis | /taze/ kahraman, Sakarya açılış haberi, /franchise/ açılış |
+| kurumsal | /kurumsal/ kahraman |
+| teslim | /uygulama/ kahraman |
+
+Geçiş kuralı: gerçek çekim geldiğinde aynı adla `img/` altına konur; sayfa şablonları ve yuvalar değişmez. Kaynak: `demo-site/gen_images.py` (anahtar yalnız ortam değişkeninden).

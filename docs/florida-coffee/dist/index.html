@@ -990,6 +990,24 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   .subscribe .opts{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.4rem}.subscribe .opt{border-color:rgba(36,23,4,.4);color:#241704;text-align:center;font-weight:700}.subscribe .opt[aria-pressed="true"]{background:#241704;color:var(--amber);border-color:#241704}
   .subscribe input{background:#fff;color:#241704;border:0;width:100%;padding:.8rem .9rem}.subscribe .btn.amber{background:#241704;color:var(--amber);width:100%;justify-content:center}.subscribe .ok{color:#241704;font-weight:700}
 }
+/* ---------- v15: sahne seti (ekip, etkinlik, hasat, kavurma, açılış) ---------- */
+.ev{padding:0 0 1.1rem;overflow:hidden}
+.ev>.d,.ev>.t,.ev>p,.ev>.acts{margin-left:1.2rem;margin-right:1.2rem}
+.ev>.d{margin-top:.9rem}
+.ev .ph{border-radius:0;margin:0;aspect-ratio:16/9}
+.final{position:relative;overflow:hidden}
+.final .ph.fbg{position:absolute;inset:0;margin:0;border-radius:0;background:none;z-index:0}
+.final .ph.fbg img{width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:.38;filter:saturate(.85)}
+.final .ph.fbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--bg,#04141a) 0%,rgba(4,20,26,.55) 35%,rgba(4,20,26,.6) 65%,rgba(4,20,26,.92) 100%)}
+.final .inner{position:relative;z-index:1}
+.origin{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1.1rem}
+.origin .ph:first-child{grid-column:1/-1}
+.origin .ph{margin:0}
+@media (max-width:640px){
+  .ev .ph{aspect-ratio:2.4/1}
+  .final .ph.fbg img{opacity:.3;object-position:center 20%}
+  .origin .ph:not(:first-child){display:none}
+}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -1185,7 +1203,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
         <div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div>
       </div>
       <div class="brewcol mcol" data-more="Çekirdek, kavurma ve 5 adım">
-        <figure class="ph r169" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure>
+        <div class="origin"><figure class="ph r169" data-img="hasat"><span class="cap">Hasat · Etiyopya, elle toplama</span></figure><figure class="ph r43" data-img="kavurma"><span class="cap">Kavurma · küçük parti</span></figure><figure class="ph r43" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure></div>
         <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
         <div class="brewtabs" id="brewtabs">
           <button class="fbtn" aria-pressed="true" data-b="latin">Latin Amerika</button>
@@ -1406,11 +1424,11 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="hour"><span class="t">23:30</span><span class="p">Gece · Beykoz</span></div>
     <h2>Şehir susunca<br>Boğaz konuşur.</h2>
     <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
-    <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><span class="cap">Beykoz · 01:00</span></figure>
+    <figure class="ph r169" data-img="akustik" style="margin:1.4rem 0"><span class="cap">Kavacık terası · Perşembe 21:00</span></figure>
     <div class="evgrid">
-      <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
-      <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
-      <div class="ev"><div class="d">Her gün 22:00 sonrası</div><div class="t">Gece filtresi</div><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
+      <div class="ev"><figure class="ph r169" data-img="night"></figure><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
+      <div class="ev"><figure class="ph r169" data-img="cupping"></figure><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
+      <div class="ev"><figure class="ph r169" data-img="gecefiltre"></figure><div class="d">Her gün 22:00 sonrası</div><div class="t">Gece filtresi</div><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
     </div>
   </div>
 </section>
@@ -1430,6 +1448,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 </section>
 
 <section class="sec final" id="basvuru">
+  <figure class="ph fbg" data-img="ekip"></figure>
   <div class="inner">
     <h2>Son bölüm yok.<br>Yarın 06:40'ta yeniden.</h2>
     <p style="margin:0 auto;color:var(--ink-2)">En yakın Florida'yı bulun, uygulamayı indirin ya da kendi şubenizi açın.</p>
@@ -1490,6 +1509,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 </section>
 
 <script id="subeimg" type="application/json">{}</script>
+<script id="rootimg" type="application/json">{}</script>
 <script id="menuimg" type="application/json">{}</script>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
   <div class="scrim" data-close></div>
@@ -2024,19 +2044,20 @@ if (favEl) {
 
 /* ---------------- taze: haber akışı ---------------- */
 const NEWS = [
-  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Devamı", href:"/taze/sakarya-da-yeni-adres-cumhuriyet-mah-sal-sokak/", img:["s","sakarya"]},
+  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Devamı", href:"/taze/sakarya-da-yeni-adres-cumhuriyet-mah-sal-sokak/", img:["p","acilis"]},
   {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Devamı", href:"/taze/bogaz-cold-brew-sezonu-acildi/", img:["m","bogaz-cold-brew"]},
   {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Devamı", href:"/taze/kartini-uygulamaya-tasi-ilk-kahve-bizden/", img:["m","latte"]},
-  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Devamı", href:"/taze/akustik-aksamlar-kavacik-terasi/", img:["s","kavacik"]},
+  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Devamı", href:"/taze/akustik-aksamlar-kavacik-terasi/", img:["p","akustik"]},
   {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Devamı", href:"/taze/budva-yaz-saatleri-01-00-e-kadar/", img:["s","budva"]},
-  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Devamı", href:"/taze/sonbahar-harmani-raflarda/", img:["m","florida-filtre"]},
+  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Devamı", href:"/taze/sonbahar-harmani-raflarda/", img:["p","kavurma"]},
   {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Devamı", href:"/taze/olu-saat-soguk-kahveler-20/", img:["m","iced-latte"]},
-  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Devamı", href:"/taze/cupping-cengelkoy/", img:["s","cengelkoy"]}
+  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Devamı", href:"/taze/cupping-cengelkoy/", img:["p","cupping"]}
 ];
 const TL = {sube:"Şube", urun:"Ürün", kampanya:"Kampanya", etkinlik:"Etkinlik"};
 let newsF = "hepsi";
 const SAVED = new Set((() => { try { return JSON.parse(localStorage.getItem("fc_saved") || "[]"); } catch (e) { return []; } })());
-const newsImg = n => { const [k, id] = n.img; return k === "s" ? (SUBEIMG[id] || "img/subeler/" + id + ".jpg") : (MENUIMG[id] || "img/menu/" + id + ".jpg"); };
+const ROOTIMG = (() => { try { return JSON.parse(document.getElementById("rootimg")?.textContent || "{}"); } catch (e) { return {}; } })();
+const newsImg = n => { const [k, id] = n.img; return k === "p" ? (ROOTIMG[id] || "img/" + id + ".jpg") : k === "s" ? (SUBEIMG[id] || "img/subeler/" + id + ".jpg") : (MENUIMG[id] || "img/menu/" + id + ".jpg"); };
 function renderNews(){
   const list = NEWS.filter(n => newsF === "hepsi" || n.t === newsF || (newsF === "kayitli" && SAVED.has(n.h)));
   document.getElementById("news").innerHTML = list.length ? list.map(n =>
