@@ -15,7 +15,7 @@ BRAND = ("Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F
 SHOTS = {
   # ad: (ilk kare, prompt, oran)
   "hero":  ("hero", "Slow cinematic push-in on a cream takeaway cup with a teal band on a terrace rail above the Bosphorus at golden hour. Steam curls gently from the lid, water glitters, a ferry drifts in the far distance, light wind moves a napkin slightly. Calm, warm, premium.", "16:9"),
-  "hero2": ("hero_end", "Continuation of the same shot, same cup on the same terrace rail above the Bosphorus. The camera drifts slowly to the right and pulls back a little as golden hour fades into blue dusk: the bridge lights and the far shore light up one by one, a ferry glides past with its lights on, steam keeps rising from the cup. Ends on a calm, wide, glowing evening frame.", "16:9"),
+  "hero2": ("hero2_wide", "Locked-off static camera, absolutely no camera movement, no zoom, no pan, no cuts. Wide evening view over the Bosphorus from a terrace: the takeaway cup sits at the bottom edge of frame with a thin wisp of steam, the bridge and far shore lights glow and twinkle softly, a lit ferry glides slowly from right to left, the water shimmers. Blue hour deepens very gradually. Calm, premium, continuous.", "16:9"),
   "pour":  ("pour", "Macro slow motion: espresso streams from a portafilter into a small cup, tiger-striped crema forming, tiny bubbles. Warm amber light, teal-tiled wall softly out of focus. Steady camera, gentle rack focus.", "16:9"),
   "night": ("night", "Vertical: a Florida Coffee shop window glows amber at night on a Bosphorus street, rain-wet pavement reflects the light, a person in a coat walks past carrying a cream cup, cars pass with soft bokeh. Slow lateral dolly.", "9:16"),
 }

@@ -92,16 +92,26 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
-// hero: iki klip, sonda çapraz geçiş — tek klibin başa sarması göze batıyordu
+// hero: iki klip, uzun çapraz geçiş — yalnız üstteki katman içeri solar; altta kalan opak kalır ki sabit görsel araya sızmasın
 document.querySelectorAll(".ph").forEach(fig => {
   const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
-  const FADE = 1.4; let cur = 0; v[1].classList.add("out");
-  v.forEach((el, i) => el.addEventListener("timeupdate", () => {
-    if (i !== cur || !el.duration || el.currentTime < el.duration - FADE || el.dataset.sw) return;
-    el.dataset.sw = "1"; const n = v[1 - i]; n.currentTime = 0; cur = 1 - i;
-    n.play().then(() => { n.classList.remove("out"); el.classList.add("out"); }).catch(() => { el.currentTime = 0; el.play(); cur = i; delete el.dataset.sw; });
-    setTimeout(() => { el.pause(); delete el.dataset.sw; }, FADE * 1000 + 100);
-  }));
+  let cur = 0, busy = false;
+  const startOf = el => +el.dataset.start || 0;
+  const fadeOf = el => Math.min(3, (el.duration || 8) / 2.5);
+  v[1].classList.add("out"); v[1].addEventListener("loadedmetadata", () => { v[1].currentTime = startOf(v[1]); }, {once:true});
+  const swap = i => {
+    if (i !== cur || busy) return;
+    busy = true; const el = v[i], n = v[1 - i], FADE = fadeOf(el);
+    el.classList.remove("top"); n.classList.add("top", "out");
+    if (Math.abs(n.currentTime - startOf(n)) > .3) n.currentTime = startOf(n);
+    n.play().then(() => { requestAnimationFrame(() => n.classList.remove("out")); cur = 1 - i;
+      setTimeout(() => { el.classList.add("out"); el.pause(); el.currentTime = startOf(el); busy = false; if (n.ended) swap(1 - i); }, FADE * 1000 + 150);
+    }).catch(() => { n.classList.remove("top"); el.currentTime = startOf(el); el.play(); busy = false; });
+  };
+  v.forEach((el, i) => {
+    el.addEventListener("timeupdate", () => { if (el.duration && el.currentTime >= el.duration - fadeOf(el)) swap(i); });
+    el.addEventListener("ended", () => swap(i));
+  });
 });
 /* ---------- /logo canlandırma ---------- */
 
@@ -132,16 +142,26 @@ document.querySelectorAll(".ph").forEach(fig => {
     cnt.forEach(el => io.observe(el));
   }
 })();
-// hero: iki klip, sonda çapraz geçiş — tek klibin başa sarması göze batıyordu
+// hero: iki klip, uzun çapraz geçiş — yalnız üstteki katman içeri solar; altta kalan opak kalır ki sabit görsel araya sızmasın
 document.querySelectorAll(".ph").forEach(fig => {
   const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
-  const FADE = 1.4; let cur = 0; v[1].classList.add("out");
-  v.forEach((el, i) => el.addEventListener("timeupdate", () => {
-    if (i !== cur || !el.duration || el.currentTime < el.duration - FADE || el.dataset.sw) return;
-    el.dataset.sw = "1"; const n = v[1 - i]; n.currentTime = 0; cur = 1 - i;
-    n.play().then(() => { n.classList.remove("out"); el.classList.add("out"); }).catch(() => { el.currentTime = 0; el.play(); cur = i; delete el.dataset.sw; });
-    setTimeout(() => { el.pause(); delete el.dataset.sw; }, FADE * 1000 + 100);
-  }));
+  let cur = 0, busy = false;
+  const startOf = el => +el.dataset.start || 0;
+  const fadeOf = el => Math.min(3, (el.duration || 8) / 2.5);
+  v[1].classList.add("out"); v[1].addEventListener("loadedmetadata", () => { v[1].currentTime = startOf(v[1]); }, {once:true});
+  const swap = i => {
+    if (i !== cur || busy) return;
+    busy = true; const el = v[i], n = v[1 - i], FADE = fadeOf(el);
+    el.classList.remove("top"); n.classList.add("top", "out");
+    if (Math.abs(n.currentTime - startOf(n)) > .3) n.currentTime = startOf(n);
+    n.play().then(() => { requestAnimationFrame(() => n.classList.remove("out")); cur = 1 - i;
+      setTimeout(() => { el.classList.add("out"); el.pause(); el.currentTime = startOf(el); busy = false; if (n.ended) swap(1 - i); }, FADE * 1000 + 150);
+    }).catch(() => { n.classList.remove("top"); el.currentTime = startOf(el); el.play(); busy = false; });
+  };
+  v.forEach((el, i) => {
+    el.addEventListener("timeupdate", () => { if (el.duration && el.currentTime >= el.duration - fadeOf(el)) swap(i); });
+    el.addEventListener("ended", () => swap(i));
+  });
 });
 
 const MENU = {
