@@ -324,7 +324,7 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
-(() => { const grids = [...document.querySelectorAll("[data-collapse]")]; if (!grids.length) return;
+(() => { const grids = [...document.querySelectorAll("[data-collapse]")];
   const mq = matchMedia("(max-width:640px)");
   grids.forEach(g => { const n = g.children.length, lim = +g.dataset.collapse || 6; if (n <= lim) return; g.classList.add("collapsed"); if (lim === 4) g.classList.add("c4");
     const b = document.createElement("button"); b.type = "button"; b.className = "mmore"; const unit = g.classList.contains("pgrid") ? " ürün" : ""; b.textContent = "Tamamını göster · " + n + unit; g.after(b);
@@ -332,6 +332,8 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   const openAll = () => { grids.forEach(g => g.classList.remove("collapsed")); document.querySelectorAll(".mmore").forEach(b => b.hidden = true); };
   const si = document.getElementById("msearch"); if (si) si.addEventListener("input", openAll, {once:true});
   document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", openAll, {once:true}));
+  const g = document.getElementById("gcAmt"), pv = document.getElementById("pvPrice");
+  if (g && pv) setTimeout(() => { const sync = () => g.textContent = pv.textContent; document.querySelectorAll(".pill[data-mult]").forEach(b => b.addEventListener("click", () => setTimeout(sync, 0))); const t = new URLSearchParams(location.search).get("tutar"); if (t) { const b = [...document.querySelectorAll(".pill[data-mult]")].find(x => x.textContent.replace(/\D/g, "") === t); if (b) b.click(); } setTimeout(sync, 0); }, 0);
   const clk = document.querySelectorAll("[data-clock]"); if (clk.length) { const t = () => { const d = new Date(); clk.forEach(e => e.textContent = String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0")); }; t(); setInterval(t, 30000); }
   void mq; })();
 

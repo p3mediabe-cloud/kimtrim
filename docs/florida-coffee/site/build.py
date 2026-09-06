@@ -385,9 +385,56 @@ EXTRA_JS3 = r'''
   });
 })();
 '''
+EXTRA_CSS5 = r'''
+/* v14: yorumlar, hediye kartı, uygulama indir (mobil), haber al, mobil sıkıştırma */
+.reviews{display:flex;gap:.8rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:.4rem}
+.reviews::-webkit-scrollbar{display:none}
+.rev{flex:0 0 19rem;scroll-snap-align:start;border:1px solid var(--hair);background:var(--glass);padding:.9rem 1rem;display:flex;flex-direction:column;gap:.5rem}
+.rev .rh{display:grid;grid-template-columns:2.4rem 1fr auto;gap:.55rem;align-items:center}
+.rev .rh img{width:2.4rem;height:2.4rem;object-fit:cover;display:block;border-radius:50%}
+.rev .rh b{display:block;font-family:var(--disp);font-size:.92rem}.rev .rh small{font-size:.68rem;color:var(--ink-3);display:block}
+.rev .rs{color:var(--amber);font-size:.8rem;letter-spacing:.05em}
+.rev p{margin:0;font-size:.85rem;color:var(--ink-2);flex:1}
+.rev .rr{font-size:.76rem;color:var(--ink-2);border-left:2px solid var(--amber);padding:.3rem .6rem;background:rgba(240,156,28,.06)}.rev .rr b{color:var(--amber)}
+.revscore.mini{display:flex;align-items:baseline;gap:.7rem;margin-top:1.2rem;padding:.7rem .9rem;border:1px solid var(--hair);background:var(--glass)}
+.revscore.mini b{font-family:var(--disp);font-size:1.4rem;color:var(--amber)}.revscore.mini small{font-size:.76rem;color:var(--ink-3)}
+.giftvis{position:absolute;inset:0;display:grid;place-items:center;background:radial-gradient(80% 80% at 30% 20%,#0d4a58,#04141a)}
+.giftvis.big{position:relative;height:100%}
+.gcard{position:relative;width:78%;aspect-ratio:1.586;background:linear-gradient(135deg,#F09C1C 0%,#E0741A 55%,#D44808 100%);border-radius:.9rem;padding:.9rem 1rem;color:#241704;box-shadow:0 22px 40px rgba(0,0,0,.45);transform:rotate(-6deg);transition:transform .45s cubic-bezier(.2,.8,.2,1);overflow:hidden;display:flex;flex-direction:column}
+.gcard.sm{width:82%;padding:.6rem .7rem;border-radius:.6rem}.gcard.sm .gc-amt{font-size:1.3rem}.gcard.sm .gc-brand{font-size:.58rem}.gcard.sm .gc-to,.gcard.sm .gc-no{font-size:.5rem}.gcard.sm .gc-qr{width:1.6rem;height:1.6rem}
+.pcard:hover .gcard,.giftvis.big:hover .gcard{transform:rotate(0) translateY(-4px)}
+.gc-wm{position:absolute;right:-1.4rem;bottom:-1.6rem;width:7rem;height:7rem;opacity:.16;color:#241704}
+.gc-brand{display:flex;align-items:center;gap:.35rem;font-family:var(--disp);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}.gc-brand svg{width:1.1rem;height:1.1rem}
+.gc-lbl{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-top:auto;opacity:.85}
+.gc-amt{font-family:var(--disp);font-size:1.9rem;line-height:1;font-weight:800}
+.gc-to{font-size:.62rem;font-weight:600;margin-top:.15rem;padding-right:3rem}
+.gc-no{display:block;font-size:.52rem;letter-spacing:.12em;font-weight:700;opacity:.7;margin-top:.2rem}
+.gc-qr{position:absolute;right:.8rem;bottom:.8rem;width:2.2rem;height:2.2rem;border:.2rem solid #EDE6D8;border-radius:.2rem}
+.adl-pills{display:flex;gap:.4rem;flex-wrap:wrap;margin:-.4rem 0 .9rem}.adl-pills span{font-size:.72rem;font-weight:700;padding:.25rem .6rem;border:1px solid rgba(240,156,28,.45);color:var(--amber)}
+.subf{border-left:4px solid var(--amber)}
+.two>div{min-width:0}
+@media (max-width:860px){.two{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  .sec{padding:2.2rem 0}
+  .split{gap:1.1rem}
+  .stats{margin-top:.8rem}
+  .appdl{padding:1.2rem 1rem;background:linear-gradient(160deg,#004854,#062730);border-color:rgba(240,156,28,.45);margin-top:1.4rem}
+  .appdl .lbl{color:var(--amber)}.appdl h3{font-size:1.4rem;margin:.35rem 0 .5rem}.appdl p{font-size:.85rem;margin-bottom:.8rem}
+  .adl-pills{margin:0 0 .9rem}.adl-pills span{background:rgba(240,156,28,.1)}
+  .adl-badges{display:grid;grid-template-columns:1fr;gap:.5rem}
+  .dl{padding:.85rem 1rem;background:#EDE6D8;color:#04141A;border:0;gap:.9rem}.dl small{color:#4A6068}.dl b{font-size:1rem;color:#04141A}.dl svg{width:1.8rem;height:1.8rem}
+  .adl-badges .btn{width:100%;justify-content:center}
+  .appdl.paperdl{background:#0b1b21}
+  .subf{background:linear-gradient(135deg,#F09C1C,#E0741A);color:#241704;border:0}
+  .subf label{color:#241704;font-weight:700}.subf input,.subf select{background:#fff;color:#241704;border:0}
+  .subf .btn.amber{background:#241704;color:var(--amber);width:100%;justify-content:center}.subf .ok{color:#241704;font-weight:700}
+  .subwrap .sh h2{font-size:1.5rem}
+  .rev{flex:0 0 84%}
+}
+'''
 EXTRA_JS4 = r'''
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
-(() => { const grids = [...document.querySelectorAll("[data-collapse]")]; if (!grids.length) return;
+(() => { const grids = [...document.querySelectorAll("[data-collapse]")];
   const mq = matchMedia("(max-width:640px)");
   grids.forEach(g => { const n = g.children.length, lim = +g.dataset.collapse || 6; if (n <= lim) return; g.classList.add("collapsed"); if (lim === 4) g.classList.add("c4");
     const b = document.createElement("button"); b.type = "button"; b.className = "mmore"; const unit = g.classList.contains("pgrid") ? " ürün" : ""; b.textContent = "Tamamını göster · " + n + unit; g.after(b);
@@ -395,6 +442,8 @@ EXTRA_JS4 = r'''
   const openAll = () => { grids.forEach(g => g.classList.remove("collapsed")); document.querySelectorAll(".mmore").forEach(b => b.hidden = true); };
   const si = document.getElementById("msearch"); if (si) si.addEventListener("input", openAll, {once:true});
   document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", openAll, {once:true}));
+  const g = document.getElementById("gcAmt"), pv = document.getElementById("pvPrice");
+  if (g && pv) setTimeout(() => { const sync = () => g.textContent = pv.textContent; document.querySelectorAll(".pill[data-mult]").forEach(b => b.addEventListener("click", () => setTimeout(sync, 0))); const t = new URLSearchParams(location.search).get("tutar"); if (t) { const b = [...document.querySelectorAll(".pill[data-mult]")].find(x => x.textContent.replace(/\D/g, "") === t); if (b) b.click(); } setTimeout(sync, 0); }, 0);
   const clk = document.querySelectorAll("[data-clock]"); if (clk.length) { const t = () => { const d = new Date(); clk.forEach(e => e.textContent = String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0")); }; t(); setInterval(t, 30000); }
   void mq; })();
 '''
@@ -644,6 +693,7 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 {EXTRA_CSS2}
 {EXTRA_CSS3}
 {EXTRA_CSS4}
+{EXTRA_CSS5}
 .hrs{{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
@@ -802,9 +852,36 @@ PHONE_V2 = f"""<div class="phone v2" aria-hidden="true"><div class="scr"><div cl
 <div class="qrrow">{qr_svg(4821, 21)}<span><span class="t">Tek QR · öde + puan</span><br><span class="s">Cüzdan 412 ₺ · Multinet, Sodexo, kart</span></span></div>
 <div class="ptabs"><span class="on"><i></i>Bugün</span><span><i></i>Sipariş</span><span><i></i>Kart</span><span><i></i>Şubeler</span><span><i></i>Ben</span></div></div></div>"""
 def appdl(href="/uygulama/", extra="", lbl="Uygulamayı indir", h3="Kart, sipariş ve kampanyalar tek uygulamada.", p='Ön sipariş verin, "Geldim" deyin, tek QR ile ödeyip çekirdek kazanın. Kurulum bir dakika; kartınızı aktaran herkese ilk sipariş küçük boy kahve bizden.', ios="iPhone için indir", android="Android için indir", scan="Kamerayla tarayın", qr=True, cls=""):
-    return (f'<div class="appdl {cls}"><div class="adl-txt"><div class="lbl">{lbl}</div><h3>{h3}</h3><p>{p}</p>'
+    pills = '<div class="adl-pills"><span>☕ Ön sipariş</span><span>▦ Tek QR</span><span>★ 1 ₺ = 1 çekirdek</span><span>🎁 İlk kahve bizden</span></div>' if cls != "paperdl" else ""
+    return (f'<div class="appdl {cls}"><div class="adl-txt"><div class="lbl">{lbl}</div><h3>{h3}</h3><p>{p}</p>{pills}'
             f'<div class="adl-badges"><a class="dl" href="{href}">{APPLE_SVG}<span><small>App Store</small><b>{ios}</b></span></a><a class="dl" href="{href}">{PLAY_SVG}<span><small>Google Play</small><b>{android}</b></span></a>{extra}</div></div>'
             + (f'<a class="adl-qr" href="{href}" aria-label="Uygulama indirme sayfası">{qr_svg(1907, 25, "qr big")}<span>{scan}<br><b>florida.coffee/app</b></span></a>' if qr else "") + '</div>')
+
+def gift_vis(amount="500 ₺", cls=""):
+    qr = qr_svg(500, 21, "gc-qr")
+    return (f'<div class="gcard {cls}"><svg class="gc-wm" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="currentColor" opacity=".55"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="currentColor" opacity=".35"/><circle cx="61.6" cy="40.8" r="6" fill="#F09C1C"/></svg>'
+            f'<span class="gc-brand"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="#241704" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="#EDE6D8"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="#004854"/><circle cx="61.6" cy="40.8" r="6" fill="#241704"/></svg>Florida Coffee</span>'
+            f'<span class="gc-lbl">Hediye Kartı</span><b class="gc-amt" id="gcAmt">{amount}</b><span class="gc-to">Sevdiğin birine · telefonla gönder</span><span class="gc-no">FC · GIFT · 2026</span>{qr}</div>')
+REVIEWS = [
+  dict(n="Selin K.", b="kavacik", s=5, d="2 gün önce", src="Google", x="Gün batımını terasta izlerken flat white'ım hâlâ sıcaktı; uygulamadan verip 'Geldim' dedim, tezgâhta bekliyordu.", r="Selin Hanım, terasın en güzel saati o. Bir dahaki sefere manzaralı masa önceliği bizden."),
+  dict(n="Mert A.", b="kadikoy", s=5, d="5 gün önce", src="Uygulama", x="Üst kat sessiz, her masada priz. Sınav haftası 6 saat oturdum, kimse rahatsız etmedi. Filtre kahve 120 ₺, öğrenci indirimi de var.", r="Başarılar Mert! Sınav dönemi 22:00 sonrası kafeinsiz filtre de aynı fiyat."),
+  dict(n="Ayşe T.", b="beykoz", s=4, d="1 hafta önce", src="Google", x="Kahvaltı sofrası güzeldi, manzara müthiş. Hafta sonu kalabalık; masa ayırtmayı uygulamadan yapın.", r="Teşekkürler Ayşe Hanım; hafta sonu 09:00 öncesi gelenlere pencere kenarı ayırıyoruz."),
+  dict(n="Deniz Ö.", b="sakarya", s=5, d="1 hafta önce", src="Yandex", x="Sakarya'da bu kalitede espresso bulmak zordu. Cortado tam kıvamında; barista dozu tartıyla ölçüyor, göz kararı yok.", r=""),
+  dict(n="Can Y.", b="taksim", s=3, d="2 hafta önce", src="Google", x="Kahve iyi ama akşam saatinde sıra uzundu. Sonra uygulamadan ön sipariş verdim, sorun çözüldü.", r="Haklısınız Can Bey, 18–20 arası yoğun. Ön sipariş tam bunun için; bir sonraki kahveniz bizden."),
+  dict(n="Elif S.", b="bursa", s=5, d="3 hafta önce", src="Uygulama", x="Laktozsuz süt tercihim profilde kayıtlı; barista ekranında etiketli görünüyor, bir daha söylemem gerekmedi.", r="Tam olarak bunun için yaptık Elif Hanım."),
+  dict(n="Marko P.", b="budva", s=5, d="1 ay önce", src="Google", x="Adriyatik'te ilk Türk kahve zinciri; cold brew ve manzara kombinasyonu harika. Ekip İngilizce konuşuyor.", r="Hvala Marko! Yaz saatleri 01:00'e kadar."),
+  dict(n="Zeynep R.", b="cengelkoy", s=5, d="1 ay önce", src="Google", x="İlk şube, en samimi olanı. Cupping etkinliğine katıldım, harmanın hikâyesini baristadan dinledik.", r="Ayın ilk Cumartesi'si yine bekleriz Zeynep Hanım."),
+  dict(n="Burak E.", b="umraniye", s=4, d="3 gün önce", src="Google", x="Öğle arası 10 dakikada sipariş, ödeme ve teslim. Ofise dönerken kahve hâlâ sıcaktı.", r="Ölü saatlerde soğuk kahveler %20; öğleden sonra da bekleriz Burak Bey."),
+  dict(n="Gizem A.", b="bahcesehir", s=5, d="1 hafta önce", src="Uygulama", x="Çocuk köşesi ve mama sandalyesi var; çocuk boyu sıcak çikolata çok sevildi. Otopark rahat.", r="Hafta sonu kahvaltı sofrasında da bekleriz Gizem Hanım."),
+]
+def reviews_html(bid, name):
+    own = [r for r in REVIEWS if r["b"] == bid]
+    pool = own if own else [r for r in REVIEWS if r["r"]][:3]
+    stars = lambda n: "★" * n + "☆" * (5 - n)
+    cards = "".join(f'<article class="rev"><div class="rh"><img src="/img/subeler/{r["b"]}.jpg" alt="" loading="lazy" onerror="this.remove()"><div><b>{r["n"]}</b><small>{r["src"]} · {r["d"]}</small></div><span class="rs">{stars(r["s"])}</span></div><p>{r["x"]}</p>{("<div class=rr><b>Florida Coffee:</b> " + r["r"] + "</div>") if r["r"] else ""}</article>' for r in pool)
+    note = "" if own else '<p class="mnote" style="margin:.4rem 0 0;color:var(--ink-3)">Bu şube için ilk yorumu siz yazın; diğer şubelerden seçmeler yukarıda.</p>'
+    return (f'<div class="lbl" style="margin:1.4rem 0 .6rem;display:flex;justify-content:space-between;gap:.6rem"><span>Yorumlar · {name}</span><a href="https://www.google.com/maps/search/?api=1&query=Florida+Coffee+{name.replace(" ", "+")}" target="_blank" rel="noopener" style="color:var(--amber)">Google\'da yaz ›</a></div><div class="reviews">{cards}</div>{note}')
+
 FAVS = ["Iced Latte","Flat White","Florida Filtre","Boğaz Cold Brew","Cold Brew","Cappuccino","Türk Kahvesi","San Sebastian","Latte","Cortado"]
 def popular(seed, n=4, title="Bu şubede en çok sipariş edilenler"):
     allm = {it["n"]: it for c in MENU.values() for it in c}
@@ -919,7 +996,7 @@ for b in BRANCHES:
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem"><a class="btn amber" href="/app/">Bu şubeden ön sipariş</a><a class="btn ghost" href="https://www.google.com/maps/search/?api=1&query={b['lat']},{b['lng']}" rel="noopener">Yol tarifi</a></div></div>
         {popular(BRANCHES.index(b))}<div class="faq" style="margin-top:1.4rem"><div class="lbl" style="margin-bottom:.4rem">Sık sorulanlar</div>{"".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q,a in faq)}</div></div>
         <div>{bphoto}<div class="lbl" style="margin:1.4rem 0 .6rem">Yakın şubeler</div><div class="grid g3 nearb">{"".join(f'<a class="cell" href="/subeler/{x["id"]}/"><figure class="bimg"><img src="/img/subeler/{x["id"]}.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></figure><h3>{x["n"]}</h3><p>{x["c"].split("·")[0].strip()} · {hh(x["o"])}–{hh(x["k"])}</p><span class="more">Şube sayfası →</span></a>' for x in near)}</div>
-        <p style="margin-top:1.2rem;font-size:.85rem;color:var(--ink-3)">Puan ★ {b["r"]} · {b["rev"]} yorum (örnek). Yorumlar Google ve Yandex'ten otomatik çekilir.</p></div></div></section>''',
+        <div class="revscore mini"><b>★ {b["r"]}</b><small>{b["rev"]} yorum · Google, Yandex, uygulama</small></div>{reviews_html(b["id"], b["n"])}</div></div></section>''',
       "subeler", f"Florida Coffee {b['n']} · Saatler, Özellikler, Yol Tarifi", f"Florida Coffee {b['n']} ({b['c']}): {hh(b['o'])}–{hh(b['k'])}. {b['note']}", f"/subeler/{b['id']}/", [ld, ld_faq]))
 
 # ---------- v8 ortak yardımcılar ----------
@@ -967,7 +1044,7 @@ tf = "".join(f'<button class="fbtn" aria-pressed="{"true" if k=="hepsi" else "fa
 page("/taze/", shell(hero("Bölüm 11:30 · Taze","Yeni ne var,<br>ilk siz duyun.","Yeni şube, sezon ürünü, kampanya ve etkinlikler. Kaydedin, paylaşın; uygulamada bildirim olarak da gelir.",[("Taze",None)],"sakarya") +
   f'''<section class="sec"><div class="wrap"><div class="sbar"><div class="filters" data-filter=".tcard" style="margin:0">{tf}</div><input type="search" data-search=".tcard" data-count="#tcount" placeholder="Haberlerde ara…" aria-label="Haberlerde ara"><span id="tcount" style="font-size:.8rem;color:var(--ink-3)"></span></div>
   <div class="grid g3" data-collapse="4">{"".join(tcard(n) for n in NEWS)}</div>
-  <div class="split" style="margin-top:2.5rem"><div>{sh("Ayda en fazla iki e-posta","Yeni şube ve sezon ürünleri ilk size. İstediğiniz an çıkarsınız.")}</div><form class="f panel"><label>E-posta<input type="email" required placeholder="e-posta adresiniz"></label><label>İlgi alanı<select><option>Hepsi</option><option>Yeni şubeler</option><option>Sezon ürünleri</option><option>Etkinlikler</option></select></label><button class="btn amber" type="submit">Kaydol</button><div class="ok" hidden>Kaydedildi. İlk haber Sakarya açılışı olacak.</div></form></div></div></section>''',
+  <div class="split subwrap" style="margin-top:2.5rem"><div>{sh("Yeni şube ve kampanya ilk size gelsin","Ayda en fazla iki mesaj. Kaydolana ilk sipariş küçük boy kahve bizden; istediğiniz an çıkarsınız.")}</div><form class="f panel subf"><label>E-posta<input type="email" required placeholder="e-posta adresiniz"></label><label>İlgi alanı<select><option>Hepsi</option><option>Yeni şubeler</option><option>Sezon ürünleri</option><option>Etkinlikler</option></select></label><button class="btn amber" type="submit">Kaydol</button><div class="ok" hidden>Kaydedildi. İlk haber Sakarya açılışı olacak.</div></form></div></div></section>''',
   "taze","Taze · Haberler ve Yenilikler · Florida Coffee","Florida Coffee'den yeni şubeler, sezon ürünleri, kampanyalar ve etkinlikler; fotoğraflı, kaydedilebilir, paylaşılabilir.","/taze/"))
 for n in NEWS:
     sl = slug(n["h"]); ld = {"@context":"https://schema.org","@type":"NewsArticle","headline":n["h"],"description":n["p"],"image":f"{SITE}/img/{n['img']}.jpg","publisher":{"@type":"Organization","name":"Florida Coffee"}}
@@ -980,7 +1057,7 @@ for n in NEWS:
 
 # ---------- ÜRÜNLER ----------
 def prodcard(p):
-    sl = slug(p["n"]); img = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}" loading="lazy">' if p["img"] else f'<span class="pph">{p["n"][0]}</span>'
+    sl = slug(p["n"]); img = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}" loading="lazy">' if p["img"] else f'<div class="giftvis">{gift_vis("500 ₺", "sm")}</div>'
     return f'<a class="pcard" href="/urunler/{sl}/"><div class="pimg">{img}</div><div class="pbody"><div class="prow"><h3>{p["n"]}</h3><span class="pp">{p["p"]}</span></div><p class="pd">{p["d"]}</p><div class="ptags">{"".join(f"<span class=chip>{t}</span>" for t in p["tags"])}</div></div></a>'
 page("/urunler/", shell(hero("Bölüm 17:00 · Ürünler","Aynı çekirdek,<br>sizin mutfağınızda.","Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş, şubeden teslim; kargo yakında.",[("Ürünler",None)],"beans") +
   f'''<section class="sec"><div class="wrap"><div class="pgrid">{"".join(prodcard(p) for p in PRODUCTS)}</div>
@@ -997,7 +1074,7 @@ for p in PRODUCTS:
     sl = slug(p["n"]); ld = {"@context":"https://schema.org","@type":"Product","name":p["n"],"description":p["d"],"brand":{"@type":"Brand","name":"Florida Coffee"},"offers":{"@type":"Offer","priceCurrency":"TRY","price":re.sub(r"[^\d]","",p["p"].split("–")[0]),"availability":"https://schema.org/InStoreOnly"}}
     if p["img"]: ld["image"] = f"{SITE}/img/{p['img']}.jpg"
     base = int(re.sub(r"[^\d]","",p["p"].split("–")[0]))
-    big = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}">' if p["img"] else f'<span class="pph" style="display:grid;place-items:center;height:100%;font-family:var(--disp);font-size:5rem;color:var(--amber)">{p["n"][0]}</span>'
+    big = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}">' if p["img"] else f'<div class="giftvis big">{gift_vis("250 ₺")}</div>'
     is_bean = "Harman" in p["n"]; is_gift = "Hediye" in p["n"]
     opts = ('<div class="opt"><div class="lbl">Öğütüm</div><div class="pills"><button class="pill" data-extra="0" aria-pressed="true">Çekirdek</button><button class="pill" data-extra="0" aria-pressed="false">Espresso</button><button class="pill" data-extra="0" aria-pressed="false">Filtre</button><button class="pill" data-extra="0" aria-pressed="false">French press</button></div></div>'
             '<div class="opt"><div class="lbl">Gramaj</div><div class="pills"><button class="pill" data-mult="1" aria-pressed="true">250 g</button><button class="pill" data-mult="1.9" aria-pressed="false">500 g <small>−5%</small></button><button class="pill" data-mult="3.6" aria-pressed="false">1 kg <small>−10%</small></button></div></div>') if is_bean else (
