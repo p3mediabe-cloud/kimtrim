@@ -384,7 +384,7 @@ h2 + .lede{margin-top:1.3rem}
 .roastbar .scale{display:flex;justify-content:space-between;font-size:.7rem;color:var(--ink-3)}
 .brewtabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
 .brewout{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);border-radius:1rem;overflow:hidden}
-.brewout div{background:rgba(9,14,19,.55);padding:1rem 1.1rem}
+.brewout>div{background:rgba(9,14,19,.55);padding:1rem 1.1rem}
 .brewout .v{font-family:var(--disp);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1}
 .brewout .l{font-size:.7rem;color:var(--ink-3);margin-top:.3rem;letter-spacing:.08em;text-transform:uppercase}
 .brewnote{margin-top:1rem;font-size:.9rem;color:var(--ink-2)}
@@ -398,7 +398,7 @@ h2 + .lede{margin-top:1.3rem}
 .mood{padding:.85rem 1.1rem;border-radius:.9rem;border:1px solid var(--hair-2);text-align:left;transition:all .15s;font-weight:500}
 .mood:hover{border-color:var(--amber);transform:translateY(-1px)}
 .mood[aria-pressed="true"]{background:var(--amber);color:#241704;border-color:var(--amber);font-weight:700}
-.match{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.2rem;align-items:center;border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem;background:var(--glass)}
+.match{display:grid;grid-template-columns:minmax(0,1fr) 12rem;gap:1.2rem;align-items:center;border:1px solid var(--hair);border-radius:1.1rem;padding:1.3rem 1.4rem;background:var(--glass)}
 @media (max-width:760px){.match{grid-template-columns:minmax(0,1fr)}}
 .match .n{font-family:var(--disp);font-size:2rem;line-height:1.05}
 .match .why{color:var(--ink-2);margin:.4rem 0 .7rem;max-width:52ch}
@@ -702,6 +702,144 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 @media (max-width:720px){.nbtn.prev{left:.25rem}.nbtn.next{right:.25rem}}
 .nbtn:hover{border-color:var(--amber);color:var(--amber)}
 .subscribe .row2{align-items:center}
+
+/* ---------- v10: müşteri odaklı sipariş ---------- */
+.ohead{display:flex;justify-content:space-between;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.4rem;padding-bottom:.8rem;border-bottom:1px solid var(--hair)}
+.ohead .where{display:inline-flex;align-items:center;gap:.5rem;font-size:.82rem;color:var(--ink-2)}
+.ohead .where select{background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);font-weight:600;padding:.35rem .5rem;max-width:12rem;cursor:pointer}
+.ohead .usual{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--amber);color:var(--amber);padding:.4rem .75rem;font-size:.74rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;transition:background .15s,color .15s}
+.ohead .usual:hover{background:var(--amber);color:#241704}
+.ostep{display:flex;align-items:center;gap:.5rem;margin:.9rem 0 .1rem}
+.ostep .lbl{margin:0}
+.ostep i{width:1.3rem;height:1.3rem;display:grid;place-items:center;font-style:normal;font-size:.7rem;font-weight:800;background:var(--amber);color:#241704;flex:none}
+.ostep .pick{margin-left:auto;font-size:.76rem;color:var(--ink);font-weight:700;max-width:52%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ostep .pick.soft{color:var(--ink-3);font-weight:500}
+.opt.tile{grid-template-columns:3rem 1fr auto;padding:.35rem .7rem .35rem .35rem;gap:.7rem}
+.opt.tile img{width:3rem;height:3rem}
+.opt.tile>span{white-space:normal;line-height:1.1;font-weight:700}
+.opt.tile .ml{display:block;font-size:.66rem;font-weight:500;opacity:.7;margin-top:.15rem;white-space:normal}
+.opt.tile[aria-pressed="true"] .ml{opacity:.8}
+.more{display:inline-block;font-size:.8rem;color:var(--amber);font-weight:700;margin:-.5rem 0 .2rem}
+.ohelp{font-size:.8rem;color:var(--ink-3);margin:.5rem 0 0}
+.ticket{min-height:0}
+.ticket .thead .thumb{width:4.6rem;height:4.6rem}
+.tline{display:flex;justify-content:space-between;align-items:center;gap:.6rem;font-size:.86rem;color:var(--ink-2);padding:.5rem 0;border-top:1px solid var(--hair)}
+.tline b{color:var(--ink)}.tline b small{color:var(--ink-3);font-weight:500}
+.tline.tot{border-bottom:1px solid var(--hair)}.tline.tot>span:first-child{font-weight:700;color:var(--ink)}
+.tline .price{margin:0;font-size:1.5rem}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--hair-2);background:rgba(9,14,19,.5)}
+.qty button{width:2.1rem;height:2rem;font-size:1.15rem;line-height:1;color:var(--ink)}
+.qty button:disabled{opacity:.3;cursor:default}
+.qty b{min-width:2rem;text-align:center;font-family:var(--disp);font-size:1rem}
+.ticket .steps{margin:.9rem 0 .6rem}
+.tacts{margin-top:auto;padding-top:.9rem;display:grid;gap:.55rem}
+.tacts .btn.lamp{width:100%;justify-content:center;padding:.9rem 1rem;font-size:.92rem}
+.tfoot{display:flex;justify-content:space-between;gap:.6rem;font-size:.74rem;color:var(--ink-3)}
+.tfoot button{color:var(--ink-3);text-decoration:underline;padding:0}
+@media (max-width:560px){.opts.tiles{grid-template-columns:1fr 1fr}.opt.tile{grid-template-columns:2.4rem 1fr;grid-template-areas:"img n" "img p";padding:.3rem .5rem .3rem .3rem;gap:.1rem .5rem}.opt.tile img{grid-area:img;width:2.4rem;height:2.4rem}.opt.tile>span{grid-area:n;font-size:.8rem}.opt.tile b{grid-area:p;font-size:.78rem;text-align:left}.opt.tile .ml{display:none}.ostep .pick{max-width:46%}}
+/* ---------- v10: standart · ürün tanıtımı ---------- */
+.stdprods{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.55rem}
+.sp{display:grid;grid-template-columns:4.4rem 1fr;gap:.7rem;align-items:center;border:1px solid var(--hair);background:var(--glass);padding:.5rem;color:inherit;text-decoration:none;transition:border-color .18s,transform .18s}
+.sp:hover{border-color:var(--amber);transform:translateY(-2px)}
+.sp img{width:4.4rem;height:4.4rem;object-fit:cover;display:block;background:var(--hair)}
+.sp b{display:block;font-family:var(--disp);font-size:1.02rem;line-height:1.1}
+.sp small{display:block;font-size:.7rem;color:var(--ink-3);margin:.2rem 0 .25rem;line-height:1.25}
+.sp em{font-style:normal;font-family:var(--disp);font-weight:700;color:var(--amber);font-size:.92rem}
+.stdcta{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-top:.8rem;padding:.8rem .9rem;border:1px dashed var(--hair-2);font-size:.82rem;color:var(--ink-2)}
+.stdcta .btn{flex:none}
+.brewwrap.v2 .brewcol{display:flex;flex-direction:column}
+.brewwrap.v2 .brewcol>:last-child{margin-bottom:0}
+@media (max-width:480px){.stdprods{grid-template-columns:1fr}.stdcta{flex-direction:column;align-items:flex-start}}
+/* ---------- v10: Flo kartı fotoğraf ---------- */
+.mpic{position:relative;display:block;width:12rem;aspect-ratio:1;overflow:hidden;border:1px solid var(--hair);background:var(--hair);color:inherit;text-decoration:none;flex:none}
+.mpic img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}
+.mpic:hover img{transform:scale(1.05)}
+.mpic .go{position:absolute;left:0;right:0;bottom:0;padding:.4rem .6rem;background:linear-gradient(180deg,transparent,rgba(5,9,13,.85));font-size:.68rem;font-weight:800;color:var(--amber);letter-spacing:.08em;text-transform:uppercase}
+.macts{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem}
+@media (max-width:760px){.mpic{width:100%;aspect-ratio:16/9;order:-1}.match{align-items:start}}
+/* ---------- v10: menü satırları ---------- */
+.mitem{text-decoration:none;color:inherit;transition:background .15s;position:relative}
+.mmore{display:none}
+.mitem:hover .n{color:var(--rust)}
+.mitem .n::after{content:" ›";color:var(--amber);font-weight:700}
+@media (max-width:640px){
+  #menu .g3{grid-template-columns:repeat(3,1fr);gap:.5rem}#menu .g3 .cap{font-size:.6rem;padding:.25rem .4rem}
+  .mlist{grid-template-columns:1fr 1fr;gap:.6rem}
+  .mitem,.mitem:not(:has(.thumb)){grid-template-columns:1fr;grid-template-areas:"img" "n" "p" "tags";gap:.15rem;padding:0 0 .55rem;border:1px solid var(--paper-line);background:rgba(255,255,255,.45);align-items:start}
+  .mitem .thumb{width:100%;height:auto;aspect-ratio:4/3;background:var(--paper-line)}
+  .mlist.collapsed .mitem:nth-child(n+9){display:none}
+  .mmore:not([hidden]){display:block;width:100%;margin-top:.8rem;padding:.75rem;border:1px solid var(--paper-ink);color:var(--paper-ink);font-weight:700;font-size:.85rem;letter-spacing:.04em;text-transform:uppercase}
+  .mitem .n{font-size:.92rem;padding:.45rem .6rem 0;line-height:1.15}
+  .mitem .p{padding:0 .6rem;font-size:.92rem}
+  .mitem .d{display:none}
+  .mitem .tags{padding:0 .6rem;margin-top:.15rem}
+  .mitem .tags .tg:nth-child(n+3){display:none}
+}
+/* ---------- v10: mobilde şubeler ---------- */
+.bhint{display:none;justify-content:space-between;align-items:center;gap:.6rem;font-size:.78rem;color:var(--ink-3);margin:.2rem 0 .6rem}
+.bhint b{color:var(--ink)}.bhint a{color:var(--amber);font-weight:700;white-space:nowrap}
+@media (max-width:640px){
+  .bhint{display:flex}
+  .branches{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:.7rem;padding:0 0 .8rem;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .branches::-webkit-scrollbar{display:none}
+  .branches .branch{flex:0 0 82%;scroll-snap-align:start}
+  .branches .empty{flex:1 0 100%}
+  #subeler>.inner>.ph{aspect-ratio:16/8;margin:1rem 0 1.2rem}
+}
+/* ---------- v10: markaya özel uygulama ---------- */
+.phone.v2{width:19.5rem;border-radius:2.6rem;background:linear-gradient(160deg,#0f4550,#04141a);border:1px solid rgba(240,156,28,.35);padding:.5rem;box-shadow:0 30px 60px rgba(0,0,0,.55),inset 0 0 0 2px #061a1f;flex:none}
+.phone.v2 .scr{border-radius:2.15rem;background:linear-gradient(175deg,#00404b 0%,#0a1b21 34%,#0b141a 100%);padding:.85rem .85rem 0;min-height:35rem;gap:.6rem;position:relative;overflow:hidden}
+.phone.v2 .isl{width:5.4rem;height:1.3rem;background:#05090d;border-radius:999px;margin:-.15rem auto .35rem;flex:none}
+.phone.v2 .bar{position:absolute;top:1.05rem;left:1.25rem;right:1.25rem;font-size:.64rem;color:var(--ink-2);font-weight:600}
+.phead{display:flex;align-items:center;gap:.6rem}
+.tuk{width:2.1rem;height:2.1rem;color:var(--cream);flex:none}
+.phead small{display:block;font-size:.6rem;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+.phead b{font-family:var(--disp);font-size:1.05rem;line-height:1.1}
+.phead .bell{margin-left:auto;width:1.9rem;height:1.9rem;border:1px solid var(--hair-2);border-radius:50%;position:relative}
+.phead .bell::before{content:"";position:absolute;left:50%;top:50%;width:.6rem;height:.7rem;border:1.6px solid var(--ink-2);border-bottom-width:2.4px;border-radius:.35rem .35rem .1rem .1rem;transform:translate(-50%,-55%)}
+.phead .bell::after{content:"3";position:absolute;top:-.3rem;right:-.3rem;background:var(--rust);color:#fff;font-size:.55rem;font-weight:800;width:.95rem;height:.95rem;border-radius:50%;display:grid;place-items:center}
+.fcard{position:relative;overflow:hidden;border-radius:1rem;padding:.9rem .95rem;background:linear-gradient(135deg,#F09C1C 0%,#E0741A 55%,#D44808 100%);color:#241704}
+.fcard .wm{position:absolute;right:-1.7rem;bottom:-1.9rem;width:7.8rem;height:7.8rem;opacity:.16;color:#241704}
+.fcard .fc-top{display:flex;justify-content:space-between;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+.fcard .v{font-family:var(--disp);font-size:2.2rem;line-height:1.05;margin-top:.35rem}.fcard .v span{font-size:.78rem;font-family:var(--ui);font-weight:800}
+.fcard .track{height:.35rem;background:rgba(36,23,4,.22);margin:.5rem 0 .3rem;position:relative;border-radius:999px;overflow:hidden}.fcard .track i{position:absolute;left:0;top:0;bottom:0;width:55%;background:#241704}
+.fcard .m{font-size:.7rem;font-weight:700;position:relative}
+.fcard .stamps{display:flex;gap:.24rem;margin:.5rem 0 .25rem;position:relative}
+.fcard .stamps span{width:1.08rem;height:1.08rem;border-radius:50%;border:1.5px solid rgba(36,23,4,.45);display:grid;place-items:center}
+.fcard .stamps span.f{background:#241704;border-color:#241704}
+.fcard .stamps span.f::after{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--amber)}
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.quick>span{display:grid;justify-items:center;gap:.3rem;font-size:.6rem;font-weight:600;color:var(--ink-2);text-align:center}
+.quick i{width:2.7rem;height:2.7rem;display:grid;place-items:center;border-radius:.85rem;background:rgba(255,255,255,.05);border:1px solid var(--hair)}
+.quick i svg{width:1.25rem;height:1.25rem;fill:none;stroke:var(--amber);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.phone.v2 .prow{padding:.5rem .6rem;gap:.55rem;border-radius:.75rem;background:rgba(255,255,255,.035);border-color:var(--hair)}
+.phone.v2 .prow img{width:2.5rem;height:2.5rem;object-fit:cover;flex:none;border-radius:.45rem;background:var(--hair)}
+.phone.v2 .prow .pin{width:2.5rem;height:2.5rem;flex:none;border-radius:.45rem;background:rgba(0,72,84,.6);display:grid;place-items:center}
+.phone.v2 .prow .pin svg{width:1.1rem;height:1.1rem;fill:none;stroke:var(--amber);stroke-width:1.8}
+.phone.v2 .prow .ptxt{flex:1;min-width:0}
+.phone.v2 .prow .s{display:block;line-height:1.3}
+.qrrow{display:flex;align-items:center;gap:.7rem;padding:.5rem .6rem;border:1px dashed rgba(240,156,28,.5);border-radius:.75rem}
+.qrrow .qr{width:3.1rem;height:3.1rem;flex:none;border-radius:.3rem}
+.qrrow .t{font-weight:700;font-size:.8rem}.qrrow .s{font-size:.66rem;color:var(--ink-3)}
+.ptabs{margin-top:auto;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--hair);padding:.55rem 0 .8rem;font-size:.56rem;text-align:center;color:var(--ink-3);letter-spacing:.02em}
+.ptabs span{display:grid;gap:.25rem;justify-items:center}
+.ptabs i{width:1.2rem;height:.22rem;background:var(--hair)}
+.ptabs span.on{color:var(--amber);font-weight:800}.ptabs span.on i{background:var(--amber)}
+.appdl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.6rem;align-items:center;margin-top:2.4rem;padding:1.5rem 1.6rem;border:1px solid var(--hair);background:linear-gradient(120deg,rgba(0,72,84,.55),rgba(9,14,19,.55))}
+.appdl h3{font-family:var(--disp);font-size:clamp(1.3rem,2.4vw,1.7rem);margin:.4rem 0 .4rem;line-height:1.15}
+.appdl p{margin:0 0 1rem;color:var(--ink-2);max-width:56ch}
+.adl-badges{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.dl{display:flex;align-items:center;gap:.7rem;border:1px solid var(--hair-2);padding:.55rem .9rem;color:var(--ink);text-decoration:none;background:rgba(255,255,255,.03);transition:border-color .18s,transform .18s}
+.dl:hover{border-color:var(--amber);transform:translateY(-2px)}
+.dl svg{width:1.4rem;height:1.4rem;fill:currentColor;flex:none}
+.dl small{display:block;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.dl b{font-family:var(--disp);font-size:.95rem;line-height:1.05}
+.adl-qr{display:grid;justify-items:center;gap:.5rem;text-align:center;font-size:.72rem;color:var(--ink-3);text-decoration:none;line-height:1.3}
+.adl-qr b{color:var(--amber)}
+.adl-qr .qr.big{width:7.4rem;height:7.4rem;border:.4rem solid var(--cream);border-radius:.4rem;transition:transform .2s}
+.adl-qr:hover .qr.big{transform:scale(1.04)}
+@media (max-width:900px){.loyal{grid-template-columns:minmax(0,1fr)}.phone.v2{margin:1.5rem auto 0;width:min(19.5rem,100%)}}
+@media (max-width:760px){.appdl{grid-template-columns:minmax(0,1fr)}.adl-qr{display:none}}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -797,47 +935,54 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <div class="panel" style="margin-top:1.2rem">
       <div class="order">
         <div>
-          <div class="lbl">Ne içiyorsunuz</div>
-          <div class="opts tiles" id="drinks">
-            <button class="opt tile" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150" data-cold="1"><img data-mi="iced-latte" alt=""><span>Iced Latte</span><b>160 ₺</b></button>
-            <button class="opt tile" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140"><img data-mi="flat-white" alt=""><span>Flat White</span><b>150 ₺</b></button>
-            <button class="opt tile" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="5" data-nomilk="1"><img data-mi="florida-filtre" alt=""><span>Florida Filtre</span><b>120 ₺</b></button>
-            <button class="opt tile" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25" data-cold="1" data-nomilk="1"><img data-mi="cold-brew" alt=""><span>Cold Brew</span><b>145 ₺</b></button>
+          <div class="ohead">
+            <label class="where"><span class="dot-s g" aria-hidden="true"></span>Şube <select id="oBranch" aria-label="Şube seç"><option value="Kadıköy">Kadıköy · 350 m</option><option value="Kavacık">Kavacık · 1,2 km</option><option value="Çengelköy">Çengelköy · 2,8 km</option><option value="Talimhane">Talimhane · 6,1 km</option><option value="Ümraniye">Ümraniye · 7,4 km</option></select></label>
+            <button class="usual" id="oUsual" type="button" title="Iced Latte · orta · laktozsuz · geldiğimde">★ Her zamanki · tek dokunuş</button>
           </div>
+          <div class="ostep"><i>1</i><span class="lbl">İçecek</span><span class="pick" id="pk1">Iced Latte</span></div>
+          <div class="opts tiles" id="drinks">
+            <button class="opt tile" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150" data-cold="1"><img data-mi="iced-latte" alt=""><span>Iced Latte<small class="ml">Espresso, soğuk süt, buz</small></span><b>160 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140"><img data-mi="flat-white" alt=""><span>Flat White<small class="ml">Çift shot, ince süt</small></span><b>150 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="5" data-nomilk="1"><img data-mi="florida-filtre" alt=""><span>Florida Filtre<small class="ml">Günün çekirdeği</small></span><b>120 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25" data-cold="1" data-nomilk="1"><img data-mi="cold-brew" alt=""><span>Cold Brew<small class="ml">16 saat demleme</small></span><b>145 ₺</b></button>
+          </div>
+          <a class="more" href="#menu">Başka bir şey mi? Tüm menü · 53 ürün ›</a>
           <div class="orow">
-            <div><div class="lbl">Boy</div>
+            <div><div class="ostep"><i>2</i><span class="lbl">Boy</span><span class="pick" id="pk2">Orta · 350 ml</span></div>
             <div class="opts" id="sizes">
-              <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15">Küçük <small>−15</small></button>
-              <button class="opt" aria-pressed="true" data-n="Orta" data-d="0">Orta</button>
-              <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20">Büyük <small>+20</small></button>
+              <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15" data-ml="240 ml">Küçük <small>240 ml · −15</small></button>
+              <button class="opt" aria-pressed="true" data-n="Orta" data-d="0" data-ml="350 ml">Orta <small>350 ml</small></button>
+              <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20" data-ml="470 ml">Büyük <small>470 ml · +20</small></button>
             </div></div>
-            <div><div class="lbl">Ne zaman</div>
+            <div><div class="ostep"><i>3</i><span class="lbl">Ne zaman</span><span class="pick" id="pk3">Geldiğimde</span></div>
             <div class="opts" id="whens">
               <button class="opt" aria-pressed="true" data-n="geldigimde">Geldiğimde</button>
               <button class="opt" aria-pressed="false" data-n="10dk">10 dk sonra</button>
               <button class="opt" aria-pressed="false" data-n="simdi">Şimdi</button>
             </div></div>
           </div>
-          <div id="milkwrap"><div class="lbl">Süt</div>
+          <div id="milkwrap"><div class="ostep"><i>4</i><span class="lbl">Süt</span><span class="pick soft">profilinize kaydedilir</span></div>
           <div class="opts" id="milks">
             <button class="opt milk" aria-pressed="false" data-n="İnek sütü" data-d="0">İnek</button>
             <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz <small>+10</small></button>
             <button class="opt milk" aria-pressed="false" data-n="Yulaf" data-d="15">Yulaf <small>+15</small></button>
             <button class="opt milk" aria-pressed="false" data-n="Badem" data-d="15">Badem <small>+15</small></button>
           </div></div>
-          <div class="lbl">Barista notu <small style="text-transform:none;letter-spacing:0;font-weight:500">· isteğe bağlı</small></div>
+          <div class="ostep"><i>5</i><span class="lbl">Barista notu</span><span class="pick soft">isteğe bağlı</span></div>
           <div class="opts" id="notes">
             <button class="opt note" aria-pressed="false" data-n="Ekstra sıcak">Ekstra sıcak</button>
             <button class="opt note" aria-pressed="false" data-n="Az buz">Az buz</button>
             <button class="opt note" aria-pressed="false" data-n="Az şeker">Az şeker</button>
             <button class="opt note" aria-pressed="false" data-n="Kapaksız">Kapaksız</button>
           </div>
-          <p style="font-size:.82rem;color:var(--ink-3);margin:.6rem 0 0">Süt tercihiniz profile kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında renkli etiketle görünür.</p>
+          <p class="ohelp">Süt tercihiniz ve notunuz profilinize kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında renkli etiketle görünür.</p>
         </div>
-        <div class="ticket">
-          <div class="thead"><div><div class="no">Sipariş #4821 · Kadıköy</div><div class="drink" id="tDrink">Iced Latte</div><div class="mods" id="tMods">Orta · Laktozsuz</div></div><img class="thumb" id="tThumb" alt=""></div>
+        <div class="ticket" id="ticket">
+          <div class="thead"><div><div class="no">Sepetiniz · <span id="tBranch">Kadıköy</span></div><div class="drink" id="tDrink">Iced Latte</div><div class="mods" id="tMods">Orta · Laktozsuz</div></div><img class="thumb" id="tThumb" alt=""></div>
           <div class="tsim" id="tSim" aria-label="Barista ekranı etiketleri"></div>
-          <div class="price"><span id="tPrice">170</span> ₺ <small id="tPts">· +170 çekirdek</small></div>
+          <div class="tline"><span>Adet</span><span class="qty"><button type="button" id="qMinus" aria-label="Azalt">−</button><b id="qVal">1</b><button type="button" id="qPlus" aria-label="Artır">+</button></span></div>
+          <div class="tline"><span>Ödeme</span><b>Cüzdan · 412 ₺ <small>Multinet, kart</small></b></div>
+          <div class="tline tot"><span>Toplam</span><span class="price"><span id="tPrice">170</span> ₺ <small id="tPts">· +170 çekirdek</small></span></div>
           <div class="steps" id="tSteps">
             <div class="stp now" data-s="1"><i>1</i>Sipariş verildi</div>
             <div class="stp" data-s="2"><i>2</i>Hazırlanıyor</div>
@@ -846,9 +991,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <div class="tprog" aria-hidden="true"><i id="tBar"></i></div>
           <div class="eta" id="tEta">Şubeye vardığınızda hazırlanmaya başlar.</div>
           <div class="code" id="tCode" hidden>FC·4821</div>
-          <div style="margin-top:auto;padding-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap">
-            <button class="btn lamp sm" id="tAct">Geldim</button>
-            <button class="btn ghost sm" id="tReset">Baştan</button>
+          <div class="tacts">
+            <button class="btn lamp" id="tAct">Siparişi onayla · 170 ₺</button>
+            <div class="tfoot"><span>Uygulamada iki dokunuş sürer.</span><button type="button" id="tReset">Baştan başla</button></div>
           </div>
         </div>
       </div>
@@ -879,6 +1024,14 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--hair)" stroke-width="8"/><circle id="shotArc" cx="50" cy="50" r="42" fill="none" stroke="var(--amber)" stroke-width="8" stroke-linecap="butt" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="shotT" x="50" y="55" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor" font-family="var(--disp)">0.0</text><text x="50" y="70" text-anchor="middle" font-size="9" fill="var(--ink-3)">saniye</text></svg>
           <div><div class="lbl">Shot simülatörü · 4× hız</div><div class="big" id="shotG">0 g</div><p class="brewnote" id="shotMsg" style="margin:.2rem 0 .6rem">Başlatın; 18–23 saniye aralığında kesilmesi gerekir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn amber sm" id="shotBtn">Shot'ı başlat</button><button class="btn ghost sm" id="shotStop" disabled>Kes</button></div></div>
         </div>
+        <div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between;gap:.6rem"><span>Bu standartla hazırlananlar</span><a href="#menu" style="color:var(--amber)">Tüm sıcak kahveler ›</a></div>
+        <div class="stdprods" id="stdprods">
+          <a class="sp" href="/menu/espresso/"><img data-mi="espresso" alt=""><span><b>Espresso</b><small>14 g · 18–23 sn · 30 g çıktı</small><em>95 ₺</em></span></a>
+          <a class="sp" href="/menu/cortado/"><img data-mi="cortado" alt=""><span><b>Cortado</b><small>Tek shot · eşit süt · 62 °C</small><em>130 ₺</em></span></a>
+          <a class="sp" href="/menu/flat-white/"><img data-mi="flat-white" alt=""><span><b>Flat White</b><small>Çift shot · ince süt dokusu</small><em>150 ₺</em></span></a>
+          <a class="sp" href="/menu/cappuccino/"><img data-mi="cappuccino" alt=""><span><b>Cappuccino</b><small>Çift shot · bol mikro köpük</small><em>145 ₺</em></span></a>
+        </div>
+        <div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div>
       </div>
       <div class="brewcol">
         <figure class="ph r169" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure>
@@ -962,17 +1115,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <span><b id="mPrice">150 ₺</b>orta boy</span>
           <span><b id="mServe">Sıcak</b>servis</span>
         </div>
+        <div class="macts"><a class="btn amber sm" href="#sabah" id="mOrder">Ön sipariş ver</a><a class="btn ghost sm" id="mMore" href="/menu/flat-white/">Fiyat, kalori, alerjen</a></div>
       </div>
-      <div class="cupwrap" aria-hidden="true">
-        <svg viewBox="0 0 120 140" role="img" aria-label="Fincan">
-          <ellipse cx="60" cy="26" rx="42" ry="13" fill="#0E1A24"/>
-          <path d="M18 26c0 46 8 92 42 92s42-46 42-92" fill="#152430" stroke="rgba(245,240,232,.18)" stroke-width="1.5"/>
-          <path id="cupFill" d="M22 42c2 40 10 72 38 72s36-32 38-72z" fill="#7A4B2A"/>
-          <ellipse id="cupTop" cx="60" cy="42" rx="38" ry="11" fill="#A9713F"/>
-          <ellipse cx="60" cy="26" rx="42" ry="13" fill="none" stroke="rgba(245,240,232,.32)" stroke-width="2"/>
-          <path d="M102 44c14 2 16 22 2 28" fill="none" stroke="rgba(245,240,232,.22)" stroke-width="4" stroke-linecap="round"/>
-        </svg>
-      </div>
+      <a class="mpic" id="mPic" href="/menu/flat-white/" aria-label="Flat White ürün sayfası"><img data-mi="flat-white" alt="" id="mImg"><span class="go">Ürün sayfası ›</span></a>
     </div>
   </div>
 </section>
@@ -991,7 +1136,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <button class="mcat" aria-pressed="false" data-c="yiyecek">Yiyecek</button>
     </div>
     <div class="dietF" id="dietF"><button class="mcat" aria-pressed="true" data-d="">Hepsi</button><button class="mcat" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>
-    <div class="mlist" id="mlist"></div>
+    <div class="mlist collapsed" id="mlist"></div><button class="mmore" id="mMoreBtn" type="button" hidden>Tamamını göster</button>
     <div class="milkbar">
       <strong style="color:var(--paper-ink)">Süt seçenekleri:</strong>
       <span class="tg">İnek sütü · dahil</span><span class="tg">Laktozsuz · +10 ₺</span><span class="tg v">Yulaf · +15 ₺</span><span class="tg v">Badem · +15 ₺</span>
@@ -1037,6 +1182,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <button class="fbtn" aria-pressed="false" data-f="kahvalti">Kahvaltı</button>
       <span class="fcount" id="fcount"></span>
     </div>
+    <div class="bhint"><span>Kaydırarak gezin · <b id="bcount">17</b> şube</span><a href="/subeler/">Tümü + harita ›</a></div>
     <div class="branches" id="branches"></div>
   </div>
 </section>
@@ -1059,24 +1205,42 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <div class="tier"><span class="tname">Premium</span><span class="d">Ücretsiz ekstra shot · gün batımında manzaralı masa önceliği</span><span class="r">7.500 ₺ +</span></div>
         </div>
       </div>
-      <div class="phone">
+      <div class="phone v2" aria-hidden="true">
         <div class="scr">
-          <div class="bar"><span id="pClock">21:00</span><span>●●●</span></div>
-          <div class="card-pts">
-            <div class="lv">FloridaDays Plus</div>
-            <div class="v">340 <span style="font-size:.9rem;font-family:var(--ui);font-weight:600">çekirdek</span></div>
+          <div class="isl"></div>
+          <div class="bar"><span id="pClock">21:00</span><span class="sig">5G ▮▮▮</span></div>
+          <div class="phead"><svg class="tuk" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><circle cx="61.6" cy="40.8" r="6" fill="currentColor"/></svg><div><small>İyi akşamlar</small><b>Deniz</b></div><span class="bell"></span></div>
+          <div class="fcard">
+            <svg class="wm" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="currentColor" opacity=".55"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="currentColor" opacity=".35"/><circle cx="61.6" cy="40.8" r="6" fill="#F09C1C"/></svg>
+            <div class="fc-top"><span>FloridaDays · Plus</span><span>FC 4821</span></div>
+            <div class="v">340 <span>çekirdek</span></div>
             <div class="track"><i></i></div>
-            <div class="m">Premium'a 3.380 ₺ harcama kaldı</div>
+            <div class="m">Premium'a 3.380 ₺ kaldı</div>
             <div class="stamps"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span><span></span></div>
-            <div class="m" style="margin-top:.5rem">7/10 · 3 kahve sonra biri bizden</div>
+            <div class="m">7/10 · 3 kahve sonra biri bizden</div>
           </div>
-          <div class="prow"><span><span class="t">Her zamanki</span><br><span class="s">Iced latte · orta · laktozsuz</span></span><span class="chip">Tekrarla</span></div>
-          <div class="prow"><span><span class="t">Cüzdan</span><br><span class="s">Multinet, Sodexo, kredi kartı</span></span><span style="font-family:var(--disp);font-size:1.1rem">412 ₺</span></div>
-          <div class="prow"><span><span class="t">Kavacık</span><br><span class="s">1,2 km · gün batımı <span id="pSunset">19:38</span></span></span><span class="chip water">Açık</span></div>
-          <div class="prow"><span><span class="t">Arkadaşına kahve gönder</span><br><span class="s">Telefon numarasıyla</span></span><span class="chip">›</span></div>
-          <div style="margin-top:auto"><button class="btn lamp" style="width:100%">Kartı göster · QR</button></div>
+          <div class="quick">
+            <span><i><svg viewBox="0 0 24 24"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 4h-2M7 4v2M11 3v3"/></svg></i>Ön sipariş</span>
+            <span><i><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg></i>Kart · QR</span>
+            <span><i><svg viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg></i>Şubeler</span>
+            <span><i><svg viewBox="0 0 24 24"><path d="M3 9h18v4H3zM5 13h14v7H5zM12 9v11M12 9c-2-4-6-4-6-1s4 1 6 1zM12 9c2-4 6-4 6-1s-4 1-6 1z"/></svg></i>Hediye</span>
+          </div>
+          <div class="prow"><img data-mi="iced-latte" alt=""><span class="ptxt"><span class="t">Her zamanki</span><br><span class="s">Iced latte · orta · laktozsuz</span></span><span class="chip">Tekrarla</span></div>
+          <div class="prow"><span class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/></svg></span><span class="ptxt"><span class="t">Kavacık</span><br><span class="s">1,2 km · gün batımı <span id="pSunset">19:38</span></span></span><span class="chip water">Açık</span></div>
+          <div class="qrrow"><svg class="qr" viewBox="0 0 21 21" shape-rendering="crispEdges" aria-hidden="true"><rect width="21" height="21" fill="#EDE6D8"/><g fill="#004854"><rect x="0" y="0" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="14" y="0" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="16" y="0" width="1" height="1"/><rect x="17" y="0" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="20" y="1" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="16" y="2" width="1" height="1"/><rect x="17" y="2" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="17" y="3" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="14" y="4" width="1" height="1"/><rect x="16" y="4" width="1" height="1"/><rect x="17" y="4" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="20" y="5" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="16" y="6" width="1" height="1"/><rect x="17" y="6" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="0" y="14" width="1" height="1"/><rect x="1" y="14" width="1" height="1"/><rect x="2" y="14" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="4" y="14" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="6" y="14" width="1" height="1"/><rect x="0" y="15" width="1" height="1"/><rect x="6" y="15" width="1" height="1"/><rect x="0" y="16" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="3" y="16" width="1" height="1"/><rect x="4" y="16" width="1" height="1"/><rect x="6" y="16" width="1" height="1"/><rect x="0" y="17" width="1" height="1"/><rect x="2" y="17" width="1" height="1"/><rect x="3" y="17" width="1" height="1"/><rect x="4" y="17" width="1" height="1"/><rect x="6" y="17" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="1" y="20" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="5" y="20" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="9" y="1" width="1" height="1"/><rect x="11" y="1" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="9" y="2" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="11" y="6" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="0" y="8" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="10" y="8" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="14" y="8" width="1" height="1"/><rect x="18" y="8" width="1" height="1"/><rect x="19" y="8" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="11" y="9" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="15" y="10" width="1" height="1"/><rect x="17" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="19" y="10" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="2" y="11" width="1" height="1"/><rect x="3" y="11" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="11" y="11" width="1" height="1"/><rect x="12" y="11" width="1" height="1"/><rect x="14" y="11" width="1" height="1"/><rect x="15" y="11" width="1" height="1"/><rect x="0" y="12" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="7" y="12" width="1" height="1"/><rect x="9" y="12" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="17" y="12" width="1" height="1"/><rect x="18" y="12" width="1" height="1"/><rect x="8" y="13" width="1" height="1"/><rect x="9" y="13" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="13" y="13" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="19" y="14" width="1" height="1"/><rect x="10" y="15" width="1" height="1"/><rect x="14" y="15" width="1" height="1"/><rect x="17" y="15" width="1" height="1"/><rect x="20" y="15" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="13" y="16" width="1" height="1"/><rect x="14" y="16" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="18" y="16" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="8" y="17" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="13" y="17" width="1" height="1"/><rect x="14" y="17" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="12" y="19" width="1" height="1"/><rect x="13" y="19" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="14" y="20" width="1" height="1"/><rect x="17" y="20" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/></g></svg><span><span class="t">Tek QR · öde + puan</span><br><span class="s">Cüzdan 412 ₺ · Multinet, Sodexo, kart</span></span></div>
+          <div class="ptabs"><span class="on"><i></i>Bugün</span><span><i></i>Sipariş</span><span><i></i>Kart</span><span><i></i>Şubeler</span><span><i></i>Ben</span></div>
         </div>
       </div>
+    </div>
+    <div class="appdl" id="appdl">
+      <div class="adl-txt">
+        <div class="lbl">Uygulamayı indir</div>
+        <h3>Kart, sipariş ve kampanyalar tek uygulamada.</h3>
+        <p>Ön sipariş verin, "Geldim" deyin, tek QR ile ödeyip çekirdek kazanın. Kurulum bir dakika; kartınızı aktaran herkese ilk sipariş küçük boy kahve bizden.</p>
+        <div class="adl-badges"><a class="dl" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="dl" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a><a class="btn ghost sm" href="/uygulama/">Uygulama sayfası ›</a></div>
+      </div>
+      <a class="adl-qr" href="/uygulama/" aria-label="Uygulama indirme sayfası"><svg class="qr big" viewBox="0 0 25 25" shape-rendering="crispEdges" aria-hidden="true"><rect width="25" height="25" fill="#EDE6D8"/><g fill="#004854"><rect x="0" y="0" width="1" height="1"/><rect x="1" y="0" width="1" height="1"/><rect x="2" y="0" width="1" height="1"/><rect x="3" y="0" width="1" height="1"/><rect x="4" y="0" width="1" height="1"/><rect x="5" y="0" width="1" height="1"/><rect x="6" y="0" width="1" height="1"/><rect x="0" y="1" width="1" height="1"/><rect x="6" y="1" width="1" height="1"/><rect x="0" y="2" width="1" height="1"/><rect x="2" y="2" width="1" height="1"/><rect x="3" y="2" width="1" height="1"/><rect x="4" y="2" width="1" height="1"/><rect x="6" y="2" width="1" height="1"/><rect x="0" y="3" width="1" height="1"/><rect x="2" y="3" width="1" height="1"/><rect x="3" y="3" width="1" height="1"/><rect x="4" y="3" width="1" height="1"/><rect x="6" y="3" width="1" height="1"/><rect x="0" y="4" width="1" height="1"/><rect x="2" y="4" width="1" height="1"/><rect x="3" y="4" width="1" height="1"/><rect x="4" y="4" width="1" height="1"/><rect x="6" y="4" width="1" height="1"/><rect x="0" y="5" width="1" height="1"/><rect x="6" y="5" width="1" height="1"/><rect x="0" y="6" width="1" height="1"/><rect x="1" y="6" width="1" height="1"/><rect x="2" y="6" width="1" height="1"/><rect x="3" y="6" width="1" height="1"/><rect x="4" y="6" width="1" height="1"/><rect x="5" y="6" width="1" height="1"/><rect x="6" y="6" width="1" height="1"/><rect x="18" y="0" width="1" height="1"/><rect x="19" y="0" width="1" height="1"/><rect x="20" y="0" width="1" height="1"/><rect x="21" y="0" width="1" height="1"/><rect x="22" y="0" width="1" height="1"/><rect x="23" y="0" width="1" height="1"/><rect x="24" y="0" width="1" height="1"/><rect x="18" y="1" width="1" height="1"/><rect x="24" y="1" width="1" height="1"/><rect x="18" y="2" width="1" height="1"/><rect x="20" y="2" width="1" height="1"/><rect x="21" y="2" width="1" height="1"/><rect x="22" y="2" width="1" height="1"/><rect x="24" y="2" width="1" height="1"/><rect x="18" y="3" width="1" height="1"/><rect x="20" y="3" width="1" height="1"/><rect x="21" y="3" width="1" height="1"/><rect x="22" y="3" width="1" height="1"/><rect x="24" y="3" width="1" height="1"/><rect x="18" y="4" width="1" height="1"/><rect x="20" y="4" width="1" height="1"/><rect x="21" y="4" width="1" height="1"/><rect x="22" y="4" width="1" height="1"/><rect x="24" y="4" width="1" height="1"/><rect x="18" y="5" width="1" height="1"/><rect x="24" y="5" width="1" height="1"/><rect x="18" y="6" width="1" height="1"/><rect x="19" y="6" width="1" height="1"/><rect x="20" y="6" width="1" height="1"/><rect x="21" y="6" width="1" height="1"/><rect x="22" y="6" width="1" height="1"/><rect x="23" y="6" width="1" height="1"/><rect x="24" y="6" width="1" height="1"/><rect x="0" y="18" width="1" height="1"/><rect x="1" y="18" width="1" height="1"/><rect x="2" y="18" width="1" height="1"/><rect x="3" y="18" width="1" height="1"/><rect x="4" y="18" width="1" height="1"/><rect x="5" y="18" width="1" height="1"/><rect x="6" y="18" width="1" height="1"/><rect x="0" y="19" width="1" height="1"/><rect x="6" y="19" width="1" height="1"/><rect x="0" y="20" width="1" height="1"/><rect x="2" y="20" width="1" height="1"/><rect x="3" y="20" width="1" height="1"/><rect x="4" y="20" width="1" height="1"/><rect x="6" y="20" width="1" height="1"/><rect x="0" y="21" width="1" height="1"/><rect x="2" y="21" width="1" height="1"/><rect x="3" y="21" width="1" height="1"/><rect x="4" y="21" width="1" height="1"/><rect x="6" y="21" width="1" height="1"/><rect x="0" y="22" width="1" height="1"/><rect x="2" y="22" width="1" height="1"/><rect x="3" y="22" width="1" height="1"/><rect x="4" y="22" width="1" height="1"/><rect x="6" y="22" width="1" height="1"/><rect x="0" y="23" width="1" height="1"/><rect x="6" y="23" width="1" height="1"/><rect x="0" y="24" width="1" height="1"/><rect x="1" y="24" width="1" height="1"/><rect x="2" y="24" width="1" height="1"/><rect x="3" y="24" width="1" height="1"/><rect x="4" y="24" width="1" height="1"/><rect x="5" y="24" width="1" height="1"/><rect x="6" y="24" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="13" y="0" width="1" height="1"/><rect x="15" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="11" y="1" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="14" y="1" width="1" height="1"/><rect x="16" y="1" width="1" height="1"/><rect x="8" y="2" width="1" height="1"/><rect x="13" y="2" width="1" height="1"/><rect x="14" y="2" width="1" height="1"/><rect x="15" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="14" y="3" width="1" height="1"/><rect x="16" y="3" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="13" y="4" width="1" height="1"/><rect x="15" y="4" width="1" height="1"/><rect x="9" y="5" width="1" height="1"/><rect x="10" y="5" width="1" height="1"/><rect x="14" y="5" width="1" height="1"/><rect x="9" y="6" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="11" y="6" width="1" height="1"/><rect x="14" y="6" width="1" height="1"/><rect x="15" y="6" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="8" y="8" width="1" height="1"/><rect x="9" y="8" width="1" height="1"/><rect x="10" y="8" width="1" height="1"/><rect x="11" y="8" width="1" height="1"/><rect x="13" y="8" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="19" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="10" y="9" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="14" y="9" width="1" height="1"/><rect x="17" y="9" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="21" y="9" width="1" height="1"/><rect x="22" y="9" width="1" height="1"/><rect x="0" y="10" width="1" height="1"/><rect x="1" y="10" width="1" height="1"/><rect x="4" y="10" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="6" y="10" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="9" y="10" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="15" y="10" width="1" height="1"/><rect x="16" y="10" width="1" height="1"/><rect x="17" y="10" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="21" y="10" width="1" height="1"/><rect x="22" y="10" width="1" height="1"/><rect x="24" y="10" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="11" y="11" width="1" height="1"/><rect x="12" y="11" width="1" height="1"/><rect x="16" y="11" width="1" height="1"/><rect x="18" y="11" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="21" y="11" width="1" height="1"/><rect x="22" y="11" width="1" height="1"/><rect x="23" y="11" width="1" height="1"/><rect x="24" y="11" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="12" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="15" y="12" width="1" height="1"/><rect x="17" y="12" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="22" y="12" width="1" height="1"/><rect x="23" y="12" width="1" height="1"/><rect x="24" y="12" width="1" height="1"/><rect x="0" y="13" width="1" height="1"/><rect x="1" y="13" width="1" height="1"/><rect x="4" y="13" width="1" height="1"/><rect x="6" y="13" width="1" height="1"/><rect x="8" y="13" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="22" y="13" width="1" height="1"/><rect x="3" y="14" width="1" height="1"/><rect x="5" y="14" width="1" height="1"/><rect x="7" y="14" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="11" y="14" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="21" y="14" width="1" height="1"/><rect x="22" y="14" width="1" height="1"/><rect x="24" y="14" width="1" height="1"/><rect x="2" y="15" width="1" height="1"/><rect x="4" y="15" width="1" height="1"/><rect x="5" y="15" width="1" height="1"/><rect x="8" y="15" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="11" y="15" width="1" height="1"/><rect x="14" y="15" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="20" y="15" width="1" height="1"/><rect x="22" y="15" width="1" height="1"/><rect x="23" y="15" width="1" height="1"/><rect x="2" y="16" width="1" height="1"/><rect x="5" y="16" width="1" height="1"/><rect x="10" y="16" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="22" y="16" width="1" height="1"/><rect x="24" y="16" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="13" y="17" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="8" y="18" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="16" y="18" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="18" width="1" height="1"/><rect x="20" y="18" width="1" height="1"/><rect x="22" y="18" width="1" height="1"/><rect x="8" y="19" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="12" y="19" width="1" height="1"/><rect x="13" y="19" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="18" y="19" width="1" height="1"/><rect x="19" y="19" width="1" height="1"/><rect x="22" y="19" width="1" height="1"/><rect x="24" y="19" width="1" height="1"/><rect x="8" y="20" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="20" width="1" height="1"/><rect x="16" y="20" width="1" height="1"/><rect x="17" y="20" width="1" height="1"/><rect x="18" y="20" width="1" height="1"/><rect x="21" y="20" width="1" height="1"/><rect x="23" y="20" width="1" height="1"/><rect x="24" y="20" width="1" height="1"/><rect x="9" y="21" width="1" height="1"/><rect x="10" y="21" width="1" height="1"/><rect x="12" y="21" width="1" height="1"/><rect x="19" y="21" width="1" height="1"/><rect x="20" y="21" width="1" height="1"/><rect x="23" y="21" width="1" height="1"/><rect x="8" y="22" width="1" height="1"/><rect x="10" y="22" width="1" height="1"/><rect x="12" y="22" width="1" height="1"/><rect x="13" y="22" width="1" height="1"/><rect x="14" y="22" width="1" height="1"/><rect x="15" y="22" width="1" height="1"/><rect x="16" y="22" width="1" height="1"/><rect x="17" y="22" width="1" height="1"/><rect x="19" y="22" width="1" height="1"/><rect x="20" y="22" width="1" height="1"/><rect x="22" y="22" width="1" height="1"/><rect x="24" y="22" width="1" height="1"/><rect x="11" y="23" width="1" height="1"/><rect x="13" y="23" width="1" height="1"/><rect x="14" y="23" width="1" height="1"/><rect x="16" y="23" width="1" height="1"/><rect x="18" y="23" width="1" height="1"/><rect x="21" y="23" width="1" height="1"/><rect x="22" y="23" width="1" height="1"/><rect x="24" y="23" width="1" height="1"/><rect x="8" y="24" width="1" height="1"/><rect x="9" y="24" width="1" height="1"/><rect x="11" y="24" width="1" height="1"/><rect x="13" y="24" width="1" height="1"/><rect x="14" y="24" width="1" height="1"/><rect x="15" y="24" width="1" height="1"/><rect x="17" y="24" width="1" height="1"/><rect x="18" y="24" width="1" height="1"/><rect x="20" y="24" width="1" height="1"/><rect x="21" y="24" width="1" height="1"/><rect x="22" y="24" width="1" height="1"/><rect x="23" y="24" width="1" height="1"/><rect x="24" y="24" width="1" height="1"/></g></svg><span>Kamerayla tarayın<br><b>florida.coffee/app</b></span></a>
+    </div>
     </div>
   </div>
 </section>
@@ -1118,7 +1282,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <p style="margin:0 auto;color:var(--ink-2)">En yakın Florida'yı bulun, uygulamayı indirin ya da kendi şubenizi açın.</p>
     <div class="acts">
       <a class="btn solid" href="#subeler">En yakın şubeyi bul</a>
-      <a class="btn lamp" href="#kulup">Uygulamayı indir</a>
+      <a class="btn lamp" href="/uygulama/">Uygulamayı indir</a>
       <a class="btn ghost" href="/franchise/basvuru/">Franchise başvurusu</a>
     </div>
   </div>
@@ -1138,7 +1302,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
       <div><h4>Kurumsal</h4><ul><li><a href="#franchise">Franchise</a></li><li><a href="#">Kurumsal satış</a></li><li><a href="#">Kariyer</a></li><li><a href="#">Basın</a></li><li><a href="#">İletişim</a></li></ul></div>
       <div class="fapp"><h4>Uygulama</h4><p style="margin:0 0 .6rem;color:var(--ink-2)">Ön sipariş, FloridaDays Club, cüzdan.</p>
-        <div class="badges"><a class="badge" href="#kulup"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="#kulup"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a></div>
+        <div class="badges"><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a></div>
         <h4>Haber al</h4><form class="fnews" id="fnews" autocomplete="off"><input type="email" required placeholder="e-posta" aria-label="E-posta"><button class="btn amber sm" type="submit">Kaydol</button></form>
       </div>
     </div>
@@ -1371,7 +1535,7 @@ function renderBranches(){
   const now = new Date();
   const el = document.getElementById("branches");
   const list = B.filter(b => [...active].every(f => f === "acik" ? isOpen(b, now) : b.f.includes(f)));
-  document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube";
+  document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube"; const bc = document.getElementById("bcount"); if (bc) bc.textContent = list.length;
   el.innerHTML = list.length ? list.map(b => {
     const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
     return `<button class="branch" data-id="${b.id}">
@@ -1430,7 +1594,7 @@ document.getElementById("fCities").innerHTML =
 const fnews = document.getElementById("fnews"); if (fnews) fnews.addEventListener("submit", e => { e.preventDefault(); showToast("Kaydedildi. İlk haber Sakarya açılışı olacak."); e.target.reset(); });
 
 /* ---------------- order ticket v2 ---------------- */
-const O = { drink:"Iced Latte", base:160, size:"Orta", sizeD:0, milk:"Laktozsuz", milkD:10, when:"geldigimde", cold:true, nomilk:false, notes:new Set(), step:1 };
+const O = { drink:"Iced Latte", base:160, size:"Orta", sizeD:0, milk:"Laktozsuz", milkD:10, when:"geldigimde", cold:true, nomilk:false, notes:new Set(), step:1, qty:1, placed:false, branch:"Kadıköy" };
 let tTimer = null;
 function seg(id, cb){
   document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => {
@@ -1438,14 +1602,26 @@ function seg(id, cb){
     b.setAttribute("aria-pressed","true"); cb(b); paintTicket();
   }));
 }
-seg("drinks", b => { O.drink = b.dataset.n; O.base = +b.dataset.p; O.cold = !!b.dataset.cold; O.nomilk = !!b.dataset.nomilk; });
-seg("sizes",  b => { O.size = b.dataset.n; O.sizeD = +b.dataset.d; });
-seg("milks",  b => { O.milk = b.dataset.n; O.milkD = +b.dataset.d; });
-seg("whens",  b => { O.when = b.dataset.n; });
+seg("drinks", b => { O.drink = b.dataset.n; O.base = +b.dataset.p; O.cold = !!b.dataset.cold; O.nomilk = !!b.dataset.nomilk; O.placed = false; });
+seg("sizes",  b => { O.size = b.dataset.n; O.sizeD = +b.dataset.d; O.placed = false; });
+seg("milks",  b => { O.milk = b.dataset.n; O.milkD = +b.dataset.d; O.placed = false; });
+seg("whens",  b => { O.when = b.dataset.n; O.placed = false; });
+document.getElementById("qPlus").addEventListener("click", () => { O.qty = Math.min(6, O.qty + 1); paintTicket(); });
+document.getElementById("qMinus").addEventListener("click", () => { O.qty = Math.max(1, O.qty - 1); paintTicket(); });
+document.getElementById("oBranch").addEventListener("change", e => { O.branch = e.target.value; paintTicket(); showToast(O.branch + " şubesi seçildi · sipariş oraya gider"); });
+document.getElementById("oUsual").addEventListener("click", () => {
+  const pick = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
+  pick("drinks","Iced Latte"); pick("sizes","Orta"); pick("milks","Laktozsuz"); pick("whens","geldigimde"); O.qty = 1; paintTicket();
+  showToast("Her zamanki: Iced Latte · orta · laktozsuz · geldiğinizde");
+  if (innerWidth < 821) document.getElementById("ticket").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+});
 document.querySelectorAll("#notes .opt").forEach(b => b.addEventListener("click", () => { const on = b.getAttribute("aria-pressed") === "true"; b.setAttribute("aria-pressed", String(!on)); on ? O.notes.delete(b.dataset.n) : O.notes.add(b.dataset.n); paintTicket(); }));
 function paintTicket(){
-  const total = O.base + O.sizeD + (O.nomilk ? 0 : O.milkD);
-  document.getElementById("tDrink").textContent = O.drink;
+  const unit = O.base + O.sizeD + (O.nomilk ? 0 : O.milkD), total = unit * O.qty;
+  document.getElementById("qVal").textContent = O.qty; document.getElementById("qMinus").disabled = O.qty <= 1; document.getElementById("qPlus").disabled = O.qty >= 6;
+  document.getElementById("tBranch").textContent = O.branch;
+  document.getElementById("pk1").textContent = O.drink; document.getElementById("pk2").textContent = O.size + " · " + (document.querySelector("#sizes .opt[aria-pressed=\"true\"]")?.dataset.ml || ""); document.getElementById("pk3").textContent = document.querySelector("#whens .opt[aria-pressed=\"true\"]")?.textContent || "";
+  document.getElementById("tDrink").textContent = (O.qty > 1 ? O.qty + " × " : "") + O.drink;
   document.getElementById("tMods").textContent = [O.size, O.nomilk ? null : O.milk, ...O.notes].filter(Boolean).join(" · ");
   document.getElementById("tPrice").textContent = total;
   document.getElementById("tPts").textContent = "· +" + total + " çekirdek";
@@ -1454,22 +1630,23 @@ function paintTicket(){
   document.getElementById("tSim").innerHTML = (O.cold ? '<span class="cold">Soğuk</span>' : '<span class="hot">Sıcak</span>') + (!O.nomilk && O.milk !== "İnek sütü" ? '<span class="lac">' + O.milk + '</span>' : "") + [...O.notes].map(n => '<span class="nt">' + n + '</span>').join("");
   document.querySelectorAll("#tSteps .stp").forEach(s => { const n = +s.dataset.s; s.className = "stp" + (n < O.step ? " done" : n === O.step ? " now" : ""); });
   const act = document.getElementById("tAct");
-  act.textContent = O.step === 1 ? (O.when === "geldigimde" ? "Geldim" : "Siparişi ver") : O.step === 2 ? "Hazırlanıyor…" : "Teslim aldım";
+  act.textContent = O.step === 1 ? (O.placed ? "Geldim · hazırlığı başlat" : "Siparişi onayla · " + total + " ₺") : O.step === 2 ? "Hazırlanıyor…" : "Teslim aldım · afiyet olsun";
   act.disabled = O.step === 2;
   document.getElementById("tCode").hidden = O.step !== 3;
   if (O.step === 1) { document.getElementById("tBar").style.width = "0"; document.getElementById("tEta").textContent =
-    O.when === "geldigimde" ? "Kapıya 200 m kala ya da 'Geldim' deyince hazırlanmaya başlar." : O.when === "10dk" ? "10 dakika sonra hazırlanmaya başlar; tezgâhta sizi bekler." : "Hemen hazırlanmaya başlar · tahmini 3 dakika."; }
+    O.placed ? O.branch + " sipariş aldı. Kapıya 200 m kala otomatik ya da 'Geldim' deyince hazırlanmaya başlar." : O.when === "geldigimde" ? "Onaylayın; kapıya 200 m kala ya da 'Geldim' deyince hazırlanmaya başlar." : O.when === "10dk" ? "Onaylayın; 10 dakika sonra hazırlanmaya başlar, tezgâhta sizi bekler." : "Onaylayın; hemen hazırlanmaya başlar · tahmini 3 dakika."; }
   if (O.step === 3) { document.getElementById("tBar").style.width = "100%"; document.getElementById("tEta").textContent = "Hazır. Kodu tezgâhta gösterin; " + total + " çekirdek teslimde hesabınıza yazılır."; }
 }
 document.getElementById("tAct").addEventListener("click", () => {
+  if (O.step === 1 && O.when === "geldigimde" && !O.placed){ O.placed = true; paintTicket(); showToast("Sipariş " + O.branch + " şubesine iletildi · ödeme cüzdandan"); return; }
   if (O.step === 1){
-    O.step = 2; paintTicket(); const dur = reduce ? 600 : 4200, t0 = Date.now();
+    O.placed = false; O.step = 2; paintTicket(); const dur = reduce ? 600 : 4200, t0 = Date.now();
     clearInterval(tTimer); tTimer = setInterval(() => { const p = Math.min(1, (Date.now() - t0) / dur); document.getElementById("tBar").style.width = (p * 100) + "%";
       const left = Math.ceil((1 - p) * 180); document.getElementById("tEta").textContent = "Barista ekranında en üstte · " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") + " kaldı";
       if (p >= 1) { clearInterval(tTimer); O.step = 3; paintTicket(); showToast("Siparişiniz tezgâhta · kod FC·4821"); } }, 100);
-  } else if (O.step === 3){ O.step = 1; paintTicket(); showToast("Afiyet olsun. Bugün 1 kahve · " + (O.base + O.sizeD + (O.nomilk ? 0 : O.milkD)) + " çekirdek"); }
+  } else if (O.step === 3){ O.step = 1; O.placed = false; paintTicket(); showToast("Afiyet olsun. " + (O.base + O.sizeD + (O.nomilk ? 0 : O.milkD)) * O.qty + " çekirdek hesabınıza yazıldı"); }
 });
-document.getElementById("tReset").addEventListener("click", () => { clearInterval(tTimer); O.step = 1; paintTicket(); });
+document.getElementById("tReset").addEventListener("click", () => { clearInterval(tTimer); O.step = 1; O.placed = false; O.qty = 1; paintTicket(); });
 function showToast(msg){ let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); }
 
 /* ---------------- standartlar: tıklanır kartlar, shot simülatörü, kontrol listesi ---------------- */
@@ -1507,12 +1684,12 @@ document.querySelectorAll("#brewtabs .fbtn").forEach(b => b.addEventListener("cl
 
 /* ---------------- coffee matcher ---------------- */
 const M = {
-  uyan:   {n:"Flat White", w:"Çift shot espresso, ince dokulu az sütle. Kafein vuruşunu ilk üç yudumda verir, mideyi de yormaz.", caf:"180 mg", kcal:"140 kcal", p:"150 ₺", s:"Sıcak", fill:"#A9713F", top:"#C79055"},
-  odak:   {n:"Florida Filtre · V60", w:"1:16 oranında, 92 derecede demlenir. Kafeini espressodan daha yavaş salar; iki saatlik bir çalışmada dalgalanma yaratmaz.", caf:"95 mg", kcal:"5 kcal", p:"120 ₺", s:"Sıcak", fill:"#6B4326", top:"#8A5A33"},
-  serin:  {n:"Cold Brew", w:"16 saat oda sıcaklığında demlenir. Asiditesi düşük olduğu için buzla açıldığında ekşimez; sütsüz de içilir.", caf:"200 mg", kcal:"25 kcal", p:"145 ₺", s:"Soğuk", fill:"#3E2A1C", top:"#573923"},
-  tatli:  {n:"Iced White Mocha", w:"Beyaz çikolata sosu, espresso ve soğuk süt. Tatlı krizini kahveden vazgeçmeden çözer.", caf:"150 mg", kcal:"320 kcal", p:"185 ₺", s:"Soğuk", fill:"#B08462", top:"#CBA07C"},
-  hafif:  {n:"Cortado · tek shot", w:"Tek shot espresso, eşit miktarda süt. Kahve tadını verir ama kafeini yarıya indirir; akşamüstü için doğru seçim.", caf:"75 mg", kcal:"70 kcal", p:"130 ₺", s:"Sıcak", fill:"#9C6B44", top:"#B98A5F"},
-  sutsuz: {n:"Americano", w:"Çift shot espresso ve sıcak su. Sütsüz, şekersiz, 10 kaloriden az; harmanın bergamot notasını en net buradan duyarsınız.", caf:"170 mg", kcal:"8 kcal", p:"115 ₺", s:"Sıcak", fill:"#4A2E1C", top:"#63402A"}
+  uyan:   {n:"Flat White", slug:"flat-white", w:"Çift shot espresso, ince dokulu az sütle. Kafein vuruşunu ilk üç yudumda verir, mideyi de yormaz.", caf:"180 mg", kcal:"140 kcal", p:"150 ₺", s:"Sıcak", fill:"#A9713F", top:"#C79055"},
+  odak:   {n:"Florida Filtre · V60", slug:"v60", w:"1:16 oranında, 92 derecede demlenir. Kafeini espressodan daha yavaş salar; iki saatlik bir çalışmada dalgalanma yaratmaz.", caf:"95 mg", kcal:"5 kcal", p:"120 ₺", s:"Sıcak", fill:"#6B4326", top:"#8A5A33"},
+  serin:  {n:"Cold Brew", slug:"cold-brew", w:"16 saat oda sıcaklığında demlenir. Asiditesi düşük olduğu için buzla açıldığında ekşimez; sütsüz de içilir.", caf:"200 mg", kcal:"25 kcal", p:"145 ₺", s:"Soğuk", fill:"#3E2A1C", top:"#573923"},
+  tatli:  {n:"Iced White Mocha", slug:"iced-white-mocha", w:"Beyaz çikolata sosu, espresso ve soğuk süt. Tatlı krizini kahveden vazgeçmeden çözer.", caf:"150 mg", kcal:"320 kcal", p:"185 ₺", s:"Soğuk", fill:"#B08462", top:"#CBA07C"},
+  hafif:  {n:"Cortado · tek shot", slug:"cortado", w:"Tek shot espresso, eşit miktarda süt. Kahve tadını verir ama kafeini yarıya indirir; akşamüstü için doğru seçim.", caf:"75 mg", kcal:"70 kcal", p:"130 ₺", s:"Sıcak", fill:"#9C6B44", top:"#B98A5F"},
+  sutsuz: {n:"Americano", slug:"americano", w:"Çift shot espresso ve sıcak su. Sütsüz, şekersiz, 10 kaloriden az; harmanın bergamot notasını en net buradan duyarsınız.", caf:"170 mg", kcal:"8 kcal", p:"115 ₺", s:"Sıcak", fill:"#4A2E1C", top:"#63402A"}
 };
 document.querySelectorAll("#moods .mood").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#moods .mood").forEach(x => x.setAttribute("aria-pressed","false"));
@@ -1524,8 +1701,9 @@ document.querySelectorAll("#moods .mood").forEach(b => b.addEventListener("click
   document.getElementById("mKcal").textContent = m.kcal;
   document.getElementById("mPrice").textContent = m.p;
   document.getElementById("mServe").textContent = m.s;
-  document.getElementById("cupFill").setAttribute("fill", m.fill);
-  document.getElementById("cupTop").setAttribute("fill", m.top);
+  const im = document.getElementById("mImg"); im.src = MENUIMG[m.slug] || ("img/menu/" + m.slug + ".jpg");
+  document.getElementById("mPic").href = document.getElementById("mMore").href = "/menu/" + m.slug + "/";
+  document.getElementById("mPic").setAttribute("aria-label", m.n + " ürün sayfası");
 }));
 
 /* ---------------- menu ---------------- */
@@ -1611,11 +1789,13 @@ function renderMenu(cat){
   curCat = cat || curCat;
   const items = MENU[curCat].filter(([,,,tags]) => passDiet(tags));
   document.getElementById("mlist").innerHTML = items.length ? items.map(([n,d,p,tags]) =>
-    `<div class="mitem">${mthumb(n)}<span class="n">${n}</span><span class="p">${p} ₺</span>
+    `<a class="mitem" href="/menu/${mslug(n)}/">${mthumb(n)}<span class="n">${n}</span><span class="p">${p} ₺</span>
      <span class="d">${d}</span>
-     <span class="tags">${tags.filter(t => !["sütsüz"].includes(t) || diet === "sutsuz").map(t => `<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></div>`).join("")
+     <span class="tags">${tags.filter(t => !["sütsüz"].includes(t) || diet === "sutsuz").map(t => `<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></a>`).join("")
     : `<p class="note" style="padding:1rem 0">Bu filtrede bu kategoride ürün yok; başka bir kategoriye bakın.</p>`;
+  const mb = document.getElementById("mMoreBtn"), ml = document.getElementById("mlist"); ml.classList.add("collapsed"); mb.hidden = items.length <= 8; mb.textContent = "Tamamını göster · " + items.length + " ürün";
 }
+document.getElementById("mMoreBtn").addEventListener("click", e => { const ml = document.getElementById("mlist"); const c = ml.classList.toggle("collapsed"); e.target.textContent = c ? "Tamamını göster · " + ml.children.length + " ürün" : "Daha az göster"; if (c) ml.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}); });
 document.querySelectorAll("#mcats .mcat").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#mcats .mcat").forEach(x => x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true"); renderMenu(b.dataset.c);
@@ -1625,7 +1805,7 @@ document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click
   b.setAttribute("aria-pressed","true"); diet = b.dataset.d; renderMenu();
 }));
 renderMenu("sicak");
-document.querySelectorAll("#drinks img[data-mi]").forEach(im => { im.src = MENUIMG[im.dataset.mi] || ("img/menu/" + im.dataset.mi + ".jpg"); im.onerror = () => im.remove(); });
+document.querySelectorAll("img[data-mi]").forEach(im => { im.src = MENUIMG[im.dataset.mi] || ("img/menu/" + im.dataset.mi + ".jpg"); im.onerror = () => im.remove(); });
 paintTicket();
 /* ---------------- favoriler döngüsü (bölüm 02) ---------------- */
 const FAVS = ["Iced Latte","Flat White","Florida Filtre","Boğaz Cold Brew","San Sebastian","Cold Brew"];

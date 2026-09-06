@@ -11,7 +11,7 @@ from datetime import date
 ROOT = os.path.dirname(os.path.abspath(__file__))
 BASE = os.path.dirname(ROOT)                 # docs/florida-coffee
 DEMO = os.path.join(BASE, "demo-site", "index.html")
-import sys, shutil, argparse
+import sys, shutil, argparse, random
 if sys.version_info < (3, 12): sys.exit("build.py Python 3.12+ ister (iç içe f-string).")
 _ap = argparse.ArgumentParser(); _ap.add_argument("--base", default="", help="alt dizin ön eki, ör. /kimtrim (GitHub Pages)"); _ap.add_argument("--out", default=os.path.join(BASE, "dist"))
 _args = _ap.parse_args()
@@ -262,6 +262,89 @@ form.f .pills{margin-top:.2rem}
 .motive b{color:var(--ink)}
 #applyDone[hidden]{display:none}
 '''
+EXTRA_CSS4 = r'''
+/* ---------- v10: ortak ---------- */
+.stdprods{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:.55rem}
+.sp{display:grid;grid-template-columns:4.4rem 1fr;gap:.7rem;align-items:center;border:1px solid var(--hair);background:var(--glass);padding:.5rem;color:inherit;text-decoration:none;transition:border-color .18s,transform .18s}
+.sp:hover{border-color:var(--amber);transform:translateY(-2px)}
+.sp img{width:4.4rem;height:4.4rem;object-fit:cover;display:block;background:var(--hair)}
+.sp b{display:block;font-family:var(--disp);font-size:1.02rem;line-height:1.1}
+.sp small{display:block;font-size:.7rem;color:var(--ink-3);margin:.2rem 0 .25rem;line-height:1.25}
+.sp em{font-style:normal;font-family:var(--disp);font-weight:700;color:var(--amber);font-size:.92rem}
+.stdcta{display:flex;justify-content:space-between;align-items:center;gap:.8rem;margin-top:.8rem;padding:.8rem .9rem;border:1px dashed var(--hair-2);font-size:.82rem;color:var(--ink-2)}
+.stdcta .btn{flex:none}
+@media (max-width:480px){.stdprods{grid-template-columns:1fr}.stdcta{flex-direction:column;align-items:flex-start}}
+.loyal2{display:grid;grid-template-columns:minmax(0,1fr) 19.5rem;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.loyal2 .sh,.loyal2 .sh p{text-align:left;margin-left:0;max-width:none}
+@media (max-width:900px){.loyal2{grid-template-columns:minmax(0,1fr)}.loyal2 .phone.v2{margin:1.5rem auto 0;width:min(19.5rem,100%)}}
+.phone.v2{width:19.5rem;border-radius:2.6rem;background:linear-gradient(160deg,#0f4550,#04141a);border:1px solid rgba(240,156,28,.35);padding:.5rem;box-shadow:0 30px 60px rgba(0,0,0,.55),inset 0 0 0 2px #061a1f;flex:none;margin:0 auto}
+.phone.v2 .scr{border-radius:2.15rem;background:linear-gradient(175deg,#00404b 0%,#0a1b21 34%,#0b141a 100%);padding:.85rem .85rem 0;min-height:35rem;display:flex;flex-direction:column;gap:.6rem;position:relative;overflow:hidden}
+.phone.v2 .isl{width:5.4rem;height:1.3rem;background:#05090d;border-radius:999px;margin:-.15rem auto .35rem;flex:none}
+.phone.v2 .bar{position:absolute;top:1.05rem;left:1.25rem;right:1.25rem;display:flex;justify-content:space-between;font-size:.64rem;color:var(--ink-2);font-weight:600;font-variant-numeric:tabular-nums}
+.phead{display:flex;align-items:center;gap:.6rem}
+.tuk{width:2.1rem;height:2.1rem;color:var(--cream,#EDE6D8);flex:none}
+.phead small{display:block;font-size:.6rem;color:var(--ink-3);letter-spacing:.1em;text-transform:uppercase}
+.phead b{font-family:var(--disp);font-size:1.05rem;line-height:1.1}
+.phead .bell{margin-left:auto;width:1.9rem;height:1.9rem;border:1px solid var(--hair-2);border-radius:50%;position:relative}
+.phead .bell::before{content:"";position:absolute;left:50%;top:50%;width:.6rem;height:.7rem;border:1.6px solid var(--ink-2);border-bottom-width:2.4px;border-radius:.35rem .35rem .1rem .1rem;transform:translate(-50%,-55%)}
+.phead .bell::after{content:"3";position:absolute;top:-.3rem;right:-.3rem;background:var(--rust);color:#fff;font-size:.55rem;font-weight:800;width:.95rem;height:.95rem;border-radius:50%;display:grid;place-items:center}
+.fcard{position:relative;overflow:hidden;border-radius:1rem;padding:.9rem .95rem;background:linear-gradient(135deg,#F09C1C 0%,#E0741A 55%,#D44808 100%);color:#241704}
+.fcard .wm{position:absolute;right:-1.7rem;bottom:-1.9rem;width:7.8rem;height:7.8rem;opacity:.16;color:#241704}
+.fcard .fc-top{display:flex;justify-content:space-between;font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}
+.fcard .v{font-family:var(--disp);font-size:2.2rem;line-height:1.05;margin-top:.35rem}.fcard .v span{font-size:.78rem;font-family:var(--ui);font-weight:800}
+.fcard .track{height:.35rem;background:rgba(36,23,4,.22);margin:.5rem 0 .3rem;position:relative;border-radius:999px;overflow:hidden}.fcard .track i{position:absolute;left:0;top:0;bottom:0;width:55%;background:#241704}
+.fcard .m{font-size:.7rem;font-weight:700;position:relative}
+.fcard .stamps{display:flex;gap:.24rem;margin:.5rem 0 .25rem;position:relative}
+.fcard .stamps span{width:1.08rem;height:1.08rem;border-radius:50%;border:1.5px solid rgba(36,23,4,.45);display:grid;place-items:center;padding:0;background:none}
+.fcard .stamps span.f{background:#241704;border-color:#241704}
+.fcard .stamps span.f::after{content:"";width:.42rem;height:.42rem;border-radius:50%;background:var(--amber)}
+.phone.v2 .quick{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.phone.v2 .quick>span{display:grid;justify-items:center;gap:.3rem;font-size:.6rem;font-weight:600;color:var(--ink-2);text-align:center}
+.phone.v2 .quick i{width:2.7rem;height:2.7rem;display:grid;place-items:center;border-radius:.85rem;background:rgba(255,255,255,.05);border:1px solid var(--hair)}
+.phone.v2 .quick i svg{width:1.25rem;height:1.25rem;fill:none;stroke:var(--amber);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.phone.v2 .prow{display:flex;justify-content:space-between;align-items:center;gap:.55rem;padding:.5rem .6rem;border:1px solid var(--hair);border-radius:.75rem;background:rgba(255,255,255,.035);font-size:.85rem}
+.phone.v2 .prow .t{font-weight:600}.phone.v2 .prow .s{font-size:.72rem;color:var(--ink-3);display:block;line-height:1.3}
+.phone.v2 .prow img{width:2.5rem;height:2.5rem;object-fit:cover;flex:none;border-radius:.45rem;background:var(--hair)}
+.phone.v2 .prow .pin{width:2.5rem;height:2.5rem;flex:none;border-radius:.45rem;background:rgba(0,72,84,.6);display:grid;place-items:center}
+.phone.v2 .prow .pin svg{width:1.1rem;height:1.1rem;fill:none;stroke:var(--amber);stroke-width:1.8}
+.phone.v2 .prow .ptxt{flex:1;min-width:0}
+.phone.v2 .prow .chip{flex:none}
+.qrrow{display:flex;align-items:center;gap:.7rem;padding:.5rem .6rem;border:1px dashed rgba(240,156,28,.5);border-radius:.75rem}
+.qrrow .qr{width:3.1rem;height:3.1rem;flex:none;border-radius:.3rem}
+.qrrow .t{font-weight:700;font-size:.8rem}.qrrow .s{font-size:.66rem;color:var(--ink-3)}
+.ptabs{margin-top:auto;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid var(--hair);padding:.55rem 0 .8rem;font-size:.56rem;text-align:center;color:var(--ink-3);letter-spacing:.02em}
+.ptabs span{display:grid;gap:.25rem;justify-items:center}
+.ptabs i{width:1.2rem;height:.22rem;background:var(--hair)}
+.ptabs span.on{color:var(--amber);font-weight:800}.ptabs span.on i{background:var(--amber)}
+.appdl{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1.6rem;align-items:center;margin-top:2.4rem;padding:1.5rem 1.6rem;border:1px solid var(--hair);background:linear-gradient(120deg,rgba(0,72,84,.55),rgba(9,14,19,.55))}
+.appdl h3{font-family:var(--disp);font-size:clamp(1.3rem,2.4vw,1.7rem);margin:.4rem 0 .4rem;line-height:1.15}
+.appdl p{margin:0 0 1rem;color:var(--ink-2);max-width:56ch}
+.adl-badges{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}
+.dl{display:flex;align-items:center;gap:.7rem;border:1px solid var(--hair-2);padding:.55rem .9rem;color:var(--ink);text-decoration:none;background:rgba(255,255,255,.03);transition:border-color .18s,transform .18s}
+.dl:hover{border-color:var(--amber);transform:translateY(-2px)}
+.dl svg{width:1.4rem;height:1.4rem;fill:currentColor;flex:none}
+.dl small{display:block;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+.dl b{font-family:var(--disp);font-size:.95rem;line-height:1.05}
+.adl-qr{display:grid;justify-items:center;gap:.5rem;text-align:center;font-size:.72rem;color:var(--ink-3);text-decoration:none;line-height:1.3}
+.adl-qr b{color:var(--amber)}
+.adl-qr .qr.big{width:7.4rem;height:7.4rem;border:.4rem solid #EDE6D8;border-radius:.4rem;transition:transform .2s}
+.adl-qr:hover .qr.big{transform:scale(1.04)}
+@media (max-width:760px){.appdl{grid-template-columns:minmax(0,1fr);padding:1.2rem}.adl-qr{display:none}}
+/* v10: mobilde şubeler kompakt liste, menü daralt/genişlet */
+.mmore{display:none}
+@media (max-width:640px){
+  #branches.grid{grid-template-columns:1fr;gap:.5rem}
+  #branches .cell{display:grid;grid-template-columns:5.4rem 1fr;gap:.15rem .8rem;padding:.55rem .7rem .55rem .55rem;align-items:center}
+  #branches .cell .bimg{grid-row:1/5;margin:0;aspect-ratio:1;width:5.4rem;align-self:center}
+  #branches .cell h3{font-size:1rem;margin:0}
+  #branches .cell p{margin:0;font-size:.76rem}
+  #branches .cell>div:last-of-type{display:none!important}
+  #branches .cell .more{font-size:.72rem;margin-top:.1rem}
+  .pgrid.collapsed .pcard:nth-child(n+7){display:none}
+  .pgrid.collapsed.c4 .pcard:nth-child(n+5){display:none}
+  .mmore:not([hidden]){display:block;width:100%;margin-top:.7rem;padding:.75rem;border:1px solid currentColor;color:inherit;font-weight:700;font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;background:none;cursor:pointer}
+}
+'''
 EXTRA_JS3 = r'''
 /* ---------- v9: aday başvurusu, eşleştirme ve CRM önizlemesi ---------- */
 (() => {
@@ -297,6 +380,19 @@ EXTRA_JS3 = r'''
     document.getElementById("applyWrap").hidden = true; const done = document.getElementById("applyDone"); done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "start" }); T("Başvurun alındı, " + name + ". Eşleştirme hazır.");
   });
 })();
+'''
+EXTRA_JS4 = r'''
+/* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
+(() => { const grids = [...document.querySelectorAll(".pgrid[data-collapse]")]; if (!grids.length) return;
+  const mq = matchMedia("(max-width:640px)");
+  grids.forEach(g => { const n = g.querySelectorAll(".pcard").length, lim = +g.dataset.collapse || 6; if (n <= lim) return; g.classList.add("collapsed"); if (lim === 4) g.classList.add("c4");
+    const b = document.createElement("button"); b.type = "button"; b.className = "mmore"; b.textContent = "Tamamını göster · " + n + " ürün"; g.after(b);
+    b.addEventListener("click", () => { const c = g.classList.toggle("collapsed"); b.textContent = c ? "Tamamını göster · " + n + " ürün" : "Daha az göster"; if (c) g.scrollIntoView({block:"start"}); }); });
+  const openAll = () => { grids.forEach(g => g.classList.remove("collapsed")); document.querySelectorAll(".mmore").forEach(b => b.hidden = true); };
+  const si = document.getElementById("msearch"); if (si) si.addEventListener("input", openAll, {once:true});
+  document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", openAll, {once:true}));
+  const clk = document.querySelectorAll("[data-clock]"); if (clk.length) { const t = () => { const d = new Date(); clk.forEach(e => e.textContent = String(d.getHours()).padStart(2,"0") + ":" + String(d.getMinutes()).padStart(2,"0")); }; t(); setInterval(t, 30000); }
+  void mq; })();
 '''
 EXTRA_CSS2 = r'''
 /* ---------- v8 ortak: alt sayfa bileşenleri ---------- */
@@ -543,6 +639,7 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 {EXTRA_CSS}
 {EXTRA_CSS2}
 {EXTRA_CSS3}
+{EXTRA_CSS4}
 .hrs{{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
@@ -579,6 +676,7 @@ JS = f'''"use strict";
 {EXTRA_JS}
 {EXTRA_JS2}
 {EXTRA_JS3}
+{EXTRA_JS4}
 (() => {{ const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
   const paint = () => {{ const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; }};
   paint(); setInterval(paint, 60000); }})();
@@ -690,7 +788,7 @@ def pcard(it):
 CATLEDE = {"sicak":"Espresso bazlı içecekler ve elde demlemeler. Her shot 14 g, 18–23 saniye.","soguk":"Cold brew 16 saat demlenir; buzlu espresso içeceklerinde shot buza dökülür.","diger":"Kahve içmeyenler için: çikolata, çay, matcha, taze sıkım ve mevsimlik içecekler.","yiyecek":"Günlük üretim; alerjen bilgisi her üründe, baristada da sorabilirsiniz."}
 cats = "".join(f'<a class="mcat sm" aria-pressed="{"true" if i==0 else "false"}" href="#c-{k}">{v}</a>' for i,(k,v) in enumerate(CATN.items()))
 diet = '<div class="row" id="dietF"><button class="mcat sm" aria-pressed="true" data-d="">Hepsi</button><button class="mcat sm" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat sm" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat sm" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat sm" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat sm" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>'
-msecs = "".join(f'<section class="msec" id="c-{c}"><div class="mhead"><h2>{CATN[c]}</h2><p>{CATLEDE[c]} <span class="cnt">{len(items)} ürün</span></p></div><div class="pgrid">{"".join(pcard(it) for it in items)}</div></section>' for c, items in MENU.items())
+msecs = "".join(f'<section class="msec" id="c-{c}"><div class="mhead"><h2>{CATN[c]}</h2><p>{CATLEDE[c]} <span class="cnt">{len(items)} ürün</span></p></div><div class="pgrid" data-collapse="6">{"".join(pcard(it) for it in items)}</div></section>' for c, items in MENU.items())
 menu_ld = {"@context":"https://schema.org","@type":"Menu","name":"Florida Coffee Menü","hasMenuSection":[{"@type":"MenuSection","name":CATN[c],"hasMenuItem":[{"@type":"MenuItem","name":i["n"],"description":i["d"],"offers":{"@type":"Offer","price":i["p"],"priceCurrency":"TRY"}} for i in items]} for c,items in MENU.items()]}
 page("/menu/", shell(hero("Bölüm 15:00 · Menü","Fiyat, kalori, alerjen.<br>Hepsi burada.",f"{sum(len(v) for v in MENU.values())} ürün, dört kategori. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfalarında. Süt: inek dahil, laktozsuz +10 ₺, yulaf ve badem +15 ₺.",[("Menü",None)]) +
   f'<div class="mbar"><div class="wrap"><div class="row" id="mcats">{cats}</div>{diet}<input class="search" id="msearch" type="search" placeholder="Ürün ara: latte, vegan, cheesecake…" aria-label="Menüde ara"></div></div>'
@@ -740,7 +838,7 @@ for c, items in MENU.items():
           <div class="cta"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">En yakın şube</a></div>
           <div class="facts">{facts}</div><p class="howto">{howto(it, c)} <a href="/kahvemiz/">Standartlarımız →</a></p></div></div></div></section>
           <section class="pair"><div class="wrap"><h2>Birlikte iyi gider</h2><p class="sub">{"Bu içeceğin yanına baristalarımızın önerdiği üç lezzet." if drink else "Bu ürünün yanına en çok sipariş edilen üç içecek."}</p><div class="pgrid">{pair}</div></div></section>
-          <section class="pair"><div class="wrap"><h2>{CATN[c]} · diğerleri</h2><div class="pgrid">{others}</div><p class="mnote"><a href="/menu/#c-{c}">Tüm {CATN[c].lower()} →</a></p></div></section>''',
+          <section class="pair"><div class="wrap"><h2>{CATN[c]} · diğerleri</h2><div class="pgrid" data-collapse="4">{others}</div><p class="mnote"><a href="/menu/#c-{c}">Tüm {CATN[c].lower()} →</a></p></div></section>''',
           "menu", f"{it['n']} · {it['p']} ₺ · Florida Coffee", f"{it['n']}: {it['d']}. {it['p']} ₺.{' ' + kcal_s + '.' if kcal_s else ''}", f"/menu/{sl}/", ld, "paper"))
 
 # ---------- ŞUBELER ----------
@@ -774,6 +872,44 @@ for b in BRANCHES:
         <p style="margin-top:1.2rem;font-size:.85rem;color:var(--ink-3)">Puan ★ {b["r"]} · {b["rev"]} yorum (örnek). Yorumlar Google ve Yandex'ten otomatik çekilir.</p></div></div></section>''',
       "subeler", f"Florida Coffee {b['n']} · Saatler, Özellikler, Yol Tarifi", f"Florida Coffee {b['n']} ({b['c']}): {hh(b['o'])}–{hh(b['k'])}. {b['note']}", f"/subeler/{b['id']}/", [ld, ld_faq]))
 
+# ---------- v10 ortak bileşenler ----------
+def qr_svg(seed, size=25, cls="qr"):
+    rnd = random.Random(seed); cells = []
+    def finder(x0, y0):
+        for y in range(7):
+            for x in range(7):
+                if x in (0, 6) or y in (0, 6) or (2 <= x <= 4 and 2 <= y <= 4): cells.append((x0 + x, y0 + y))
+    finder(0, 0); finder(size - 7, 0); finder(0, size - 7)
+    for y in range(size):
+        for x in range(size):
+            infinder = (x < 8 and y < 8) or (x >= size - 8 and y < 8) or (x < 8 and y >= size - 8)
+            if not infinder and rnd.random() < .45: cells.append((x, y))
+    return (f'<svg class="{cls}" viewBox="0 0 {size} {size}" shape-rendering="crispEdges" aria-hidden="true"><rect width="{size}" height="{size}" fill="#EDE6D8"/><g fill="#004854">'
+            + "".join(f'<rect x="{x}" y="{y}" width="1" height="1"/>' for x, y in cells) + '</g></svg>')
+TUK = ('<svg class="tuk" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/>'
+       '<path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><circle cx="61.6" cy="40.8" r="6" fill="currentColor"/></svg>')
+TUK_MONO = ('<svg class="wm" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/>'
+            '<path d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="currentColor" opacity=".55"/><path d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="currentColor" opacity=".35"/><circle cx="61.6" cy="40.8" r="6" fill="#F09C1C"/></svg>')
+APPLE_SVG = '<svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg>'
+PLAY_SVG = '<svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg>'
+PHONE_V2 = f"""<div class="phone v2" aria-hidden="true"><div class="scr"><div class="isl"></div><div class="bar"><span data-clock>21:00</span><span>5G ▮▮▮</span></div>
+<div class="phead">{TUK}<div><small>İyi akşamlar</small><b>Deniz</b></div><span class="bell"></span></div>
+<div class="fcard">{TUK_MONO}<div class="fc-top"><span>FloridaDays · Plus</span><span>FC 4821</span></div><div class="v">340 <span>çekirdek</span></div><div class="track"><i></i></div><div class="m">Premium'a 3.380 ₺ kaldı</div>
+<div class="stamps"><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span class="f"></span><span></span><span></span><span></span></div><div class="m">7/10 · 3 kahve sonra biri bizden</div></div>
+<div class="quick"><span><i><svg viewBox="0 0 24 24"><path d="M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h2a2 2 0 0 1 0 4h-2M7 4v2M11 3v3"/></svg></i>Ön sipariş</span><span><i><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h2v2h-2zM18 14h2v2h-2zM14 18h2v2h-2zM18 18h2v2h-2z"/></svg></i>Kart · QR</span><span><i><svg viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2.2"/></svg></i>Şubeler</span><span><i><svg viewBox="0 0 24 24"><path d="M3 9h18v4H3zM5 13h14v7H5zM12 9v11M12 9c-2-4-6-4-6-1s4 1 6 1zM12 9c2-4 6-4 6-1s-4 1-6 1z"/></svg></i>Hediye</span></div>
+<div class="prow"><img src="/img/menu/iced-latte.jpg" alt="" loading="lazy"><span class="ptxt"><span class="t">Her zamanki</span><br><span class="s">Iced latte · orta · laktozsuz</span></span><span class="chip">Tekrarla</span></div>
+<div class="prow"><span class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/></svg></span><span class="ptxt"><span class="t">Kavacık</span><br><span class="s">1,2 km · gün batımı 19:38</span></span><span class="chip water">Açık</span></div>
+<div class="qrrow">{qr_svg(4821, 21)}<span><span class="t">Tek QR · öde + puan</span><br><span class="s">Cüzdan 412 ₺ · Multinet, Sodexo, kart</span></span></div>
+<div class="ptabs"><span class="on"><i></i>Bugün</span><span><i></i>Sipariş</span><span><i></i>Kart</span><span><i></i>Şubeler</span><span><i></i>Ben</span></div></div></div>"""
+def appdl(href="/uygulama/", extra="", lbl="Uygulamayı indir", h3="Kart, sipariş ve kampanyalar tek uygulamada.", p='Ön sipariş verin, "Geldim" deyin, tek QR ile ödeyip çekirdek kazanın. Kurulum bir dakika; kartınızı aktaran herkese ilk sipariş küçük boy kahve bizden.'):
+    return (f'<div class="appdl"><div class="adl-txt"><div class="lbl">{lbl}</div><h3>{h3}</h3><p>{p}</p>'
+            f'<div class="adl-badges"><a class="dl" href="{href}">{APPLE_SVG}<span><small>App Store</small><b>iPhone için indir</b></span></a><a class="dl" href="{href}">{PLAY_SVG}<span><small>Google Play</small><b>Android için indir</b></span></a>{extra}</div></div>'
+            f'<a class="adl-qr" href="{href}" aria-label="Uygulama indirme sayfası">{qr_svg(1907, 25, "qr big")}<span>Kamerayla tarayın<br><b>florida.coffee/app</b></span></a></div>')
+def stdprods(items=(("Espresso","espresso","14 g · 18–23 sn · 30 g çıktı",95),("Cortado","cortado","Tek shot · eşit süt · 62 °C",130),("Flat White","flat-white","Çift shot · ince süt dokusu",150),("Cappuccino","cappuccino","Çift shot · bol mikro köpük",145))):
+    return ('<div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between;gap:.6rem"><span>Bu standartla hazırlananlar</span><a href="/menu/#c-sicak" style="color:var(--amber)">Tüm sıcak kahveler ›</a></div><div class="stdprods">'
+            + "".join(f'<a class="sp" href="/menu/{sl}/"><img src="/img/menu/{sl}.jpg" alt="{n}" loading="lazy" decoding="async"><span><b>{n}</b><small>{d}</small><em>{p} ₺</em></span></a>' for n, sl, d, p in items)
+            + '</div><div class="stdcta"><span>Standardı kendiniz test edin: Kavacık\'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="/app/">Ön sipariş ver</a></div>')
+
 # ---------- v8 ortak yardımcılar ----------
 def pht(name, cap="", ratio="r169", sub=""):
     src = f"/img/{sub}{name}.jpg"
@@ -796,7 +932,7 @@ QUIZ_Q = [{"q":"Sabah mı, öğleden sonra mı?","o":["Sabah","Öğleden sonra"]
 QUIZ_R = {"000":{"n":"Flat White","s":"flat-white","w":"Çift shot, ince süt: sabahı açar, sütü baskın değil."},"001":{"n":"Iced Latte","s":"iced-latte","w":"Espresso soğuk sütle; sabah serinliği."},"010":{"n":"Florida Filtre","s":"florida-filtre","w":"Günün çekirdeği, sade ve uzun içim."},"011":{"n":"Cold Brew","s":"cold-brew","w":"16 saat demleme, asidi düşük, sabah için temiz enerji."},"100":{"n":"Cappuccino","s":"cappuccino","w":"Bol köpük, öğleden sonra molası."},"101":{"n":"Frappe","s":"frappe","w":"Öğleden sonra tatlı ve serin."},"110":{"n":"Cortado","s":"cortado","w":"Kısa ve dengeli; öğleden sonra ağır kaçmaz."},"111":{"n":"Boğaz Cold Brew","s":"bogaz-cold-brew","w":"Tonik ve portakal kabuğu; akşamüstü ferahlığı."},"*":{"n":"Latte","s":"latte","w":"Her saate uyar."}}
 page("/kahvemiz/", shell(hero("Bölüm 10:00 · Standart","Aynı fincan,<br>on yedi şubede.","Kavacık'taki latte, Bursa'dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart. Reçetelerimiz kişisel yoruma açık değildir.",[("Kahvemiz",None)],"barista") +
   f'''<section class="sec"><div class="wrap">{stats([("14","g doz"),("9","bar"),("23","sn üst sınır"),("17","şube, tek reçete")])}
-  <div class="split top"><div>{pht("pour","Espresso · 18–23 sn")}<div class="lbl" style="margin:1rem 0 .5rem">Espresso standardımız · tıklayın, nedenini görün</div>{stdtiles(STD6)}</div>
+  <div class="split top"><div>{pht("pour","Espresso · 18–23 sn")}<div class="lbl" style="margin:1rem 0 .5rem">Espresso standardımız · tıklayın, nedenini görün</div>{stdtiles(STD6)}{stdprods()}</div>
   <div>{pht("latteart","Süt · 60–65 °C mikro köpük")}<div class="lbl" style="margin:1rem 0 .5rem">Deneyin</div>{SHOT_HTML}
   <div class="lbl" style="margin:1.2rem 0 .5rem;display:flex;justify-content:space-between"><span>Shot öncesi zorunlu 5 adım</span><span id="stepProg" style="color:var(--amber)">0 / 5</span></div>
   <ol class="check" data-prog="#stepProg" data-done="Beş adım tamam: shot çekilebilir">{"".join(f"<li><label><input type=checkbox><span><b>{b}</b> — {t}</span></label></li>" for b,t in [("Grup başlığı flush edilir","2–3 saniye su akıtılır, kalıntı temizlenir."),("Portafiltre temizlenir","sepet içi kuru; partikül kalmaz."),("Gramaj tartılır","14 g tartı ile doğrulanır."),("Tamp uygulanır","eşit basınç, düz yüzey."),("Süre takip edilir","kronometre 18–23 sn.")])}</ol></div></div></div></section>
@@ -876,13 +1012,16 @@ page("/kulup/", shell(hero("Bölüm 21:00 · FloridaDays Club","Sadakat kartın�
   <section class="sec" style="padding-top:0"><div class="wrap"><div class="split"><div>{sh("Damga kartından uygulamaya","Karttaki 10 damga uygulamada da 10 damga. Deneyin: damgalara dokunun.")}<div class="stamps" id="stamps">{"".join("<button aria-label='damga'>"+str(i)+"</button>" for i in range(1,11))}</div><p id="stampMsg" style="margin:.8rem 0 0;color:var(--ink-2)">10 damga kaldı</p></div>
   <div>{cells([("1","Kartımı tara","Uygulamada Kart → Kartımı tara; karttaki kodu okutun.",""),("2","Damga ve bakiye geçer","Anında hesabınıza yazılır; kart da çalışmaya devam eder.",""),("3","İlk kahve bizden","Aktarımı tamamlayanlara bir içecek hediye.","")], "g3")}
   <div class="grid g2" style="margin-top:1px"><div class="cell"><h3>Cüzdan</h3><p>Kredi kartı, Multinet, Sodexo, Setcard ile yükleme; 500 ₺ yüklemeye 25 ₺ bonus. Arkadaşınıza kahve veya bakiye gönderin.</p></div><div class="cell"><h3>Tek QR</h3><p>Ödeme ve puan aynı kodla; kasada iki işlem yerine bir tarama.</p></div></div>
-  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/app/">Uygulama demosunu aç</a><a class="btn ghost" href="/uygulama/">Uygulama hakkında</a></div></div></div></div></section>''',
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/app/">Uygulama demosunu aç</a><a class="btn ghost" href="/uygulama/">Uygulama hakkında</a></div></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="loyal2"><div>{sh("Kart cebinizde, uygulamada","Çekirdek bakiyesi, damgalar, her zamanki sipariş ve tek QR: hepsi ana ekranda. Uygulama, mağaza kaydınız üzerinden güncellenir.")}
+  {cells([("","Bakiye ve seviye","Çekirdekler ve Premium'a kalan tutar her açılışta güncel.",""),("","Her zamanki","Son siparişiniz tek dokunuşla tekrar; süt tercihi kayıtlı.",""),("","En yakın şube","Mesafe, açık/kapalı ve gün batımı saati.",""),("","Tek QR","Ödeme ve puan aynı kodla; kasada tek tarama.","")], "g2")}</div>{PHONE_V2}</div>{appdl()}</div></section>''',
   "kulup","FloridaDays Club · Sadakat Programı · Florida Coffee","Florida Coffee sadakat programı: 1 ₺ = 1 çekirdek, 10 içecekte biri hediye, Classic/Plus/Premium seviyeleri, çekirdek hesaplayıcı, kart aktarımı.","/kulup/"))
 page("/uygulama/", shell(hero("Uygulama","Sıra sizi bekletmesin.<br>Kahve sizi beklesin.","Ön sipariş, \"Geldim\", cüzdan, sadakat ve kampanyalar tek uygulamada. iOS ve Android.",[("Uygulama",None)],"workspace") +
   f'''<section class="sec"><div class="wrap">{sh("Nasıl çalışır","Dört adım; kartlar kendiliğinden ilerler, dokununca durur.")}
   <div class="stepper" data-auto><div><div class="n">1</div><h3>Seç</h3><p>Şube, içecek, boy, süt. Süt tercihi profilde kalır.</p></div><div><div class="n">2</div><h3>Öde</h3><p>Cüzdan, kart veya yemek kartı; tek QR ile puan.</p></div><div><div class="n">3</div><h3>Geldim</h3><p>Kapıya 200 m kala ya da tek dokunuşla hazırlık başlar.</p></div><div><div class="n">4</div><h3>Al</h3><p>Tezgâhta kodunuzla teslim; çekirdekler hesaba yazılır.</p></div></div>
-  <div class="split" style="margin-top:2.5rem"><div>{pht("workspace","Kadıköy · üst kat","r43")}</div><div>{cells([("","Ön sipariş","Şube ve içecek seçin, ödeyin; hazırlık siz gelince başlar.",""),("","Süt tercihi profilde","Bir kez seçin, barista ekranında etiketli görünür.",""),("","Kampanyalar","Şube, seviye ve saat bazlı; ölü saatlerde otomatik indirim.",""),("","Yer ayırma","Akustik akşamlar ve cupping için tek dokunuş.","")], "g2")}
-  <div class="badges" style="margin-top:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem"><a class="badge" href="#"><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="#"><span><small>Google Play</small><b>Android için indir</b></span></a></div><p style="margin:.8rem 0 0"><a class="btn amber" href="/app/">Tarayıcıda dene</a></p></div></div></div></section>''',
+  <div class="loyal2" style="margin-top:2.5rem">{PHONE_V2}<div>{sh("Ana ekranda ne var","Bakiye ve seviye, her zamanki sipariş, en yakın şube ve tek QR. Süt tercihiniz profilde; barista ekranında etiketli görünür.")}{cells([("","Ön sipariş","Şube ve içecek seçin, ödeyin; hazırlık siz gelince başlar.",""),("","Süt tercihi profilde","Bir kez seçin, barista ekranında etiketli görünür.",""),("","Kampanyalar","Şube, seviye ve saat bazlı; ölü saatlerde otomatik indirim.",""),("","Yer ayırma","Akustik akşamlar ve cupping için tek dokunuş.","")], "g2")}</div></div>
+  {appdl("/app/", '<a class="btn amber" href="/app/">Tarayıcıda dene</a>', "Uygulamayı indir", "iPhone ve Android için ücretsiz.", "Mağaza bağlantıları yayında eklenecek; şimdilik rozetler tarayıcı demosunu açar. İlk siparişte küçük boy kahve bizden.")}
+  <div class="split" style="margin-top:2.5rem"><div>{pht("workspace","Kadıköy · üst kat","r43")}</div><div>{sh("Sipariş akışı","Ana sayfadaki sipariş paneliyle aynı mantık: şube seç, içecek, boy, süt, ne zaman; onayla, gel, al.")}{cells([("1","Seç","Şube ve içecek; her zamanki tek dokunuş.",""),("2","Onayla","Cüzdan, kart ya da yemek kartı; toplam ve çekirdek görünür.",""),("3","Geldim","Kapıya 200 m kala otomatik ya da tek dokunuşla hazırlık.",""),("4","Al","Tezgâhta kodunuzla teslim; puan ve damga yazılır.","")], "g2")}</div></div></div></section>''',
   "kulup","Florida Coffee Uygulaması · Ön Sipariş ve Sadakat","Florida Coffee mobil uygulaması: ön sipariş, Geldim, cüzdan, FloridaDays Club; dört adımda nasıl çalışır.","/uygulama/",
   {"@context":"https://schema.org","@type":"MobileApplication","name":"Florida Coffee","operatingSystem":"iOS, Android","applicationCategory":"FoodApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"TRY"}}))
 EVENTS = [dict(d="4", dn="Per", t="21:00", h="Akustik set", loc="Kavacık terası", b="kavacik", p="İki kişilik akustik, gün batımından sonra. Plus ve Premium öncelikli."),
