@@ -216,6 +216,76 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
 })();
 
+
+/* ---------- v8: alt sayfa etkileşimleri (öğe yoksa sessizce atlanır) ---------- */
+(() => {
+  const T = m => (typeof showToast === "function") && showToast(m);
+  // açılır standart kartları
+  document.querySelectorAll(".std[aria-expanded]").forEach(b => b.addEventListener("click", () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true")));
+  // genel sekmeler
+  document.querySelectorAll("[data-tabs]").forEach(box => { const btns = [...box.querySelectorAll("[data-tab]")]; const panes = [...document.querySelectorAll(`[data-pane^="${box.dataset.tabs}:"]`)];
+    const show = k => { btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === k))); panes.forEach(p => p.hidden = p.dataset.pane !== box.dataset.tabs + ":" + k); box.querySelectorAll(".bars i").forEach(i => { i.style.setProperty("--w", i.dataset.w); }); };
+    btns.forEach(b => b.addEventListener("click", () => show(b.dataset.tab))); if (btns[0]) show(btns[0].dataset.tab); });
+  document.querySelectorAll(".bars i[data-w]").forEach(i => requestAnimationFrame(() => i.style.setProperty("--w", i.dataset.w)));
+  // shot simülatörü
+  const sb = document.getElementById("shotBtn"); if (sb) { const stop = document.getElementById("shotStop"), arc = document.getElementById("shotArc"), tt = document.getElementById("shotT"), g = document.getElementById("shotG"), msg = document.getElementById("shotMsg"); let raf = 0, t0 = 0, t = 0;
+    const paint = () => { arc.setAttribute("stroke-dashoffset", String(264 - 264 * Math.min(1, t / 30))); arc.setAttribute("stroke", t < 18 ? "var(--busy)" : t <= 23 ? "var(--ok)" : "var(--rust)"); tt.textContent = t.toFixed(1); g.textContent = Math.round(t * 1.6) + " g"; msg.textContent = t < 8 ? "Ön ıslatma… krema oluşuyor." : t < 18 ? "Erken kesersen ekşi ve zayıf olur." : t <= 23 ? "İdeal aralık · şimdi kes." : t < 30 ? "Geç kaldın: acı ve yanık notalar." : "Shot atıldı. Yeniden dene."; };
+    const loop = () => { t = Math.min(30, (Date.now() - t0) / 250); paint(); if (t < 30) raf = requestAnimationFrame(loop); else { sb.disabled = false; stop.disabled = true; sb.textContent = "Tekrar"; } };
+    sb.addEventListener("click", () => { cancelAnimationFrame(raf); t0 = Date.now(); t = 0; sb.disabled = true; stop.disabled = false; loop(); });
+    stop.addEventListener("click", () => { cancelAnimationFrame(raf); sb.disabled = false; stop.disabled = true; sb.textContent = "Tekrar"; const ok = t >= 18 && t <= 23; msg.textContent = ok ? `Tam zamanında: ${t.toFixed(1)} sn, ${Math.round(t*1.6)} g. Standarda uygun.` : `${t.toFixed(1)} sn: ${t < 18 ? "erken" : "geç"}. Bu shot dökülür, yeniden çekilir.`; if (ok) T("Standarda uygun shot ✓"); }); }
+  // kontrol listeleri
+  document.querySelectorAll(".check").forEach(ol => { const boxes = [...ol.querySelectorAll("input")], prog = document.querySelector(ol.dataset.prog || "#none"); const upd = () => { const n = boxes.filter(b => b.checked).length; boxes.forEach(b => b.closest("li").classList.toggle("ok", b.checked)); if (prog) prog.textContent = n + " / " + boxes.length; if (n === boxes.length) T(ol.dataset.done || "Tamam ✓"); }; boxes.forEach(b => b.addEventListener("change", upd)); });
+  // kahve testi
+  const qz = document.getElementById("quiz"); if (qz) { const Q = JSON.parse(qz.dataset.q); let step = 0; const ans = [];
+    const render = () => { const q = Q[step]; qz.innerHTML = `<div class="qprog">${Q.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("")}</div><div class="q">${q.q}</div><div class="opts">${q.o.map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>`;
+      qz.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { ans.push(+b.dataset.i); step++; step < Q.length ? render() : result(); })); };
+    const result = () => { const key = ans.join(""); const R = JSON.parse(qz.dataset.r); const r = R[key] || R["*"]; const sl = r.s;
+      qz.innerHTML = `<div class="qprog">${Q.map(() => `<i class="on"></i>`).join("")}</div><div class="q">Size göre: ${r.n}</div><div class="res"><img src="/img/menu/${sl}.jpg" alt=""><div><b>${r.n}</b><span style="color:var(--ink-2)">${r.w}</span><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem"><a class="btn amber sm" href="/menu/${sl}/">Ürün sayfası</a><button class="btn ghost sm" id="qAgain">Tekrar</button></div></div></div>`;
+      document.getElementById("qAgain").addEventListener("click", () => { step = 0; ans.length = 0; render(); }); };
+    render(); }
+  // kulüp çekirdek hesabı
+  const kc = document.getElementById("kcWeek"); if (kc) { const kp = document.getElementById("kcPrice"); const upd = () => { const w = +kc.value, p = +kp.value, yearly = w * 52 * p, free = Math.floor(w * 52 / 10), tier = yearly / 2 >= 7500 ? "Premium" : yearly / 2 >= 2500 ? "Plus" : "Classic";
+      document.getElementById("kcW").textContent = w; document.getElementById("kcP").textContent = p; document.getElementById("kcBeans").textContent = yearly.toLocaleString("tr-TR"); document.getElementById("kcFree").textContent = free; document.getElementById("kcTier").textContent = tier; document.getElementById("kcSave").textContent = (free * p).toLocaleString("tr-TR") + " ₺";
+      document.querySelectorAll(".tier").forEach(t => t.classList.toggle("on", t.dataset.tier === tier)); }; kc.addEventListener("input", upd); kp.addEventListener("input", upd); upd(); }
+  // damga kartı
+  const st = document.getElementById("stamps"); if (st) { let n = 0; const bs = [...st.querySelectorAll("button")]; const paint = () => bs.forEach((b, i) => b.classList.toggle("on", i < n)); bs.forEach((b, i) => b.addEventListener("click", () => { n = i + 1 === n ? i : i + 1; paint(); document.getElementById("stampMsg").textContent = n >= 10 ? "10 damga: bir sonraki içecek bizden 🎉" : `${10 - n} damga kaldı`; if (n >= 10) T("Hediye içecek kazandın"); })); paint(); }
+  // abonelik / gramaj hesabı
+  const sw = document.getElementById("subWeek"); if (sw) { const upd = () => { const cups = +sw.value, g = cups * 14 * 30, bags = Math.ceil(g / 250), base = bags * 420, sub = Math.round(base * 0.9); document.getElementById("subCups").textContent = cups; document.getElementById("subG").textContent = (g / 1000).toFixed(1) + " kg"; document.getElementById("subBags").textContent = bags; document.getElementById("subBase").textContent = base.toLocaleString("tr-TR") + " ₺"; document.getElementById("subSub").textContent = sub.toLocaleString("tr-TR") + " ₺"; }; sw.addEventListener("input", upd); upd(); }
+  // ürün varyantları
+  const pv = document.getElementById("pvPrice"); if (pv) { const base = +pv.dataset.base; let mult = 1, extra = 0; const upd = () => pv.textContent = Math.round(base * mult + extra).toLocaleString("tr-TR") + " ₺";
+    document.querySelectorAll("[data-mult]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-mult]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); mult = +b.dataset.mult; upd(); }));
+    document.querySelectorAll("[data-extra]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-extra]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); extra = +b.dataset.extra; upd(); })); }
+  // stepper otomatik ilerler
+  document.querySelectorAll(".stepper[data-auto]").forEach(sp => { const items = [...sp.children]; let i = 0; const paint = () => items.forEach((d, k) => d.classList.toggle("on", k === i)); paint(); items.forEach((d, k) => d.addEventListener("click", () => { i = k; paint(); })); if (!matchMedia("(prefers-reduced-motion:reduce)").matches) setInterval(() => { if (!sp.matches(":hover")) { i = (i + 1) % items.length; paint(); } }, 2800); });
+  // etkinlik günü + yer ayır + takvim
+  const ed = document.getElementById("evday"); if (ed) { const cards = [...document.querySelectorAll("[data-day]")]; ed.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const on = b.classList.contains("on"); ed.querySelectorAll("button").forEach(x => x.classList.remove("on")); if (!on) b.classList.add("on"); cards.forEach(c => c.hidden = !on && !c.dataset.day.split(",").includes(b.dataset.d)); })); }
+  document.querySelectorAll("[data-reserve]").forEach(b => b.addEventListener("click", () => { b.textContent = "Yer ayrıldı ✓"; b.disabled = true; T("Yer ayrıldı · uygulamada hatırlatma kuruldu"); }));
+  document.querySelectorAll("[data-ics]").forEach(b => b.addEventListener("click", () => { const d = new Date(); d.setDate(d.getDate() + ((+b.dataset.dow - d.getDay() + 7) % 7 || 7)); const [hh, mm] = b.dataset.time.split(":"); d.setHours(+hh, +mm, 0, 0); const f = x => x.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"; const e = new Date(d.getTime() + 2 * 36e5);
+    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Florida Coffee//TR","BEGIN:VEVENT","UID:" + Date.now() + "@floridacoffee","DTSTAMP:" + f(new Date()),"DTSTART:" + f(d),"DTEND:" + f(e),"SUMMARY:" + b.dataset.ics,"LOCATION:" + (b.dataset.loc || "Florida Coffee"),"END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a"); a.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics); a.download = "florida-coffee.ics"; document.body.appendChild(a); a.click(); a.remove(); T("Takvim dosyası indirildi"); }));
+  // SSS / haber / iş arama ve filtre
+  document.querySelectorAll("[data-search]").forEach(inp => { const items = [...document.querySelectorAll(inp.dataset.search)]; const nrm = t => (t || "").toLowerCase().replace(/i̇/g, "i");
+    inp.addEventListener("input", () => { const q = nrm(inp.value.trim()); let n = 0; items.forEach(it => { const ok = !q || nrm(it.textContent).includes(q); it.hidden = !ok; if (ok) n++; }); const c = document.querySelector(inp.dataset.count || "#none"); if (c) c.textContent = n + " sonuç"; }); });
+  document.querySelectorAll("[data-filter]").forEach(bar => { const items = [...document.querySelectorAll(bar.dataset.filter)]; bar.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => { bar.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); const f = b.dataset.f; items.forEach(it => it.hidden = f !== "hepsi" && !(it.dataset.f || "").split(",").includes(f)); })); });
+  // kaydet / paylaş
+  const SAVED = new Set((() => { try { return JSON.parse(localStorage.getItem("fc_saved") || "[]"); } catch (e) { return []; } })());
+  document.querySelectorAll(".nico.save").forEach(b => { const k = b.dataset.h; b.setAttribute("aria-pressed", String(SAVED.has(k))); b.textContent = SAVED.has(k) ? "♥" : "♡"; b.addEventListener("click", e => { e.preventDefault(); SAVED.has(k) ? SAVED.delete(k) : SAVED.add(k); try { localStorage.setItem("fc_saved", JSON.stringify([...SAVED])); } catch (x) {} b.setAttribute("aria-pressed", String(SAVED.has(k))); b.textContent = SAVED.has(k) ? "♥" : "♡"; T(SAVED.has(k) ? "Kaydedildi" : "Kayıt kaldırıldı"); }); });
+  document.querySelectorAll(".nico.share").forEach(b => b.addEventListener("click", async e => { e.preventDefault(); const data = { title: "Florida Coffee", text: b.dataset.h, url: b.dataset.url || location.href }; try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); T("Bağlantı kopyalandı"); } } catch (x) {} }));
+  // çok adımlı form
+  document.querySelectorAll("form[data-steps]").forEach(f => { const steps = [...f.querySelectorAll("[data-step]")], bar = f.querySelector(".fsteps"); let i = 0; const paint = () => { steps.forEach((s, k) => s.hidden = k !== i); if (bar) [...bar.children].forEach((b, k) => b.classList.toggle("on", k <= i)); };
+    f.querySelectorAll("[data-next]").forEach(b => b.addEventListener("click", () => { const req = [...steps[i].querySelectorAll("[required]")]; if (req.some(r => !r.reportValidity())) return; i = Math.min(steps.length - 1, i + 1); paint(); })); f.querySelectorAll("[data-prev]").forEach(b => b.addEventListener("click", () => { i = Math.max(0, i - 1); paint(); })); paint(); });
+  // bölge kontrolü (3 km)
+  const rc = document.getElementById("regionCheck"); if (rc && typeof B !== "undefined") { const out = document.getElementById("regionOut"); rc.addEventListener("input", () => { const q = rc.value.trim().toLowerCase(); if (q.length < 3) { out.textContent = ""; return; } const hit = B.find(b => (b.n + " " + b.c).toLowerCase().includes(q)); out.innerHTML = hit ? `<span style="color:var(--busy)">${hit.n} şubemiz var; 3 km koruma alanı dışında bir nokta gerekir.</span>` : `<span style="color:var(--ok)">Bu bölgede şubemiz yok: başvuruya açık.</span>`; }); }
+  // iletişim: şehir → şubeler
+  const cs = document.getElementById("citySel"); if (cs && typeof B !== "undefined") { const out = document.getElementById("cityOut"); const paint = () => { const c = cs.value; const list = B.filter(b => b.c.includes(c)); out.innerHTML = list.map(b => `<a class="cell" href="/subeler/${b.id}/"><h3>${b.n}</h3><p>${b.c} · ${hourStr(b.o)}–${hourStr(b.k)}</p><span class="more">Şube sayfası →</span></a>`).join(""); }; cs.addEventListener("change", paint); paint(); }
+  // kariyer: pozisyona başvur
+  document.querySelectorAll("[data-apply]").forEach(b => b.addEventListener("click", () => { const sel = document.getElementById("jobPos"); if (sel) { sel.value = b.dataset.apply; document.getElementById("basvur").scrollIntoView({ behavior: "smooth" }); T(b.dataset.apply + " için form hazır"); } }));
+  // kurumsal teklif
+  const cp = document.getElementById("cpPeople"); if (cp) { const ch = document.getElementById("cpHours"); const upd = () => { const p = +cp.value, hrs = +ch.value, cost = 12000 + p * 95 + hrs * 4500; document.getElementById("cpP").textContent = p; document.getElementById("cpH").textContent = hrs; document.getElementById("cpCups").textContent = Math.round(p * 1.6); document.getElementById("cpCost").textContent = cost.toLocaleString("tr-TR") + " ₺"; document.getElementById("cpBar").textContent = p > 250 ? "2 bar, 4 barista" : "1 bar, 2 barista"; }; cp.addEventListener("input", upd); ch.addEventListener("input", upd); upd(); }
+  // SSS: Flo'ya sor
+  document.querySelectorAll("[data-ask-flo]").forEach(b => b.addEventListener("click", () => { const fab = document.getElementById("floFab"); if (fab) fab.click(); }));
+})();
+
 (() => { const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
   const paint = () => { const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; };
   paint(); setInterval(paint, 60000); })();

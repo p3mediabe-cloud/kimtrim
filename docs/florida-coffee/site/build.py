@@ -5,6 +5,7 @@ Kaynaklar: demo-site/index.html (ana sayfa hikâye demosu, Flo motoru, şube/men
 Kullanım: python3 build.py
 """
 import re, os, json, shutil, html as H
+import json
 from datetime import date
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -218,6 +219,205 @@ EXTRA_JS = r'''
   document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
 })();
 '''
+EXTRA_CSS2 = r'''
+/* ---------- v8 ortak: alt sayfa bileşenleri ---------- */
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+.split.top{align-items:start}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.pht{margin:0;position:relative;overflow:hidden;border:1px solid var(--hair);background:var(--hair)}
+.pht.r169{aspect-ratio:16/9}.pht.r43{aspect-ratio:4/3}.pht.r11{aspect-ratio:1/1}
+.pht img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s}
+.pht:hover img{transform:scale(1.03)}
+.pht figcaption{position:absolute;left:.9rem;bottom:.8rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:#fff;text-shadow:0 1px 8px rgba(0,0,0,.6);font-family:var(--disp);font-weight:700}
+.sh{text-align:center;max-width:60ch;margin:0 auto clamp(1.4rem,3vh,2.2rem)}
+.sh h2{font-size:clamp(1.6rem,3.2vw,2.5rem)}
+.sh p{margin:.5rem auto 0;color:var(--ink-2)}
+.paper .sh p{color:var(--paper-ink-2)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);margin:1.6rem 0}
+.stats div{background:rgba(9,14,19,.55);padding:1rem 1.1rem;text-align:center}
+.stats b{display:block;font-family:var(--disp);font-size:2rem;line-height:1;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,var(--ink),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stats span{display:block;font-size:.72rem;color:var(--ink-3);margin-top:.35rem;letter-spacing:.06em;text-transform:uppercase}
+.stdgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair)}
+@media (max-width:560px){.stdgrid{grid-template-columns:repeat(2,1fr)}}
+.std{background:rgba(9,14,19,.55);padding:.95rem 1rem;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:.15rem;color:inherit;transition:background .2s;font:inherit}
+.std:hover{background:rgba(10,77,92,.35)}
+.std .v{font-family:var(--disp);font-size:1.35rem;line-height:1;font-variant-numeric:tabular-nums;font-weight:700}
+.std .l{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.std .why{font-size:.78rem;color:var(--ink-2);margin-top:.4rem;display:none;line-height:1.45}
+.std[aria-expanded="true"]{background:rgba(10,77,92,.5)}
+.std[aria-expanded="true"] .why{display:block}
+.paper .std{background:#FBF8F2}.paper .std .why{color:var(--paper-ink-2)}.paper .std[aria-expanded="true"]{background:#fff}
+.shot{display:grid;grid-template-columns:7rem 1fr;gap:1.2rem;align-items:center;border:1px solid var(--hair);padding:1.2rem;background:var(--glass)}
+@media (max-width:560px){.shot{grid-template-columns:1fr;text-align:center;justify-items:center}}
+.shot svg{width:7rem;height:7rem;display:block}
+.shot .big{font-family:var(--disp);font-size:1.6rem;font-variant-numeric:tabular-nums;line-height:1;margin:.3rem 0}
+.check{list-style:none;margin:0;padding:0;display:grid;gap:.5rem}
+.check label{display:flex;gap:.6rem;align-items:flex-start;cursor:pointer;font-size:.92rem;color:var(--ink-2)}
+.check input{margin:.3rem 0 0;accent-color:var(--amber);flex:none}
+.check b{color:var(--ink)}
+.check li.ok span{color:var(--ink-3)}.check li.ok b{color:var(--ok)}
+.tabs{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+[data-pane][hidden]{display:none}
+.bars{display:grid;gap:.6rem;margin:1rem 0}
+.bars div{display:grid;grid-template-columns:7rem 1fr 2.5rem;gap:.7rem;align-items:center;font-size:.85rem;color:var(--ink-2)}
+.bars i{height:.5rem;background:var(--hair);position:relative;display:block}
+.bars i::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w,0%);background:linear-gradient(90deg,var(--amber),var(--rust));transition:width .8s cubic-bezier(.3,.7,.2,1)}
+.bars b{font-family:var(--disp);text-align:right;font-variant-numeric:tabular-nums}
+.quiz{border:1px solid var(--hair);background:var(--glass);padding:1.4rem;display:grid;gap:1rem}
+.quiz .q{font-family:var(--disp);font-size:1.15rem;font-weight:700}
+.quiz .opts{display:flex;gap:.4rem;flex-wrap:wrap}
+.quiz .opt{padding:.5rem .9rem;border:1px solid var(--hair-2);font:inherit;font-size:.88rem;color:var(--ink-2);cursor:pointer;background:transparent}
+.quiz .opt[aria-pressed="true"]{background:var(--ink);color:#0A1420;border-color:var(--ink);font-weight:600}
+.quiz .res{display:grid;grid-template-columns:7rem 1fr;gap:1rem;align-items:center;border-top:1px solid var(--hair);padding-top:1rem}
+.quiz .res img{width:7rem;height:7rem;object-fit:cover;display:block}
+.quiz .res b{font-family:var(--disp);font-size:1.3rem;display:block}
+.qprog{display:flex;gap:.3rem}.qprog i{flex:1;height:3px;background:var(--hair)}.qprog i.on{background:var(--amber)}
+.timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair);counter-reset:tl}
+.timeline div{background:rgba(9,14,19,.55);padding:1rem 1.1rem;counter-increment:tl;position:relative;cursor:default}
+.timeline div::before{content:counter(tl,decimal-leading-zero);font-family:var(--disp);font-size:.7rem;letter-spacing:.2em;color:var(--amber);font-weight:700;display:block;margin-bottom:.4rem}
+.timeline h3{font-size:1rem;margin-bottom:.3rem}
+.timeline p{margin:0;font-size:.85rem;color:var(--ink-2)}
+.timeline div.on{background:rgba(10,77,92,.5)}
+.timeline .pht{margin:-1rem -1.1rem .7rem;border:0;aspect-ratio:16/8}
+.paper .timeline div{background:#FBF8F2}.paper .timeline p{color:var(--paper-ink-2)}
+.tcard{background:rgba(6,24,31,.72);display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:background .2s}
+.tcard:hover{background:rgba(10,77,92,.55)}
+.tcard[hidden]{display:none}
+.tcard .pht{border:0;margin:0}
+.tcard .tb{padding:1rem 1.1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;flex:1}
+.tcard .meta{display:flex;justify-content:space-between;gap:.6rem;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-family:var(--disp);font-weight:700}
+.tcard .meta b{color:var(--amber)}
+.tcard h3{font-size:1.05rem}
+.tcard p{margin:0;font-size:.86rem;color:var(--ink-2)}
+.tcard .nact{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.5rem}
+.nico{border:1px solid var(--hair-2);width:2rem;height:2rem;color:var(--ink-2);font-size:1rem;margin-left:.3rem;background:transparent;cursor:pointer}
+.nico[aria-pressed="true"]{color:var(--rust);border-color:var(--rust)}
+.sbar{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:0 0 1.4rem}
+.sbar input{flex:1;min-width:12rem;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem .8rem;font:inherit}
+.paper .sbar input{background:#fff;border-color:var(--paper-line);color:var(--paper-ink)}
+.calc{border:1px solid var(--hair);background:var(--glass);padding:1.3rem;display:grid;gap:1rem}
+.calc label{display:grid;gap:.35rem;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-weight:700;font-family:var(--disp)}
+.calc label b{color:var(--amber);font-size:.95rem;letter-spacing:0;text-transform:none;font-family:var(--ui)}
+.calc input[type=range]{width:100%;accent-color:var(--amber)}
+.calc select,.calc input{width:100%;max-width:100%;min-width:0;box-sizing:border-box}
+.calc .out{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,8rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.calc .out div{background:rgba(9,14,19,.55);padding:.85rem .9rem}
+.calc .out b{display:block;font-family:var(--disp);font-size:1.3rem;font-variant-numeric:tabular-nums}
+.calc .out span{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,14rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.tier{background:rgba(9,14,19,.55);padding:1.2rem;display:flex;flex-direction:column;gap:.5rem;transition:background .3s}
+.tier.on{background:rgba(10,77,92,.55);box-shadow:inset 0 3px 0 var(--amber)}
+.tier .tn{font-family:var(--disp);font-size:1.4rem;font-weight:700}
+.tier .tr{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.tier ul{margin:.3rem 0 0;padding-left:1.1rem;color:var(--ink-2);font-size:.88rem;display:grid;gap:.25rem}
+.stamps{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;max-width:22rem}
+.stamps button{aspect-ratio:1;border:1px dashed var(--hair-2);background:transparent;color:var(--ink-3);cursor:pointer;display:grid;place-items:center;font-family:var(--disp);font-weight:700;transition:all .2s}
+.stamps button.on{background:var(--amber);border-style:solid;border-color:var(--amber);color:#2A1703}
+.stamps button:last-child.on{background:var(--ok);border-color:var(--ok)}
+.stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,12rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.stepper div{background:rgba(9,14,19,.55);padding:1.1rem;transition:background .3s}
+.stepper div.on{background:rgba(10,77,92,.55)}
+.stepper .n{font-family:var(--disp);font-size:2rem;font-weight:800;color:var(--amber);line-height:1}
+.stepper h3{font-size:1rem;margin:.4rem 0 .2rem}
+.stepper p{margin:0;font-size:.85rem;color:var(--ink-2)}
+.pcard .pimg .pph{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--disp);font-size:3rem;font-weight:800;color:var(--amber)}
+.regions{display:flex;gap:.4rem;flex-wrap:wrap}
+.regions .chip.open{border-color:var(--ok);color:var(--ok)}
+.regions .chip.full{opacity:.5;text-decoration:line-through}
+.contact{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,13rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.contact a,.contact div{background:rgba(9,14,19,.55);padding:1.1rem;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:.25rem}
+.contact a:hover{background:rgba(10,77,92,.5)}
+.contact .l{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);font-family:var(--disp);font-weight:700}
+.contact b{font-family:var(--disp);font-size:1.05rem}
+.contact span{font-size:.85rem;color:var(--ink-2)}
+.toc{position:sticky;top:4.2rem;border:1px solid var(--paper-line);background:#FBF8F2;padding:1rem 1.1rem;font-size:.85rem}
+.toc a{display:block;padding:.25rem 0;color:var(--paper-ink-2);text-decoration:none}.toc a:hover{color:var(--paper-ink)}
+.fsteps{display:flex;gap:.4rem;margin-bottom:1rem}.fsteps i{flex:1;height:4px;background:var(--hair)}.fsteps i.on{background:var(--amber)}
+[data-step][hidden]{display:none}
+.milk{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:1px;background:var(--hair);border:1px solid var(--hair)}
+.milk div{background:rgba(9,14,19,.55);padding:1rem 1.1rem}
+.milk h3{font-size:1rem;display:flex;justify-content:space-between}
+.milk h3 small{color:var(--amber);font-family:var(--disp)}
+.milk p{margin:.3rem 0 0;font-size:.84rem;color:var(--ink-2)}
+.ratingrow{display:flex;gap:.2rem;font-size:.75rem;color:var(--ink-3)}
+.ratingrow b{color:var(--amber)}
+.evday{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-bottom:1.4rem}
+.evday button{background:rgba(9,14,19,.55);padding:.7rem .3rem;text-align:center;color:var(--ink-2);font:inherit;font-size:.8rem;cursor:pointer;border:0}
+.evday button b{display:block;font-family:var(--disp);font-size:1.1rem;color:var(--ink)}
+.evday button.on{background:rgba(10,77,92,.55);box-shadow:inset 0 -3px 0 var(--amber)}
+.evday button.has b{color:var(--amber)}
+.quote{font-family:var(--disp);font-size:clamp(1.3rem,2.6vw,1.9rem);font-weight:700;line-height:1.25;border-left:.25rem solid var(--amber);padding-left:1rem;max-width:30ch;margin:1.4rem 0}
+'''
+EXTRA_JS2 = r'''
+/* ---------- v8: alt sayfa etkileşimleri (öğe yoksa sessizce atlanır) ---------- */
+(() => {
+  const T = m => (typeof showToast === "function") && showToast(m);
+  // açılır standart kartları
+  document.querySelectorAll(".std[aria-expanded]").forEach(b => b.addEventListener("click", () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true")));
+  // genel sekmeler
+  document.querySelectorAll("[data-tabs]").forEach(box => { const btns = [...box.querySelectorAll("[data-tab]")]; const panes = [...document.querySelectorAll(`[data-pane^="${box.dataset.tabs}:"]`)];
+    const show = k => { btns.forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tab === k))); panes.forEach(p => p.hidden = p.dataset.pane !== box.dataset.tabs + ":" + k); box.querySelectorAll(".bars i").forEach(i => { i.style.setProperty("--w", i.dataset.w); }); };
+    btns.forEach(b => b.addEventListener("click", () => show(b.dataset.tab))); if (btns[0]) show(btns[0].dataset.tab); });
+  document.querySelectorAll(".bars i[data-w]").forEach(i => requestAnimationFrame(() => i.style.setProperty("--w", i.dataset.w)));
+  // shot simülatörü
+  const sb = document.getElementById("shotBtn"); if (sb) { const stop = document.getElementById("shotStop"), arc = document.getElementById("shotArc"), tt = document.getElementById("shotT"), g = document.getElementById("shotG"), msg = document.getElementById("shotMsg"); let raf = 0, t0 = 0, t = 0;
+    const paint = () => { arc.setAttribute("stroke-dashoffset", String(264 - 264 * Math.min(1, t / 30))); arc.setAttribute("stroke", t < 18 ? "var(--busy)" : t <= 23 ? "var(--ok)" : "var(--rust)"); tt.textContent = t.toFixed(1); g.textContent = Math.round(t * 1.6) + " g"; msg.textContent = t < 8 ? "Ön ıslatma… krema oluşuyor." : t < 18 ? "Erken kesersen ekşi ve zayıf olur." : t <= 23 ? "İdeal aralık · şimdi kes." : t < 30 ? "Geç kaldın: acı ve yanık notalar." : "Shot atıldı. Yeniden dene."; };
+    const loop = () => { t = Math.min(30, (Date.now() - t0) / 250); paint(); if (t < 30) raf = requestAnimationFrame(loop); else { sb.disabled = false; stop.disabled = true; sb.textContent = "Tekrar"; } };
+    sb.addEventListener("click", () => { cancelAnimationFrame(raf); t0 = Date.now(); t = 0; sb.disabled = true; stop.disabled = false; loop(); });
+    stop.addEventListener("click", () => { cancelAnimationFrame(raf); sb.disabled = false; stop.disabled = true; sb.textContent = "Tekrar"; const ok = t >= 18 && t <= 23; msg.textContent = ok ? `Tam zamanında: ${t.toFixed(1)} sn, ${Math.round(t*1.6)} g. Standarda uygun.` : `${t.toFixed(1)} sn: ${t < 18 ? "erken" : "geç"}. Bu shot dökülür, yeniden çekilir.`; if (ok) T("Standarda uygun shot ✓"); }); }
+  // kontrol listeleri
+  document.querySelectorAll(".check").forEach(ol => { const boxes = [...ol.querySelectorAll("input")], prog = document.querySelector(ol.dataset.prog || "#none"); const upd = () => { const n = boxes.filter(b => b.checked).length; boxes.forEach(b => b.closest("li").classList.toggle("ok", b.checked)); if (prog) prog.textContent = n + " / " + boxes.length; if (n === boxes.length) T(ol.dataset.done || "Tamam ✓"); }; boxes.forEach(b => b.addEventListener("change", upd)); });
+  // kahve testi
+  const qz = document.getElementById("quiz"); if (qz) { const Q = JSON.parse(qz.dataset.q); let step = 0; const ans = [];
+    const render = () => { const q = Q[step]; qz.innerHTML = `<div class="qprog">${Q.map((_, i) => `<i class="${i <= step ? "on" : ""}"></i>`).join("")}</div><div class="q">${q.q}</div><div class="opts">${q.o.map((o, i) => `<button class="opt" data-i="${i}">${o}</button>`).join("")}</div>`;
+      qz.querySelectorAll(".opt").forEach(b => b.addEventListener("click", () => { ans.push(+b.dataset.i); step++; step < Q.length ? render() : result(); })); };
+    const result = () => { const key = ans.join(""); const R = JSON.parse(qz.dataset.r); const r = R[key] || R["*"]; const sl = r.s;
+      qz.innerHTML = `<div class="qprog">${Q.map(() => `<i class="on"></i>`).join("")}</div><div class="q">Size göre: ${r.n}</div><div class="res"><img src="/img/menu/${sl}.jpg" alt=""><div><b>${r.n}</b><span style="color:var(--ink-2)">${r.w}</span><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem"><a class="btn amber sm" href="/menu/${sl}/">Ürün sayfası</a><button class="btn ghost sm" id="qAgain">Tekrar</button></div></div></div>`;
+      document.getElementById("qAgain").addEventListener("click", () => { step = 0; ans.length = 0; render(); }); };
+    render(); }
+  // kulüp çekirdek hesabı
+  const kc = document.getElementById("kcWeek"); if (kc) { const kp = document.getElementById("kcPrice"); const upd = () => { const w = +kc.value, p = +kp.value, yearly = w * 52 * p, free = Math.floor(w * 52 / 10), tier = yearly / 2 >= 7500 ? "Premium" : yearly / 2 >= 2500 ? "Plus" : "Classic";
+      document.getElementById("kcW").textContent = w; document.getElementById("kcP").textContent = p; document.getElementById("kcBeans").textContent = yearly.toLocaleString("tr-TR"); document.getElementById("kcFree").textContent = free; document.getElementById("kcTier").textContent = tier; document.getElementById("kcSave").textContent = (free * p).toLocaleString("tr-TR") + " ₺";
+      document.querySelectorAll(".tier").forEach(t => t.classList.toggle("on", t.dataset.tier === tier)); }; kc.addEventListener("input", upd); kp.addEventListener("input", upd); upd(); }
+  // damga kartı
+  const st = document.getElementById("stamps"); if (st) { let n = 0; const bs = [...st.querySelectorAll("button")]; const paint = () => bs.forEach((b, i) => b.classList.toggle("on", i < n)); bs.forEach((b, i) => b.addEventListener("click", () => { n = i + 1 === n ? i : i + 1; paint(); document.getElementById("stampMsg").textContent = n >= 10 ? "10 damga: bir sonraki içecek bizden 🎉" : `${10 - n} damga kaldı`; if (n >= 10) T("Hediye içecek kazandın"); })); paint(); }
+  // abonelik / gramaj hesabı
+  const sw = document.getElementById("subWeek"); if (sw) { const upd = () => { const cups = +sw.value, g = cups * 14 * 30, bags = Math.ceil(g / 250), base = bags * 420, sub = Math.round(base * 0.9); document.getElementById("subCups").textContent = cups; document.getElementById("subG").textContent = (g / 1000).toFixed(1) + " kg"; document.getElementById("subBags").textContent = bags; document.getElementById("subBase").textContent = base.toLocaleString("tr-TR") + " ₺"; document.getElementById("subSub").textContent = sub.toLocaleString("tr-TR") + " ₺"; }; sw.addEventListener("input", upd); upd(); }
+  // ürün varyantları
+  const pv = document.getElementById("pvPrice"); if (pv) { const base = +pv.dataset.base; let mult = 1, extra = 0; const upd = () => pv.textContent = Math.round(base * mult + extra).toLocaleString("tr-TR") + " ₺";
+    document.querySelectorAll("[data-mult]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-mult]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); mult = +b.dataset.mult; upd(); }));
+    document.querySelectorAll("[data-extra]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-extra]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); extra = +b.dataset.extra; upd(); })); }
+  // stepper otomatik ilerler
+  document.querySelectorAll(".stepper[data-auto]").forEach(sp => { const items = [...sp.children]; let i = 0; const paint = () => items.forEach((d, k) => d.classList.toggle("on", k === i)); paint(); items.forEach((d, k) => d.addEventListener("click", () => { i = k; paint(); })); if (!matchMedia("(prefers-reduced-motion:reduce)").matches) setInterval(() => { if (!sp.matches(":hover")) { i = (i + 1) % items.length; paint(); } }, 2800); });
+  // etkinlik günü + yer ayır + takvim
+  const ed = document.getElementById("evday"); if (ed) { const cards = [...document.querySelectorAll("[data-day]")]; ed.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { const on = b.classList.contains("on"); ed.querySelectorAll("button").forEach(x => x.classList.remove("on")); if (!on) b.classList.add("on"); cards.forEach(c => c.hidden = !on && !c.dataset.day.split(",").includes(b.dataset.d)); })); }
+  document.querySelectorAll("[data-reserve]").forEach(b => b.addEventListener("click", () => { b.textContent = "Yer ayrıldı ✓"; b.disabled = true; T("Yer ayrıldı · uygulamada hatırlatma kuruldu"); }));
+  document.querySelectorAll("[data-ics]").forEach(b => b.addEventListener("click", () => { const d = new Date(); d.setDate(d.getDate() + ((+b.dataset.dow - d.getDay() + 7) % 7 || 7)); const [hh, mm] = b.dataset.time.split(":"); d.setHours(+hh, +mm, 0, 0); const f = x => x.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z"; const e = new Date(d.getTime() + 2 * 36e5);
+    const ics = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Florida Coffee//TR","BEGIN:VEVENT","UID:" + Date.now() + "@floridacoffee","DTSTAMP:" + f(new Date()),"DTSTART:" + f(d),"DTEND:" + f(e),"SUMMARY:" + b.dataset.ics,"LOCATION:" + (b.dataset.loc || "Florida Coffee"),"END:VEVENT","END:VCALENDAR"].join("\r\n");
+    const a = document.createElement("a"); a.href = "data:text/calendar;charset=utf-8," + encodeURIComponent(ics); a.download = "florida-coffee.ics"; document.body.appendChild(a); a.click(); a.remove(); T("Takvim dosyası indirildi"); }));
+  // SSS / haber / iş arama ve filtre
+  document.querySelectorAll("[data-search]").forEach(inp => { const items = [...document.querySelectorAll(inp.dataset.search)]; const nrm = t => (t || "").toLowerCase().replace(/i̇/g, "i");
+    inp.addEventListener("input", () => { const q = nrm(inp.value.trim()); let n = 0; items.forEach(it => { const ok = !q || nrm(it.textContent).includes(q); it.hidden = !ok; if (ok) n++; }); const c = document.querySelector(inp.dataset.count || "#none"); if (c) c.textContent = n + " sonuç"; }); });
+  document.querySelectorAll("[data-filter]").forEach(bar => { const items = [...document.querySelectorAll(bar.dataset.filter)]; bar.querySelectorAll("[data-f]").forEach(b => b.addEventListener("click", () => { bar.querySelectorAll("[data-f]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); const f = b.dataset.f; items.forEach(it => it.hidden = f !== "hepsi" && !(it.dataset.f || "").split(",").includes(f)); })); });
+  // kaydet / paylaş
+  const SAVED = new Set((() => { try { return JSON.parse(localStorage.getItem("fc_saved") || "[]"); } catch (e) { return []; } })());
+  document.querySelectorAll(".nico.save").forEach(b => { const k = b.dataset.h; b.setAttribute("aria-pressed", String(SAVED.has(k))); b.textContent = SAVED.has(k) ? "♥" : "♡"; b.addEventListener("click", e => { e.preventDefault(); SAVED.has(k) ? SAVED.delete(k) : SAVED.add(k); try { localStorage.setItem("fc_saved", JSON.stringify([...SAVED])); } catch (x) {} b.setAttribute("aria-pressed", String(SAVED.has(k))); b.textContent = SAVED.has(k) ? "♥" : "♡"; T(SAVED.has(k) ? "Kaydedildi" : "Kayıt kaldırıldı"); }); });
+  document.querySelectorAll(".nico.share").forEach(b => b.addEventListener("click", async e => { e.preventDefault(); const data = { title: "Florida Coffee", text: b.dataset.h, url: b.dataset.url || location.href }; try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); T("Bağlantı kopyalandı"); } } catch (x) {} }));
+  // çok adımlı form
+  document.querySelectorAll("form[data-steps]").forEach(f => { const steps = [...f.querySelectorAll("[data-step]")], bar = f.querySelector(".fsteps"); let i = 0; const paint = () => { steps.forEach((s, k) => s.hidden = k !== i); if (bar) [...bar.children].forEach((b, k) => b.classList.toggle("on", k <= i)); };
+    f.querySelectorAll("[data-next]").forEach(b => b.addEventListener("click", () => { const req = [...steps[i].querySelectorAll("[required]")]; if (req.some(r => !r.reportValidity())) return; i = Math.min(steps.length - 1, i + 1); paint(); })); f.querySelectorAll("[data-prev]").forEach(b => b.addEventListener("click", () => { i = Math.max(0, i - 1); paint(); })); paint(); });
+  // bölge kontrolü (3 km)
+  const rc = document.getElementById("regionCheck"); if (rc && typeof B !== "undefined") { const out = document.getElementById("regionOut"); rc.addEventListener("input", () => { const q = rc.value.trim().toLowerCase(); if (q.length < 3) { out.textContent = ""; return; } const hit = B.find(b => (b.n + " " + b.c).toLowerCase().includes(q)); out.innerHTML = hit ? `<span style="color:var(--busy)">${hit.n} şubemiz var; 3 km koruma alanı dışında bir nokta gerekir.</span>` : `<span style="color:var(--ok)">Bu bölgede şubemiz yok: başvuruya açık.</span>`; }); }
+  // iletişim: şehir → şubeler
+  const cs = document.getElementById("citySel"); if (cs && typeof B !== "undefined") { const out = document.getElementById("cityOut"); const paint = () => { const c = cs.value; const list = B.filter(b => b.c.includes(c)); out.innerHTML = list.map(b => `<a class="cell" href="/subeler/${b.id}/"><h3>${b.n}</h3><p>${b.c} · ${hourStr(b.o)}–${hourStr(b.k)}</p><span class="more">Şube sayfası →</span></a>`).join(""); }; cs.addEventListener("change", paint); paint(); }
+  // kariyer: pozisyona başvur
+  document.querySelectorAll("[data-apply]").forEach(b => b.addEventListener("click", () => { const sel = document.getElementById("jobPos"); if (sel) { sel.value = b.dataset.apply; document.getElementById("basvur").scrollIntoView({ behavior: "smooth" }); T(b.dataset.apply + " için form hazır"); } }));
+  // kurumsal teklif
+  const cp = document.getElementById("cpPeople"); if (cp) { const ch = document.getElementById("cpHours"); const upd = () => { const p = +cp.value, hrs = +ch.value, cost = 12000 + p * 95 + hrs * 4500; document.getElementById("cpP").textContent = p; document.getElementById("cpH").textContent = hrs; document.getElementById("cpCups").textContent = Math.round(p * 1.6); document.getElementById("cpCost").textContent = cost.toLocaleString("tr-TR") + " ₺"; document.getElementById("cpBar").textContent = p > 250 ? "2 bar, 4 barista" : "1 bar, 2 barista"; }; cp.addEventListener("input", upd); ch.addEventListener("input", upd); upd(); }
+  // SSS: Flo'ya sor
+  document.querySelectorAll("[data-ask-flo]").forEach(b => b.addEventListener("click", () => { const fab = document.getElementById("floFab"); if (fab) fab.click(); }));
+})();
+'''
 CSS = f'''
 {ROOT_CSS}
 *{{box-sizing:border-box}}[hidden]{{display:none!important}}
@@ -262,6 +462,7 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 {NEWS_CSS}
 {FLO_CSS}
 {EXTRA_CSS}
+{EXTRA_CSS2}
 .hrs{{display:grid;grid-template-columns:1fr auto;gap:.25rem .9rem;font-size:.9rem;font-variant-numeric:tabular-nums}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
@@ -296,6 +497,7 @@ JS = f'''"use strict";
 {DATA_JS}
 {LOGO_JS}
 {EXTRA_JS}
+{EXTRA_JS2}
 (() => {{ const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
   const paint = () => {{ const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; }};
   paint(); setInterval(paint, 60000); }})();
@@ -491,117 +693,195 @@ for b in BRANCHES:
         <p style="margin-top:1.2rem;font-size:.85rem;color:var(--ink-3)">Puan ★ {b["r"]} · {b["rev"]} yorum (örnek). Yorumlar Google ve Yandex'ten otomatik çekilir.</p></div></div></section>''',
       "subeler", f"Florida Coffee {b['n']} · Saatler, Özellikler, Yol Tarifi", f"Florida Coffee {b['n']} ({b['c']}): {hh(b['o'])}–{hh(b['k'])}. {b['note']}", f"/subeler/{b['id']}/", [ld, ld_faq]))
 
+# ---------- v8 ortak yardımcılar ----------
+def pht(name, cap="", ratio="r169", sub=""):
+    src = f"/img/{sub}{name}.jpg"
+    return f'<figure class="pht {ratio}"><img src="{src}" alt="{cap}" loading="lazy" decoding="async">{f"<figcaption>{cap}</figcaption>" if cap else ""}</figure>'
+def sh(h2, p=""): return f'<div class="sh"><h2>{h2}</h2>{f"<p>{p}</p>" if p else ""}</div>'
+def stats(items): return '<div class="stats">' + "".join(f'<div><b data-count="{n}">{n}</b><span>{l}</span></div>' if str(n).isdigit() else f'<div><b>{n}</b><span>{l}</span></div>' for n, l in items) + '</div>'
+def stdtiles(items): return '<div class="stdgrid">' + "".join(f'<button class="std" aria-expanded="false"><span class="v">{v}</span><span class="l">{l}</span><span class="why">{w}</span></button>' for v, l, w in items) + '</div>'
+def cells(items, g="g3"): return f'<div class="grid {g}">' + "".join(f'<div class="cell">{("<div class=lbl style=color:var(--amber)>" + lb + "</div>") if lb else ""}<h3>{t}</h3><p>{p}</p>{x}</div>' for lb, t, p, x in items) + '</div>'
+def faqhtml(items, idp="faq"): return f'<div class="faq" id="{idp}">' + "".join(f'<details class="fq" data-f="{c}"><summary>{q}</summary><p>{a}</p></details>' for q, a, c in items) + '</div>'
+def menu_item(name):
+    for c, items in MENU.items():
+        for it in items:
+            if it["n"] == name: return it
+    return None
+SHOT_HTML = '''<div class="shot" id="shot"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--hair)" stroke-width="8"/><circle id="shotArc" cx="50" cy="50" r="42" fill="none" stroke="var(--amber)" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="shotT" x="50" y="55" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor" font-family="var(--disp)">0.0</text><text x="50" y="70" text-anchor="middle" font-size="9" fill="var(--ink-3)">saniye</text></svg><div><div class="lbl">Shot simülatörü · 4× hız</div><div class="big" id="shotG">0 g</div><p id="shotMsg" style="margin:.2rem 0 .7rem;color:var(--ink-2);font-size:.9rem">Başlatın; 18–23 saniye aralığında kesilmesi gerekir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn amber sm" id="shotBtn">Shot'ı başlat</button><button class="btn ghost sm" id="shotStop" disabled>Kes</button></div></div></div>'''
+STD6 = [("14 g","Doz","Double shot dozu tartıyla doğrulanır; 1 g sapma shot süresini 2–3 saniye kaydırır."),("90–96 °C","Su","Daha düşük su ekşi ve zayıf, daha yüksek su yanık ve acı çıkarır."),("9 bar","Basınç","Kremanın oluştuğu ve yağların dengeli çözündüğü basınç."),("18–23 sn","Shot süresi","Kronometreyle izlenir. 18'in altı ekşi, 23'ün üstü acı."),("30–60 g","Çıktı","Tartıda ölçülür; oran içeceğe göre 1:2 ile 1:4 arasında."),("60–65 °C","Süt","Mikro köpük parlak ve boya kıvamında; 70 °C üstünde süt yanar, tatlılığını kaybeder.")]
+
 # ---------- KAHVEMİZ ----------
+QUIZ_Q = [{"q":"Sabah mı, öğleden sonra mı?","o":["Sabah","Öğleden sonra"]},{"q":"Sütlü mü, sade mi?","o":["Sütlü","Sade"]},{"q":"Sıcak mı, soğuk mu?","o":["Sıcak","Soğuk"]}]
+QUIZ_R = {"000":{"n":"Flat White","s":"flat-white","w":"Çift shot, ince süt: sabahı açar, sütü baskın değil."},"001":{"n":"Iced Latte","s":"iced-latte","w":"Espresso soğuk sütle; sabah serinliği."},"010":{"n":"Florida Filtre","s":"florida-filtre","w":"Günün çekirdeği, sade ve uzun içim."},"011":{"n":"Cold Brew","s":"cold-brew","w":"16 saat demleme, asidi düşük, sabah için temiz enerji."},"100":{"n":"Cappuccino","s":"cappuccino","w":"Bol köpük, öğleden sonra molası."},"101":{"n":"Frappe","s":"frappe","w":"Öğleden sonra tatlı ve serin."},"110":{"n":"Cortado","s":"cortado","w":"Kısa ve dengeli; öğleden sonra ağır kaçmaz."},"111":{"n":"Boğaz Cold Brew","s":"bogaz-cold-brew","w":"Tonik ve portakal kabuğu; akşamüstü ferahlığı."},"*":{"n":"Latte","s":"latte","w":"Her saate uyar."}}
 page("/kahvemiz/", shell(hero("Bölüm 10:00 · Standart","Aynı fincan,<br>on yedi şubede.","Kavacık'taki latte, Bursa'dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart. Reçetelerimiz kişisel yoruma açık değildir.",[("Kahvemiz",None)],"barista") +
-  '''<section class="sec"><div class="wrap two"><div class="panel"><h2 style="font-size:1.4rem;margin-bottom:.8rem">Espresso standardımız</h2><dl class="kv"><dt>Doz</dt><dd>14 g · double shot, tartı ile</dd><dt>Su sıcaklığı</dt><dd>90–96 °C</dd><dt>Basınç</dt><dd>9 bar</dd><dt>Shot süresi</dt><dd>18–23 saniye</dd><dt>Çıktı</dt><dd>30–60 g</dd><dt>Süt</dt><dd>60–65 °C mikro köpük</dd><dt>Fincan</dt><dd>Önceden ısıtılır</dd><dt>Kavurma</dt><dd>Orta 215–220 °C · Koyu 220–225 °C</dd></dl></div>
-  <div><h2 style="font-size:1.4rem;margin-bottom:.8rem">Shot öncesi zorunlu 5 adım</h2><ol style="padding-left:1.2rem;color:var(--ink-2);display:grid;gap:.5rem"><li><b style="color:var(--ink)">Grup başlığı flush</b> — 2–3 sn su, kalıntı temizlenir, sıcaklık dengelenir</li><li><b style="color:var(--ink)">Portafiltre temizlenir</b> — sepet kuru, partikül yok</li><li><b style="color:var(--ink)">Gramaj tartılır</b> — 14 g, göz kararı kabul edilmez</li><li><b style="color:var(--ink)">Tamp</b> — eşit basınç, düz yüzey</li><li><b style="color:var(--ink)">Süre</b> — kronometre, 18–23 sn</li></ol><p style="margin-top:1rem;font-size:.9rem">Birinin atlanması zincir standardına aykırıdır. Kaynak: barista operasyon el kitabı.</p></div></div></section>
-  <section class="sec" style="padding-top:0"><div class="wrap"><h2 style="margin-bottom:1rem">Kahve kuşağı: çekirdek nereden geliyor</h2><div class="grid g3">
-  <div class="cell"><h3>Latin Amerika</h3><p><b>Denge.</b> Fındık, badem, kakao, sütlü çikolata, karamel, narenciye. Orta asidite, temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso için en stabil profil.</p></div>
-  <div class="cell"><h3>Afrika</h3><p><b>Aroma ve asidite.</b> Çiçeksi, kırmızı ve tropikal meyveler, çay benzeri yapı. Canlı, parlak. Etiyopya, Kenya, Tanzanya. Filtre ve üçüncü dalga için.</p></div>
-  <div class="cell"><h3>Asya-Pasifik</h3><p><b>Gövde.</b> Topraksı, baharatsı, bitter çikolata, tütün, odunsu. Düşük asidite, yoğun ve kalıcı. Endonezya, Vietnam, Hindistan. Sert içim için.</p></div></div>
-  <p style="margin-top:1.2rem">Harmanımız: Etiyopya Yirgacheffe %60 + Brezilya Cerrado %40. <a href="/urunler/">Eve götürün →</a></p></div></section>''',
-  "kahvemiz","Kahvemiz ve Standartlarımız · Florida Coffee","Florida Coffee espresso standardı: 14 g doz, 90–96 °C, 9 bar, 18–23 sn, süt 60–65 °C. Shot öncesi 5 adım, kahve kuşağı profilleri.","/kahvemiz/"))
+  f'''<section class="sec"><div class="wrap">{stats([("14","g doz"),("9","bar"),("23","sn üst sınır"),("17","şube, tek reçete")])}
+  <div class="split top"><div>{pht("pour","Espresso · 18–23 sn")}<div class="lbl" style="margin:1rem 0 .5rem">Espresso standardımız · tıklayın, nedenini görün</div>{stdtiles(STD6)}</div>
+  <div>{pht("latteart","Süt · 60–65 °C mikro köpük")}<div class="lbl" style="margin:1rem 0 .5rem">Deneyin</div>{SHOT_HTML}
+  <div class="lbl" style="margin:1.2rem 0 .5rem;display:flex;justify-content:space-between"><span>Shot öncesi zorunlu 5 adım</span><span id="stepProg" style="color:var(--amber)">0 / 5</span></div>
+  <ol class="check" data-prog="#stepProg" data-done="Beş adım tamam: shot çekilebilir">{"".join(f"<li><label><input type=checkbox><span><b>{b}</b> — {t}</span></label></li>" for b,t in [("Grup başlığı flush edilir","2–3 saniye su akıtılır, kalıntı temizlenir."),("Portafiltre temizlenir","sepet içi kuru; partikül kalmaz."),("Gramaj tartılır","14 g tartı ile doğrulanır."),("Tamp uygulanır","eşit basınç, düz yüzey."),("Süre takip edilir","kronometre 18–23 sn.")])}</ol></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap">{sh("Çekirdek nereden geliyor","Kahve kuşağının üç bölgesi, üç karakter. Sekmeye dokunun, tat profili değişsin.")}
+  <div class="split top"><div>{pht("beans","Orta kavurma · arabica","r43")}</div><div><div class="tabs" data-tabs="bean"><button class="fbtn" data-tab="latin" aria-pressed="true">Latin Amerika</button><button class="fbtn" data-tab="afrika" aria-pressed="false">Afrika</button><button class="fbtn" data-tab="asya" aria-pressed="false">Asya-Pasifik</button></div>
+  <div data-pane="bean:latin"><p><b>Denge.</b> Fındık, badem, kakao, sütlü çikolata, karamel, narenciye. Brezilya, Kolombiya, Guatemala. Espresso için en stabil profil.</p><div class="bars"><div>Asidite<i data-w="55%"></i><b>3</b></div><div>Gövde<i data-w="60%"></i><b>3</b></div><div>Tatlılık<i data-w="80%"></i><b>4</b></div><div>Aroma<i data-w="55%"></i><b>3</b></div></div></div>
+  <div data-pane="bean:afrika" hidden><p><b>Aroma ve asidite.</b> Çiçeksi, kırmızı ve tropikal meyveler, çay benzeri yapı. Etiyopya, Kenya, Tanzanya. Filtre ve V60 için.</p><div class="bars"><div>Asidite<i data-w="90%"></i><b>5</b></div><div>Gövde<i data-w="35%"></i><b>2</b></div><div>Tatlılık<i data-w="60%"></i><b>3</b></div><div>Aroma<i data-w="95%"></i><b>5</b></div></div></div>
+  <div data-pane="bean:asya" hidden><p><b>Gövde.</b> Topraksı, baharatsı, bitter çikolata, tütün. Endonezya, Vietnam, Hindistan. Sert içim ve sütlü içecekler için.</p><div class="bars"><div>Asidite<i data-w="25%"></i><b>1</b></div><div>Gövde<i data-w="95%"></i><b>5</b></div><div>Tatlılık<i data-w="45%"></i><b>2</b></div><div>Aroma<i data-w="50%"></i><b>3</b></div></div></div>
+  <p style="font-size:.9rem;color:var(--ink-3)">Harmanımız: Etiyopya Yirgacheffe %60 + Brezilya Cerrado %40. <a href="/urunler/sonbahar-harmani-250-g/">Eve götürün →</a></p></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap">{sh("Süt rehberi","Hangi süt hangi içecekte iyi çalışır; köpük kalitesi ve fiyat farkı.")}
+  <div class="milk"><div><h3>İnek <small>dahil</small></h3><div class="ratingrow">Köpük <b>★★★★★</b></div><p>Krema ve gövde için ideal; cappuccino ve latte'de tercih edilir.</p></div><div><h3>Laktozsuz <small>+10 ₺</small></h3><div class="ratingrow">Köpük <b>★★★★☆</b></div><p>Tat ve köpük inek sütüne yakın; hafif daha tatlı.</p></div><div><h3>Yulaf <small>+15 ₺</small></h3><div class="ratingrow">Köpük <b>★★★★☆</b></div><p>Barista serisi; flat white ve latte'de en iyi bitkisel seçenek.</p></div><div><h3>Badem <small>+15 ₺</small></h3><div class="ratingrow">Köpük <b>★★★☆☆</b></div><p>Hafif ve fındıksı; buzlu içeceklerde daha iyi.</p></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="split"><div>{sh("Hangi kahve size göre?","Üç soru, bir öneri. Sonuç doğrudan ürün sayfasına gider.")}</div><div class="quiz" id="quiz" data-q='{json.dumps(QUIZ_Q, ensure_ascii=False)}' data-r='{json.dumps(QUIZ_R, ensure_ascii=False)}'></div></div></div></section>''',
+  "kahvemiz","Kahvemiz ve Standartlarımız · Florida Coffee","Florida Coffee espresso standardı: 14 g doz, 90–96 °C, 9 bar, 18–23 sn, süt 60–65 °C. Shot simülatörü, kahve kuşağı, süt rehberi ve kahve testi.","/kahvemiz/"))
 
 # ---------- TAZE ----------
-newsitems = "".join(f'<a class="cell" data-t="{n["t"]}" href="/taze/{slug(n["h"])}/"><div class="lbl" style="display:flex;justify-content:space-between"><span style="color:var(--amber)">{TL[n["t"]]}</span><span>{n["d"]}</span></div><h3>{n["h"]}</h3><p>{n["p"]}</p><span class="more">Devamı →</span></a>' for n in NEWS)
-tf = "".join(f'<button class="fbtn" aria-pressed="{"true" if k=="hepsi" else "false"}" data-t="{k}">{v}</button>' for k,v in [("hepsi","Hepsi"),("sube","Şube"),("urun","Ürün"),("kampanya","Kampanya"),("etkinlik","Etkinlik")])
-page("/taze/", shell(hero("Bölüm 11:30 · Taze","Yeni ne var,<br>ilk siz duyun.","Yeni şube, sezon ürünü, kampanya ve etkinlikler. Uygulamada bildirim olarak da gelir.",[("Taze",None)]) +
-  f'<section class="sec"><div class="wrap"><div class="filters" id="tazeF">{tf}</div><div class="grid g3" id="news">{newsitems}</div><form class="f panel" style="margin-top:1.4rem;grid-template-columns:1fr auto;align-items:end"><label>Haber al · ayda en fazla iki e-posta<input type="email" required placeholder="e-posta adresiniz"></label><button class="btn amber" type="submit">Kaydol</button><div class="ok" hidden style="grid-column:1/-1">Kaydedildi. İlk haber Sakarya açılışı olacak.</div></form></div></section>',
-  "taze","Taze · Haberler ve Yenilikler · Florida Coffee","Florida Coffee'den yeni şubeler, sezon ürünleri, kampanyalar ve etkinlikler.","/taze/"))
+def tcard(n):
+    sl = slug(n["h"])
+    return f'<a class="tcard" data-f="{n["t"]}" href="/taze/{sl}/">{pht(n["img"], "", "r169")}<div class="tb"><div class="meta"><b>{TL[n["t"]]}</b><span>{n["d"]}</span></div><h3>{n["h"]}</h3><p>{n["p"]}</p><div class="nact"><span class="more">Devamı →</span><span><button class="nico save" data-h="{n["h"]}" aria-label="Kaydet">♡</button><button class="nico share" data-h="{n["h"]}" data-url="{SITE}/taze/{sl}/" aria-label="Paylaş">↗</button></span></div></div></a>'
+tf = "".join(f'<button class="fbtn" aria-pressed="{"true" if k=="hepsi" else "false"}" data-f="{k}">{v}</button>' for k,v in [("hepsi","Hepsi"),("sube","Şube"),("urun","Ürün"),("kampanya","Kampanya"),("etkinlik","Etkinlik")])
+page("/taze/", shell(hero("Bölüm 11:30 · Taze","Yeni ne var,<br>ilk siz duyun.","Yeni şube, sezon ürünü, kampanya ve etkinlikler. Kaydedin, paylaşın; uygulamada bildirim olarak da gelir.",[("Taze",None)],"sakarya") +
+  f'''<section class="sec"><div class="wrap"><div class="sbar"><div class="filters" data-filter=".tcard" style="margin:0">{tf}</div><input type="search" data-search=".tcard" data-count="#tcount" placeholder="Haberlerde ara…" aria-label="Haberlerde ara"><span id="tcount" style="font-size:.8rem;color:var(--ink-3)"></span></div>
+  <div class="grid g3">{"".join(tcard(n) for n in NEWS)}</div>
+  <div class="split" style="margin-top:2.5rem"><div>{sh("Ayda en fazla iki e-posta","Yeni şube ve sezon ürünleri ilk size. İstediğiniz an çıkarsınız.")}</div><form class="f panel"><label>E-posta<input type="email" required placeholder="e-posta adresiniz"></label><label>İlgi alanı<select><option>Hepsi</option><option>Yeni şubeler</option><option>Sezon ürünleri</option><option>Etkinlikler</option></select></label><button class="btn amber" type="submit">Kaydol</button><div class="ok" hidden>Kaydedildi. İlk haber Sakarya açılışı olacak.</div></form></div></div></section>''',
+  "taze","Taze · Haberler ve Yenilikler · Florida Coffee","Florida Coffee'den yeni şubeler, sezon ürünleri, kampanyalar ve etkinlikler; fotoğraflı, kaydedilebilir, paylaşılabilir.","/taze/"))
 for n in NEWS:
     sl = slug(n["h"]); ld = {"@context":"https://schema.org","@type":"NewsArticle","headline":n["h"],"description":n["p"],"image":f"{SITE}/img/{n['img']}.jpg","publisher":{"@type":"Organization","name":"Florida Coffee"}}
+    rel = [o for o in NEWS if o is not n and o["t"] == n["t"]] + [o for o in NEWS if o is not n and o["t"] != n["t"]]
+    cta = {"sube":("/subeler/","Şubeyi gör"),"urun":("/menu/","Menüde gör"),"kampanya":("/kulup/","Kulübe katıl"),"etkinlik":("/etkinlikler/","Etkinlikler")}[n["t"]]
     page(f"/taze/{sl}/", shell(hero(f'{TL[n["t"]]} · {n["d"]}', n["h"], n["p"], [("Taze","/taze/"),(n["h"],None)], n["img"]) +
-      f'<section class="sec"><div class="wrap two"><div class="prose"><p>{n["body"]}</p><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem"><a class="btn amber" href="/app/">Uygulama</a><a class="btn ghost" href="/taze/">Tüm haberler</a></div></div><div class="grid" style="grid-template-columns:1fr">{"".join(f'<a class="cell" href="/taze/{slug(o["h"])}/"><div class="lbl" style="color:var(--amber)">{TL[o["t"]]}</div><h3>{o["h"]}</h3><span class="more">Devamı →</span></a>' for o in NEWS if o is not n)[:3000]}</div></div></section>',
+      f'''<section class="sec"><div class="wrap split top"><div class="prose"><p style="font-size:1.05rem">{n["body"]}</p><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem"><a class="btn amber" href="{cta[0]}">{cta[1]}</a><button class="btn ghost nico share" data-h="{n["h"]}" data-url="{SITE}/taze/{sl}/" style="width:auto;height:auto;padding:.8rem 1.25rem">Paylaş ↗</button><button class="btn ghost nico save" data-h="{n["h"]}" style="width:auto;height:auto;padding:.8rem 1.25rem">Kaydet</button></div></div>
+      <div><div class="lbl" style="margin-bottom:.6rem">İlgili</div><div class="grid" style="grid-template-columns:1fr">{"".join(tcard(o) for o in rel[:3])}</div></div></div></section>''',
       "taze", f"{n['h']} · Florida Coffee", n["p"], f"/taze/{sl}/", ld))
 
 # ---------- ÜRÜNLER ----------
-prods = "".join(f'<a class="cell" href="/urunler/{slug(p["n"])}/">{f"<img src=\"/img/{p['img']}.jpg\" alt=\"\" style=\"aspect-ratio:4/3;object-fit:cover;width:100%;display:block;margin:-1.1rem -1.2rem .4rem;width:calc(100% + 2.4rem);max-width:none\">" if p["img"] else ""}<div style="display:flex;justify-content:space-between;gap:.6rem;align-items:baseline"><h3>{p["n"]}</h3><b style="font-family:var(--disp);white-space:nowrap">{p["p"]}</b></div><p>{p["d"]}</p><div style="display:flex;gap:.3rem;flex-wrap:wrap">{"".join(f"<span class=chip>{t}</span>" for t in p["tags"])}</div><span class="more">Ürün sayfası →</span></a>' for p in PRODUCTS)
+def prodcard(p):
+    sl = slug(p["n"]); img = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}" loading="lazy">' if p["img"] else f'<span class="pph">{p["n"][0]}</span>'
+    return f'<a class="pcard" href="/urunler/{sl}/"><div class="pimg">{img}</div><div class="pbody"><div class="prow"><h3>{p["n"]}</h3><span class="pp">{p["p"]}</span></div><p class="pd">{p["d"]}</p><div class="ptags">{"".join(f"<span class=chip>{t}</span>" for t in p["tags"])}</div></div></a>'
 page("/urunler/", shell(hero("Bölüm 17:00 · Ürünler","Aynı çekirdek,<br>sizin mutfağınızda.","Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş, şubeden teslim; kargo yakında.",[("Ürünler",None)],"beans") +
-  f'<section class="sec"><div class="wrap"><div class="grid g3">{prods}</div><p style="font-size:.8rem;margin-top:1rem;color:var(--ink-3)">Fiyatlar örnektir; katalog merkezden yönetilir.</p></div></section>',
-  "urunler","Ürünler · Çekirdek, Set, Termos, Hediye Kartı · Florida Coffee","Florida Coffee ürünleri: Sonbahar Harmanı 250 g, Ev Espresso Seti, Florida Termos, dijital hediye kartı.","/urunler/"))
+  f'''<section class="sec"><div class="wrap"><div class="pgrid">{"".join(prodcard(p) for p in PRODUCTS)}</div>
+  <div class="split" style="margin-top:2.5rem"><div>{sh("Evde ne kadar lazım?","Haftalık fincan sayınızı seçin; aylık gramajı, paket sayısını ve abonelik fiyatını hesaplayalım. Abonelikte %10 indirim, kavurma tarihi her pakette.")}</div>
+  <div class="calc"><label>Haftada kaç fincan? <b><span id="subCups">10</span> fincan</b><input type="range" id="subWeek" min="3" max="35" step="1" value="10"></label><div class="out"><div><b id="subG">—</b><span>aylık kahve</span></div><div><b id="subBags">—</b><span>250 g paket</span></div><div><b id="subBase">—</b><span>tek seferlik</span></div><div><b id="subSub" style="color:var(--amber)">—</b><span>abonelik · %10</span></div></div><a class="btn amber" href="/app/">Aboneliği uygulamada başlat</a></div></div>
+  <p class="mnote" style="color:var(--ink-3)">Fiyatlar örnektir; katalog merkezden yönetilir. 14 g doz üzerinden hesaplanır.</p></div></section>''',
+  "urunler","Ürünler · Çekirdek, Set, Termos, Hediye Kartı · Florida Coffee","Florida Coffee ürünleri: Sonbahar Harmanı 250 g, Ev Espresso Seti, Florida Termos, dijital hediye kartı; abonelik hesaplayıcı.","/urunler/"))
+BREWTAB = '''<div class="tabs" data-tabs="brew"><button class="fbtn" data-tab="esp" aria-pressed="true">Espresso</button><button class="fbtn" data-tab="v60" aria-pressed="false">V60</button><button class="fbtn" data-tab="fp" aria-pressed="false">French press</button><button class="fbtn" data-tab="cb" aria-pressed="false">Cold brew</button></div>
+<div data-pane="brew:esp"><dl class="kv"><dt>Doz</dt><dd>14 g double shot</dd><dt>Öğütüm</dt><dd>İnce</dd><dt>Su</dt><dd>90–96 °C, 9 bar</dd><dt>Süre</dt><dd>18–23 sn · 30–60 g</dd></dl></div>
+<div data-pane="brew:v60" hidden><dl class="kv"><dt>Doz</dt><dd>15 g / 250 ml</dd><dt>Öğütüm</dt><dd>Orta-ince, tuz kıvamı</dd><dt>Su</dt><dd>92–96 °C</dd><dt>Süre</dt><dd>2:30–3:00 · 45 sn ön ıslatma</dd></dl></div>
+<div data-pane="brew:fp" hidden><dl class="kv"><dt>Doz</dt><dd>30 g / 500 ml</dd><dt>Öğütüm</dt><dd>Kaba</dd><dt>Su</dt><dd>93 °C</dd><dt>Süre</dt><dd>4 dk · üstteki kabuğu kır, bastır</dd></dl></div>
+<div data-pane="brew:cb" hidden><dl class="kv"><dt>Doz</dt><dd>60 g / 700 ml</dd><dt>Öğütüm</dt><dd>Kaba</dd><dt>Su</dt><dd>Oda sıcaklığı</dd><dt>Süre</dt><dd>16 saat · süz, 48 saat içinde tüket</dd></dl></div>'''
 for p in PRODUCTS:
     sl = slug(p["n"]); ld = {"@context":"https://schema.org","@type":"Product","name":p["n"],"description":p["d"],"brand":{"@type":"Brand","name":"Florida Coffee"},"offers":{"@type":"Offer","priceCurrency":"TRY","price":re.sub(r"[^\d]","",p["p"].split("–")[0]),"availability":"https://schema.org/InStoreOnly"}}
     if p["img"]: ld["image"] = f"{SITE}/img/{p['img']}.jpg"
-    page(f"/urunler/{sl}/", shell(hero("Ürün", p["n"], p["d"], [("Ürünler","/urunler/"),(p["n"],None)], p["img"]) +
-      f'<section class="sec"><div class="wrap two"><div class="prose"><p>{p["body"]}</p><div class="panel" style="margin-top:1rem"><dl class="kv"><dt>Fiyat</dt><dd><b>{p["p"]}</b></dd><dt>Teslim</dt><dd>Uygulamadan ön sipariş, şubeden teslim · kargo yakında</dd><dt>Etiketler</dt><dd>{" · ".join(p["tags"])}</dd></dl><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem"><a class="btn amber" href="/app/">Ön sipariş</a><a class="btn ghost" href="/urunler/">Tüm ürünler</a></div></div></div><div>{f"<div class=imgband><img src=\"/img/{p['img']}.jpg\" alt=\"{p['n']}\"></div>" if p["img"] else "<div class=panel><h3>Dijital hediye</h3><p>Telefona anında gider; bakiye FloridaDays cüzdanına aktarılır.</p></div>"}</div></div></section>',
-      "urunler", f"{p['n']} · Florida Coffee", p["d"], f"/urunler/{sl}/", ld))
+    base = int(re.sub(r"[^\d]","",p["p"].split("–")[0]))
+    big = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}">' if p["img"] else f'<span class="pph" style="display:grid;place-items:center;height:100%;font-family:var(--disp);font-size:5rem;color:var(--amber)">{p["n"][0]}</span>'
+    is_bean = "Harman" in p["n"]; is_gift = "Hediye" in p["n"]
+    opts = ('<div class="opt"><div class="lbl">Öğütüm</div><div class="pills"><button class="pill" data-extra="0" aria-pressed="true">Çekirdek</button><button class="pill" data-extra="0" aria-pressed="false">Espresso</button><button class="pill" data-extra="0" aria-pressed="false">Filtre</button><button class="pill" data-extra="0" aria-pressed="false">French press</button></div></div>'
+            '<div class="opt"><div class="lbl">Gramaj</div><div class="pills"><button class="pill" data-mult="1" aria-pressed="true">250 g</button><button class="pill" data-mult="1.9" aria-pressed="false">500 g <small>−5%</small></button><button class="pill" data-mult="3.6" aria-pressed="false">1 kg <small>−10%</small></button></div></div>') if is_bean else (
+            '<div class="opt"><div class="lbl">Tutar</div><div class="pills"><button class="pill" data-mult="1" aria-pressed="true">250 ₺</button><button class="pill" data-mult="2" aria-pressed="false">500 ₺</button><button class="pill" data-mult="4" aria-pressed="false">1.000 ₺</button><button class="pill" data-mult="8" aria-pressed="false">2.000 ₺</button></div></div>' if is_gift else "")
+    others = "".join(prodcard(o) for o in PRODUCTS if o is not p)
+    pair = [menu_item(x) for x in (["Flat White","Florida Filtre","Cold Brew"] if is_bean else ["Latte","San Sebastian","Tereyağlı Kruvasan"])]
+    page(f"/urunler/{sl}/", shell(
+      f'''<section class="pdp"><div class="wrap"><div class="crumbs"><a href="/">Ana sayfa</a> › <a href="/urunler/">Ürünler</a> › {p["n"]}</div>
+      <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}</div><div class="mini"><div><b>{p["tags"][0]}</b><span>etiket</span></div><div><b>Şubeden</b><span>teslim</span></div><div><b>{p["p"]}</b><span>fiyat</span></div></div></div>
+      <div class="pdp-info"><div class="eyebrow">Ürün</div><h1>{p["n"]}</h1><p class="lede">{p["d"]}</p><div class="price"><b id="pvPrice" data-base="{base}">{p["p"]}</b><span>uygulamadan ön sipariş · şubeden teslim</span></div>{opts}
+      <div class="cta"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">Teslim şubesi seç</a></div>
+      <p class="howto" style="margin-top:1.4rem">{p["body"]}</p></div></div></div></section>
+      {"<section class='pair'><div class='wrap'>" + sh("Evde nasıl demlenir","Aynı çekirdek dört yöntem; oranlar el kitabından.") + BREWTAB + "</div></section>" if is_bean else ""}
+      <section class="pair"><div class="wrap"><h2>Birlikte iyi gider</h2><div class="pgrid">{"".join(pcard(x) for x in pair if x)}</div></div></section>
+      <section class="pair"><div class="wrap"><h2>Diğer ürünler</h2><div class="pgrid">{others}</div></div></section>''',
+      "urunler", f"{p['n']} · {p['p']} · Florida Coffee", p["d"], f"/urunler/{sl}/", ld, "paper"))
 
 # ---------- KULÜP / UYGULAMA / ETKİNLİKLER ----------
 page("/kulup/", shell(hero("Bölüm 21:00 · FloridaDays Club","Sadakat kartınız<br>cüzdanınızda kaybolmasın.","Her harcama 1 ₺ = 1 çekirdek; 10 içecekte biri bizden. Seviye son 6 ayın harcamasıyla belirlenir. Ödeme ve puan tek QR.",[("Kulüp",None)],"cup") +
-  '''<section class="sec"><div class="wrap"><div class="grid g3">
-  <div class="cell"><div class="lbl">0–2.500 ₺</div><h3>Classic</h3><p>Doğum günü içeceği · kampanyalara erişim · çekirdek biriktirme</p></div>
-  <div class="cell" style="border-top:3px solid var(--amber)"><div class="lbl">2.500–7.500 ₺</div><h3>Plus</h3><p>Ayda 2 boy yükseltme · erken sezon menüsü · etkinliklerde öncelik</p></div>
-  <div class="cell"><div class="lbl">7.500 ₺ +</div><h3>Premium</h3><p>Ücretsiz ekstra shot · gün batımında manzaralı masa önceliği · özel cupping</p></div></div>
-  <div class="two" style="margin-top:2rem"><div class="panel"><h3>Fiziksel karttan uygulamaya</h3><p style="margin:.5rem 0 0;color:var(--ink-2)">Uygulamada Kart → Kartımı tara. Karttaki kodu okutun; damgalar ve bakiye anında geçer. Kart sonra da çalışır; ikisi tek hesaptır. Aktarımı tamamlayanlara ilk kahve bizden.</p></div>
-  <div class="panel"><h3>Cüzdan</h3><p style="margin:.5rem 0 0;color:var(--ink-2)">Kredi kartı, Multinet, Sodexo, Setcard ile yükleme; 500 ₺ yüklemeye 25 ₺ bonus. Arkadaşınıza kahve veya bakiye gönderin.</p></div></div>
-  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.6rem"><a class="btn amber" href="/app/">Uygulama demosunu aç</a><a class="btn ghost" href="/uygulama/">Uygulama hakkında</a></div></div></section>''',
-  "kulup","FloridaDays Club · Sadakat Programı · Florida Coffee","Florida Coffee sadakat programı: 1 ₺ = 1 çekirdek, 10 içecekte biri hediye, Classic/Plus/Premium seviyeleri, cüzdan ve kart aktarımı.","/kulup/"))
+  f'''<section class="sec"><div class="wrap"><div class="split top"><div>{sh("Sizin için hesaplayalım","Haftada kaç kahve içiyorsunuz? Yıllık çekirdek, hediye içecek ve seviyeniz anında.")}
+  <div class="calc"><label>Haftada <b><span id="kcW">5</span> kahve</b><input type="range" id="kcWeek" min="1" max="21" value="5"></label><label>Ortalama fincan <b><span id="kcP">150</span> ₺</b><input type="range" id="kcPrice" min="95" max="220" step="5" value="150"></label>
+  <div class="out"><div><b id="kcBeans">—</b><span>yıllık çekirdek</span></div><div><b id="kcFree">—</b><span>hediye içecek</span></div><div><b id="kcSave" style="color:var(--amber)">—</b><span>yıllık kazanç</span></div><div><b id="kcTier">—</b><span>seviyeniz</span></div></div></div></div>
+  <div class="tiers"><div class="tier" data-tier="Classic"><div class="tr">0–2.500 ₺ · 6 ay</div><div class="tn">Classic</div><ul><li>Doğum günü içeceği</li><li>Kampanyalara erişim</li><li>Çekirdek biriktirme</li></ul></div><div class="tier" data-tier="Plus"><div class="tr">2.500–7.500 ₺</div><div class="tn">Plus</div><ul><li>Ayda 2 boy yükseltme</li><li>Erken sezon menüsü</li><li>Etkinliklerde öncelik</li></ul></div><div class="tier" data-tier="Premium"><div class="tr">7.500 ₺ +</div><div class="tn">Premium</div><ul><li>Ücretsiz ekstra shot</li><li>Gün batımında manzaralı masa</li><li>Özel cupping</li></ul></div></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap"><div class="split"><div>{sh("Damga kartından uygulamaya","Karttaki 10 damga uygulamada da 10 damga. Deneyin: damgalara dokunun.")}<div class="stamps" id="stamps">{"".join("<button aria-label='damga'>"+str(i)+"</button>" for i in range(1,11))}</div><p id="stampMsg" style="margin:.8rem 0 0;color:var(--ink-2)">10 damga kaldı</p></div>
+  <div>{cells([("1","Kartımı tara","Uygulamada Kart → Kartımı tara; karttaki kodu okutun.",""),("2","Damga ve bakiye geçer","Anında hesabınıza yazılır; kart da çalışmaya devam eder.",""),("3","İlk kahve bizden","Aktarımı tamamlayanlara bir içecek hediye.","")], "g3")}
+  <div class="grid g2" style="margin-top:1px"><div class="cell"><h3>Cüzdan</h3><p>Kredi kartı, Multinet, Sodexo, Setcard ile yükleme; 500 ₺ yüklemeye 25 ₺ bonus. Arkadaşınıza kahve veya bakiye gönderin.</p></div><div class="cell"><h3>Tek QR</h3><p>Ödeme ve puan aynı kodla; kasada iki işlem yerine bir tarama.</p></div></div>
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/app/">Uygulama demosunu aç</a><a class="btn ghost" href="/uygulama/">Uygulama hakkında</a></div></div></div></div></section>''',
+  "kulup","FloridaDays Club · Sadakat Programı · Florida Coffee","Florida Coffee sadakat programı: 1 ₺ = 1 çekirdek, 10 içecekte biri hediye, Classic/Plus/Premium seviyeleri, çekirdek hesaplayıcı, kart aktarımı.","/kulup/"))
 page("/uygulama/", shell(hero("Uygulama","Sıra sizi bekletmesin.<br>Kahve sizi beklesin.","Ön sipariş, \"Geldim\", cüzdan, sadakat ve kampanyalar tek uygulamada. iOS ve Android.",[("Uygulama",None)],"workspace") +
-  '''<section class="sec"><div class="wrap"><div class="grid g4">
-  <div class="cell"><h3>Ön sipariş</h3><p>Şube ve içecek seçin, ödeyin; hazırlık "Geldim" deyince ya da 200 m yaklaşınca başlar.</p></div>
-  <div class="cell"><h3>Süt tercihi profilde</h3><p>Laktozsuz, yulaf, badem — bir kez seçin, barista ekranında etiketli görünür.</p></div>
-  <div class="cell"><h3>Tek QR</h3><p>Ödeme ve puan aynı kodla. Yemek kartlarıyla yükleme, bonuslu bakiye.</p></div>
-  <div class="cell"><h3>Kampanyalar</h3><p>Şube, seviye ve saat bazlı; ölü saatlerde otomatik indirim.</p></div></div>
-  <div class="badges" style="margin-top:1.6rem"><span class="badge">App Store · yakında güncelleme</span><span class="badge">Google Play · yakında güncelleme</span><a class="btn amber" href="/app/">Tarayıcıda dene</a></div></div></section>''',
-  "kulup","Florida Coffee Uygulaması · Ön Sipariş ve Sadakat","Florida Coffee mobil uygulaması: ön sipariş, Geldim, cüzdan, FloridaDays Club.","/uygulama/",
+  f'''<section class="sec"><div class="wrap">{sh("Nasıl çalışır","Dört adım; kartlar kendiliğinden ilerler, dokununca durur.")}
+  <div class="stepper" data-auto><div><div class="n">1</div><h3>Seç</h3><p>Şube, içecek, boy, süt. Süt tercihi profilde kalır.</p></div><div><div class="n">2</div><h3>Öde</h3><p>Cüzdan, kart veya yemek kartı; tek QR ile puan.</p></div><div><div class="n">3</div><h3>Geldim</h3><p>Kapıya 200 m kala ya da tek dokunuşla hazırlık başlar.</p></div><div><div class="n">4</div><h3>Al</h3><p>Tezgâhta kodunuzla teslim; çekirdekler hesaba yazılır.</p></div></div>
+  <div class="split" style="margin-top:2.5rem"><div>{pht("workspace","Kadıköy · üst kat","r43")}</div><div>{cells([("","Ön sipariş","Şube ve içecek seçin, ödeyin; hazırlık siz gelince başlar.",""),("","Süt tercihi profilde","Bir kez seçin, barista ekranında etiketli görünür.",""),("","Kampanyalar","Şube, seviye ve saat bazlı; ölü saatlerde otomatik indirim.",""),("","Yer ayırma","Akustik akşamlar ve cupping için tek dokunuş.","")], "g2")}
+  <div class="badges" style="margin-top:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.5rem"><a class="badge" href="#"><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="#"><span><small>Google Play</small><b>Android için indir</b></span></a></div><p style="margin:.8rem 0 0"><a class="btn amber" href="/app/">Tarayıcıda dene</a></p></div></div></div></section>''',
+  "kulup","Florida Coffee Uygulaması · Ön Sipariş ve Sadakat","Florida Coffee mobil uygulaması: ön sipariş, Geldim, cüzdan, FloridaDays Club; dört adımda nasıl çalışır.","/uygulama/",
   {"@context":"https://schema.org","@type":"MobileApplication","name":"Florida Coffee","operatingSystem":"iOS, Android","applicationCategory":"FoodApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"TRY"}}))
-page("/etkinlikler/", shell(hero("Bölüm 23:30 · Etkinlikler","Şehir susunca<br>Boğaz konuşur.","Kavacık ve Beykoz ikiye kadar açık. Akustik akşamlar, cupping ve gece filtresi.",[("Etkinlikler",None)],"night") +
-  '''<section class="sec"><div class="wrap"><div class="grid g3">
-  <div class="cell"><div class="lbl" style="color:var(--amber)">Her Perşembe · 21:00</div><h3>Akustik set · Kavacık terası</h3><p>İki kişilik akustik, gün batımından sonra. Yer ayırma uygulamadan; Plus ve Premium öncelikli.</p><a class="more" href="/subeler/kavacik/">Kavacık →</a></div>
-  <div class="cell"><div class="lbl" style="color:var(--amber)">Ayın ilk Cumartesi'si</div><h3>Cupping · Çengelköy</h3><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.</p><a class="more" href="/subeler/cengelkoy/">Çengelköy →</a></div>
-  <div class="cell"><div class="lbl" style="color:var(--amber)">Her gün 22:00 sonrası</div><h3>Gece filtresi</h3><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p><a class="more" href="/menu/">Menü →</a></div></div></div></section>''',
-  "gece","Etkinlikler · Florida Coffee","Florida Coffee etkinlikleri: akustik akşamlar, cupping, gece filtresi.","/etkinlikler/",
+EVENTS = [dict(d="4", dn="Per", t="21:00", h="Akustik set", loc="Kavacık terası", b="kavacik", p="İki kişilik akustik, gün batımından sonra. Plus ve Premium öncelikli."),
+          dict(d="6", dn="Cmt", t="11:00", h="Cupping", loc="Çengelköy", b="cengelkoy", p="Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz; ayın ilk Cumartesi'si."),
+          dict(d="0,1,2,3,4,5,6", dn="Her gün", t="22:00", h="Gece filtresi", loc="Kavacık · Beykoz · Taksim", b="beykoz", p="22:00 sonrası kafeinsiz seçenekle aynı fiyat."),
+          dict(d="0", dn="Paz", t="09:00", h="Kahvaltı sofrası", loc="Beykoz · Bahçeşehir · Samsun", b="samsun", p="Hafta sonu 09:00–13:00 iki kişilik kahvaltı; masa uygulamadan."),
+          dict(d="3", dn="Çar", t="19:00", h="Latte art atölyesi", loc="Kadıköy", b="kadikoy", p="8 kişilik, 90 dakika; süt dokusu ve rosetta. Uygulamadan kayıt.")]
+DAYS = [("1","Pzt"),("2","Sal"),("3","Çar"),("4","Per"),("5","Cum"),("6","Cmt"),("0","Paz")]
+evcards = "".join(f'<div class="tcard" data-day="{e["d"]}">{pht(e["b"], "", "r169", "subeler/")}<div class="tb"><div class="meta"><b>{e["dn"]} · {e["t"]}</b><span>{e["loc"]}</span></div><h3>{e["h"]}</h3><p>{e["p"]}</p><div class="nact" style="gap:.4rem;flex-wrap:wrap"><button class="btn amber sm" data-reserve>Yer ayır</button><button class="btn ghost sm" data-ics="{e["h"]} · Florida Coffee" data-dow="{e["d"].split(",")[0]}" data-time="{e["t"]}" data-loc="{e["loc"]}">Takvime ekle</button></div></div></div>' for e in EVENTS)
+page("/etkinlikler/", shell(hero("Bölüm 23:30 · Etkinlikler","Şehir susunca<br>Boğaz konuşur.","Akustik akşamlar, cupping, atölyeler ve gece filtresi. Güne dokunun, o günün programı kalsın.",[("Etkinlikler",None)],"night") +
+  f'''<section class="sec"><div class="wrap"><div class="evday" id="evday">{"".join(f"<button data-d='{d}' class='{'has' if any(d in e['d'].split(',') for e in EVENTS) else ''}'><b>{n}</b>{'●' if any(d in e['d'].split(',') for e in EVENTS) else ' '}</button>" for d,n in DAYS)}</div>
+  <div class="grid g3">{evcards}</div><p class="mnote" style="color:var(--ink-3)">Yer ayırma ve hatırlatma uygulamada; takvim dosyası telefonunuza iner.</p></div></section>''',
+  "gece","Etkinlikler · Florida Coffee","Florida Coffee etkinlikleri: akustik akşamlar, cupping, latte art atölyesi, gece filtresi; güne göre program ve takvime ekleme.","/etkinlikler/",
   {"@context":"https://schema.org","@type":"Event","name":"Akustik akşamlar · Kavacık terası","eventSchedule":{"@type":"Schedule","byDay":"https://schema.org/Thursday","startTime":"21:00"},"location":{"@type":"Place","name":"Florida Coffee Kavacık"}}))
 
 # ---------- FRANCHISE ----------
-calc = '''<div class="panel"><label class="lbl" for="fCity">Konum tipi</label><select id="fCity" style="width:100%;margin:.4rem 0 1rem;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem"><option value="1.15">İstanbul cadde</option><option value="1" selected>Büyükşehir cadde (Bursa, Sakarya, Samsun)</option><option value="0.85">İlçe / üniversite çevresi</option></select>
-<label class="lbl" for="fM2">Mağaza alanı: <b id="fM2v">110</b> m²</label><input type="range" id="fM2" min="60" max="220" step="5" value="110" style="width:100%;accent-color:var(--amber)">
-<label class="lbl" for="fRev" style="display:block;margin-top:.8rem">Tahmini aylık ciro: <b id="fRevv">1.400.000</b> ₺</label><input type="range" id="fRev" min="500000" max="4000000" step="50000" value="1400000" style="width:100%;accent-color:var(--amber)">
-<div class="grid g2" style="margin-top:1rem"><div class="cell"><div class="lbl">Kuruluş yatırımı</div><b id="oInv" style="font-family:var(--disp);font-size:1.4rem">—</b></div><div class="cell"><div class="lbl">Aylık royalty (%5 + KDV)</div><b id="oRoy" style="font-family:var(--disp);font-size:1.4rem">—</b></div><div class="cell"><div class="lbl">Ulusal reklam (≤ %1)</div><b id="oAd" style="font-family:var(--disp);font-size:1.4rem">—</b></div><div class="cell"><div class="lbl">Örnek geri dönüş</div><b id="oPb" style="font-family:var(--disp);font-size:1.4rem">—</b></div></div>
-<p style="font-size:.8rem;color:var(--ink-3);margin:.9rem 0 0">Örnek hesaplamadır, teklif değildir. Giriş bedeli ve platform lisansı merkez tarafından belirlenir.</p></div>'''
-page("/franchise/", shell(hero("Bölüm 02:00 · Franchise","Bu günü kendi<br>şehrinizde kurun.","3 km bölge koruması, 45 gün eğitim, merkezi tedarik ve dijital altyapının tamamı. Hesaplayıcı örnek bir yatırım tablosu çıkarır.",[("Franchise",None)],"franchise") +
-  f'''<section class="sec"><div class="wrap two">{calc}<div><div class="grid g2">
-  <div class="cell"><h3>3 km bölge koruması</h3><p>Sözleşme süresince aynı bölgede ikinci Florida açılmaz.</p></div>
-  <div class="cell"><h3>45 gün eğitim</h3><p>30 gün işletme yönetimi, 15 gün barista; açılışta merkez ekibi şubede.</p></div>
-  <div class="cell"><h3>Merkezi tedarik</h3><p>Çekirdek, ambalaj ve ekipman tek kaynaktan; 40 gün vade.</p></div>
-  <div class="cell"><h3>Dijital altyapı dahil</h3><p>Şube sayfanız, uygulamada yeriniz, sadakat, raporlama paneli.</p></div></div>
-  <div class="panel" style="margin-top:1rem"><h3 style="margin-bottom:.5rem">Açılmasını istediğimiz bölgeler</h3><div style="display:flex;gap:.3rem;flex-wrap:wrap">{"".join(f'<span class="chip water">{c}</span>' for c in ["Eskişehir","Ankara Çayyolu","İzmir Alsancak","Antalya Lara","Trabzon","Konya"])}<span class="chip copper">Saraybosna</span><span class="chip copper">Tiran</span></div>
-  <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.1rem"><a class="btn amber" href="/franchise/basvuru/">Başvuru formu</a><a class="btn ghost" href="/franchise/sss/">Franchise SSS</a></div></div></div></div></section>''',
-  "franchise","Franchise · Florida Coffee","Florida Coffee franchise: 3 km bölge koruması, 45 gün eğitim, merkezi tedarik, royalty %5. Yatırım hesaplayıcı ve başvuru.","/franchise/"))
-page("/franchise/basvuru/", shell(hero("Franchise · Başvuru","Ön başvuru.<br>İki dakika.","Formu doldurun; franchise ekibimiz 24 saat içinde arar. Flo ile sohbet ederek de bırakabilirsiniz.",[("Franchise","/franchise/"),("Başvuru",None)]) +
-  '''<section class="sec"><div class="wrap two"><form class="f panel"><label>Ad Soyad<input required></label><label>Telefon<input type="tel" required placeholder="05xx xxx xx xx"></label><label>E-posta<input type="email" required></label><label>Hedef şehir / ilçe<input required></label><label>Bütçe<select><option>2 M ₺ altı</option><option>2–4 M ₺</option><option>4–6 M ₺</option><option>6 M ₺ üstü</option></select></label><label>Deneyim<select><option>Yok</option><option>Perakende</option><option>Kafe / restoran işlettim</option><option>Franchise sahibiyim</option></select></label><label>Lokasyon durumu<select><option>Henüz yok</option><option>Adayım var</option><option>Kira sözleşmem hazır</option></select></label><label>Not<textarea rows="3"></textarea></label><label style="grid-template-columns:auto 1fr;align-items:start;gap:.6rem;display:grid;font-weight:400"><input type="checkbox" required style="width:auto"> <span>KVKK aydınlatma metnini okudum; bilgilerimin franchise değerlendirmesi için işlenmesini kabul ediyorum.</span></label><button class="btn amber" type="submit">Başvuruyu gönder</button><div class="ok" hidden>Başvurunuz alındı. Franchise ekibimiz 24 saat içinde arayacak; e-postanıza yatırım özeti gidecek.</div></form>
-  <div><div class="panel"><h3>Süreç</h3><ol style="padding-left:1.2rem;color:var(--ink-2);display:grid;gap:.5rem;margin:.6rem 0 0"><li>Ön başvuru ve 24 saat içinde arama</li><li>Keşif görüşmesi: bölge, bütçe, lokasyon</li><li>3 km çakışma kontrolü ve lokasyon onayı</li><li>Sözleşme, 45 gün eğitim, açılış</li></ol></div><p style="margin-top:1rem;font-size:.9rem">Sorunuz mu var? Sağ alttaki Flo, franchise şartlarını anlatır ve başvurunuzu sohbetle alır.</p></div></div></section>''',
-  "franchise","Franchise Başvurusu · Florida Coffee","Florida Coffee franchise ön başvuru formu.","/franchise/basvuru/"))
 ffaq = [("Yatırım ne kadar?","Konuma ve metrekareye göre değişir; büyükşehir caddesinde 100–120 m² için örnek hesap 3,5–4,5 M ₺ bandında. Kesin rakam keşif görüşmesinde."),("Royalty ve reklam payı?","Aylık ciro üzerinden %5 + KDV royalty; ulusal reklam bütçesi en fazla %1. Her ikisi sözleşmede yazılıdır."),("Bölge koruması var mı?","Evet, 3 km. Sözleşme süresince aynı bölgede ikinci Florida açılmaz."),("Eğitim nasıl?","Toplam 45 gün: 30 gün işletme yönetimi, 15 gün barista. Açılışta merkez ekibi şubede."),("Tedarik nasıl işler?","Çekirdek, ambalaj ve ekipman merkezden; 40 gün vade. FIFO zorunlu."),("Dijital altyapı dahil mi?","Evet: şube sayfası, uygulamada yer, sadakat programı, raporlama paneli, ciro bildirimi otomasyonu."),("Sözleşme süresi?","10 yıl."),("Deneyim şart mı?","Şart değil; işletme deneyimi başvuru puanını yükseltir. Eğitim programı sıfırdan başlayanlar için tasarlanmıştır.")]
+calc = '''<div class="calc"><label for="fCity">Konum tipi<select id="fCity" style="background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem;font:inherit"><option value="1.15">İstanbul cadde</option><option value="1" selected>Büyükşehir cadde (Bursa, Sakarya, Samsun)</option><option value="0.85">Anadolu şehir merkezi</option><option value="1.1">Karadağ sahil</option></select></label>
+<label for="fM2">Mağaza alanı <b><span id="fM2v">110</span> m²</b><input type="range" id="fM2" min="60" max="220" step="5" value="110"></label>
+<label for="fRev">Tahmini aylık ciro <b><span id="fRevv">1.400.000</span> ₺</b><input type="range" id="fRev" min="500000" max="4000000" step="50000" value="1400000"></label>
+<div class="out"><div><b id="oInv">—</b><span>Kuruluş yatırımı</span></div><div><b id="oRoy">—</b><span>Aylık royalty · %5 + KDV</span></div><div><b id="oAd">—</b><span>Ulusal reklam · ≤ %1</span></div><div><b id="oPb" style="color:var(--amber)">—</b><span>Örnek geri dönüş</span></div></div>
+<p style="font-size:.78rem;color:var(--ink-3);margin:0">Örnek hesaplamadır, teklif değildir. Giriş bedeli ve platform lisansı merkez tarafından belirlenir.</p></div>'''
+REGIONS = [("Eskişehir","open"),("Ankara Çayyolu","open"),("İzmir Alsancak","open"),("Antalya Lara","open"),("Trabzon","open"),("Konya","open"),("Kavacık","full"),("Kadıköy","full"),("Bursa Nilüfer","full"),("Saraybosna","open"),("Tiran","open")]
+page("/franchise/", shell(hero("Bölüm 02:00 · Franchise","Bu günü kendi<br>şehrinizde kurun.","3 km bölge koruması, 45 gün eğitim, merkezi tedarik ve dijital altyapının tamamı. Hesaplayıcı örnek bir yatırım tablosu çıkarır.",[("Franchise",None)],"franchise") +
+  f'''<section class="sec"><div class="wrap">{stats([("17","şube"),("2","ülke"),("45","gün eğitim"),("3","km bölge koruması")])}
+  <div class="split top"><div>{sh("Örnek yatırım tablosu","Konum, metrekare ve ciro; gerisi otomatik.")}{calc}</div>
+  <div>{sh("Sizin için ne yapıyoruz","Dört başlık, dokunup nedenini görün.")}{stdtiles([("3 km","Bölge koruması","Sözleşme süresince aynı bölgede ikinci Florida açılmaz."),("45 gün","Eğitim","30 gün işletme yönetimi, 15 gün barista; açılışta merkez ekibi şubede."),("1","Tedarik kaynağı","Çekirdek, ambalaj ve ekipman tek kaynaktan; 40 gün vade."),("%5","Royalty + KDV","Ciro üzerinden; ulusal reklam en fazla %1. Şeffaf, sözleşmede."),("Dahil","Dijital altyapı","Şube sayfanız, uygulamada yeriniz, sadakat, HQ raporlama paneli."),("24 sa","İlk arama","Ön başvurudan sonra franchise ekibi bir gün içinde arar.")])}
+  <div class="lbl" style="margin:1.4rem 0 .5rem">Bölgeler · <span style="color:var(--ok)">açık</span> / dolu</div><div class="regions">{"".join(f'<span class="chip {st}">{c}</span>' for c,st in REGIONS)}</div>
+  <div class="calc" style="margin-top:1.2rem"><label>3 km kontrolü · şehir ya da ilçe yazın<input type="text" id="regionCheck" placeholder="ör. Eskişehir, Kadıköy" style="background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem;font:inherit;letter-spacing:0;text-transform:none;font-weight:400"></label><div id="regionOut" style="font-size:.9rem;min-height:1.4em"></div></div></div></div></div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap">{sh("Süreç","Ön başvurudan açılışa altı adım.")}<div class="timeline">{"".join(f"<div><h3>{t}</h3><p>{p}</p></div>" for t,p in [("Ön başvuru","Form ya da Flo; 24 saat içinde arama."),("Keşif görüşmesi","Bölge, bütçe, lokasyon."),("3 km kontrolü","Çakışma yoksa lokasyon onayı."),("Sözleşme","10 yıl; royalty, reklam, tedarik şartları yazılı."),("45 gün eğitim","30 gün işletme, 15 gün barista."),("Açılış","Merkez ekibi ilk hafta şubede; dijital altyapı gün 1'de canlı.")])}</div>
+  <div class="split" style="margin-top:2.5rem"><div>{pht("franchise","Yeni şube · açılış haftası")}</div><div><p class="quote">Her yeni franchise, platformun bir müşterisi. Her şube açılışı merkez için gelir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn amber" href="/franchise/basvuru/">Başvuru formu</a><a class="btn ghost" href="/franchise/sss/">Franchise SSS</a></div></div></div></div></section>''',
+  "franchise","Franchise · Florida Coffee","Florida Coffee franchise: 3 km bölge koruması, 45 gün eğitim, merkezi tedarik, royalty %5. Yatırım hesaplayıcı, bölge kontrolü, süreç ve başvuru.","/franchise/"))
+page("/franchise/basvuru/", shell(hero("Franchise · Başvuru","Ön başvuru.<br>Üç kısa adım.","Formu doldurun; franchise ekibimiz 24 saat içinde arar. Flo ile sohbet ederek de bırakabilirsiniz.",[("Franchise","/franchise/"),("Başvuru",None)]) +
+  f'''<section class="sec"><div class="wrap split top"><form class="f panel" data-steps><div class="fsteps"><i class="on"></i><i></i><i></i></div>
+  <div data-step="1"><label>Ad Soyad<input required></label><label>Telefon<input type="tel" required placeholder="05xx xxx xx xx"></label><label>E-posta<input type="email" required></label><button type="button" class="btn amber" data-next>Devam</button></div>
+  <div data-step="2" hidden><label>Hedef şehir / ilçe<input required></label><label>Bütçe<select><option>2 M ₺ altı</option><option>2–4 M ₺</option><option>4 M ₺ üstü</option></select></label><label>Lokasyon durumu<select><option>Henüz yok</option><option>Bakıyorum</option><option>Kiralık dükkânım var</option></select></label><div style="display:flex;gap:.5rem"><button type="button" class="btn ghost" data-prev>Geri</button><button type="button" class="btn amber" data-next>Devam</button></div></div>
+  <div data-step="3" hidden><label>Kafe / restoran deneyimi<select><option>Yok</option><option>1–3 yıl</option><option>3 yıl üstü</option></select></label><label>Not<textarea rows="3" placeholder="İsteğe bağlı"></textarea></label><label style="display:flex;gap:.5rem;align-items:center;text-transform:none;letter-spacing:0"><input type="checkbox" required style="width:auto"> KVKK aydınlatma metnini okudum.</label><div style="display:flex;gap:.5rem"><button type="button" class="btn ghost" data-prev>Geri</button><button class="btn amber" type="submit">Başvuruyu gönder</button></div><div class="ok" hidden>Alındı. 24 saat içinde arayacağız.</div></div></form>
+  <div>{cells([("1","24 saat","Ön başvurunuz ekibe düşer, bir iş günü içinde ararız.",""),("2","Keşif","Bölge, bütçe ve lokasyonu birlikte netleştiririz.",""),("3","Onay","3 km çakışma kontrolü ve lokasyon onayı.",""),("4","Açılış","Sözleşme, 45 gün eğitim, açılış haftası merkez ekibi şubede.","")], "g2")}<p style="margin-top:1rem;font-size:.9rem;color:var(--ink-3)">Formu doldurmak yerine <button class="btn ghost sm" data-ask-flo>Flo'ya anlatın</button></p></div></div></section>''',
+  "franchise","Franchise Başvurusu · Florida Coffee","Florida Coffee franchise ön başvuru formu; üç adım, 24 saat içinde dönüş.","/franchise/basvuru/"))
 page("/franchise/sss/", shell(hero("Franchise · SSS","Sık sorulan<br>franchise soruları.","Kısa ve net. Daha fazlası için başvuru sonrası keşif görüşmesi.",[("Franchise","/franchise/"),("SSS",None)]) +
-  f'<section class="sec"><div class="wrap"><div class="faq">{"".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q,a in ffaq)}</div><div style="margin-top:1.4rem"><a class="btn amber" href="/franchise/basvuru/">Başvuru formu</a></div></div></section>',
+  f'''<section class="sec"><div class="wrap"><div class="sbar"><input type="search" data-search="#ffaq details" data-count="#ffc" placeholder="Soru ara: royalty, eğitim, bölge…" aria-label="Ara"><span id="ffc" style="font-size:.8rem;color:var(--ink-3)"></span></div>{faqhtml([(q,a,"f") for q,a in ffaq], "ffaq")}<div style="margin-top:1.4rem;display:flex;gap:.5rem;flex-wrap:wrap"><a class="btn amber" href="/franchise/basvuru/">Başvuru formu</a><button class="btn ghost" data-ask-flo>Flo'ya sor</button></div></div></section>''',
   "franchise","Franchise SSS · Florida Coffee","Florida Coffee franchise sık sorulan sorular: yatırım, royalty, bölge koruması, eğitim, tedarik.","/franchise/sss/",
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in ffaq]}))
 
 # ---------- HİKÂYE / KURUMSAL / KARİYER / SSS / İLETİŞİM ----------
+STORY = [("cengelkoy","Çengelköy","İlk şube. Boğaz'ın sabah ışığını en iyi gören sokaklardan birinde; cupping akşamları hâlâ burada."),("kavacik","Boğaz hattı","Kavacık ve Beykoz: gün batımına bakan teraslar, geceye kadar açık."),("kadikoy","Şehrin içi","Kadıköy, Taksim, Ümraniye, Bahçeşehir, Esenyurt: çalışma katları ve hızlı servis."),("sakarya","Anadolu","İzmit, Sakarya, Bursa, Samsun, Rize, Erzincan: her şehirde aynı fincan."),("budva","Karadağ","Podgorica ve Budva: Adriyatik'te ilk Türk kahve zinciri.")]
 page("/hikayemiz/", shell(hero("Hikâyemiz","Çengelköy'de bir sabah<br>başladı.","Boğaz'a bakan bir köşede, aynı fincanı her gün aynı standartla verme sözüyle. Bugün 17 nokta, iki ülke; söz aynı.",[("Hikâyemiz",None)],"hero") +
-  '''<section class="sec"><div class="wrap two"><div class="prose"><h2>Çengelköy</h2><p>İlk şubemiz Çengelköy'de, Boğaz'ın sabah ışığını en iyi gören sokaklardan birinde açıldı. Kahveyi bir ürün olarak değil, günün ritmi olarak düşündük: şafakta ilk filtre, öğle arasında hızlı bir espresso, gün batımında terasta uzun bir cold brew.</p><h2>Standart</h2><p>Büyürken bir şeyi kural yaptık: Kavacık'taki latte Bursa'dakiyle aynı olacak. Bunun için barista operasyon el kitabını yazdık — 14 g doz, 90–96 °C, 18–23 sn, süt 60–65 °C. Reçete kişisel yoruma açık değildir; standardı barista üretir.</p><h2>Boğaz'dan Adriyatik'e</h2><p>İstanbul, Kocaeli, Sakarya, Bursa, Samsun, Rize, Erzincan… ve Karadağ'da Podgorica ile Budva. Her şubede farklı bir manzara, aynı fincan.</p><h2>Mutluluğun tadı</h2><p>Taste of Joy bir slogan değil, ölçüt: müşteri hangi şubeye girerse girsin aynı tadı, aynı sunumu ve aynı sıcaklığı bulmalı.</p></div>
-  <div class="grid" style="grid-template-columns:1fr"><div class="cell"><div class="lbl">17</div><h3>şube, 2 ülke</h3></div><div class="cell"><div class="lbl">45 gün</div><h3>barista ve işletme eğitimi</h3></div><div class="cell"><div class="lbl">14 g · 18–23 sn</div><h3>espresso standardı</h3></div><div class="cell"><div class="lbl">02:00</div><h3>Boğaz şubelerinde kapanış</h3></div></div></div></section>''',
+  f'''<section class="sec"><div class="wrap">{stats([("17","şube"),("2","ülke"),("53","menü ürünü"),("45","gün eğitim")])}
+  {sh("Beş durak","Çengelköy'den Adriyatik'e; her durakta bir fotoğraf, bir cümle.")}<div class="timeline">{"".join(f"<div>{pht(b, '', 'r169', 'subeler/')}<h3>{t}</h3><p>{p}</p></div>" for b,t,p in STORY)}</div>
+  <div class="split" style="margin-top:2.5rem"><div><p class="quote">Kahveyi bir ürün olarak değil, günün ritmi olarak düşündük.</p><p style="color:var(--ink-2)">Şafakta ilk filtre, öğle arasında hızlı bir espresso, gün batımında terasta bir cold brew, gece yarısı kafeinsiz. Sayfamızın "Boğaz'da Bir Gün" diye kurulmasının nedeni bu.</p></div>
+  <div>{cells([("","Standart","Tartılan gramaj, kronometreyle izlenen shot; reçete yoruma açık değil.",""),("","Yerlilik","İstanbul doğumlu; Boğaz manzarası menünün parçası.",""),("","Erişim","Sadakat, ön sipariş ve şube bilgisi tek uygulamada.",""),("","Büyüme","Her yeni franchise aynı fincanı kendi şehrine taşır.","")], "g2")}</div></div></div></section>''',
   "safak","Hikâyemiz · Florida Coffee","Florida Coffee'nin hikâyesi: Çengelköy'den 17 şubeye, İstanbul'dan Karadağ'a; her fincanda aynı standart.","/hikayemiz/",
-  {"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/favicon.svg","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"},"sameAs":["https://www.instagram.com/floridacoffeetr/","https://www.tiktok.com/@floridacoffee_","https://www.facebook.com/floridacoffeetr/"]}))
+  {"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/img/brand/logo.png","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"},"sameAs":["https://www.instagram.com/floridacoffeetr/","https://www.facebook.com/floridacoffeetr/"]}))
 page("/kurumsal/", shell(hero("Kurumsal","Toplantınıza kahve,<br>etkinliğinize bar.","Ofis ikramı, etkinlik kahve barı, toplu hediye kartı. Talebinizi bırakın; 1 iş günü içinde dönüş.",[("Kurumsal",None)],"pour") +
-  '''<section class="sec"><div class="wrap two"><div class="grid" style="grid-template-columns:1fr"><div class="cell"><h3>Ofis ikramı</h3><p>Haftalık çekirdek ve filtre teslimi; barista eğitimi opsiyonu.</p></div><div class="cell"><h3>Etkinlik kahve barı</h3><p>Mobil espresso barı, 2 barista, 4 saat; 100–400 kişilik etkinlikler.</p></div><div class="cell"><h3>Toplu hediye kartı</h3><p>Çalışan ve müşteri hediyesi için dijital kartlar; kurumsal fatura.</p></div></div>
-  <form class="f panel"><label>Kurum<input required></label><label>Ad Soyad<input required></label><label>E-posta<input type="email" required></label><label>İhtiyaç<select><option>Ofis ikramı</option><option>Etkinlik kahve barı</option><option>Toplu hediye kartı</option><option>Diğer</option></select></label><label>Not<textarea rows="3"></textarea></label><button class="btn amber" type="submit">Talep gönder</button><div class="ok" hidden>Talebiniz alındı; 1 iş günü içinde dönüş yapacağız.</div></form></div></section>''',
-  "kulup","Kurumsal Satış · Florida Coffee","Florida Coffee kurumsal: ofis ikramı, etkinlik kahve barı, toplu hediye kartı.","/kurumsal/"))
-jobs = "".join(f'<div class="cell"><div class="lbl">{j["loc"]} · {j["type"]}</div><h3>{j["t"]}</h3><p>{j["d"]}</p><a class="more" href="#basvur">Başvur →</a></div>' for j in JOBS)
+  f'''<section class="sec"><div class="wrap"><div class="grid g3"><div class="cell">{pht("beans","","r169")}<h3>Ofis ikramı</h3><p>Haftalık çekirdek ve filtre teslimi; barista eğitimi opsiyonu; makine kurulumu.</p></div><div class="cell">{pht("pour","","r169")}<h3>Etkinlik kahve barı</h3><p>Mobil espresso barı, 2 barista, 4 saat; 100–400 kişilik etkinlikler.</p></div><div class="cell">{pht("cup","","r169")}<h3>Toplu hediye kartı</h3><p>Ekibinize dijital kart; tutar ve mesaj kurumsal panelden.</p></div></div>
+  <div class="split top" style="margin-top:2.5rem"><div>{sh("Etkinlik barı için örnek bütçe","Kişi sayısı ve süre; gerisi otomatik.")}<div class="calc"><label>Kişi <b><span id="cpP">150</span></b><input type="range" id="cpPeople" min="30" max="600" step="10" value="150"></label><label>Süre <b><span id="cpH">4</span> saat</b><input type="range" id="cpHours" min="2" max="10" value="4"></label><div class="out"><div><b id="cpCups">—</b><span>tahmini fincan</span></div><div><b id="cpBar">—</b><span>kurulum</span></div><div><b id="cpCost" style="color:var(--amber)">—</b><span>örnek bütçe</span></div></div></div></div>
+  <form class="f panel"><label>Kurum<input required></label><label>Ad Soyad<input required></label><label>E-posta<input type="email" required></label><label>İhtiyaç<select><option>Ofis ikramı</option><option>Etkinlik kahve barı</option><option>Toplu hediye kartı</option><option>Diğer</option></select></label><label>Not<textarea rows="3"></textarea></label><button class="btn amber" type="submit">Talep bırak</button><div class="ok" hidden>Alındı. 1 iş günü içinde dönüş yapacağız.</div></form></div></div></section>''',
+  "kulup","Kurumsal Satış · Florida Coffee","Florida Coffee kurumsal: ofis ikramı, etkinlik kahve barı, toplu hediye kartı; örnek bütçe hesaplayıcı.","/kurumsal/"))
+jobs = "".join(f'<div class="cell" data-f="{j["loc"].split(" ")[0].lower()}"><div class="lbl">{j["loc"]} · {j["type"]}</div><h3>{j["t"]}</h3><p>{j["d"]}</p><button class="btn amber sm" data-apply="{j["t"]}" style="align-self:flex-start">Başvur</button></div>' for j in JOBS)
 page("/kariyer/", shell(hero("Kariyer","Barista standardı üretir.<br>Siz de üretin.","Her barista hazırladığı her fincanla markayı temsil eder. Deneyim şart değil; 45 günlük eğitimimiz var.",[("Kariyer",None)],"barista") +
-  f'''<section class="sec"><div class="wrap"><div class="grid g3">{jobs}</div><div class="two" style="margin-top:2rem" id="basvur"><form class="f panel"><label>Ad Soyad<input required></label><label>Telefon<input type="tel" required></label><label>E-posta<input type="email" required></label><label>Pozisyon<select>{"".join(f"<option>{j['t']}</option>" for j in JOBS)}</select></label><label>Şehir<input></label><label>Kısaca siz<textarea rows="3"></textarea></label><button class="btn amber" type="submit">Başvur</button><div class="ok" hidden>Başvurunuz alındı. İnsan kaynakları 5 iş günü içinde dönüş yapar.</div></form>
-  <div class="panel"><h3>Nasıl çalışıyoruz</h3><ul style="padding-left:1.2rem;color:var(--ink-2);margin:.6rem 0 0;display:grid;gap:.4rem"><li>15 gün barista eğitimi: ekstraksiyon, süt dokusu, latte art, hijyen</li><li>Front bar / back bar net görev ayrımı; FIFO zorunlu</li><li>Haftalık kalibrasyon, aylık kalite denetimi</li><li>Şube müdürlüğüne iç terfi yolu</li></ul></div></div></div></section>''',
-  "kahvemiz","Kariyer · Florida Coffee","Florida Coffee'de barista, şube müdürü ve kalite uzmanı pozisyonları.","/kariyer/",
+  f'''<section class="sec"><div class="wrap">{sh("Açık pozisyonlar","Şehre göre süzün; Başvur'a dokunun, form pozisyonla dolsun.")}<div class="filters" data-filter="#jobs .cell" style="margin:0 0 1rem"><button class="fbtn" data-f="hepsi" aria-pressed="true">Hepsi</button><button class="fbtn" data-f="i̇stanbul" aria-pressed="false">İstanbul</button><button class="fbtn" data-f="sakarya" aria-pressed="false">Sakarya</button></div><div class="grid g3" id="jobs">{jobs}</div>
+  {sh("Barista yolculuğu","İlk günden şube müdürlüğüne.")}<div class="stepper" data-auto><div><div class="n">1</div><h3>15 gün eğitim</h3><p>Ekstraksiyon, süt dokusu, latte art, hijyen.</p></div><div><div class="n">2</div><h3>Sertifika</h3><p>Standart testi: 14 g, 18–23 sn, 60–65 °C.</p></div><div><div class="n">3</div><h3>Şube</h3><p>Front bar / back bar; haftalık kalibrasyon.</p></div><div><div class="n">4</div><h3>Vardiya lideri</h3><p>Denetim ve gizli müşteri puanına göre.</p></div><div><div class="n">5</div><h3>Şube müdürü</h3><p>30 gün işletme eğitimi; yeni açılışlarda görev.</p></div></div>
+  <div class="split top" style="margin-top:2.5rem" id="basvur"><form class="f panel"><label>Ad Soyad<input required></label><label>Telefon<input type="tel" required></label><label>E-posta<input type="email" required></label><label>Pozisyon<select id="jobPos">{"".join(f"<option>{j['t']}</option>" for j in JOBS)}</select></label><label>Şehir<select><option>İstanbul</option><option>Sakarya</option><option>Diğer</option></select></label><label>Not<textarea rows="3" placeholder="Deneyim, uygun günler"></textarea></label><button class="btn amber" type="submit">Başvur</button><div class="ok" hidden>Başvurunuz alındı. 3 iş günü içinde dönüş.</div></form>
+  <div>{cells([("","Nasıl çalışıyoruz","FIFO zorunlu; front bar / back bar net görev ayrımı; haftalık kalibrasyon, aylık kalite denetimi.",""),("","Yan haklar","Vardiya yemeği, günlük kahve, sağlık sigortası, şubeler arası transfer.",""),("","Gelişim","Kalite ve eğitim ekibine geçiş; yeni şube açılışlarında görev.","")], "g3")}</div></div></div></section>''',
+  "kahvemiz","Kariyer · Florida Coffee","Florida Coffee'de barista, şube müdürü ve kalite uzmanı pozisyonları; barista yolculuğu ve başvuru.","/kariyer/",
   [{"@context":"https://schema.org","@type":"JobPosting","title":j["t"],"description":j["d"],"datePosted":TODAY,"employmentType":"FULL_TIME","hiringOrganization":{"@type":"Organization","name":"Florida Coffee"},"jobLocation":{"@type":"Place","address":{"@type":"PostalAddress","addressLocality":j["loc"].split("·")[0].strip(),"addressCountry":"TR"}}} for j in JOBS]))
-page("/sss/", shell(hero("SSS","Sık sorulanlar.","Ön sipariş, süt seçenekleri, sadakat, şubeler, franchise. Cevabı bulamazsanız Flo'ya sorun.",[("SSS",None)]) +
-  f'<section class="sec"><div class="wrap"><div class="faq">{"".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q,a in FAQ)}</div></div></section>',
-  "safak","Sık Sorulan Sorular · Florida Coffee","Florida Coffee SSS: ön sipariş, süt seçenekleri, FloridaDays Club, şube saatleri, franchise.","/sss/",
+FAQC = {"Ön sipariş":"siparis","Laktozsuz":"menu","FloridaDays":"kulup","Fiziksel":"kulup","Her şubede":"menu","Hangi şubeler":"sube","Franchise":"franchise","Evcil":"sube","Kurumsal":"kurumsal","Kargo":"urun"}
+faqc = [(q,a,next((v for k,v in FAQC.items() if q.startswith(k)), "genel")) for q,a in FAQ]
+page("/sss/", shell(hero("SSS","Sık sorulanlar.","Ön sipariş, süt seçenekleri, sadakat, şubeler, franchise. Arayın ya da Flo'ya sorun.",[("SSS",None)]) +
+  f'''<section class="sec"><div class="wrap"><div class="sbar"><input type="search" data-search="#faq details" data-count="#fc" placeholder="Soru ara: süt, kart, saat…" aria-label="Ara"><span id="fc" style="font-size:.8rem;color:var(--ink-3)"></span></div>
+  <div class="filters" data-filter="#faq details" style="margin:0 0 1rem"><button class="fbtn" data-f="hepsi" aria-pressed="true">Hepsi</button><button class="fbtn" data-f="siparis" aria-pressed="false">Sipariş</button><button class="fbtn" data-f="menu" aria-pressed="false">Menü</button><button class="fbtn" data-f="kulup" aria-pressed="false">Kulüp</button><button class="fbtn" data-f="sube" aria-pressed="false">Şubeler</button><button class="fbtn" data-f="franchise" aria-pressed="false">Franchise</button></div>
+  {faqhtml(faqc)}<div class="panel" style="margin-top:1.6rem;display:flex;gap:1rem;align-items:center;flex-wrap:wrap;justify-content:space-between"><div><h3>Cevabı bulamadınız mı?</h3><p style="margin:.2rem 0 0;color:var(--ink-2)">Flo menüyü, şubeleri ve kulüp kurallarını bilir; franchise sorularını da alır.</p></div><button class="btn amber" data-ask-flo>Flo'ya sor</button></div></div></section>''',
+  "safak","Sık Sorulan Sorular · Florida Coffee","Florida Coffee SSS: ön sipariş, süt seçenekleri, FloridaDays Club, şube saatleri, franchise; arama ve kategori.","/sss/",
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQ]}))
-page("/iletisim/", shell(hero("İletişim","Yazın, arayın,<br>ya da gelin.","Merkez Çengelköy'de. Şube telefonları şube sayfalarında. Franchise ve kurumsal için ilgili formlar.",[("İletişim",None)]) +
-  '''<section class="sec"><div class="wrap two"><div class="panel"><dl class="kv"><dt>Merkez</dt><dd>Florida Coffee Kahve Gıda San. ve Tic. A.Ş.<br>Çengelköy Mah. Görgeç Sok. No:6, Üsküdar / İstanbul</dd><dt>Franchise</dt><dd><a href="/franchise/basvuru/">Başvuru formu</a> ya da Flo</dd><dt>Kurumsal</dt><dd><a href="/kurumsal/">Talep formu</a></dd><dt>Basın</dt><dd>basin@ (örnek)</dd><dt>Sosyal</dt><dd><a href="https://www.instagram.com/floridacoffeetr/" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@floridacoffee_" rel="noopener">TikTok</a></dd></dl></div>
-  <form class="f panel"><label>Ad Soyad<input required></label><label>E-posta<input type="email" required></label><label>Konu<select><option>Genel</option><option>Şube geri bildirimi</option><option>Uygulama</option><option>Basın</option></select></label><label>Mesaj<textarea rows="4" required></textarea></label><button class="btn amber" type="submit">Gönder</button><div class="ok" hidden>Mesajınız alındı; 1 iş günü içinde dönüş yapacağız.</div></form></div></section>''',
-  "safak","İletişim · Florida Coffee","Florida Coffee iletişim: merkez adresi, franchise ve kurumsal formlar, sosyal medya.","/iletisim/"))
+CITIES = ["İstanbul","Kocaeli","Adapazarı","Bursa","Atakum","Rize","Erzincan","Karadağ"]
+page("/iletisim/", shell(hero("İletişim","Yazın, arayın,<br>ya da gelin.","Merkez Çengelköy'de. Şube telefonları şube sayfalarında. Franchise ve kurumsal için ilgili formlar.",[("İletişim",None)],"subeler/cengelkoy" if os.path.exists(os.path.join(BASE,"demo-site","img","subeler","cengelkoy.jpg")) else "hero") +
+  f'''<section class="sec"><div class="wrap"><div class="contact"><a href="https://www.google.com/maps/search/?api=1&query=Çengelköy+Görgeç+Sokak+6" rel="noopener"><span class="l">Merkez</span><b>Çengelköy</b><span>Görgeç Sok. No:6, Üsküdar / İstanbul · yol tarifi →</span></a><a href="tel:+902160000000"><span class="l">Telefon</span><b>+90 216 000 00 00</b><span>Hafta içi 09:00–18:00</span></a><a href="mailto:merhaba@floridacoffee.com.tr"><span class="l">E-posta</span><b>merhaba@floridacoffee.com.tr</b><span>1 iş günü içinde yanıt</span></a><a href="https://wa.me/905000000000" rel="noopener"><span class="l">WhatsApp</span><b>Flo ile yazışın</b><span>Sipariş, şube, franchise</span></a></div>
+  <div class="split top" style="margin-top:2.5rem"><div>{sh("Şubeye ulaşın","Şehri seçin; saatler ve şube sayfası.")}<label class="lbl" for="citySel">Şehir</label><select id="citySel" style="width:100%;margin:.4rem 0 1rem;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.6rem;font:inherit">{"".join(f"<option>{c}</option>" for c in CITIES)}</select><div class="grid" style="grid-template-columns:1fr" id="cityOut"></div></div>
+  <form class="f panel"><label>Ad Soyad<input required></label><label>E-posta<input type="email" required></label><label>Konu<select><option>Genel</option><option>Şube geri bildirimi</option><option>Uygulama</option><option>Basın</option><option>Franchise</option><option>Kurumsal</option></select></label><label>Mesaj<textarea rows="4" required></textarea></label><button class="btn amber" type="submit">Gönder</button><div class="ok" hidden>Mesajınız alındı. 1 iş günü içinde yanıtlayacağız.</div></form></div></div></section>''',
+  "safak","İletişim · Florida Coffee","Florida Coffee iletişim: merkez adresi, telefon, e-posta, WhatsApp, şehre göre şube bulucu, form.","/iletisim/"))
 
 # ---------- YASAL ----------
 LEGAL = {
@@ -612,7 +892,7 @@ LEGAL = {
 }
 for k,(t,secs) in LEGAL.items():
     page(f"/yasal/{k}/", shell(hero("Yasal", t, "Bu metin demo amaçlı taslaktır.", [("Yasal",None),(t,None)]) +
-      f'<section class="sec"><div class="wrap prose"><div class="notice">Taslak — yayın öncesi hukuk müşaviri onayı gerekir. Şirket bilgileri sözleşme özetinden alınmıştır.</div>{"".join(secs)}<p style="margin-top:2rem;font-size:.85rem">Son güncelleme: {TODAY}</p></div></section>',
+      f'<section class="sec"><div class="wrap split top" style="grid-template-columns:minmax(0,1fr) 16rem"><div class="prose"><div class="notice">Taslak — yayın öncesi hukuk müşaviri onayı gerekir. Şirket bilgileri sözleşme özetinden alınmıştır.</div>{"".join(x.replace("<h2>", f"<h2 id=s{i}>", 1) for i,x in enumerate(secs))}<p style="margin-top:2rem;font-size:.85rem">Son güncelleme: {TODAY}</p></div><nav class="toc" aria-label="İçindekiler"><div class="lbl" style="margin-bottom:.5rem">İçindekiler</div>{"".join(f'<a href="#s{i}">{re.sub("<[^>]+>","",x.split("</h2>")[0])}</a>' for i,x in enumerate(secs))}</nav></div></section>',
       "safak", f"{t} · Florida Coffee", f"Florida Coffee {t.lower()} (taslak).", f"/yasal/{k}/", cls="paper"))
 
 # ---------- EN ----------
