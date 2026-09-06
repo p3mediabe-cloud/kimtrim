@@ -29,7 +29,9 @@ jobs:
         with:
           python-version: "3.12"
       # Proje sitesi /kimtrim/ altında yayınlanır; bağlantılar bu ön ekle üretilir
-      - run: python3 docs/florida-coffee/site/build.py --base /kimtrim --out "$RUNNER_TEMP/pages"
+      - run: pip install pillow
+      # Proje sitesi /kimtrim/ altında; paylaşım (og:image) URL'leri de bu adrese göre üretilir
+      - run: python3 docs/florida-coffee/site/build.py --base /kimtrim --public https://p3mediabe-cloud.github.io/kimtrim --out "$RUNNER_TEMP/pages"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ${{ runner.temp }}/pages

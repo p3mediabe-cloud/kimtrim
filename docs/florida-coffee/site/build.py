@@ -13,10 +13,11 @@ BASE = os.path.dirname(ROOT)                 # docs/florida-coffee
 DEMO = os.path.join(BASE, "demo-site", "index.html")
 import sys, shutil, argparse, random
 if sys.version_info < (3, 12): sys.exit("build.py Python 3.12+ ister (iç içe f-string).")
-_ap = argparse.ArgumentParser(); _ap.add_argument("--base", default="", help="alt dizin ön eki, ör. /kimtrim (GitHub Pages)"); _ap.add_argument("--out", default=os.path.join(BASE, "dist"))
+_ap = argparse.ArgumentParser(); _ap.add_argument("--base", default="", help="alt dizin ön eki, ör. /kimtrim (GitHub Pages)"); _ap.add_argument("--out", default=os.path.join(BASE, "dist")); _ap.add_argument("--public", default="", help="paylaşım (og:) için herkese açık kök URL, ör. https://p3mediabe-cloud.github.io/kimtrim")
 _args = _ap.parse_args()
 DIST = os.path.abspath(_args.out)
 BASEPATH = _args.base.rstrip("/")
+PUBLIC = _args.public.rstrip("/") or ("https://p3mediabe-cloud.github.io" + BASEPATH if BASEPATH else "https://floridacoffee.com.tr")
 def rebase(txt):
     """Kök-mutlak href/src bağlantılarını alt dizine taşır (yalnız --base verildiğinde)."""
     if not BASEPATH: return txt
@@ -26,6 +27,58 @@ for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST,
     if os.path.isdir(_src): shutil.copytree(_src, _dst, dirs_exist_ok=True)
 for _f in os.listdir(os.path.join(BASE, "demo-site", "img")):   # kök sahne fotoğrafları (hero, ekip, akustik…)
     if _f.endswith(".jpg"): shutil.copy2(os.path.join(BASE, "demo-site", "img", _f), os.path.join(DIST, "img", _f))
+# ---------- paylaşım görselleri: 1200×630, fotoğraf + alt gradyan + logo; img/og/<ad>.jpg ----------
+_OG_DIR = os.path.join(DIST, "img", "og"); os.makedirs(_OG_DIR, exist_ok=True)
+_OG_LOGO = None
+def og_image(name):
+    """name: 'hero' | 'subeler/kavacik' | 'menu/flat-white' → '/img/og/<düz-ad>.jpg' (kaynak yoksa hero)."""
+    global _OG_LOGO
+    src = os.path.join(BASE, "demo-site", "img", name + ".jpg")
+    if not os.path.exists(src): name, src = "hero", os.path.join(BASE, "demo-site", "img", "hero.jpg")
+    flat = name.replace("/", "-"); out = os.path.join(_OG_DIR, flat + ".jpg")
+    if os.path.exists(out) and os.path.getmtime(out) >= os.path.getmtime(src): return f"/img/og/{flat}.jpg"
+    try:
+        from PIL import Image, ImageDraw
+    except ImportError:
+        return f"/img/{name}.jpg"
+    W, Hh = 1200, 630
+    im = Image.open(src).convert("RGB"); w, h = im.size; t = W / Hh
+    if w / h > t: nw = round(h * t); im = im.crop(((w - nw) // 2, 0, (w - nw) // 2 + nw, h))
+    else: nh = round(w / t); im = im.crop((0, max(0, (h - nh) // 3), w, max(0, (h - nh) // 3) + nh))
+    im = im.resize((W, Hh), Image.LANCZOS)
+    grad = Image.new("L", (1, Hh)); px = [0] * Hh
+    for y in range(Hh):
+        k = (y - Hh * 0.55) / (Hh * 0.45); px[y] = 0 if k < 0 else int(200 * (k ** 1.4))
+    grad.putdata(px); grad = grad.resize((W, Hh))
+    im.paste(Image.new("RGB", (W, Hh), (4, 20, 26)), (0, 0), grad)
+    ImageDraw.Draw(im).rectangle((0, Hh - 8, W, Hh), fill=(240, 156, 28))
+    if _OG_LOGO is None:
+        lg = Image.open(os.path.join(BASE, "demo-site", "brand", "logo-reverse.png")).convert("RGBA")
+        lh = 84; _OG_LOGO = lg.resize((round(lg.width * lh / lg.height), lh), Image.LANCZOS)
+    im.paste(_OG_LOGO, (56, Hh - 8 - 40 - _OG_LOGO.height), _OG_LOGO)
+    im.save(out, "JPEG", quality=72, optimize=True, progressive=True)
+    return f"/img/og/{flat}.jpg"
+def og_tags(title, desc, path, name="hero"):
+    img = PUBLIC + og_image(name)
+    return (f'<meta property="og:site_name" content="Florida Coffee"><meta property="og:locale" content="tr_TR"><meta property="og:type" content="website">'
+            f'<meta property="og:url" content="{PUBLIC}{path}"><meta property="og:title" content="{H.escape(title)}"><meta property="og:description" content="{H.escape(desc)}">'
+            f'<meta property="og:image" content="{img}"><meta property="og:image:secure_url" content="{img}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{H.escape(title)}">'
+            f'<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{H.escape(title)}"><meta name="twitter:description" content="{H.escape(desc)}"><meta name="twitter:image" content="{img}">')
+def og_pick(body, path):
+    """Sayfanın paylaşım karesi: hero arka planı; yoksa detay sayfalarında ilk şube/ürün fotoğrafı; yoksa hero."""
+    m = re.search(r'<div class="bg"><img src="/img/([a-z0-9/_-]+)\.jpg"', body)
+    if m: return m.group(1)
+    m = re.search(r'<img src="/img/((?:subeler|menu)/[a-z0-9_-]+)\.jpg"', body)
+    if m and path.count("/") >= 3: return m.group(1)
+    return "hero"
+def inject_og(rel, title, desc, path, name):
+    """Statik demo sayfalarına (app, platform, sunum) paylaşım etiketi ekler."""
+    fp = os.path.join(DIST, rel)
+    if not os.path.exists(fp): return
+    t = open(fp, encoding="utf-8").read()
+    t = re.sub(r'<meta (?:property="og:[^"]*"|name="twitter:[^"]*") content="[^"]*">', '', t)   # eski etiketleri temizle
+    t = re.sub(r'(</title>)', r'\1' + og_tags(title, desc, path, name).replace("\\", "\\\\"), t, count=1)
+    open(fp, "w", encoding="utf-8").write(t)
 if DIST != os.path.abspath(_SRC_DIST):
     for d in ("img", "app", "platform", "sunum"):
         src = os.path.join(_SRC_DIST, d)
@@ -789,12 +842,12 @@ if (fC) {{ const fmt = n => n.toLocaleString("tr-TR"); const calc = () => {{ con
 showHint(document.body.dataset.page || "safak");
 '''.replace("  document.querElementsAll = null;\n","")
 
-def head(title, desc, path, jsonld=None, noindex=True):
+def head(title, desc, path, jsonld=None, noindex=True, og="hero"):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{H.escape(title)}</title><meta name="description" content="{H.escape(desc)}">{'<meta name="robots" content="noindex">' if noindex else ''}
 <link rel="canonical" href="{SITE}{path}"><meta name="theme-color" content="#004854">
-<meta property="og:title" content="{H.escape(title)}"><meta property="og:description" content="{H.escape(desc)}"><meta property="og:image" content="{SITE}/img/hero.jpg"><meta property="og:type" content="website">
+{og_tags(title, desc, path, og)}
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Poppins:wght@600&display=swap">
@@ -805,7 +858,7 @@ def shell(body, page, title, desc, path, jsonld=None, cls=""):
     # tema sınıfı (ör. paper) hero'dan sonra gelen <main>'e uygulanır; hero, nav ve footer koyu kalır
     end = body.find('</section>') + len('</section>') if body.startswith('<section class="hero') else 0
     body = body[:end] + f'<main id="main" class="{cls}">' + body[end:] + '</main>'
-    return head(title, desc, path, jsonld) + f'''<body data-page="{page}">
+    return head(title, desc, path, jsonld, og=og_pick(body, path)) + f'''<body data-page="{page}">
 <a class="skip" href="#main">İçeriğe geç</a>
 <header class="nav" role="banner"><a class="home" href="/" aria-label="Florida Coffee ana sayfa">{LOGO_HTML}</a>
 <nav class="navlinks" id="navlinks" aria-label="Ana menü">{nav}</nav>
@@ -1296,9 +1349,12 @@ for sec_id, href, label in [("menu","/menu/","Tüm menü ve ürün sayfaları"),
     site = re.sub(rf'(<section class="sec[^"]*" id="{sec_id}">.*?<div class="inner">)', rf'\1<p style="margin:0 0 .5rem"><a class="btn ghost sm" href="{href}">{label}</a></p>', site, count=1, flags=re.S)
 site = site.replace('<li>Kariyer</li><li>KVKK aydınlatma metni</li><li>Çerez politikası</li><li>Kullanıcı sözleşmesi</li><li>İletişim</li>','<li><a href="/kariyer/">Kariyer</a></li><li><a href="/yasal/kvkk/">KVKK aydınlatma metni</a></li><li><a href="/yasal/cerez/">Çerez politikası</a></li><li><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a></li><li><a href="/iletisim/">İletişim</a></li>')
 site = site.replace('<li>Türkçe</li><li>English</li><li>Crnogorski</li>','<li>Türkçe</li><li><a href="/en/">English</a></li><li>Crnogorski · yakında</li>')
-home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#004854"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/"><style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
+home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#004854"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/">' + og_tags("Florida Coffee · Boğaz'da Bir Gün", "Çengelköy'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise.", "/", "hero") + '<style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
   '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/favicon.svg","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"}}, ensure_ascii=False) + '</script></head><body>'
 open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(rebase(home_head + site + '</body></html>')); n += 1
+inject_og("app/index.html", "Florida Coffee · Uygulama Demosu", "Ön sipariş, FloridaDays Club, cüzdan ve tek QR; tarayıcıda çalışan uygulama demosu.", "/app/", "teslim")
+inject_og("platform/index.html", "Florida Coffee · Platform Prototipi", "HQ paneli ve franchisee portalı: ciro, royalty, denetim, tedarik, aday havuzu.", "/platform/", "workspace")
+inject_og("sunum/index.html", "Florida Coffee · Sunum", "P3Media teklif sunumu: web sitesi, mobil uygulama ve HQ platformu.", "/sunum/", "ekip")
 # sitemap + robots + vercel
 urls = ["/"] + [p for p,_ in PAGES if not p.endswith(".html")]
 open(os.path.join(DIST, "sitemap.xml"), "w", encoding="utf-8").write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' + "".join(f'  <url><loc>{SITE}{u}</loc><lastmod>{TODAY}</lastmod></url>\n' for u in urls) + '</urlset>\n')
