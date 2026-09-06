@@ -462,6 +462,7 @@ let flow = null, pending = null;   // aktif görev akışı · bekleyen evet/hay
 
 /* --- bağlam: sayfa, saat, şube --- */
 const PAGE = document.body.dataset.page || "safak", PATH = location.pathname;
+const BASE = (() => { const m = [...document.querySelectorAll(".navlinks a")].map(a => a.getAttribute("href") || "").find(h => /\/menu\/$/.test(h)); if (m) return m.slice(0, -6); const h = document.querySelector("a.home")?.getAttribute("href") || "/"; return h.startsWith("/") ? h.replace(/\/$/, "") : ""; })();
 let ctxSection = PAGE;
 const IMG = typeof MENUIMG !== "undefined" ? MENUIMG : {};
 const slugOf = s => norm(s).replace(/ /g,"-");
@@ -733,7 +734,7 @@ const INTENTS = [
    reply:() => { pending = null; return ["Tamam. Başka bir şey?", defaultChips()]; } },
  { id:"baska", kw:["baska bir sey","baska","menu basa","ana menu"], w:1, reply:() => ["Buyurun, ne lazım?", defaultChips()] },
 ];
-const EN_WORDS = ["where","menu","price","open","hours","franchise","how","what","order","nearest","location","thanks","hello","hi "];
+const EN_WORDS = ["where is","where are","how much","how do","what is","what time","opening hours","nearest","location","thanks","thank you","hello","can i","do you","i want","i would"];
 function matchIntent(t){
   let best = null, bestScore = 0;
   for (const it of INTENTS) { let s = 0; for (const k of it.kw) if (hit(t, k)) s += it.w + k.length / 8; if (s > bestScore) { best = it; bestScore = s; } }
@@ -748,11 +749,12 @@ function faqLookup(t){
 async function userSays(text){
   const raw = String(text).trim(); if (!raw) return;
   if (raw.startsWith("#")){ closeFlo(); document.querySelector(raw)?.scrollIntoView({behavior: reduce ? "auto" : "smooth"}); return; }
-  if (raw.startsWith("/") || raw.startsWith("http")){ location.href = raw; return; }
+  if (raw.startsWith("/")){ location.href = BASE + raw; return; }
+  if (raw.startsWith("http")){ window.open(raw, "_blank", "noopener"); return; }
   bubble(esc(raw), "out"); floIn.value = "";
   const t = norm(raw);
   if (flow) return flowStep(raw);
-  if (EN_WORDS.some(w => t.includes(w)) && !has(t,"sube","menu ve")) { stat("en"); return say("I can help in English too: 17 locations in Türkiye and Montenegro, same recipe everywhere (14 g dose, 18–23 s shot). Locations, menu and the app are on the English page.", [["English page","/en/"],["Nearest location","en yakın"],["Menu","/menu/"]]); }
+  if (EN_WORDS.some(w => t.includes(w)) && !/[çğıöşü]/.test(raw.toLowerCase())) { stat("en"); return say("I can help in English too: 17 locations in Türkiye and Montenegro, same recipe everywhere (14 g dose, 18–23 s shot). Locations, menu and the app are on the English page.", [["English page","/en/"],["Nearest location","en yakın"],["Menu","/menu/"]]); }
   const p = findProduct(t), b = findBranch(t);
   const it = matchIntent(t);
   if (it) { stat(it.id); const r = it.reply(t, raw); if (r === null || r === undefined) return; return say(r[0], r[1]); }
@@ -824,8 +826,11 @@ function pageHint(){
 }
 let lastHint = "", hintTimer, hintSend = "";
 function showHint(id){ if (id === lastHint || !floEl.hidden) return; lastHint = id; ctxSection = id;
-  const h = document.body.dataset.page ? pageHint() : (HINTS[id] || HINTS.safak);
-  const ss = sunsetOf(homeBranch()); hintSend = h.s;
+  let h = document.body.dataset.page ? pageHint() : (HINTS[id] || HINTS.safak);
+  const hr = hourNow(), hb = homeBranch(); let hh = h;
+  if (hr >= 14 && hr < 16 && ["sabah","menu","secim","safak"].includes(id)) hh = {t:"Ölü saat kampanyası açık: soğuk kahveler %20 indirimli. Sipariş vereyim mi?", s:"sipariş"};
+  else if (hr >= 17 && hr < 20 && hb.f.includes("manzara") && ["subeler","gece","safak"].includes(id)) hh = {t:`${hb.n}'ta gün batımı ${sunsetOf(hb)}; manzaralı masa ayırayım mı?`, s:"yer ayır"};
+  const ss = sunsetOf(hb); hintSend = hh.s; h = hh;
   floHint.textContent = h.t.replace("{ss}", ss).replace("{selam}", mem.name ? `${greetWord()} ${mem.name}!` : `${greetWord()}!`);
   floHint.classList.add("on"); glance(-4, 0, 1600); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 6500); }
 floHint.addEventListener("click", e => { e.stopPropagation(); floHint.classList.remove("on"); openFlo(); if (hintSend) userSays(hintSend); });
