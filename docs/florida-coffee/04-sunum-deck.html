@@ -1,73 +1,73 @@
 <title>Florida Coffee Teklif Sunumu</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap">
 <style>
 :root{--bg:#041A22;--bg-2:#072C38;--panel:#0A3846;--ink:#F6F1E8;--ink-2:#BCD0D4;--ink-3:#7E969D;--line:#11495A;--coral:#F09C1C;--coral-deep:#D44808;--teal:#5FC4CB;--teal-deep:#004854;--gold:#EFC46B;--good:#6FC9A4;--warn:#F0916C;--brand:#004854;--amber:#F09C1C;--rust:#D44808}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:"Public Sans",system-ui,sans-serif;overflow:hidden}
-h1,h2,h3,.d{font-family:"Bricolage Grotesque","Public Sans",sans-serif;letter-spacing:-0.015em;text-wrap:balance;margin:0}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Manrope",system-ui,sans-serif;overflow:hidden}
+h1,h2,h3,.d{font-family:"Outfit","Manrope",system-ui,sans-serif;letter-spacing:-0.03em;text-wrap:balance;margin:0}
 .deck{position:fixed;inset:0;display:grid;place-items:center;background:var(--bg)}
 .slide{width:min(100vw,calc(100vh*16/9));aspect-ratio:16/9;background:var(--bg);color:var(--ink);padding:4.5vmin 6vmin 8vmin;display:none;flex-direction:column;position:relative;font-size:calc(min(100vw,100vh*16/9)/62)}
 .slide.on{display:flex}
-.eyebrow{font-family:"Bricolage Grotesque",sans-serif;font-size:.7em;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.6em}
+.eyebrow{font-family:"Outfit",system-ui,sans-serif;font-size:.7em;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:700;margin-bottom:.6em}
 h1{font-size:2.6em;line-height:1.02;font-weight:800;max-width:14ch}
 h2{font-size:1.9em;line-height:1.08;font-weight:800;max-width:20ch;margin-bottom:.5em}
 h3{font-size:1.05em;font-weight:700;color:var(--ink)}
 p{font-size:1em;line-height:1.5;color:var(--ink-2);max-width:60ch;margin:0 0 .6em}
-.big{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:3.4em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
+.big{font-family:"Outfit",system-ui,sans-serif;font-weight:800;font-size:3.4em;line-height:1;font-variant-numeric:tabular-nums;color:var(--ink)}
 .big.coral{color:var(--coral)}.big.teal{color:var(--teal)}.big.gold{color:var(--gold)}
 .cols{display:grid;gap:1.4em;flex:1;align-content:center}
 .c2{grid-template-columns:1fr 1fr}.c3{grid-template-columns:1fr 1fr 1fr}.c4{grid-template-columns:repeat(4,1fr)}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:.8em;padding:1.1em 1.2em}
 .card h3{margin-bottom:.35em}
 .card p{font-size:.88em;margin:0}
-.card .l{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;font-weight:700}
+.card .l{font-size:.68em;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);font-family:"Outfit",system-ui,sans-serif;font-weight:700}
 .card.accent{border-color:var(--coral);background:linear-gradient(160deg,#123E4C,var(--panel))}
 .card.teal{border-color:var(--teal-deep)}
 ul{margin:.3em 0 0;padding-left:1.1em;color:var(--ink-2);font-size:.95em;line-height:1.5}
 li{margin:.25em 0}
 li b{color:var(--ink)}
-.foot{position:absolute;left:6vmin;right:6vmin;bottom:3vmin;display:flex;justify-content:space-between;font-size:.62em;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.foot{position:absolute;left:6vmin;right:6vmin;bottom:3vmin;display:flex;justify-content:space-between;font-size:.62em;color:var(--ink-3);font-family:"Outfit",system-ui,sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .mark{width:1.35em;height:1.35em;display:inline-block;vertical-align:middle;margin-right:.45em}
 /* gerçek logo: açılış/kapanış slaytlarında büyük, diğerlerinde sağ üst köşede küçük */
 .brandlogo{height:3.1em;width:calc(3.1em*1965/670);align-self:flex-start;display:block;margin-bottom:1.6em}
 .corner{position:absolute;top:4.5vmin;right:6vmin;height:1.55em;width:auto;opacity:.92}
 .slide.hero .corner{display:none}
-.chip{display:inline-block;padding:.12em .55em;border-radius:999px;font-size:.62em;font-weight:700;font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.04em;vertical-align:middle}
+.chip{display:inline-block;padding:.12em .55em;border-radius:999px;font-size:.62em;font-weight:700;font-family:"Outfit",system-ui,sans-serif;letter-spacing:.04em;vertical-align:middle}
 .chip.coral{background:#3E2409;color:var(--coral)}.chip.teal{background:#0C3C46;color:var(--teal)}.chip.gold{background:#3A2C0D;color:var(--gold)}.chip.good{background:#0F3229;color:var(--good)}.chip.warn{background:#3E2110;color:var(--warn)}
 table{border-collapse:collapse;width:100%;font-size:.82em;font-variant-numeric:tabular-nums}
 th,td{padding:.5em .7em;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-th{font-family:"Bricolage Grotesque",sans-serif;font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+th{font-family:"Outfit",system-ui,sans-serif;font-size:.78em;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
 td.n{text-align:right;white-space:nowrap}
 td b{color:var(--ink)}
 .bars{display:flex;flex-direction:column;gap:.9em;margin-top:1em}
 .bar{display:grid;grid-template-columns:9em 1fr 6em;align-items:center;gap:.8em;font-size:.95em}
-.bar .t{font-weight:700;font-family:"Bricolage Grotesque",sans-serif}
+.bar .t{font-weight:700;font-family:"Outfit",system-ui,sans-serif}
 .bar .b{height:1.3em;border-radius:.3em;background:var(--teal-deep)}
 .bar .b.me{background:var(--coral)}
 .bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
 .flow{display:grid;grid-template-columns:repeat(5,1fr);gap:.8em;align-items:stretch;margin-top:.6em}
 .flow .card{text-align:center}
-.flow .card .n{font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:1.1em;margin-bottom:.2em}
-.api{margin-top:.8em;border:1px dashed var(--teal-deep);border-radius:.6em;padding:.6em 1em;text-align:center;color:var(--teal);font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:.9em}
+.flow .card .n{font-family:"Outfit",system-ui,sans-serif;font-weight:800;font-size:1.1em;margin-bottom:.2em}
+.api{margin-top:.8em;border:1px dashed var(--teal-deep);border-radius:.6em;padding:.6em 1em;text-align:center;color:var(--teal);font-family:"Outfit",system-ui,sans-serif;font-weight:700;font-size:.9em}
 .timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:1em;margin-top:.5em}
 .timeline .card{border-top:.25em solid var(--teal)}
 .timeline .card:nth-child(2){border-top-color:var(--gold)}.timeline .card:nth-child(3){border-top-color:var(--coral)}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:.35em 1em;font-size:.92em;color:var(--ink-2)}
-.kv b{color:var(--ink);font-family:"Bricolage Grotesque",sans-serif}
+.kv b{color:var(--ink);font-family:"Outfit",system-ui,sans-serif}
 .hero{justify-content:center}
 .hero .sub{font-size:1.15em;color:var(--ink-2);max-width:50ch;margin-top:.9em}
 .progress{position:fixed;left:0;bottom:0;height:.35vh;background:var(--coral);width:0;transition:width .25s}
-.counter{position:fixed;right:1.2vw;top:1vh;font-size:.75rem;color:var(--ink-3);font-family:"Bricolage Grotesque",sans-serif;letter-spacing:.06em}
+.counter{position:fixed;right:1.2vw;top:1vh;font-size:.75rem;color:var(--ink-3);font-family:"Outfit",system-ui,sans-serif;letter-spacing:.06em}
 .help{position:fixed;left:1.2vw;top:1vh;font-size:.7rem;color:var(--ink-3)}
 .notes{position:fixed;left:0;right:0;bottom:0;background:#020E13;color:var(--ink-2);border-top:1px solid var(--line);padding:.8rem 1.2rem;font-size:.85rem;max-height:32vh;overflow:auto;display:none}
 .notes.on{display:block}
-.notes b{color:var(--gold);font-family:"Bricolage Grotesque",sans-serif}
+.notes b{color:var(--gold);font-family:"Outfit",system-ui,sans-serif}
 .navbtn{position:fixed;top:50%;transform:translateY(-50%);width:3rem;height:3rem;border-radius:50%;border:1px solid var(--line);background:rgba(0,0,0,.3);color:var(--ink-2);font-size:1.2rem;cursor:pointer;display:grid;place-items:center}
 .navbtn:hover{color:var(--ink);border-color:var(--ink-3)}
 .navbtn.prev{left:.8vw}.navbtn.next{right:.8vw}
 .navbtn:focus-visible{outline:2px solid var(--teal)}
-.quote{font-family:"Bricolage Grotesque",sans-serif;font-size:1.5em;font-weight:700;line-height:1.25;color:var(--ink);max-width:24ch;border-left:.25em solid var(--coral);padding-left:.8em;margin:.6em 0}
+.quote{font-family:"Outfit",system-ui,sans-serif;font-size:1.5em;font-weight:700;line-height:1.25;color:var(--ink);max-width:24ch;border-left:.25em solid var(--coral);padding-left:.8em;margin:.6em 0}
 @media (prefers-reduced-motion:reduce){.progress{transition:none}}
 </style>
 
