@@ -722,6 +722,9 @@ const INTENTS = [
    reply:() => ["Uygulama iOS ve Android'de: ön sipariş, \"Geldim\", cüzdan, sadakat, kampanyalar. Kurulum bir dakika; kartını aktaran herkese ilk sipariş küçük boy kahve bizden.", [["Uygulama sayfası","/uygulama/"],["Tarayıcıda dene","/app/"]]] },
  { id:"iletisim", kw:["iletisim","telefon","mail","e posta","merkez","genel mudurluk","basin","is birligi","sponsor"], w:2,
    reply:() => ["Merkez: Çengelköy Mah. Görgeç Sok. No:6, Üsküdar / İstanbul · merhaba@floridacoffee.com.tr · +90 216 000 00 00. Şube telefonları şube sayfalarında; basın ve iş birliği için iletişim formu.", [["İletişim sayfası","/iletisim/"],["Bir insanla konuş","insan"]]] },
+ { id:"yorum", kw:["yorum","yorumlar","degerlendirme","ne diyorlar","memnun mu"], w:3,
+   reply:t => { if (typeof REVIEWS === "undefined") return ["Yorumlar şube sayfalarında; Google ve uygulama yorumları her gün akar.", [["Şubeler","/subeler/"]]]; const b = findBranch(t); const list = (b ? REVIEWS.filter(r => r.b === b.id) : REVIEWS).slice(0, 2);
+     return [(b ? `<b>${b.n}</b> için son yorumlar:` : "Son yorumlar (4,8 · 3.120 yorum):") + list.map(r => `\n★ ${r.s} · ${r.n}: "${r.x}"`).join("") + "\n\nHangi şube? Yorumlarını getireyim.", [["Kavacık"],["Kadıköy"],["Tümü","#yorumlar"],["Yorum yaz","çok iyiydi"]]]; } },
  { id:"kim", kw:["kimsin","nesin","sen kim","flo","tukan","adin ne","robot"], w:2,
    reply:() => ["Ben Flo, logodaki tukan. Şubeleri, menüyü, standartları ve kampanyaları bilirim; sipariş alır, franchise ve iş başvurusu açar, şikâyeti kayda geçirir, gerektiğinde bir insana aktarırım. Canlıda Claude API ile konuşuyorum; burada kural tabanlı demo.", defaultChips()] },
  { id:"isim", kw:["benim adim","adim"], w:3,
@@ -807,6 +810,7 @@ const HINTS = {
   kulup:    {t:"Kartını uygulamaya aktarmayı anlatayım.", s:"kart aktar"},
   gece:     {t:"Perşembe Kavacık'ta akustik var; yer ayırayım mı?", s:"etkinlikler"},
   franchise:{t:"Kendi şehrinde Florida? 2 dakikada ön başvuru.", s:"franchise"},
+  yorumlar: {t:"Şubeni söyle, son yorumları ve yanıtlarımızı göstereyim.", s:"yorumlar"},
   basvuru:  {t:"Franchise başvurusu için buradayım.", s:"franchise"},
   kariyer:  {t:"Barista olmak deneyim istemez; ön kaydını 1 dakikada alayım.", s:"kariyer"},
   kurumsal: {t:"Ofis ikramı mı, etkinlik barı mı? Teklif 1 iş günü.", s:"kurumsal"},
