@@ -219,9 +219,12 @@ a.cell:hover{background:rgba(10,77,92,.55)}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}.kv dt{color:var(--ink-3)}.kv dd{margin:0}
 .faq details{border-top:1px solid var(--hair);padding:.8rem 0}.faq summary{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}.faq p{margin:.5rem 0 0;color:var(--ink-2)}
 .paper .faq details{border-color:var(--paper-line)}.paper .faq p{color:var(--paper-ink-2)}
-.mitem{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--paper-line);align-items:baseline;text-decoration:none;color:inherit}
-.mitem .n{font-family:var(--disp);font-weight:700;font-size:1.05rem}.mitem .d{grid-column:1/-1;font-size:.84rem;color:var(--paper-ink-2)}.mitem .p{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums}
-.mitem .tags{grid-column:1/-1;display:flex;gap:.3rem;flex-wrap:wrap}
+.mitem{display:grid;grid-template-columns:3.6rem 1fr auto;grid-template-areas:"img n p" "img d d" "img tags tags";gap:.3rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--paper-line);align-items:baseline;text-decoration:none;color:inherit}
+.mitem:not(:has(.thumb)){grid-template-columns:1fr auto;grid-template-areas:"n p" "d d" "tags tags"}
+.mitem .thumb{grid-area:img;align-self:start;width:3.6rem;height:3.6rem;overflow:hidden;background:var(--paper-line)}.mitem .thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}.mitem:hover .thumb img{transform:scale(1.06)}
+.mitem .n{grid-area:n}.mitem .p{grid-area:p}.mitem .d{grid-area:d}.mitem .tags{grid-area:tags}
+.mitem .n{font-family:var(--disp);font-weight:700;font-size:1.05rem}.mitem .d{font-size:.84rem;color:var(--paper-ink-2)}.mitem .p{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums}
+.mitem .tags{display:flex;gap:.3rem;flex-wrap:wrap}
 .tg{font-size:.68rem;padding:.12rem .5rem;border:1px solid var(--paper-line);color:var(--paper-ink-2)}.tg.v{border-color:#8FBF9A;color:#3D6B48}.tg.c{border-color:#D8B48A;color:#8A5A24}
 .mcat{padding:.45rem .95rem;border:1px solid var(--paper-line);font-size:.85rem;font-weight:600;color:var(--paper-ink-2)}.mcat[aria-pressed="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
 .mcats{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.2rem 0 .8rem}

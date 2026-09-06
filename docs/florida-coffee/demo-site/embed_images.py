@@ -57,6 +57,15 @@ def main():
             return m.group(1) + "data:video/mp4;base64," + base64.b64encode(open(p, "rb").read()).decode() + m.group(3)
         return m.group(1) + f"video/{name}.mp4" + m.group(3)
     html, nv = re.subn(r'(<video[^>]*data-vid="([a-z0-9_-]+)"[^>]*><source src=")[^"]*(")', vid, html)
+    # menü görselleri → #menuimg JSON haritası (artifact harici dosya yükleyemez)
+    mdir = os.path.join(HERE, "img", "menu"); mmap = {}
+    if os.path.isdir(mdir):
+        for f in sorted(os.listdir(mdir)):
+            if f.endswith(".jpg"):
+                uri, _ = to_jpeg_data_uri(os.path.join(mdir, f), 320, 74); mmap[f[:-4]] = uri
+    import json as _json
+    html = re.sub(r'<script id="menuimg" type="application/json">.*?</script>', lambda m: '<script id="menuimg" type="application/json">' + _json.dumps(mmap, separators=(",", ":")) + '</script>', html, count=1, flags=re.S)
+    print(f"menü görseli: {len(mmap)}")
     open(os.path.join(HERE, a.out), "w", encoding="utf-8").write(html)
     print(f"marka görseli: {nb}, video etiketi: {nv} (gömülü: {', '.join(sorted(vids))})")
     print(f"gömüldü: {len(done)} görsel, toplam {total//1024} KB → {a.out}")

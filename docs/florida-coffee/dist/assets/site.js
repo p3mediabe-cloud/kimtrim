@@ -160,37 +160,65 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 const MENU = {
   sicak: [
-    ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal","95 mg kafein","sütsüz","vegan"]],
-    ["Espresso","14 g double shot · 18–23 sn","95",["3 kcal","85 mg kafein","sütsüz","vegan"]],
-    ["Americano","Çift shot, sıcak su","115",["8 kcal","170 mg","sütsüz","vegan"]],
-    ["Flat White","Çift shot, ince süt dokusu","150",["140 kcal","180 mg"]],
-    ["Cortado","Tek shot, eşit süt","130",["70 kcal","75 mg"]],
-    ["Cappuccino","Çift shot, bol köpük","145",["150 kcal","170 mg"]],
-    ["Latte","Çift shot, sıcak süt","150",["190 kcal","170 mg"]],
-    ["Türk Kahvesi","7 g, közde, lokum ile","95",["25 kcal","65 mg","sütsüz"]]
+    ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal", "95 mg kafein", "sütsüz", "vegan"]],
+    ["V60","Elde demleme · 250 ml · günün çekirdeği","140",["5 kcal", "120 mg kafein", "sütsüz", "vegan"]],
+    ["Chemex","İki kişilik · 500 ml","220",["5 kcal", "120 mg kafein", "sütsüz", "vegan"]],
+    ["Espresso","14 g double shot · 18–23 sn","95",["3 kcal", "85 mg kafein", "sütsüz", "vegan"]],
+    ["Americano","Çift shot, sıcak su","115",["8 kcal", "170 mg", "sütsüz", "vegan"]],
+    ["Cortado","Tek shot, eşit süt","130",["70 kcal", "75 mg"]],
+    ["Flat White","Çift shot, ince süt dokusu","150",["140 kcal", "180 mg"]],
+    ["Cappuccino","Çift shot, bol köpük","145",["150 kcal", "170 mg"]],
+    ["Latte","Çift shot, sıcak süt","150",["190 kcal", "170 mg"]],
+    ["Caramel Latte","Ev yapımı karamel şurubu","170",["260 kcal", "170 mg"]],
+    ["Vanilla Latte","Madagaskar vanilya","170",["240 kcal", "170 mg"]],
+    ["Mocha","%55 bitter çikolata, espresso, süt","175",["300 kcal", "170 mg"]],
+    ["White Mocha","Beyaz çikolata, espresso, süt","180",["330 kcal", "170 mg"]],
+    ["Caramel Macchiato","Vanilya, süt, espresso üstte, karamel","180",["270 kcal", "170 mg"]],
+    ["Türk Kahvesi","7 g, közde, lokum ile","95",["25 kcal", "65 mg", "sütsüz"]],
+    ["Sütlü Türk Kahvesi","Sütle pişirilmiş","105",["70 kcal", "65 mg"]]
   ],
   soguk: [
-    ["Cold Brew","16 saat demleme","145",["25 kcal","200 mg","sütsüz","vegan"]],
-    ["Boğaz Cold Brew","Tonik ve portakal kabuğu ile · Kavacık, Beykoz","165",["60 kcal","200 mg","sütsüz","vegan"]],
-    ["Iced Latte","Espresso, soğuk süt, buz","160",["150 kcal","150 mg"]],
-    ["Iced Americano","Çift shot, buzlu su","125",["10 kcal","170 mg","sütsüz","vegan"]],
-    ["Iced White Mocha","Beyaz çikolata sosu ile","185",["320 kcal","150 mg"]],
-    ["Frappe","Blender, kremalı","175",["290 kcal","120 mg"]]
+    ["Cold Brew","16 saat demleme","145",["25 kcal", "200 mg", "sütsüz", "vegan"]],
+    ["Boğaz Cold Brew","Tonik ve portakal kabuğu ile · Kavacık, Beykoz","165",["60 kcal", "200 mg", "sütsüz", "vegan"]],
+    ["Iced Filtre","Günün çekirdeği · buz üstüne","130",["5 kcal", "95 mg", "sütsüz", "vegan"]],
+    ["Iced Americano","Çift shot, buzlu su","125",["10 kcal", "170 mg", "sütsüz", "vegan"]],
+    ["Iced Latte","Espresso, soğuk süt, buz","160",["150 kcal", "150 mg"]],
+    ["Iced Caramel Latte","Karamel şurubu, süt, buz","175",["250 kcal", "150 mg"]],
+    ["Iced Mocha","Bitter çikolata sosu, espresso, süt, buz","180",["300 kcal", "150 mg"]],
+    ["Iced White Mocha","Beyaz çikolata sosu ile","185",["320 kcal", "150 mg"]],
+    ["Frappe","Blender, kremalı","175",["290 kcal", "120 mg"]],
+    ["Çikolatalı Frappe","Bitter çikolata, blender","180",["330 kcal", "100 mg"]],
+    ["Affogato","Vanilyalı dondurma üstüne espresso","165",["220 kcal", "85 mg"]]
   ],
   diger: [
-    ["Matcha Latte","Tören sınıfı matcha","165",["180 kcal","70 mg"]],
-    ["Sıcak Çikolata","%55 bitter","150",["280 kcal","kafeinsiz"]],
-    ["Chai Latte","Ev yapımı baharat konsantresi","155",["210 kcal","40 mg"]],
-    ["Ev Limonatası","Taze sıkım, naneli","110",["90 kcal","kafeinsiz","vegan","sütsüz"]],
-    ["Demleme Çay","Rize · bardak","65",["0 kcal","30 mg","vegan","sütsüz"]]
+    ["Sıcak Çikolata","%55 bitter","150",["280 kcal", "kafeinsiz"]],
+    ["Salep","Kış mevsimi · tarçınlı","140",["230 kcal", "kafeinsiz"]],
+    ["Chai Latte","Ev yapımı baharat konsantresi","155",["210 kcal", "40 mg"]],
+    ["Matcha Latte","Tören sınıfı matcha","165",["180 kcal", "70 mg"]],
+    ["Iced Matcha Latte","Matcha, süt, buz","170",["170 kcal", "70 mg"]],
+    ["Demleme Çay","Rize · bardak","65",["0 kcal", "30 mg", "vegan", "sütsüz"]],
+    ["Bitki Çayı","Ihlamur · nane-limon · papatya","95",["0 kcal", "kafeinsiz", "vegan", "sütsüz"]],
+    ["Ev Limonatası","Taze sıkım, naneli","110",["90 kcal", "kafeinsiz", "vegan", "sütsüz"]],
+    ["Hibiskus Soğuk Çay","Taze meyve ve hibiskus çiçeği · soğuk","120",["70 kcal", "kafeinsiz", "vegan", "sütsüz"]],
+    ["Çilekli Smoothie","Çilek, muz, yoğurt","160",["210 kcal", "kafeinsiz"]],
+    ["Çikolatalı Milkshake","Dondurma, süt, bitter çikolata","175",["380 kcal", "kafeinsiz"]],
+    ["Meyveli Soda","Şeftali · yeşil elma · nar","95",["60 kcal", "kafeinsiz", "vegan", "sütsüz"]]
   ],
   yiyecek: [
     ["Kavacık Kahvaltı Tabağı","İki kişilik · 09:00–13:00","690",["kahvaltı"]],
-    ["Tereyağlı Kruvasan","Günlük üretim","95",["glüten","süt"]],
-    ["San Sebastian","Dilim","185",["yumurta","süt"]],
-    ["Fıstıklı Cheesecake","Dilim","195",["fıstık","süt"]],
+    ["Tereyağlı Kruvasan","Günlük üretim","95",["glüten", "süt"]],
+    ["Çikolatalı Kruvasan","Bitter çikolata dolgulu","110",["glüten", "süt"]],
+    ["San Sebastian","Dilim","185",["yumurta", "süt"]],
+    ["Fıstıklı Cheesecake","Dilim","195",["fıstık", "süt"]],
+    ["Frambuazlı Cheesecake","Dilim","190",["süt", "yumurta"]],
+    ["Glütensiz Brownie","Vegan","145",["vegan", "glütensiz"]],
+    ["Havuçlu Kek","Cevizli, krem peynir kaplı","150",["ceviz", "süt", "glüten"]],
+    ["Limonlu Kek","Dilim · haşhaşlı","135",["glüten", "yumurta"]],
+    ["Cookie","Bitter çikolata parçalı","85",["glüten", "süt"]],
     ["Avokadolu Ekşi Maya","Yumurta ilaveli","265",["glüten"]],
-    ["Glütensiz Brownie","Vegan","145",["vegan","glütensiz"]]
+    ["Kaşarlı Tost","Ekşi maya, eski kaşar","165",["glüten", "süt"]],
+    ["Tavuklu Sandviç","Izgara tavuk, roka, pesto","235",["glüten"]],
+    ["Granola Kasesi","Yoğurt, mevsim meyvesi, bal","175",["süt", "ceviz"]]
   ]
 };
 const kcalOf = tags => { const t = tags.find(x => /kcal/.test(x)); return t ? parseInt(t) : 999; };
@@ -209,7 +237,7 @@ if (ml) {
   let cat = document.querySelector("#mcats [aria-pressed=true]")?.dataset.c || "sicak", diet = "";
   const passDiet = tags => !diet || (diet==="hafif" ? kcalOf(tags)<100 : diet==="vegan" ? tags.includes("vegan") : diet==="sutsuz" ? (tags.includes("sütsüz")||tags.includes("vegan")) : diet==="azkafein" ? cafOf(tags)<80 : diet==="glutensiz" ? !tags.includes("glüten") : true);
   const slug = s => s.toLowerCase().replace(/[çğıöşüâî]/g, c => ({"ç":"c","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","â":"a","î":"i"})[c]).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-  const render = () => { const items = MENU[cat].filter(([,,,t]) => passDiet(t)); ml.innerHTML = items.length ? items.map(([n,d,p,t]) => `<a class="mitem" href="/menu/${slug(n)}/"><span class="n">${n}</span><span class="p">${p} ₺</span><span class="d">${d}</span><span class="tags">${t.filter(x=>x!=="sütsüz"||diet==="sutsuz").map(x=>`<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(x)?"v":/kafein|mg/.test(x)?"c":""}">${x}</span>`).join("")}</span></a>`).join("") : `<p style="padding:1rem 0">Bu filtrede ürün yok.</p>`; };
+  const render = () => { const items = MENU[cat].filter(([,,,t]) => passDiet(t)); ml.innerHTML = items.length ? items.map(([n,d,p,t]) => `<a class="mitem" href="/menu/${slug(n)}/"><span class="thumb"><img src="/img/menu/${slug(n)}.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></span><span class="n">${n}</span><span class="p">${p} ₺</span><span class="d">${d}</span><span class="tags">${t.filter(x=>x!=="sütsüz"||diet==="sutsuz").map(x=>`<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(x)?"v":/kafein|mg/.test(x)?"c":""}">${x}</span>`).join("")}</span></a>`).join("") : `<p style="padding:1rem 0">Bu filtrede ürün yok.</p>`; };
   document.querySelectorAll("#mcats .mcat").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#mcats .mcat").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); cat = b.dataset.c; render(); }));
   document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#dietF .mcat").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); diet = b.dataset.d; render(); }));
   render();

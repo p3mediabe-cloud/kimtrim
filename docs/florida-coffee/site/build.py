@@ -21,7 +21,7 @@ def rebase(txt):
     if not BASEPATH: return txt
     return re.sub(r'(href|src)="/(?!/)', rf'\1="{BASEPATH}/', txt)
 _SRC_DIST = os.path.join(BASE, "dist")
-for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST, "img", "brand")), (os.path.join(BASE, "demo-site", "video"), os.path.join(DIST, "video"))):
+for _src, _dst in ((os.path.join(BASE, "demo-site", "brand"), os.path.join(DIST, "img", "brand")), (os.path.join(BASE, "demo-site", "video"), os.path.join(DIST, "video")), (os.path.join(BASE, "demo-site", "img", "menu"), os.path.join(DIST, "img", "menu"))):
     if os.path.isdir(_src): shutil.copytree(_src, _dst, dirs_exist_ok=True)
 if DIST != os.path.abspath(_SRC_DIST):
     for d in ("img", "app", "platform", "sunum"):
@@ -162,9 +162,12 @@ a.cell:hover{{background:rgba(10,77,92,.55)}}
 .kv{{display:grid;grid-template-columns:auto 1fr;gap:.45rem 1rem;font-size:.92rem}}.kv dt{{color:var(--ink-3)}}.kv dd{{margin:0}}
 .faq details{{border-top:1px solid var(--hair);padding:.8rem 0}}.faq summary{{cursor:pointer;font-weight:700;font-family:var(--disp);font-size:1rem}}.faq p{{margin:.5rem 0 0;color:var(--ink-2)}}
 .paper .faq details{{border-color:var(--paper-line)}}.paper .faq p{{color:var(--paper-ink-2)}}
-.mitem{{display:grid;grid-template-columns:1fr auto;gap:.3rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--paper-line);align-items:baseline;text-decoration:none;color:inherit}}
-.mitem .n{{font-family:var(--disp);font-weight:700;font-size:1.05rem}}.mitem .d{{grid-column:1/-1;font-size:.84rem;color:var(--paper-ink-2)}}.mitem .p{{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums}}
-.mitem .tags{{grid-column:1/-1;display:flex;gap:.3rem;flex-wrap:wrap}}
+.mitem{{display:grid;grid-template-columns:3.6rem 1fr auto;grid-template-areas:"img n p" "img d d" "img tags tags";gap:.3rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--paper-line);align-items:baseline;text-decoration:none;color:inherit}}
+.mitem:not(:has(.thumb)){{grid-template-columns:1fr auto;grid-template-areas:"n p" "d d" "tags tags"}}
+.mitem .thumb{{grid-area:img;align-self:start;width:3.6rem;height:3.6rem;overflow:hidden;background:var(--paper-line)}}.mitem .thumb img{{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}}.mitem:hover .thumb img{{transform:scale(1.06)}}
+.mitem .n{{grid-area:n}}.mitem .p{{grid-area:p}}.mitem .d{{grid-area:d}}.mitem .tags{{grid-area:tags}}
+.mitem .n{{font-family:var(--disp);font-weight:700;font-size:1.05rem}}.mitem .d{{font-size:.84rem;color:var(--paper-ink-2)}}.mitem .p{{font-family:var(--disp);font-weight:700;font-variant-numeric:tabular-nums}}
+.mitem .tags{{display:flex;gap:.3rem;flex-wrap:wrap}}
 .tg{{font-size:.68rem;padding:.12rem .5rem;border:1px solid var(--paper-line);color:var(--paper-ink-2)}}.tg.v{{border-color:#8FBF9A;color:#3D6B48}}.tg.c{{border-color:#D8B48A;color:#8A5A24}}
 .mcat{{padding:.45rem .95rem;border:1px solid var(--paper-line);font-size:.85rem;font-weight:600;color:var(--paper-ink-2)}}.mcat[aria-pressed="true"]{{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}}
 .mcats{{display:flex;gap:.4rem;flex-wrap:wrap;margin:1.2rem 0 .8rem}}
@@ -203,7 +206,7 @@ if (ml) {{
   let cat = document.querySelector("#mcats [aria-pressed=true]")?.dataset.c || "sicak", diet = "";
   const passDiet = tags => !diet || (diet==="hafif" ? kcalOf(tags)<100 : diet==="vegan" ? tags.includes("vegan") : diet==="sutsuz" ? (tags.includes("sütsüz")||tags.includes("vegan")) : diet==="azkafein" ? cafOf(tags)<80 : diet==="glutensiz" ? !tags.includes("glüten") : true);
   const slug = s => s.toLowerCase().replace(/[çğıöşüâî]/g, c => ({{"ç":"c","ğ":"g","ı":"i","ö":"o","ş":"s","ü":"u","â":"a","î":"i"}})[c]).replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
-  const render = () => {{ const items = MENU[cat].filter(([,,,t]) => passDiet(t)); ml.innerHTML = items.length ? items.map(([n,d,p,t]) => `<a class="mitem" href="/menu/${{slug(n)}}/"><span class="n">${{n}}</span><span class="p">${{p}} ₺</span><span class="d">${{d}}</span><span class="tags">${{t.filter(x=>x!=="sütsüz"||diet==="sutsuz").map(x=>`<span class="tg ${{/vegan|glütensiz|kafeinsiz/.test(x)?"v":/kafein|mg/.test(x)?"c":""}}">${{x}}</span>`).join("")}}</span></a>`).join("") : `<p style="padding:1rem 0">Bu filtrede ürün yok.</p>`; }};
+  const render = () => {{ const items = MENU[cat].filter(([,,,t]) => passDiet(t)); ml.innerHTML = items.length ? items.map(([n,d,p,t]) => `<a class="mitem" href="/menu/${{slug(n)}}/"><span class="thumb"><img src="/img/menu/${{slug(n)}}.jpg" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></span><span class="n">${{n}}</span><span class="p">${{p}} ₺</span><span class="d">${{d}}</span><span class="tags">${{t.filter(x=>x!=="sütsüz"||diet==="sutsuz").map(x=>`<span class="tg ${{/vegan|glütensiz|kafeinsiz/.test(x)?"v":/kafein|mg/.test(x)?"c":""}}">${{x}}</span>`).join("")}}</span></a>`).join("") : `<p style="padding:1rem 0">Bu filtrede ürün yok.</p>`; }};
   document.querySelectorAll("#mcats .mcat").forEach(b => b.addEventListener("click", () => {{ document.querySelectorAll("#mcats .mcat").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); cat = b.dataset.c; render(); }}));
   document.querElementsAll = null;
   document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => {{ document.querySelectorAll("#dietF .mcat").forEach(x=>x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); diet = b.dataset.d; render(); }}));
@@ -286,11 +289,14 @@ for c, items in MENU.items():
         ld = {"@context":"https://schema.org","@type":"MenuItem","name":it["n"],"description":it["d"],"offers":{"@type":"Offer","price":it["p"],"priceCurrency":"TRY"}}
         if kcal: ld["nutrition"] = {"@type":"NutritionInformation","calories":kcal}
         others = "".join(f'<a class="cell" href="/menu/{slug(o["n"])}/"><h3>{o["n"]}</h3><p>{o["d"]}</p><span class="more">{o["p"]} ₺ →</span></a>' for o in items if o is not it)[:4000]
-        page(f"/menu/{sl}/", shell(hero(CATN[c], it["n"], it["d"], [("Menü","/menu/"),(it["n"],None)]) +
+        has_img = os.path.exists(os.path.join(BASE, "demo-site", "img", "menu", sl + ".jpg"))
+        if has_img: ld["image"] = f"{SITE}/img/menu/{sl}.jpg"
+        photo = f'<figure class="ph r11" style="margin-bottom:1.2rem"><img src="/img/menu/{sl}.jpg" alt="{it["n"]}" style="position:static;width:100%;aspect-ratio:1/1;object-fit:cover;display:block;opacity:1;transform:none"></figure>' if has_img else ""
+        page(f"/menu/{sl}/", shell(hero(CATN[c], it["n"], it["d"], [("Menü","/menu/"),(it["n"],None)], f"menu/{sl}" if has_img else None) +
           f'''<section class="sec"><div class="wrap two"><div><div class="panel"><dl class="kv"><dt>Fiyat</dt><dd><b>{it["p"]} ₺</b> · İstanbul, orta boy</dd>{f'<dt>Enerji</dt><dd>{kcal}</dd>' if kcal else ''}{f'<dt>Kafein</dt><dd>{caf}</dd>' if caf else ''}<dt>Süt</dt><dd>İnek dahil · laktozsuz +10 ₺ · yulaf, badem +15 ₺</dd><dt>Etiketler</dt><dd>{" · ".join(t for t in it["tags"] if not ("kcal" in t or "mg" in t)) or "—"}</dd></dl>
           <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1rem"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">En yakın şube</a></div></div>
           <p style="margin-top:1.2rem;font-size:.9rem">Her şubede aynı reçete: 14 g doz tartıyla, 90–96 °C, 9 bar, 18–23 sn. <a href="/kahvemiz/">Standartlarımız →</a></p></div>
-          <div><div class="lbl" style="margin-bottom:.6rem">Aynı kategoriden</div><div class="grid g2">{others}</div></div></div></section>''',
+          <div>{photo}<div class="lbl" style="margin-bottom:.6rem">Aynı kategoriden</div><div class="grid g2">{others}</div></div></div></section>''',
           "menu", f"{it['n']} · Fiyat ve Kalori · Florida Coffee", f"{it['n']}: {it['d']}. {it['p']} ₺.", f"/menu/{sl}/", ld, "paper"))
 
 # ---------- ŞUBELER ----------
@@ -472,6 +478,7 @@ for path, html_ in PAGES:
 site = re.sub(r'<img[^>]*data-embedded[^>]*>', '', demo)
 site = re.sub(r'(<figure class="ph[^"]*?) has(")', r'\1\2', site)
 site = re.sub(r'(<img class="wm" data-brand="([a-z0-9_-]+)" alt="" src=")[^"]*(")', r'\1img/brand/\2.png\3', site)
+site = re.sub(r'<script id="menuimg" type="application/json">.*?</script>', '<script id="menuimg" type="application/json">{}</script>', site, count=1, flags=re.S)
 site = re.sub(r'(<video[^>]*data-vid="([a-z0-9_-]+)"[^>]*><source src=")[^"]*(")', r'\1video/\2.mp4\3', site)
 site = re.sub(r'^<title>.*?</title>\s*', '', site, count=1, flags=re.S)
 site = site.replace('<a href="#menu">Menü</a><a href="#subeler">Şubeler</a><a href="#kahvemiz">Kahvemiz</a><a href="#taze">Taze</a><a href="#urunler">Ürünler</a><a href="#kulup">Kulüp</a><a href="#franchise">Franchise</a>',
