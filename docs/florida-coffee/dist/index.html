@@ -173,8 +173,8 @@ h2 + .lede{margin-top:1.3rem}
 .heromark .mark{animation:lg-float 7s ease-in-out 2s infinite}
 @keyframes lg-float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-6px) rotate(-3deg)}}
 .ph video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.ph video.top{z-index:1;transition:opacity 3s ease-in-out}
-.ph video.out{opacity:0}
+.ph .veil{position:absolute;inset:0;background:#04141A;opacity:0;transition:opacity 1.6s ease-in-out;pointer-events:none}
+.ph .veil.on{opacity:1}
 .ph video.vert{object-fit:contain;backdrop-filter:blur(14px) brightness(.55)}
 @media (prefers-reduced-motion:reduce){.ph video{display:none}.heromark .mark{animation:none}}
 .hero{min-height:min(92vh,58rem);position:relative;display:flex;flex-direction:column;justify-content:center;padding-top:clamp(5rem,12vh,9rem)}
@@ -544,7 +544,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
-  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero"><source src="video/hero.mp4" type="video/mp4"></video><video class="vid" muted playsinline preload="auto" data-vid="hero2"><source src="video/hero2.mp4" type="video/mp4"></video></figure>
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero" data-fadeloop data-rate=".8"><source src="video/hero.mp4" type="video/mp4"></video></figure>
   <div class="inner">
     <div class="heromark" aria-hidden="true"><svg class="mark anim big" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></div>
     <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
@@ -1092,25 +1092,22 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
-// hero: iki klip, uzun çapraz geçiş — yalnız üstteki katman içeri solar; altta kalan opak kalır ki sabit görsel araya sızmasın
-document.querySelectorAll(".ph").forEach(fig => {
-  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
-  let cur = 0, busy = false;
-  const startOf = el => +el.dataset.start || 0;
-  const fadeOf = el => Math.min(3, (el.duration || 8) / 2.5);
-  v[1].classList.add("out"); v[1].addEventListener("loadedmetadata", () => { v[1].currentTime = startOf(v[1]); }, {once:true});
-  const swap = i => {
-    if (i !== cur || busy) return;
-    busy = true; const el = v[i], n = v[1 - i], FADE = fadeOf(el);
-    el.classList.remove("top"); n.classList.add("top", "out");
-    if (Math.abs(n.currentTime - startOf(n)) > .3) n.currentTime = startOf(n);
-    n.play().then(() => { requestAnimationFrame(() => n.classList.remove("out")); cur = 1 - i;
-      setTimeout(() => { el.classList.add("out"); el.pause(); el.currentTime = startOf(el); busy = false; if (n.ended) swap(1 - i); }, FADE * 1000 + 150);
-    }).catch(() => { n.classList.remove("top"); el.currentTime = startOf(el); el.play(); busy = false; });
-  };
-  v.forEach((el, i) => {
-    el.addEventListener("timeupdate", () => { if (el.duration && el.currentTime >= el.duration - fadeOf(el)) swap(i); });
-    el.addEventListener("ended", () => swap(i));
+// hero: tek klip, yumuşak döngü — sona yaklaşırken koyu marka rengine kararır, baştan karanlıktan açılır; hafif yavaşlatılmış
+document.querySelectorAll("video[data-fadeloop]").forEach(v => {
+  if (reduce) return;
+  const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
+  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
+  v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
+  veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
+  v.addEventListener("timeupdate", () => {
+    if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
+    arming = true; veil.classList.add("on");
+  });
+  v.addEventListener("ended", () => {
+    v.currentTime = 0;
+    v.play().then(() => { setTimeout(() => { veil.classList.remove("on"); arming = false; }, 150); })
+            .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
 /* ---------- /logo canlandırma ---------- */

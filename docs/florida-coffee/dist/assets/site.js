@@ -92,25 +92,22 @@ function isOpen(b, now){
     cnt.forEach(el => io.observe(el));
   }
 })();
-// hero: iki klip, uzun çapraz geçiş — yalnız üstteki katman içeri solar; altta kalan opak kalır ki sabit görsel araya sızmasın
-document.querySelectorAll(".ph").forEach(fig => {
-  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
-  let cur = 0, busy = false;
-  const startOf = el => +el.dataset.start || 0;
-  const fadeOf = el => Math.min(3, (el.duration || 8) / 2.5);
-  v[1].classList.add("out"); v[1].addEventListener("loadedmetadata", () => { v[1].currentTime = startOf(v[1]); }, {once:true});
-  const swap = i => {
-    if (i !== cur || busy) return;
-    busy = true; const el = v[i], n = v[1 - i], FADE = fadeOf(el);
-    el.classList.remove("top"); n.classList.add("top", "out");
-    if (Math.abs(n.currentTime - startOf(n)) > .3) n.currentTime = startOf(n);
-    n.play().then(() => { requestAnimationFrame(() => n.classList.remove("out")); cur = 1 - i;
-      setTimeout(() => { el.classList.add("out"); el.pause(); el.currentTime = startOf(el); busy = false; if (n.ended) swap(1 - i); }, FADE * 1000 + 150);
-    }).catch(() => { n.classList.remove("top"); el.currentTime = startOf(el); el.play(); busy = false; });
-  };
-  v.forEach((el, i) => {
-    el.addEventListener("timeupdate", () => { if (el.duration && el.currentTime >= el.duration - fadeOf(el)) swap(i); });
-    el.addEventListener("ended", () => swap(i));
+// hero: tek klip, yumuşak döngü — sona yaklaşırken koyu marka rengine kararır, baştan karanlıktan açılır; hafif yavaşlatılmış
+document.querySelectorAll("video[data-fadeloop]").forEach(v => {
+  if (reduce) return;
+  const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
+  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
+  v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
+  veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
+  v.addEventListener("timeupdate", () => {
+    if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
+    arming = true; veil.classList.add("on");
+  });
+  v.addEventListener("ended", () => {
+    v.currentTime = 0;
+    v.play().then(() => { setTimeout(() => { veil.classList.remove("on"); arming = false; }, 150); })
+            .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
 /* ---------- /logo canlandırma ---------- */
@@ -142,25 +139,22 @@ document.querySelectorAll(".ph").forEach(fig => {
     cnt.forEach(el => io.observe(el));
   }
 })();
-// hero: iki klip, uzun çapraz geçiş — yalnız üstteki katman içeri solar; altta kalan opak kalır ki sabit görsel araya sızmasın
-document.querySelectorAll(".ph").forEach(fig => {
-  const v = [...fig.querySelectorAll("video")]; if (v.length !== 2 || reduce) return;
-  let cur = 0, busy = false;
-  const startOf = el => +el.dataset.start || 0;
-  const fadeOf = el => Math.min(3, (el.duration || 8) / 2.5);
-  v[1].classList.add("out"); v[1].addEventListener("loadedmetadata", () => { v[1].currentTime = startOf(v[1]); }, {once:true});
-  const swap = i => {
-    if (i !== cur || busy) return;
-    busy = true; const el = v[i], n = v[1 - i], FADE = fadeOf(el);
-    el.classList.remove("top"); n.classList.add("top", "out");
-    if (Math.abs(n.currentTime - startOf(n)) > .3) n.currentTime = startOf(n);
-    n.play().then(() => { requestAnimationFrame(() => n.classList.remove("out")); cur = 1 - i;
-      setTimeout(() => { el.classList.add("out"); el.pause(); el.currentTime = startOf(el); busy = false; if (n.ended) swap(1 - i); }, FADE * 1000 + 150);
-    }).catch(() => { n.classList.remove("top"); el.currentTime = startOf(el); el.play(); busy = false; });
-  };
-  v.forEach((el, i) => {
-    el.addEventListener("timeupdate", () => { if (el.duration && el.currentTime >= el.duration - fadeOf(el)) swap(i); });
-    el.addEventListener("ended", () => swap(i));
+// hero: tek klip, yumuşak döngü — sona yaklaşırken koyu marka rengine kararır, baştan karanlıktan açılır; hafif yavaşlatılmış
+document.querySelectorAll("video[data-fadeloop]").forEach(v => {
+  if (reduce) return;
+  const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
+  const rate = +v.dataset.rate || 1, FADE = 1.6; let arming = false;
+  const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
+  v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
+  veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
+  v.addEventListener("timeupdate", () => {
+    if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
+    arming = true; veil.classList.add("on");
+  });
+  v.addEventListener("ended", () => {
+    v.currentTime = 0;
+    v.play().then(() => { setTimeout(() => { veil.classList.remove("on"); arming = false; }, 150); })
+            .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
 
