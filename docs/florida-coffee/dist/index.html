@@ -128,6 +128,74 @@ button{background:none;border:none;cursor:pointer}
   .nav .cta{margin-left:auto}
 }
 
+
+/* ---------- header v2 ---------- */
+.skip{position:absolute;left:-999px;top:0;z-index:99;background:var(--amber);color:#2A1703;padding:.5rem .8rem;font-weight:700}
+.skip:focus{left:.5rem;top:.5rem}
+.nav{transition:padding .25s,background .25s}
+.nav.scrolled{padding-top:.35rem;padding-bottom:.35rem;background:rgba(4,20,26,.94)}
+.navr{display:flex;align-items:center;gap:.6rem;margin-left:auto;flex:none}
+.navlinks{margin-left:auto}
+.status{display:inline-flex;align-items:center;gap:.45rem;font-size:.72rem;letter-spacing:.04em;color:var(--ink-2);text-decoration:none;border:1px solid var(--hair);padding:.38rem .7rem;white-space:nowrap;font-family:var(--disp);font-weight:600}
+.status i{width:.5rem;height:.5rem;background:var(--ok);box-shadow:0 0 0 3px rgba(111,201,164,.25);flex:none}
+.status.off i{background:var(--busy);box-shadow:0 0 0 3px rgba(240,145,108,.25)}
+.status:hover{color:var(--ink);border-color:var(--hair-2)}
+.lang{font-size:.72rem;font-weight:700;letter-spacing:.08em;color:var(--ink-3);text-decoration:none;padding:.4rem .5rem;border:1px solid transparent;font-family:var(--disp)}
+.lang:hover{color:var(--ink);border-color:var(--hair)}
+.burger{display:none;width:2.6rem;height:2.6rem;flex-direction:column;justify-content:center;align-items:center;gap:.32rem;border:1px solid var(--hair);background:transparent;cursor:pointer}
+.burger span{display:block;width:1.15rem;height:2px;background:var(--ink);transition:transform .25s,opacity .2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(.39rem) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-.39rem) rotate(-45deg)}
+.mnav{position:fixed;inset:0;top:3.4rem;z-index:82;background:rgba(4,20,26,.97);backdrop-filter:blur(14px);padding:1.4rem 1.2rem 2rem;display:flex;flex-direction:column;gap:1.4rem;overflow:auto}
+.mnav-links{display:grid;gap:.1rem}
+.mnav-links a{font-family:var(--disp);font-size:1.7rem;font-weight:700;letter-spacing:-.02em;text-decoration:none;color:var(--ink);padding:.55rem 0;border-bottom:1px solid var(--hair)}
+.mnav-links a:active{color:var(--amber)}
+.mnav-foot{display:grid;gap:.8rem;margin-top:auto}
+.mnav-foot .status{justify-content:center}
+.mnav-langs{display:flex;gap:1rem;font-size:.8rem;color:var(--ink-3);justify-content:center}
+.mnav-langs a{color:var(--ink-2)}
+body.menu-open{overflow:hidden}
+@media (max-width:1100px){.status{display:none}}
+@media (max-width:720px){
+  .nav{flex-wrap:nowrap}
+  .navlinks,.lang{display:none}
+  .burger{display:flex}
+  .navr .cta{display:none}
+  .nav.scrolled{padding-top:.3rem;padding-bottom:.3rem}
+}
+/* ---------- footer v2 ---------- */
+footer{background:#060A0E;border-top:1px solid var(--hair);padding:clamp(2.5rem,6vh,4.5rem) clamp(1.2rem,5vw,5rem) 1.6rem;font-size:.85rem;color:var(--ink-3)}
+footer .fwrap{max-width:1180px;margin:0 auto}
+footer .fgrid{display:grid;grid-template-columns:1.5fr repeat(3,minmax(0,.8fr)) 1.2fr;gap:2rem}
+@media (max-width:1000px){footer .fgrid{grid-template-columns:1fr 1fr}footer .fbrand,footer .fapp{grid-column:1/-1}}
+@media (max-width:560px){footer .fgrid{grid-template-columns:1fr}}
+footer h4{font-family:var(--disp);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin:0 0 .8rem}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:.4rem}
+footer a{color:var(--ink-3);text-decoration:none}
+footer a:hover{color:var(--ink)}
+footer .tag{color:var(--ink-2);margin:.2rem 0 1rem;max-width:34ch}
+footer address{font-style:normal;line-height:1.55;margin-bottom:.9rem}
+footer .contact{display:grid;gap:.3rem;margin-bottom:1rem}
+footer .contact a{display:inline-flex;align-items:center;gap:.5rem}
+footer .social{display:flex;gap:.5rem}
+footer .social a{width:2.3rem;height:2.3rem;border:1px solid var(--hair);display:grid;place-items:center;color:var(--ink-2);transition:border-color .2s,color .2s}
+footer .social a:hover{border-color:var(--amber);color:var(--amber)}
+footer .social svg{width:1.05rem;height:1.05rem;fill:currentColor}
+footer .badges{display:grid;gap:.5rem;margin:.2rem 0 1rem}
+footer .badge{display:flex;align-items:center;gap:.7rem;border:1px solid var(--hair-2);padding:.55rem .8rem;color:var(--ink);text-decoration:none;background:rgba(255,255,255,.02)}
+footer .badge:hover{border-color:var(--amber)}
+footer .badge small{display:block;font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3)}
+footer .badge b{font-family:var(--disp);font-size:.95rem;line-height:1.05}
+footer .badge svg{width:1.4rem;height:1.4rem;fill:currentColor;flex:none}
+footer .fnews{display:flex;gap:.4rem}
+footer .fnews input{flex:1;min-width:0;background:rgba(9,14,19,.6);border:1px solid var(--hair-2);color:var(--ink);padding:.55rem .7rem;font:inherit}
+footer .fend{margin-top:2.4rem;padding-top:1.1rem;border-top:1px solid var(--hair);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.76rem;align-items:center}
+footer .legal{display:flex;gap:1rem;flex-wrap:wrap}
+footer .langs b{color:var(--ink-2)}
+footer .langs{display:flex;gap:.7rem}
+footer .demo-note{margin:.9rem 0 0;font-size:.72rem;color:var(--ink-3);opacity:.8}
+
 /* ---------- hour rail ---------- */
 .rail{position:fixed;left:0;top:0;bottom:0;width:var(--rail);z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.7rem;pointer-events:none}
 .rail .line{position:absolute;top:8vh;bottom:8vh;left:calc(var(--rail)/2);width:1px;background:var(--hair)}
@@ -538,18 +606,120 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   body{padding-bottom:3.4rem}
   footer{padding-bottom:2rem}
 }
+
+/* ---------- v7: hero canlı kart döngüsü ---------- */
+.live{position:relative;overflow:hidden}
+.live .name,.live .meta,.live .sunset{transition:opacity .26s ease,transform .26s ease}
+.live.swap .name,.live.swap .meta,.live.swap .sunset{opacity:0;transform:translateY(6px)}
+.live::after{content:"";position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--amber)}
+.live.run::after{animation:lg-live 3s linear forwards}
+.live:hover::after{animation-play-state:paused}
+@keyframes lg-live{to{width:100%}}
+/* hero işareti */
+.heromark .mark{rotate:var(--tilt,0deg);transition:rotate .7s cubic-bezier(.3,.7,.2,1)}
+.heromark .mark .eyeg{transition:translate .55s cubic-bezier(.3,.7,.2,1)}
+.heromark .mark .eye{animation:lg-blink2 3.4s ease-in-out 1.2s infinite}
+@keyframes lg-blink2{0%,37%,43%,49%,86%,92%,100%{transform:scaleY(1)}40%,46%{transform:scaleY(.08)}89%{transform:scaleY(.08)}}
+/* ---------- v7: bölüm 02 split + favoriler ---------- */
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
+@media (max-width:900px){.split{grid-template-columns:minmax(0,1fr)}}
+.favs{width:min(100%,25rem);margin-left:auto}
+@media (max-width:900px){.favs{margin:1.4rem auto 0}}
+.favhead{display:flex;justify-content:space-between;margin-bottom:.6rem}
+.favstack{position:relative;aspect-ratio:1/1.06;overflow:hidden}
+.fav{position:absolute;inset:0;display:block;overflow:hidden;border:1px solid var(--hair);background:var(--glass);opacity:0;transform:translateX(40px) scale(.94);transition:transform .55s cubic-bezier(.3,.7,.2,1),opacity .45s;pointer-events:none;text-decoration:none;color:inherit}
+.fav img{width:100%;height:100%;object-fit:cover;display:block}
+.fav .fmeta{position:absolute;left:0;right:0;bottom:0;padding:1rem 1.1rem;background:linear-gradient(180deg,transparent,rgba(4,20,26,.94));display:grid;gap:.15rem}
+.fav .rank{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);font-weight:700;font-family:var(--disp)}
+.fav .fn{font-family:var(--disp);font-size:1.4rem;font-weight:700;line-height:1.1}
+.fav .fd{font-size:.82rem;color:var(--ink-2)}
+.fav b{font-family:var(--disp);font-size:1.05rem}
+.fav.on{opacity:1;transform:none;pointer-events:auto;z-index:2}
+.fav.next{opacity:.35;transform:translateX(10px) scale(.96) rotate(1.2deg);z-index:1}
+.fav.prev{opacity:0;transform:translateX(-40px) scale(.94)}
+.favnav{display:flex;align-items:center;justify-content:center;gap:.8rem;margin-top:.8rem}
+.favnav .fbtn.sm{padding:.2rem .7rem;font-size:1rem;line-height:1.3}
+.dots{display:flex;gap:.4rem}.dots i{width:.45rem;height:.45rem;background:var(--hair-2);display:block;cursor:pointer;transition:width .2s}.dots i.on{background:var(--amber);width:1.2rem}
+/* ---------- v7: sipariş ---------- */
+.opts.tiles{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}
+.opt.tile{display:grid;grid-template-columns:2.4rem 1fr auto;align-items:center;gap:.6rem;padding:.35rem .6rem .35rem .35rem;text-align:left}
+.opt.tile img{width:2.4rem;height:2.4rem;object-fit:cover;display:block}
+.opt.tile b{font-family:var(--disp);font-size:.85rem}
+.opt small{font-weight:500;opacity:.75;font-size:.72rem}
+.opt.note[aria-pressed="true"]{background:var(--rust);border-color:var(--rust);color:#fff}
+.orow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+@media (max-width:560px){.orow{grid-template-columns:1fr}.opts.tiles{grid-template-columns:1fr}}
+.opt.tile b,.opt.tile span{white-space:nowrap}
+.ticket .thead{display:flex;justify-content:space-between;gap:.8rem;align-items:flex-start}
+.ticket .thumb{width:3.6rem;height:3.6rem;object-fit:cover;flex:none;border:1px solid var(--hair)}
+.ticket .price small{font-size:.72rem;color:var(--ok);font-family:var(--ui);font-weight:600}
+.tsim{display:flex;gap:.3rem;flex-wrap:wrap;margin:.4rem 0 .2rem;min-height:1.3rem}
+.tsim span{font-size:.64rem;padding:.14rem .5rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.tsim .lac{background:#B79BE8;color:#20142F}.tsim .cold{background:#5FC4CB;color:#04252A}.tsim .hot{background:var(--rust);color:#fff}.tsim .nt{background:var(--hair-2);color:var(--ink)}
+.tprog{height:4px;background:var(--hair);margin:.7rem 0 .5rem;position:relative;overflow:hidden}
+.tprog i{position:absolute;left:0;top:0;bottom:0;width:0;background:var(--amber);transition:width .12s linear}
+.code{font-family:var(--disp);font-size:1.4rem;letter-spacing:.18em;border:1px dashed var(--amber);color:var(--amber);padding:.35rem .8rem;display:inline-block;margin-top:.6rem;align-self:flex-start}
+.toastv7{position:fixed;left:50%;bottom:4.6rem;transform:translate(-50%,12px);background:var(--ink);color:#0A1420;padding:.65rem 1rem;font-weight:600;font-size:.88rem;z-index:90;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;max-width:min(92vw,28rem);text-align:center}
+.toastv7.on{opacity:1;transform:translate(-50%,0)}
+/* ---------- v7: standartlar ---------- */
+.brewwrap.v2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.brewwrap.v2 .brewout{grid-template-columns:repeat(2,1fr)}
+.brewwrap.v2 .brewout .v{font-size:1.3rem}
+@media (max-width:900px){.brewwrap.v2{grid-template-columns:minmax(0,1fr)}}
+.brewcol>.ph{margin-bottom:1rem}
+.stdgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--hair);border:1px solid var(--hair);margin-top:.6rem}
+.std{background:rgba(9,14,19,.55);padding:.85rem .9rem;text-align:left;cursor:pointer;display:flex;flex-direction:column;gap:.15rem;color:inherit;transition:background .2s}
+.std:hover{background:rgba(10,77,92,.35)}
+.std .v{font-family:var(--disp);font-size:1.3rem;line-height:1;font-variant-numeric:tabular-nums}
+.std .l{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.std .why{font-size:.76rem;color:var(--ink-2);margin-top:.35rem;display:none;line-height:1.4}
+.std[aria-expanded="true"]{background:rgba(10,77,92,.5)}
+.std[aria-expanded="true"] .why{display:block}
+@media (max-width:560px){.stdgrid{grid-template-columns:repeat(2,1fr)}}
+.shot{display:grid;grid-template-columns:6.5rem 1fr;gap:1rem;align-items:center;border:1px solid var(--hair);padding:1rem;background:var(--glass);margin-top:1rem}
+.shot svg{width:6.5rem;height:6.5rem;display:block}
+.shot .big{font-family:var(--disp);font-size:1.5rem;font-variant-numeric:tabular-nums;line-height:1;margin:.3rem 0}
+.fivestep.check li{padding-left:0}
+.fivestep.check li::before{display:none}
+.fivestep.check label{display:flex;gap:.6rem;align-items:flex-start;cursor:pointer}
+.fivestep.check input{margin:.3rem 0 0;accent-color:var(--amber);flex:none}
+.fivestep.check li.ok span{color:var(--ink-3)}
+.fivestep.check li.ok b{color:var(--ok)}
+/* ---------- v7: haberler ---------- */
+.newswrap{position:relative}
+.news{display:flex;gap:1px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;background:var(--hair);border:1px solid var(--hair)}
+.news::-webkit-scrollbar{display:none}
+.newsitem{flex:0 0 min(100%,20.5rem);scroll-snap-align:start;padding:0 0 1rem;min-height:0}
+.newsitem .nimg{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;margin-bottom:.9rem}
+.newsitem .meta,.newsitem h3,.newsitem p,.newsitem .nact{padding:0 1.1rem}
+.newsitem .nact{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:.6rem}
+.nico{border:1px solid var(--hair-2);width:2rem;height:2rem;color:var(--ink-2);font-size:1rem;margin-left:.3rem}
+.nico[aria-pressed="true"]{color:var(--rust);border-color:var(--rust)}
+.nbtn{position:absolute;top:40%;z-index:2;width:2.4rem;height:2.4rem;border:1px solid var(--hair-2);background:rgba(4,20,26,.85);color:var(--ink);font-size:1.3rem;cursor:pointer;display:grid;place-items:center}
+.nbtn.prev{left:-.6rem}.nbtn.next{right:-.6rem}
+@media (max-width:720px){.nbtn.prev{left:.25rem}.nbtn.next{right:.25rem}}
+.nbtn:hover{border-color:var(--amber);color:var(--amber)}
+.subscribe .row2{align-items:center}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
 <div class="seaband" aria-hidden="true"></div>
 
-<header class="nav">
+<a class="skip" href="#safak">İçeriğe geç</a>
+<header class="nav" role="banner">
   <a class="home" href="#safak" aria-label="Florida Coffee ana sayfa"><span class="logo"><img class="wm" data-brand="wordmark-reverse-noo" alt="" src="img/brand/wordmark-reverse-noo.png"><svg class="mark anim" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></span></a>
-  <nav class="navlinks" aria-label="Ana menü">
-    <a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a>
-  </nav>
-  <a class="btn amber sm cta" href="/app/">Ön sipariş</a>
+  <nav class="navlinks" id="navlinks" aria-label="Ana menü"><a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a></nav>
+  <div class="navr">
+    <a class="status" id="navStatus" href="#subeler" title="En yakın şube"><i></i><span>Kavacık · hesaplanıyor</span></a>
+    <a class="lang" href="#" hreflang="en" title="English">EN</a>
+    <a class="btn amber sm cta" href="/app/">Ön sipariş</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Menüyü aç"><span></span><span></span><span></span></button>
+  </div>
 </header>
+<div class="mnav" id="mnav" hidden>
+  <nav aria-label="Mobil menü" class="mnav-links"><a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a></nav>
+  <div class="mnav-foot"><a class="status" href="#subeler"><i></i><span id="mnavStatus">Kavacık</span></a><a class="btn amber" href="#sabah">Ön sipariş ver</a><div class="mnav-langs"><b>TR</b><a href="#">EN</a><span>ME · yakında</span></div></div>
+</div>
 
 <nav class="rail" aria-label="Günün saatleri">
   <span class="line" aria-hidden="true"></span><span class="fill" id="railfill" aria-hidden="true"></span>
@@ -612,52 +782,69 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 <!-- ============ 08:30 SABAH ============ -->
 <section class="sec" id="sabah">
   <div class="inner">
+    <div class="split"><div class="txt">
     <div class="hour"><span class="t">08:30</span><span class="p">Sabahın telaşı · Kadıköy</span></div>
     <h2>Sıra sizi bekletmesin.<br>Kahve sizi beklesin.</h2>
     <p class="lede">Uygulamadan verdiğiniz sipariş, siz kapıdan girene kadar bekler. "Geldim" dediğinizde hazırlanmaya başlar; bardağınız tezgâha çıktığında hâlâ sıcaktır.</p>
     <div class="ps">
       <div class="prob"><div class="k">Sorun</div><p>Sabah yoğunluğunda kasada ortalama 6–8 dakika sıra. Erken sipariş verirsen kahve soğuyor, vermezsen geç kalıyorsun.</p></div>
       <div class="sol"><div class="k">Çözüm</div><p>Hazırlık, kapıya 200 m yaklaştığınızda ya da "Geldim"e bastığınızda başlar. Sipariş de siz de aynı anda hazır olur.</p></div>
-    </div>
+    </div></div><aside class="favs" id="favs" aria-label="En çok sipariş edilenler"></aside></div>
 
     <figure class="ph r169" data-img="workspace" style="margin-top:1.6rem"><span class="cap">Kadıköy · üst kat çalışma alanı</span></figure>
     <div class="panel" style="margin-top:1.2rem">
       <div class="order">
         <div>
           <div class="lbl">Ne içiyorsunuz</div>
-          <div class="opts" id="drinks">
-            <button class="opt" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150">Iced Latte</button>
-            <button class="opt" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140">Flat White</button>
-            <button class="opt" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="15">Florida Filtre</button>
-            <button class="opt" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25">Cold Brew</button>
+          <div class="opts tiles" id="drinks">
+            <button class="opt tile" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150" data-cold="1"><img data-mi="iced-latte" alt=""><span>Iced Latte</span><b>160 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140"><img data-mi="flat-white" alt=""><span>Flat White</span><b>150 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="5" data-nomilk="1"><img data-mi="florida-filtre" alt=""><span>Florida Filtre</span><b>120 ₺</b></button>
+            <button class="opt tile" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25" data-cold="1" data-nomilk="1"><img data-mi="cold-brew" alt=""><span>Cold Brew</span><b>145 ₺</b></button>
           </div>
-          <div class="lbl">Boy</div>
-          <div class="opts" id="sizes">
-            <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15">Küçük</button>
-            <button class="opt" aria-pressed="true" data-n="Orta" data-d="0">Orta</button>
-            <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20">Büyük</button>
+          <div class="orow">
+            <div><div class="lbl">Boy</div>
+            <div class="opts" id="sizes">
+              <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15">Küçük <small>−15</small></button>
+              <button class="opt" aria-pressed="true" data-n="Orta" data-d="0">Orta</button>
+              <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20">Büyük <small>+20</small></button>
+            </div></div>
+            <div><div class="lbl">Ne zaman</div>
+            <div class="opts" id="whens">
+              <button class="opt" aria-pressed="true" data-n="geldigimde">Geldiğimde</button>
+              <button class="opt" aria-pressed="false" data-n="10dk">10 dk sonra</button>
+              <button class="opt" aria-pressed="false" data-n="simdi">Şimdi</button>
+            </div></div>
           </div>
-          <div class="lbl">Süt</div>
+          <div id="milkwrap"><div class="lbl">Süt</div>
           <div class="opts" id="milks">
             <button class="opt milk" aria-pressed="false" data-n="İnek sütü" data-d="0">İnek</button>
-            <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz</button>
-            <button class="opt milk" aria-pressed="false" data-n="Yulaf" data-d="15">Yulaf</button>
-            <button class="opt milk" aria-pressed="false" data-n="Badem" data-d="15">Badem</button>
+            <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz <small>+10</small></button>
+            <button class="opt milk" aria-pressed="false" data-n="Yulaf" data-d="15">Yulaf <small>+15</small></button>
+            <button class="opt milk" aria-pressed="false" data-n="Badem" data-d="15">Badem <small>+15</small></button>
+          </div></div>
+          <div class="lbl">Barista notu <small style="text-transform:none;letter-spacing:0;font-weight:500">· isteğe bağlı</small></div>
+          <div class="opts" id="notes">
+            <button class="opt note" aria-pressed="false" data-n="Ekstra sıcak">Ekstra sıcak</button>
+            <button class="opt note" aria-pressed="false" data-n="Az buz">Az buz</button>
+            <button class="opt note" aria-pressed="false" data-n="Az şeker">Az şeker</button>
+            <button class="opt note" aria-pressed="false" data-n="Kapaksız">Kapaksız</button>
           </div>
-          <p style="font-size:.82rem;color:var(--ink-3);margin:0">Süt tercihiniz profile kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında etiketli görünür.</p>
+          <p style="font-size:.82rem;color:var(--ink-3);margin:.6rem 0 0">Süt tercihiniz profile kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında renkli etiketle görünür.</p>
         </div>
         <div class="ticket">
-          <div class="no">Sipariş #4821 · Kadıköy</div>
-          <div class="drink" id="tDrink">Iced Latte</div>
-          <div class="mods" id="tMods">Orta · Laktozsuz</div>
-          <div class="price"><span id="tPrice">170</span> ₺</div>
+          <div class="thead"><div><div class="no">Sipariş #4821 · Kadıköy</div><div class="drink" id="tDrink">Iced Latte</div><div class="mods" id="tMods">Orta · Laktozsuz</div></div><img class="thumb" id="tThumb" alt=""></div>
+          <div class="tsim" id="tSim" aria-label="Barista ekranı etiketleri"></div>
+          <div class="price"><span id="tPrice">170</span> ₺ <small id="tPts">· +170 çekirdek</small></div>
           <div class="steps" id="tSteps">
             <div class="stp now" data-s="1"><i>1</i>Sipariş verildi</div>
             <div class="stp" data-s="2"><i>2</i>Hazırlanıyor</div>
             <div class="stp" data-s="3"><i>3</i>Tezgâhta hazır</div>
           </div>
+          <div class="tprog" aria-hidden="true"><i id="tBar"></i></div>
           <div class="eta" id="tEta">Şubeye vardığınızda hazırlanmaya başlar.</div>
-          <div style="margin-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap">
+          <div class="code" id="tCode" hidden>FC·4821</div>
+          <div style="margin-top:auto;padding-top:.9rem;display:flex;gap:.5rem;flex-wrap:wrap">
             <button class="btn lamp sm" id="tAct">Geldim</button>
             <button class="btn ghost sm" id="tReset">Baştan</button>
           </div>
@@ -674,31 +861,25 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <h2>Aynı fincan,<br>on yedi şubede.</h2>
     <p class="lede">Kavacık’taki latte, Bursa’dakiyle aynı olmak zorunda. Bunu sağlayan iyi niyet değil, ölçülebilir standart: tartılan gramaj, kronometreyle izlenen shot, dereceyle kontrol edilen süt. Reçetelerimiz kişisel yoruma açık değildir.</p>
 
-    <div class="brewwrap" style="margin-top:2rem">
-      <div class="beancard">
-        <figure class="ph r43" data-img="barista" style="border-radius:0"><span class="cap">14 g · tartıyla</span></figure>
-        <div class="top">
-          <div class="t">Espresso standardımız</div>
-          <div class="s">Her şubede aynı, göz kararı yok — tartılır</div>
+    <div class="brewwrap v2" style="margin-top:2rem">
+      <div class="brewcol">
+        <figure class="ph r169" data-img="barista"><span class="cap">14 g · tartıyla</span></figure>
+        <div class="lbl">Espresso standardımız · tıklayın, nedenini görün</div>
+        <div class="stdgrid" id="stdgrid">
+          <button class="std" aria-expanded="false"><span class="v">14 g</span><span class="l">Doz</span><span class="why">Double shot dozu tartıyla doğrulanır; 1 g sapma shot süresini 2–3 saniye kaydırır.</span></button>
+          <button class="std" aria-expanded="false"><span class="v">90–96 °C</span><span class="l">Su</span><span class="why">Daha düşük su ekşi ve zayıf, daha yüksek su yanık ve acı çıkarır.</span></button>
+          <button class="std" aria-expanded="false"><span class="v">9 bar</span><span class="l">Basınç</span><span class="why">Kremanın oluştuğu ve yağların dengeli çözündüğü basınç.</span></button>
+          <button class="std" aria-expanded="false"><span class="v">18–23 sn</span><span class="l">Shot süresi</span><span class="why">Kronometreyle izlenir. 18'in altı ekşi, 23'ün üstü acı.</span></button>
+          <button class="std" aria-expanded="false"><span class="v">30–60 g</span><span class="l">Çıktı</span><span class="why">Tartıda ölçülür; oran içeceğe göre 1:2 ile 1:4 arasında.</span></button>
+          <button class="std" aria-expanded="false"><span class="v">60–65 °C</span><span class="l">Süt</span><span class="why">Mikro köpük parlak ve boya kıvamında; 70 °C üstünde süt yanar, tatlılığını kaybeder.</span></button>
         </div>
-        <dl class="spec">
-          <dt>Doz</dt><dd>14 g · double shot, tartı ile</dd>
-          <dt>Su sıcaklığı</dt><dd>90–96 °C</dd>
-          <dt>Basınç</dt><dd>9 bar</dd>
-          <dt>Shot süresi</dt><dd>18–23 saniye</dd>
-          <dt>Çıktı</dt><dd>30–60 g</dd>
-          <dt>Süt</dt><dd>60–65 °C mikro köpük</dd>
-          <dt>Fincan</dt><dd>Önceden ısıtılır</dd>
-        </dl>
-        <div class="roastbar">
-          <div class="lbl">Kavurma aralığımız</div>
-          <div class="track"><span class="pin" style="left:52%"></span></div>
-          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
+        <div class="shot" id="shot">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--hair)" stroke-width="8"/><circle id="shotArc" cx="50" cy="50" r="42" fill="none" stroke="var(--amber)" stroke-width="8" stroke-linecap="butt" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="shotT" x="50" y="55" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor" font-family="var(--disp)">0.0</text><text x="50" y="70" text-anchor="middle" font-size="9" fill="var(--ink-3)">saniye</text></svg>
+          <div><div class="lbl">Shot simülatörü · 4× hız</div><div class="big" id="shotG">0 g</div><p class="brewnote" id="shotMsg" style="margin:.2rem 0 .6rem">Başlatın; 18–23 saniye aralığında kesilmesi gerekir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn amber sm" id="shotBtn">Shot'ı başlat</button><button class="btn ghost sm" id="shotStop" disabled>Kes</button></div></div>
         </div>
       </div>
-
-      <div>
-        <figure class="ph r169" data-img="beans" style="margin-bottom:1rem"><span class="cap">Orta kavurma · arabica</span></figure>
+      <div class="brewcol">
+        <figure class="ph r169" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure>
         <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
         <div class="brewtabs" id="brewtabs">
           <button class="fbtn" aria-pressed="true" data-b="latin">Latin Amerika</button>
@@ -712,16 +893,20 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <div><div class="v" id="bTime">Espresso</div><div class="l">En uygun</div></div>
         </div>
         <p class="brewnote" id="bNote">Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil.</p>
-
-        <div class="lbl" style="margin-top:1.6rem">Shot öncesi zorunlu 5 adım</div>
-        <ol class="fivestep">
-          <li><b>Grup başlığı flush edilir</b> — 2–3 saniye su akıtılır, kalıntı temizlenir, sıcaklık dengelenir.</li>
-          <li><b>Portafiltre temizlenir</b> — sepet içi kuru; önceki shot'tan partikül kalmaz.</li>
-          <li><b>Gramaj tartılır</b> — 14 g tartı ile doğrulanır; göz kararı kabul edilmez.</li>
-          <li><b>Tamp uygulanır</b> — eşit basınç, düz yüzey.</li>
-          <li><b>Süre takip edilir</b> — kronometre 18–23 saniye aralığında izlenir.</li>
+        <div class="roastbar" style="padding:0">
+          <div class="lbl">Kavurma aralığımız</div>
+          <div class="track"><span class="pin" style="left:52%"></span></div>
+          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
+        </div>
+        <div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between"><span>Shot öncesi zorunlu 5 adım · işaretleyin</span><span id="stepProg" style="color:var(--amber)">0 / 5</span></div>
+        <ol class="fivestep check" id="fivestep">
+          <li><label><input type="checkbox"><span><b>Grup başlığı flush edilir</b> — 2–3 saniye su akıtılır, kalıntı temizlenir, sıcaklık dengelenir.</span></label></li>
+          <li><label><input type="checkbox"><span><b>Portafiltre temizlenir</b> — sepet içi kuru; önceki shot'tan partikül kalmaz.</span></label></li>
+          <li><label><input type="checkbox"><span><b>Gramaj tartılır</b> — 14 g tartı ile doğrulanır; göz kararı kabul edilmez.</span></label></li>
+          <li><label><input type="checkbox"><span><b>Tamp uygulanır</b> — eşit basınç, düz yüzey.</span></label></li>
+          <li><label><input type="checkbox"><span><b>Süre takip edilir</b> — kronometre 18–23 saniye aralığında izlenir.</span></label></li>
         </ol>
-        <p class="brewnote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p>
+        <p class="brewnote" id="stepNote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p>
       </div>
     </div>
   </section>
@@ -740,10 +925,10 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <button class="fbtn" aria-pressed="false" data-t="kampanya">Kampanya</button>
       <button class="fbtn" aria-pressed="false" data-t="etkinlik">Etkinlik</button>
     </div>
-    <div class="news" id="news"></div>
+    <div class="newswrap"><button class="nbtn prev" id="newsPrev" aria-label="Önceki haberler">‹</button><div class="news" id="news" tabindex="0"></div><button class="nbtn next" id="newsNext" aria-label="Sonraki haberler">›</button></div>
     <form class="subscribe" id="subscribe" autocomplete="off">
       <div><div class="lbl">Haber al</div><p style="margin:.2rem 0 0;font-size:.9rem;color:var(--ink-2)">Ayda en fazla iki e-posta. Yeni şube ve sezon ürünleri ilk size.</p></div>
-      <div class="row2"><input type="email" required placeholder="e-posta adresiniz" aria-label="E-posta"><button class="btn amber" type="submit">Kaydol</button></div>
+      <div class="row2"><div class="opts" id="subCh"><button type="button" class="opt" aria-pressed="true" data-ch="E-posta">E-posta</button><button type="button" class="opt" aria-pressed="false" data-ch="WhatsApp">WhatsApp</button></div><input type="email" required placeholder="e-posta adresiniz" aria-label="E-posta" id="subInput"><button class="btn amber" type="submit">Kaydol</button></div>
       <div class="ok" id="subOk" hidden>Kaydedildi. İlk haber Sakarya açılışı olacak.</div>
     </form>
   </div>
@@ -963,22 +1148,33 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   </div>
 </section>
 
-<footer>
-  <div class="cols">
-    <div>
-      <span class="logo foot"><img class="wm" data-brand="wordmark-reverse-noo" alt="" src="img/brand/wordmark-reverse-noo.png"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></span><span class="sr">Florida Coffee</span>
-      <p style="margin:0;color:var(--ink-3);font-size:.85rem">Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul<br>Taste of Joy</p>
+<footer id="footer">
+  <div class="fwrap">
+    <div class="fgrid">
+      <div class="fbrand">
+        <span class="logo foot"><img class="wm" data-brand="wordmark-reverse-noo" alt="" src="img/brand/wordmark-reverse-noo.png"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></span><span class="sr">Florida Coffee</span>
+        <p class="tag">Taste of Joy. İstanbul doğumlu, 17 şube, iki ülke; her fincanda aynı reçete.</p>
+        <address>Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul</address>
+        <div class="contact"><a href="tel:+902160000000">+90 216 000 00 00</a><a href="mailto:merhaba@floridacoffee.com.tr">merhaba@floridacoffee.com.tr</a><a href="#basvuru">Franchise başvurusu →</a></div>
+        <div class="social"><a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.9-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 2c-2.7 0-3 0-4.1.1-2.9.1-4.7 1.9-4.8 4.8C3 8 3 8.3 3 12s0 4 .1 5.1c.1 2.9 1.9 4.7 4.8 4.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c2.9-.1 4.7-1.9 4.8-4.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-2.9-1.9-4.7-4.8-4.8C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2 .1 2.9 1 3 3 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2-1 2.9-3 3-1 .1-1.3.1-4 .1s-3 0-4-.1c-2-.1-2.9-1-3-3-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2 1-2.9 3-3 1-.1 1.3-.1 4-.1z"/></svg></a><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.6V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg></a><a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg></a><a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></div>
+      </div>
+      <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#taze">Taze · haberler</a></li><li><a href="#urunler">Ürünler</a></li><li><a href="#gece">Etkinlikler</a></li></ul></div>
+      <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
+      <div><h4>Kurumsal</h4><ul><li><a href="#franchise">Franchise</a></li><li><a href="#">Kurumsal satış</a></li><li><a href="#">Kariyer</a></li><li><a href="#">Basın</a></li><li><a href="#">İletişim</a></li></ul></div>
+      <div class="fapp"><h4>Uygulama</h4><p style="margin:0 0 .6rem;color:var(--ink-2)">Ön sipariş, FloridaDays Club, cüzdan.</p>
+        <div class="badges"><a class="badge" href="#kulup"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="#kulup"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a></div>
+        <h4>Haber al</h4><form class="fnews" id="fnews" autocomplete="off"><input type="email" required placeholder="e-posta" aria-label="E-posta"><button class="btn amber sm" type="submit">Kaydol</button></form>
+      </div>
     </div>
-    <div><h4>Keşfet</h4><ul><li><a href="#menu">Menü</a></li><li><a href="#subeler">Şubeler</a></li><li><a href="#kahvemiz">Kahvemiz</a></li><li><a href="#kulup">FloridaDays Club</a></li><li><a href="#franchise">Franchise</a></li></ul></div>
-    <div><h4>Şehirler</h4><ul id="fCities"></ul></div>
-    <div><h4>Kurumsal</h4><ul><li><a href="/kariyer/">Kariyer</a></li><li><a href="/yasal/kvkk/">KVKK aydınlatma metni</a></li><li><a href="/yasal/cerez/">Çerez politikası</a></li><li><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a></li><li><a href="/iletisim/">İletişim</a></li></ul></div>
-    <div><h4>Diller</h4><ul><li>Türkçe</li><li><a href="/en/">English</a></li><li>Crnogorski · yakında</li></ul></div>
-  </div>
-  <div class="end">
-    <span>Bu sayfa P3Media tarafından Florida Coffee için hazırlanmış bir tasarım demosudur. Veriler örnektir.</span>
-    <span>Platform demosu: HQ paneli, barista ekranı ve AI asistan ayrı prototipte.</span>
+    <div class="fend">
+      <span>© 2026 Florida Coffee Kahve Gıda San. ve Tic. A.Ş.</span>
+      <nav class="legal" aria-label="Yasal"><a href="#">KVKK aydınlatma</a><a href="#">Çerez politikası</a><a href="#">Kullanıcı sözleşmesi</a><a href="#">Mesafeli satış</a></nav>
+      <span class="langs"><b>TR</b><a href="#">EN</a><a href="#">ME</a></span>
+    </div>
+    <p class="demo-note">Bu sayfa P3Media tarafından Florida Coffee için hazırlanmış bir tasarım demosudur; veriler ve iletişim bilgileri örnektir.</p>
   </div>
 </footer>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":"Florida Coffee Türkiye","url":"https://floridacoffee.com.tr","logo":"https://floridacoffee.com.tr/img/brand/logo.png","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"},"sameAs":["https://www.instagram.com/floridacoffeetr/","https://www.facebook.com/floridacoffeetr/"]}</script>
 </div>
 
 
@@ -1140,28 +1336,57 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
             .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
+// hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
+(() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
+  addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
+  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) { const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; hm.style.setProperty("--ex", ex.toFixed(2)); hm.style.setProperty("--ey", ey.toFixed(2)); hm.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); } setTimeout(idle, 700 + Math.random() * 1600); })(); })();
+// header: kaydırınca daralır; mobil menü
+(() => { const nav = document.querySelector(".nav"); if (!nav) return; let last = -1;
+  const onS = () => { const s = scrollY > 40; if (s !== last) { nav.classList.toggle("scrolled", s); last = s; } }; addEventListener("scroll", onS, {passive:true}); onS();
+  const bg = document.getElementById("burger"), mn = document.getElementById("mnav"); if (!bg || !mn) return;
+  const set = open => { bg.setAttribute("aria-expanded", String(open)); bg.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç"); mn.hidden = !open; document.body.classList.toggle("menu-open", open); };
+  bg.addEventListener("click", () => set(mn.hidden)); mn.querySelectorAll("a").forEach(a => a.addEventListener("click", () => set(false)));
+  addEventListener("keydown", e => { if (e.key === "Escape" && !mn.hidden) set(false); });
+  addEventListener("resize", () => { if (innerWidth > 720 && !mn.hidden) set(false); });
+  if (typeof showToast !== "function") window.showToast = msg => { let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); };
+})();
 /* ---------- /logo canlandırma ---------- */
 /* ---------------- live card + clock ---------------- */
+let liveI = 0, livePause = false;
 const nearest = B[0];
 function tick(){
-  const now = new Date();
-  const c = document.getElementById("clock"); if (c) c.textContent = zhm(now, TZ_TR);
+  const now = new Date(), b = B[liveI];
+  const c = document.getElementById("clock"); if (c) c.textContent = zhm(now, tzOf(b));
   const pc = document.getElementById("pClock"); if (pc) pc.textContent = zhm(now, TZ_TR);
-  const open = isOpen(nearest, now);
-  const p = document.getElementById("pulse");
-  p.classList.toggle("off", !open);
+  const open = isOpen(b, now);
+  document.getElementById("pulse").classList.toggle("off", !open);
+  document.getElementById("nearName").textContent = b.n;
   document.getElementById("nearMeta").innerHTML =
-    nearest.c + " · " + (open ? "<span style='color:var(--ok)'>şu an açık</span>" : "<span style='color:var(--busy)'>şu an kapalı</span>") +
-    " · " + hourStr(nearest.o) + "–" + hourStr(nearest.k);
-  const st = sunTimes(now, nearest.lat, nearest.lng).set;
-  document.getElementById("sunsetT").textContent = zhm(st, tzOf(nearest));
-  document.getElementById("pSunset").textContent = zhm(st, tzOf(nearest));
+    b.c + " · " + (open ? "<span style='color:var(--ok)'>şu an açık</span>" : "<span style='color:var(--busy)'>şu an kapalı</span>") +
+    " · " + hourStr(b.o) + "–" + hourStr(b.k);
+  const st = sunTimes(now, b.lat, b.lng).set;
+  document.getElementById("sunsetT").textContent = zhm(st, tzOf(b));
+  const ps = document.getElementById("pSunset"); if (ps) ps.textContent = zhm(sunTimes(now, nearest.lat, nearest.lng).set, tzOf(nearest));
   const diff = st - now;
   document.getElementById("sunsetIn").textContent = diff > 0
-    ? "Kavacık terasına " + Math.floor(diff/36e5) + " sa " + Math.floor(diff%36e5/6e4) + " dk kaldı"
-    : "Bugünkü gün batımı geçti · yarın " + zhm(sunTimes(new Date(now.getTime()+864e5), nearest.lat, nearest.lng).set, tzOf(nearest));
+    ? (b.f.includes("manzara") ? "Terasta izlemeye " : "Gün batımına ") + Math.floor(diff/36e5) + " sa " + Math.floor(diff%36e5/6e4) + " dk kaldı"
+    : "Bugünkü gün batımı geçti · yarın " + zhm(sunTimes(new Date(now.getTime()+864e5), b.lat, b.lng).set, tzOf(b));
+  const o0 = isOpen(nearest, now), stxt = nearest.n + " · " + (o0 ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, nearest.lat, nearest.lng).set, tzOf(nearest));
+  const ns = document.getElementById("navStatus"); if (ns) { ns.querySelector("span").textContent = stxt; ns.classList.toggle("off", !o0); }
+  const ms = document.getElementById("mnavStatus"); if (ms) ms.textContent = stxt;
 }
 tick(); setInterval(tick, 20000);
+/* hero canlı kart: her 3 saniyede bir başka şube; üstüne gelince durur */
+const liveCard = document.getElementById("livecard");
+if (liveCard && !reduce) {
+  ["pointerenter","focusin"].forEach(e => liveCard.addEventListener(e, () => livePause = true));
+  ["pointerleave","focusout"].forEach(e => liveCard.addEventListener(e, () => livePause = false));
+  liveCard.classList.add("run");
+  setInterval(() => { if (livePause || document.hidden) return;
+    liveCard.classList.add("swap");
+    setTimeout(() => { liveI = (liveI + 1) % B.length; tick(); liveCard.classList.remove("swap"); liveCard.classList.remove("run"); void liveCard.offsetWidth; liveCard.classList.add("run"); }, 260);
+  }, 3000);
+}
 
 /* ---------------- branch list ---------------- */
 const active = new Set();
@@ -1225,42 +1450,68 @@ addEventListener("keydown", e => { if (e.key === "Escape" && drawer.classList.co
 /* ---------------- footer city list ---------------- */
 document.getElementById("fCities").innerHTML =
   ["İstanbul","Kocaeli","Sakarya","Bursa","Samsun","Rize","Erzincan","Podgorica","Budva"]
-    .map(c => `<li>${c}</li>`).join("");
+    .map(c => `<li><a href="#subeler">${c}</a></li>`).join("");
+const fnews = document.getElementById("fnews"); if (fnews) fnews.addEventListener("submit", e => { e.preventDefault(); showToast("Kaydedildi. İlk haber Sakarya açılışı olacak."); e.target.reset(); });
 
-/* ---------------- order ticket ---------------- */
-const O = { drink:"Iced Latte", base:160, size:"Orta", sizeD:0, milk:"Laktozsuz", milkD:10, step:1 };
+/* ---------------- order ticket v2 ---------------- */
+const O = { drink:"Iced Latte", base:160, size:"Orta", sizeD:0, milk:"Laktozsuz", milkD:10, when:"geldigimde", cold:true, nomilk:false, notes:new Set(), step:1 };
+let tTimer = null;
 function seg(id, cb){
   document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => {
     document.querySelectorAll("#" + id + " .opt").forEach(x => x.setAttribute("aria-pressed","false"));
     b.setAttribute("aria-pressed","true"); cb(b); paintTicket();
   }));
 }
-seg("drinks", b => { O.drink = b.dataset.n; O.base = +b.dataset.p; });
+seg("drinks", b => { O.drink = b.dataset.n; O.base = +b.dataset.p; O.cold = !!b.dataset.cold; O.nomilk = !!b.dataset.nomilk; });
 seg("sizes",  b => { O.size = b.dataset.n; O.sizeD = +b.dataset.d; });
 seg("milks",  b => { O.milk = b.dataset.n; O.milkD = +b.dataset.d; });
+seg("whens",  b => { O.when = b.dataset.n; });
+document.querySelectorAll("#notes .opt").forEach(b => b.addEventListener("click", () => { const on = b.getAttribute("aria-pressed") === "true"; b.setAttribute("aria-pressed", String(!on)); on ? O.notes.delete(b.dataset.n) : O.notes.add(b.dataset.n); paintTicket(); }));
 function paintTicket(){
+  const total = O.base + O.sizeD + (O.nomilk ? 0 : O.milkD);
   document.getElementById("tDrink").textContent = O.drink;
-  document.getElementById("tMods").textContent = O.size + " · " + O.milk;
-  document.getElementById("tPrice").textContent = O.base + O.sizeD + O.milkD;
-  document.querySelectorAll("#tSteps .stp").forEach(s => {
-    const n = +s.dataset.s;
-    s.className = "stp" + (n < O.step ? " done" : n === O.step ? " now" : "");
-  });
+  document.getElementById("tMods").textContent = [O.size, O.nomilk ? null : O.milk, ...O.notes].filter(Boolean).join(" · ");
+  document.getElementById("tPrice").textContent = total;
+  document.getElementById("tPts").textContent = "· +" + total + " çekirdek";
+  document.getElementById("milkwrap").style.display = O.nomilk ? "none" : "";
+  const th = document.getElementById("tThumb"); const sl = mslug(O.drink); th.src = MENUIMG[sl] || ("img/menu/" + sl + ".jpg");
+  document.getElementById("tSim").innerHTML = (O.cold ? '<span class="cold">Soğuk</span>' : '<span class="hot">Sıcak</span>') + (!O.nomilk && O.milk !== "İnek sütü" ? '<span class="lac">' + O.milk + '</span>' : "") + [...O.notes].map(n => '<span class="nt">' + n + '</span>').join("");
+  document.querySelectorAll("#tSteps .stp").forEach(s => { const n = +s.dataset.s; s.className = "stp" + (n < O.step ? " done" : n === O.step ? " now" : ""); });
   const act = document.getElementById("tAct");
-  act.textContent = O.step === 1 ? "Geldim" : O.step === 2 ? "Hazırlanıyor…" : "Teslim aldım";
+  act.textContent = O.step === 1 ? (O.when === "geldigimde" ? "Geldim" : "Siparişi ver") : O.step === 2 ? "Hazırlanıyor…" : "Teslim aldım";
   act.disabled = O.step === 2;
-  document.getElementById("tEta").textContent =
-    O.step === 1 ? "Şubeye vardığınızda hazırlanmaya başlar." :
-    O.step === 2 ? "Barista ekranında en üstte · tahmini 3 dakika" :
-    "Hazır. Teslimde " + (O.base + O.sizeD + O.milkD) + " çekirdek hesabınıza yazılır.";
+  document.getElementById("tCode").hidden = O.step !== 3;
+  if (O.step === 1) { document.getElementById("tBar").style.width = "0"; document.getElementById("tEta").textContent =
+    O.when === "geldigimde" ? "Kapıya 200 m kala ya da 'Geldim' deyince hazırlanmaya başlar." : O.when === "10dk" ? "10 dakika sonra hazırlanmaya başlar; tezgâhta sizi bekler." : "Hemen hazırlanmaya başlar · tahmini 3 dakika."; }
+  if (O.step === 3) { document.getElementById("tBar").style.width = "100%"; document.getElementById("tEta").textContent = "Hazır. Kodu tezgâhta gösterin; " + total + " çekirdek teslimde hesabınıza yazılır."; }
 }
 document.getElementById("tAct").addEventListener("click", () => {
-  if (O.step === 1){ O.step = 2; paintTicket(); setTimeout(() => { O.step = 3; paintTicket(); }, reduce ? 300 : 1800); }
-  else if (O.step === 3){ O.step = 1; paintTicket(); }
+  if (O.step === 1){
+    O.step = 2; paintTicket(); const dur = reduce ? 600 : 4200, t0 = Date.now();
+    clearInterval(tTimer); tTimer = setInterval(() => { const p = Math.min(1, (Date.now() - t0) / dur); document.getElementById("tBar").style.width = (p * 100) + "%";
+      const left = Math.ceil((1 - p) * 180); document.getElementById("tEta").textContent = "Barista ekranında en üstte · " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") + " kaldı";
+      if (p >= 1) { clearInterval(tTimer); O.step = 3; paintTicket(); showToast("Siparişiniz tezgâhta · kod FC·4821"); } }, 100);
+  } else if (O.step === 3){ O.step = 1; paintTicket(); showToast("Afiyet olsun. Bugün 1 kahve · " + (O.base + O.sizeD + (O.nomilk ? 0 : O.milkD)) + " çekirdek"); }
 });
-document.getElementById("tReset").addEventListener("click", () => { O.step = 1; paintTicket(); });
-paintTicket();
+document.getElementById("tReset").addEventListener("click", () => { clearInterval(tTimer); O.step = 1; paintTicket(); });
+function showToast(msg){ let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); }
 
+/* ---------------- standartlar: tıklanır kartlar, shot simülatörü, kontrol listesi ---------------- */
+document.querySelectorAll("#stdgrid .std").forEach(b => b.addEventListener("click", () => b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") !== "true")));
+(() => {
+  const btn = document.getElementById("shotBtn"), stop = document.getElementById("shotStop"); if (!btn) return;
+  const arc = document.getElementById("shotArc"), tt = document.getElementById("shotT"), g = document.getElementById("shotG"), msg = document.getElementById("shotMsg");
+  let raf = 0, t0 = 0, t = 0;
+  const paint = () => { arc.setAttribute("stroke-dashoffset", String(264 - 264 * Math.min(1, t / 30))); arc.setAttribute("stroke", t < 18 ? "var(--busy)" : t <= 23 ? "var(--ok)" : "var(--rust)"); tt.textContent = t.toFixed(1); g.textContent = Math.round(t * 1.6) + " g";
+    msg.textContent = t < 8 ? "Ön ıslatma… krema oluşuyor." : t < 18 ? "Erken kesersen ekşi ve zayıf olur." : t <= 23 ? "İdeal aralık · şimdi kes." : t < 30 ? "Geç kaldın: acı ve yanık notalar." : "Shot atıldı. Yeniden dene."; };
+  const loop = () => { t = Math.min(30, (Date.now() - t0) / 250); paint(); if (t < 30) raf = requestAnimationFrame(loop); else { btn.disabled = false; stop.disabled = true; btn.textContent = "Tekrar"; } };
+  btn.addEventListener("click", () => { cancelAnimationFrame(raf); t0 = Date.now(); t = 0; btn.disabled = true; stop.disabled = false; loop(); });
+  stop.addEventListener("click", () => { cancelAnimationFrame(raf); btn.disabled = false; stop.disabled = true; btn.textContent = "Tekrar";
+    const ok = t >= 18 && t <= 23; msg.textContent = ok ? `Tam zamanında: ${t.toFixed(1)} sn, ${Math.round(t*1.6)} g. Standarda uygun.` : t < 18 ? `${t.toFixed(1)} sn: erken. Bu shot dökülür, yeniden çekilir.` : `${t.toFixed(1)} sn: geç. Bu shot dökülür, yeniden çekilir.`; if (ok) showToast("Standarda uygun shot ✓"); });
+})();
+(() => { const ol = document.getElementById("fivestep"); if (!ol) return; const boxes = [...ol.querySelectorAll("input")];
+  const upd = () => { const n = boxes.filter(b => b.checked).length; boxes.forEach(b => b.closest("li").classList.toggle("ok", b.checked)); document.getElementById("stepProg").textContent = n + " / 5"; document.getElementById("stepNote").textContent = n === 5 ? "Beş adım tamam: shot çekilebilir. Bu kontrol barista ekranında her vardiya başında ister." : "Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı."; if (n === 5) showToast("Shot'a hazır ✓"); };
+  boxes.forEach(b => b.addEventListener("change", upd)); })();
 /* ---------------- brew guide ---------------- */
 const BREW = {
   latin:  {r:"Denge", d:"Orta", t:"Orta", s:"Espresso", n:"Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil."},
@@ -1398,32 +1649,59 @@ document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click
   b.setAttribute("aria-pressed","true"); diet = b.dataset.d; renderMenu();
 }));
 renderMenu("sicak");
+document.querySelectorAll("#drinks img[data-mi]").forEach(im => { im.src = MENUIMG[im.dataset.mi] || ("img/menu/" + im.dataset.mi + ".jpg"); im.onerror = () => im.remove(); });
+paintTicket();
+/* ---------------- favoriler döngüsü (bölüm 02) ---------------- */
+const FAVS = ["Iced Latte","Flat White","Florida Filtre","Boğaz Cold Brew","San Sebastian","Cold Brew"];
+const favEl = document.getElementById("favs");
+if (favEl) {
+  const all = Object.values(MENU).flat(); const items = FAVS.map(n => all.find(r => r[0] === n)).filter(Boolean); let fi = 0, favPause = false;
+  favEl.innerHTML = `<div class="favhead"><span class="lbl">En çok sipariş edilenler</span><span class="lbl" style="color:var(--amber)">Bu hafta</span></div><div class="favstack">${items.map((r,i) => `<a class="fav" href="#menu" data-i="${i}"><img src="${MENUIMG[mslug(r[0])] || "img/menu/" + mslug(r[0]) + ".jpg"}" alt="" loading="lazy" decoding="async"><span class="fmeta"><span class="rank">#${i+1} · en çok sipariş</span><span class="fn">${r[0]}</span><span class="fd">${r[1]}</span><b>${r[2]} ₺</b></span></a>`).join("")}</div><div class="favnav"><button class="fbtn sm" id="favPrev" aria-label="Önceki">‹</button><span class="dots" id="favDots">${items.map((_,i)=>`<i data-i="${i}" role="button" aria-label="${i+1}"></i>`).join("")}</span><button class="fbtn sm" id="favNext" aria-label="Sonraki">›</button></div>`;
+  const cards = [...favEl.querySelectorAll(".fav")], dots = [...favEl.querySelectorAll(".dots i")];
+  const show = () => cards.forEach((c,i) => { const d = (i - fi + items.length) % items.length; c.className = "fav" + (d===0?" on":d===1?" next":d===items.length-1?" prev":""); dots[i].classList.toggle("on", i===fi); });
+  const step = d => { fi = (fi + d + items.length) % items.length; show(); };
+  favEl.querySelector("#favNext").addEventListener("click", () => step(1)); favEl.querySelector("#favPrev").addEventListener("click", () => step(-1));
+  dots.forEach(d => d.addEventListener("click", () => { fi = +d.dataset.i; show(); }));
+  ["pointerenter","focusin"].forEach(e => favEl.addEventListener(e, () => favPause = true)); ["pointerleave","focusout"].forEach(e => favEl.addEventListener(e, () => favPause = false));
+  let tx0 = null; favEl.addEventListener("touchstart", e => tx0 = e.touches[0].clientX, {passive:true}); favEl.addEventListener("touchend", e => { if (tx0 === null) return; const dx = e.changedTouches[0].clientX - tx0; if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1); tx0 = null; });
+  if (!reduce) setInterval(() => { if (!favPause && !document.hidden) step(1); }, 3500);
+  show();
+}
 
 
 /* ---------------- taze: haber akışı ---------------- */
 const NEWS = [
-  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Şubeyi gör", href:"#subeler"},
-  {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Menüde gör", href:"#menu"},
-  {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Nasıl yapılır", href:"#kulup"},
-  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Etkinlikler", href:"#gece"},
-  {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Şubeyi gör", href:"#subeler"},
-  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Ürünlere git", href:"#urunler"},
-  {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Uygulama", href:"#kulup"},
-  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Yer ayır", href:"#gece"}
+  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Şubeyi gör", href:"#subeler", img:["s","sakarya"]},
+  {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Menüde gör", href:"#menu", img:["m","bogaz-cold-brew"]},
+  {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Nasıl yapılır", href:"#kulup", img:["m","latte"]},
+  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Etkinlikler", href:"#gece", img:["s","kavacik"]},
+  {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Şubeyi gör", href:"#subeler", img:["s","budva"]},
+  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Ürünlere git", href:"#urunler", img:["m","florida-filtre"]},
+  {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Uygulama", href:"#kulup", img:["m","iced-latte"]},
+  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Yer ayır", href:"#gece", img:["s","cengelkoy"]}
 ];
 const TL = {sube:"Şube", urun:"Ürün", kampanya:"Kampanya", etkinlik:"Etkinlik"};
 let newsF = "hepsi";
+const SAVED = new Set((() => { try { return JSON.parse(localStorage.getItem("fc_saved") || "[]"); } catch (e) { return []; } })());
+const newsImg = n => { const [k, id] = n.img; return k === "s" ? (SUBEIMG[id] || "img/subeler/" + id + ".jpg") : (MENUIMG[id] || "img/menu/" + id + ".jpg"); };
 function renderNews(){
-  const list = NEWS.filter(n => newsF === "hepsi" || n.t === newsF);
-  document.getElementById("news").innerHTML = list.map(n =>
-    `<article class="newsitem"><div class="meta"><b>${TL[n.t]}</b><span>${n.d}</span></div><h3>${n.h}</h3><p>${n.p}</p><a class="more" href="${n.href}">${n.m} →</a></article>`).join("");
+  const list = NEWS.filter(n => newsF === "hepsi" || n.t === newsF || (newsF === "kayitli" && SAVED.has(n.h)));
+  document.getElementById("news").innerHTML = list.length ? list.map(n =>
+    `<article class="newsitem"><img class="nimg" src="${newsImg(n)}" alt="" loading="lazy" decoding="async" onerror="this.remove()"><div class="meta"><b>${TL[n.t]}</b><span>${n.d}</span></div><h3>${n.h}</h3><p>${n.p}</p><div class="nact"><a class="more" href="${n.href}">${n.m} →</a><span><button class="nico save" data-h="${n.h}" aria-pressed="${SAVED.has(n.h)}" aria-label="Kaydet">${SAVED.has(n.h) ? "♥" : "♡"}</button><button class="nico share" data-h="${n.h}" aria-label="Paylaş">↗</button></span></div></article>`).join("")
+    : `<p class="note" style="padding:1.2rem">Kayıtlı haber yok. Kalp simgesiyle kaydedin.</p>`;
+  document.querySelectorAll("#news .save").forEach(b => b.addEventListener("click", () => { const k = b.dataset.h; SAVED.has(k) ? SAVED.delete(k) : SAVED.add(k); try { localStorage.setItem("fc_saved", JSON.stringify([...SAVED])); } catch (e) {} showToast(SAVED.has(k) ? "Kaydedildi · uygulamada da görünür" : "Kayıt kaldırıldı"); renderNews(); }));
+  document.querySelectorAll("#news .share").forEach(b => b.addEventListener("click", async () => { const data = { title: "Florida Coffee · " + b.dataset.h, text: b.dataset.h, url: location.href.split("#")[0] + "#taze" }; try { if (navigator.share) await navigator.share(data); else { await navigator.clipboard.writeText(data.url); showToast("Bağlantı kopyalandı"); } } catch (e) {} }));
 }
+(() => { const el = document.getElementById("news"); const step = d => el.scrollBy({ left: d * Math.min(el.clientWidth, 340), behavior: "smooth" }); document.getElementById("newsPrev").addEventListener("click", () => step(-1)); document.getElementById("newsNext").addEventListener("click", () => step(1)); })();
+const tzF = document.getElementById("tazeF"); if (tzF && !tzF.querySelector('[data-t="kayitli"]')) { const b = document.createElement("button"); b.className = "fbtn"; b.setAttribute("aria-pressed", "false"); b.dataset.t = "kayitli"; b.textContent = "Kaydettiklerim"; tzF.appendChild(b); }
 document.querySelectorAll("#tazeF .fbtn").forEach(b => b.addEventListener("click", () => {
   document.querySelectorAll("#tazeF .fbtn").forEach(x => x.setAttribute("aria-pressed","false"));
   b.setAttribute("aria-pressed","true"); newsF = b.dataset.t; renderNews();
 }));
 renderNews();
-document.getElementById("subscribe").addEventListener("submit", e => { e.preventDefault(); document.getElementById("subOk").hidden = false; e.target.querySelector("input").value = ""; });
+let subCh = "E-posta";
+document.querySelectorAll("#subCh .opt").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("#subCh .opt").forEach(x => x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); subCh = b.dataset.ch; const inp = document.getElementById("subInput"); inp.type = subCh === "WhatsApp" ? "tel" : "email"; inp.placeholder = subCh === "WhatsApp" ? "05xx xxx xx xx" : "e-posta adresiniz"; }));
+document.getElementById("subscribe").addEventListener("submit", e => { e.preventDefault(); const ok = document.getElementById("subOk"); ok.textContent = (subCh === "WhatsApp" ? "WhatsApp'a" : "E-postana") + " kaydedildi. İlk haber Sakarya açılışı olacak."; ok.hidden = false; e.target.querySelector("input").value = ""; });
 
 /* ---------------- franchise calculator ---------------- */
 function calcF(){

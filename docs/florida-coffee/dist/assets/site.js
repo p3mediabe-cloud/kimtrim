@@ -110,6 +110,20 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
             .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
+// hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
+(() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
+  addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
+  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) { const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; hm.style.setProperty("--ex", ex.toFixed(2)); hm.style.setProperty("--ey", ey.toFixed(2)); hm.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); } setTimeout(idle, 700 + Math.random() * 1600); })(); })();
+// header: kaydırınca daralır; mobil menü
+(() => { const nav = document.querySelector(".nav"); if (!nav) return; let last = -1;
+  const onS = () => { const s = scrollY > 40; if (s !== last) { nav.classList.toggle("scrolled", s); last = s; } }; addEventListener("scroll", onS, {passive:true}); onS();
+  const bg = document.getElementById("burger"), mn = document.getElementById("mnav"); if (!bg || !mn) return;
+  const set = open => { bg.setAttribute("aria-expanded", String(open)); bg.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç"); mn.hidden = !open; document.body.classList.toggle("menu-open", open); };
+  bg.addEventListener("click", () => set(mn.hidden)); mn.querySelectorAll("a").forEach(a => a.addEventListener("click", () => set(false)));
+  addEventListener("keydown", e => { if (e.key === "Escape" && !mn.hidden) set(false); });
+  addEventListener("resize", () => { if (innerWidth > 720 && !mn.hidden) set(false); });
+  if (typeof showToast !== "function") window.showToast = msg => { let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); };
+})();
 /* ---------- /logo canlandırma ---------- */
 
 /* ---------- logo canlandırma ---------- */
@@ -157,6 +171,20 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
             .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
+// hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
+(() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
+  addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
+  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) { const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; hm.style.setProperty("--ex", ex.toFixed(2)); hm.style.setProperty("--ey", ey.toFixed(2)); hm.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); } setTimeout(idle, 700 + Math.random() * 1600); })(); })();
+// header: kaydırınca daralır; mobil menü
+(() => { const nav = document.querySelector(".nav"); if (!nav) return; let last = -1;
+  const onS = () => { const s = scrollY > 40; if (s !== last) { nav.classList.toggle("scrolled", s); last = s; } }; addEventListener("scroll", onS, {passive:true}); onS();
+  const bg = document.getElementById("burger"), mn = document.getElementById("mnav"); if (!bg || !mn) return;
+  const set = open => { bg.setAttribute("aria-expanded", String(open)); bg.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç"); mn.hidden = !open; document.body.classList.toggle("menu-open", open); };
+  bg.addEventListener("click", () => set(mn.hidden)); mn.querySelectorAll("a").forEach(a => a.addEventListener("click", () => set(false)));
+  addEventListener("keydown", e => { if (e.key === "Escape" && !mn.hidden) set(false); });
+  addEventListener("resize", () => { if (innerWidth > 720 && !mn.hidden) set(false); });
+  if (typeof showToast !== "function") window.showToast = msg => { let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); };
+})();
 
 
 /* menü: filtre + arama (statik kartlar) */
@@ -188,6 +216,10 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   document.querySelectorAll("[data-milk]").forEach(b => b.addEventListener("click", () => { document.querySelectorAll("[data-milk]").forEach(x => x.setAttribute("aria-pressed", "false")); b.setAttribute("aria-pressed", "true"); milk = +b.dataset.milk; upd(); }));
 })();
 
+(() => { const ns = document.getElementById("navStatus"); if (!ns || typeof B === "undefined") return;
+  const paint = () => { const b = B[0], now = new Date(), o = isOpen(b, now); const t = b.n + " · " + (o ? "açık" : "kapalı") + " · gün batımı " + zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b)); ns.querySelector("span").textContent = t; ns.classList.toggle("off", !o); const m = document.getElementById("mnavStatus"); if (m) m.textContent = t; };
+  paint(); setInterval(paint, 60000); })();
+(() => { const f = document.getElementById("fnews"); if (f) f.addEventListener("submit", e => { e.preventDefault(); showToast("Kaydedildi. Ayda en fazla iki e-posta."); f.reset(); }); })();
 const MENU = {
   sicak: [
     ["Florida Filtre","Günün çekirdeği · filtre","120",["5 kcal", "95 mg kafein", "sütsüz", "vegan"]],
