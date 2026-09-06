@@ -324,11 +324,11 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
-(() => { const grids = [...document.querySelectorAll(".pgrid[data-collapse]")]; if (!grids.length) return;
+(() => { const grids = [...document.querySelectorAll("[data-collapse]")]; if (!grids.length) return;
   const mq = matchMedia("(max-width:640px)");
-  grids.forEach(g => { const n = g.querySelectorAll(".pcard").length, lim = +g.dataset.collapse || 6; if (n <= lim) return; g.classList.add("collapsed"); if (lim === 4) g.classList.add("c4");
-    const b = document.createElement("button"); b.type = "button"; b.className = "mmore"; b.textContent = "Tamamını göster · " + n + " ürün"; g.after(b);
-    b.addEventListener("click", () => { const c = g.classList.toggle("collapsed"); b.textContent = c ? "Tamamını göster · " + n + " ürün" : "Daha az göster"; if (c) g.scrollIntoView({block:"start"}); }); });
+  grids.forEach(g => { const n = g.children.length, lim = +g.dataset.collapse || 6; if (n <= lim) return; g.classList.add("collapsed"); if (lim === 4) g.classList.add("c4");
+    const b = document.createElement("button"); b.type = "button"; b.className = "mmore"; const unit = g.classList.contains("pgrid") ? " ürün" : ""; b.textContent = "Tamamını göster · " + n + unit; g.after(b);
+    b.addEventListener("click", () => { const c = g.classList.toggle("collapsed"); b.textContent = c ? "Tamamını göster · " + n + unit : "Daha az göster"; if (c) g.scrollIntoView({block:"start"}); }); });
   const openAll = () => { grids.forEach(g => g.classList.remove("collapsed")); document.querySelectorAll(".mmore").forEach(b => b.hidden = true); };
   const si = document.getElementById("msearch"); if (si) si.addEventListener("input", openAll, {once:true});
   document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", openAll, {once:true}));

@@ -1155,12 +1155,12 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <p class="lede">Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş verin, şubeden alın; kargo yakında.</p>
     <div class="shop">
       <article class="prodcard"><figure class="ph r43" data-img="beans"><span class="cap">Sonbahar Harmanı</span></figure>
-        <div class="pc"><div class="ptop"><h3>Sonbahar Harmanı · 250 g</h3><span class="price">420 ₺</span></div><p>Etiyopya %60 · Brezilya %40, orta kavurma. Çekirdek veya öğütülmüş. Kavurma tarihi pakette.</p><div class="tags"><span class="chip">Çekirdek</span><span class="chip">Öğütülmüş</span><span class="chip water">Kavurmadan 7 gün</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
+        <div class="pc"><div class="ptop"><h3><a href="/urunler/sonbahar-harmani-250-g/">Sonbahar Harmanı · 250 g</a></h3><span class="price">420 ₺</span></div><p>Etiyopya %60 · Brezilya %40, orta kavurma. Çekirdek veya öğütülmüş. Kavurma tarihi pakette.</p><div class="tags"><span class="chip">Çekirdek</span><span class="chip">Öğütülmüş</span><span class="chip water">Kavurmadan 7 gün</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
       <article class="prodcard"><figure class="ph r43" data-img="pour"><span class="cap">Espresso seti</span></figure>
-        <div class="pc"><div class="ptop"><h3>Ev Espresso Seti</h3><span class="price">1.150 ₺</span></div><p>500 g harman, 14 g ölçek kaşığı, barista kartı: doz, süre, sıcaklık. Evde aynı standart.</p><div class="tags"><span class="chip">Hediye</span><span class="chip water">El kitabı standardı</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
+        <div class="pc"><div class="ptop"><h3><a href="/urunler/ev-espresso-seti/">Ev Espresso Seti</a></h3><span class="price">1.150 ₺</span></div><p>500 g harman, 14 g ölçek kaşığı, barista kartı: doz, süre, sıcaklık. Evde aynı standart.</p><div class="tags"><span class="chip">Hediye</span><span class="chip water">El kitabı standardı</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
       <article class="prodcard"><figure class="ph r43" data-img="cup"><span class="cap">Termos bardak</span></figure>
-        <div class="pc"><div class="ptop"><h3>Florida Termos · 350 ml</h3><span class="price">650 ₺</span></div><p>Petrol yeşili, çift cidar, tukan amblemli. Şubede kendi bardağınızla %10 indirim.</p><div class="tags"><span class="chip">Merch</span><span class="chip water">%10 indirim</span></div><a class="btn ghost sm" href="#kulup">Ön sipariş</a></div></article>
-      <article class="prodcard giftcard"><div class="pc"><div class="ptop"><h3>Hediye Kartı</h3><span class="price">250–2.000 ₺</span></div><p>Uygulamadan telefona gönderin; alan kişi bakiyeyi cüzdanına aktarır. Kartona gerek yok.</p><div class="tags"><span class="chip">Dijital</span><span class="chip water">Anında</span></div><a class="btn amber sm" href="#kulup">Hediye gönder</a></div></article>
+        <div class="pc"><div class="ptop"><h3><a href="/urunler/florida-termos-350-ml/">Florida Termos · 350 ml</a></h3><span class="price">650 ₺</span></div><p>Petrol yeşili, çift cidar, tukan amblemli. Şubede kendi bardağınızla %10 indirim.</p><div class="tags"><span class="chip">Merch</span><span class="chip water">%10 indirim</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
+      <article class="prodcard giftcard"><div class="pc"><div class="ptop"><h3><a href="/urunler/hediye-karti/">Hediye Kartı</a></h3><span class="price">250–2.000 ₺</span></div><p>Uygulamadan telefona gönderin; alan kişi bakiyeyi cüzdanına aktarır. Kartona gerek yok.</p><div class="tags"><span class="chip">Dijital</span><span class="chip water">Anında</span></div><a class="btn amber sm" href="/urunler/hediye-karti/">Hediye gönder</a></div></article>
     </div>
     <p class="note" style="font-size:.8rem;color:var(--ink-3);margin-top:1rem">Fiyatlar örnektir; ürün kataloğu merkezden yönetilir.</p>
   </div>
@@ -1357,8 +1357,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     </div>
     <div class="faq" id="dFaq"></div>
     <div style="display:flex;gap:.5rem;margin-top:1.3rem;flex-wrap:wrap">
-      <button class="btn solid sm">Bu şubeden ön sipariş ver</button>
-      <button class="btn ghost sm">Yol tarifi al</button>
+      <a class="btn solid sm" id="dOrder" href="/app/">Bu şubeden ön sipariş ver</a>
+      <a class="btn ghost sm" id="dRoute" href="#" rel="noopener" target="_blank">Yol tarifi al</a>
+      <a class="btn ghost sm" id="dPage" href="/subeler/">Şube sayfası →</a>
     </div>
   </div>
 </div>
@@ -1564,6 +1565,7 @@ function openBranch(id){
   const b = B.find(x => x.id === id), now = new Date();
   const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
   document.getElementById("dTitle").textContent = "Florida Coffee " + b.n;
+  document.getElementById("dRoute").href = "https://www.google.com/maps/search/?api=1&query=" + b.lat + "," + b.lng; document.getElementById("dPage").href = "/subeler/" + b.id + "/";
   document.getElementById("dSub").textContent = b.c + " · ★ " + b.r + " (" + b.rev + " yorum)";
   document.getElementById("dHours").innerHTML = DAYS.map((d,i) =>
     `<span class="${i===zday(now,tzOf(b))?"today":""}">${d}</span><span class="${i===zday(now,tzOf(b))?"today":""}">${hourStr(b.o)}–${hourStr(b.k)}</span>`).join("");
@@ -1827,14 +1829,14 @@ if (favEl) {
 
 /* ---------------- taze: haber akışı ---------------- */
 const NEWS = [
-  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Şubeyi gör", href:"#subeler", img:["s","sakarya"]},
-  {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Menüde gör", href:"#menu", img:["m","bogaz-cold-brew"]},
-  {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Nasıl yapılır", href:"#kulup", img:["m","latte"]},
-  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Etkinlikler", href:"#gece", img:["s","kavacik"]},
-  {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Şubeyi gör", href:"#subeler", img:["s","budva"]},
-  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Ürünlere git", href:"#urunler", img:["m","florida-filtre"]},
-  {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Uygulama", href:"#kulup", img:["m","iced-latte"]},
-  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Yer ayır", href:"#gece", img:["s","cengelkoy"]}
+  {t:"sube", d:"Eylül 2026", h:"Sakarya'da yeni adres: Cumhuriyet Mah. Şal Sokak", p:"Çark Caddesi'ne yürüme mesafesinde, daha geniş çalışma katı ve teras. Açılış haftası filtre kahve 1 ₺.", m:"Devamı", href:"/taze/sakarya-da-yeni-adres-cumhuriyet-mah-sal-sokak/", img:["s","sakarya"]},
+  {t:"urun", d:"Eylül 2026", h:"Boğaz Cold Brew sezonu açıldı", p:"16 saat demleme, tonik ve portakal kabuğu. Kavacık ve Beykoz'da; diğer şubelerde Ekim'de.", m:"Devamı", href:"/taze/bogaz-cold-brew-sezonu-acildi/", img:["m","bogaz-cold-brew"]},
+  {t:"kampanya", d:"Sürekli", h:"Kartını uygulamaya taşı, ilk kahve bizden", p:"Fiziksel sadakat kartındaki damgalar ve bakiye tek taramayla uygulamaya geçer.", m:"Devamı", href:"/taze/kartini-uygulamaya-tasi-ilk-kahve-bizden/", img:["m","latte"]},
+  {t:"etkinlik", d:"Her Perşembe 21:00", h:"Akustik akşamlar · Kavacık terası", p:"Gün batımından sonra iki kişilik akustik set. Yer ayırma uygulamadan, Plus üyelere öncelik.", m:"Devamı", href:"/taze/akustik-aksamlar-kavacik-terasi/", img:["s","kavacik"]},
+  {t:"sube", d:"Yaz 2026", h:"Budva yaz saatleri: 01:00'e kadar", p:"Adriyatik'teki şubemiz yaz boyunca gece bire kadar açık. Menü EN/ME.", m:"Devamı", href:"/taze/budva-yaz-saatleri-01-00-e-kadar/", img:["s","budva"]},
+  {t:"urun", d:"Ekim 2026", h:"Sonbahar Harmanı raflarda", p:"Etiyopya Yirgacheffe %60, Brezilya Cerrado %40. 250 g, kavurma tarihi pakette.", m:"Devamı", href:"/taze/sonbahar-harmani-raflarda/", img:["m","florida-filtre"]},
+  {t:"kampanya", d:"Hafta içi 14–16", h:"Ölü saat: soğuk kahveler %20", p:"Uygulamada, yoğunluğu düşük şubelerde otomatik açılır. Bildirimleri açık tutun.", m:"Devamı", href:"/taze/olu-saat-soguk-kahveler-20/", img:["m","iced-latte"]},
+  {t:"etkinlik", d:"Ayın ilk Cumartesi'si", h:"Cupping · Çengelköy", p:"Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz.", m:"Devamı", href:"/taze/cupping-cengelkoy/", img:["s","cengelkoy"]}
 ];
 const TL = {sube:"Şube", urun:"Ürün", kampanya:"Kampanya", etkinlik:"Etkinlik"};
 let newsF = "hepsi";
