@@ -863,6 +863,73 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
 .adl-qr:hover .qr.big{transform:scale(1.04)}
 @media (max-width:900px){.loyal{grid-template-columns:minmax(0,1fr)}.phone.v2{margin:1.5rem auto 0;width:min(19.5rem,100%)}}
 @media (max-width:760px){.appdl{grid-template-columns:minmax(0,1fr)}.adl-qr{display:none}}
+/* ---------- v12: mobil sıkıştırma, adımlı sipariş, yapışkan menü filtresi, boşluklar ---------- */
+.shop{gap:1.1rem;background:none;border:0}.prodcard{border:1px solid var(--hair)}
+.branches{gap:1.25rem}.evgrid{gap:1.1rem}
+.mlist{grid-template-columns:repeat(auto-fill,minmax(min(100%,18rem),1fr));gap:0 2.4rem}
+.msticky{position:sticky;top:3.3rem;z-index:30;background:var(--paper);padding:.55rem 0 .4rem;margin:1.2rem 0 .3rem;box-shadow:0 12px 18px -14px rgba(0,0,0,.45)}
+.msticky .mcats{margin:0 0 .45rem}.msticky .dietF{margin:0}
+.mprice{font-size:.76rem;color:var(--paper-ink-2);margin-top:.5rem;display:flex;gap:.3rem 1rem;flex-wrap:wrap}.mprice b{color:var(--paper-ink)}
+.mitem .tags{align-items:center}
+.mitem .qo{margin-left:auto;font-size:.66rem;font-weight:800;padding:.16rem .55rem;border:1px solid var(--paper-ink);color:var(--paper-ink);cursor:pointer;letter-spacing:.06em;text-transform:uppercase}
+.mitem .qo:hover{background:var(--paper-ink);color:var(--paper)}
+.giftamt{display:flex;gap:.35rem;flex-wrap:wrap}.giftamt button{padding:.3rem .65rem;border:1px solid var(--hair-2);font-size:.78rem;font-weight:700;color:var(--ink)}.giftamt button[aria-pressed="true"]{background:var(--amber);color:#241704;border-color:var(--amber)}
+.fresh{font-size:.72rem;color:var(--ok);font-weight:600}
+.kmini{margin-top:1.2rem;padding:.9rem 1rem;border:1px solid var(--hair);background:var(--glass)}
+.kmini label{display:flex;justify-content:space-between;font-size:.82rem;color:var(--ink-2)}.kmini label b{color:var(--ink)}
+.kmini input{width:100%;accent-color:var(--amber);margin:.45rem 0 .6rem}
+.kmini .out{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;text-align:center}.kmini .out b{display:block;font-family:var(--disp);font-size:1.15rem;color:var(--amber)}.kmini .out span{font-size:.68rem;color:var(--ink-3)}
+.ev .acts{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.7rem}
+.branch .km{color:var(--amber);font-weight:700}
+#geoBtn[aria-pressed="true"]{border-color:var(--amber);color:var(--amber)}
+.mmore2{display:none}
+.osum{position:fixed;left:.6rem;right:.6rem;bottom:3.7rem;z-index:62;display:none;align-items:center;gap:.6rem;padding:.5rem .55rem .5rem .8rem;background:var(--ink);color:#0A1420;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+.osum.on{display:flex}.osum>span:first-child{min-width:0}.osum b{font-family:var(--disp);font-size:.95rem;display:block;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.osum small{font-size:.68rem;opacity:.75;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.osum .p{margin-left:auto;font-family:var(--disp);font-weight:800;white-space:nowrap}.osum .btn{padding:.5rem .65rem;font-size:.74rem;flex:none}
+@media (max-width:640px){
+  .sec{padding:2.8rem 1.1rem}
+  .hero{min-height:0;padding-top:4rem;padding-bottom:2rem}
+  .lede{font-size:.98rem;margin-top:.7rem}
+  h2{font-size:clamp(1.55rem,7vw,2rem)}
+  .proof{grid-template-columns:1fr 1fr;margin-top:1.4rem}.proof .v{font-size:1.5rem}
+  #sabah>.inner>figure.ph,#secim>.inner>figure.ph,#subeler>.inner>figure.ph,#franchise figure.ph,.brewcol:nth-child(2)>figure.ph,#menu .g3,.brewwrap .stdcta{display:none}
+  .ps{margin-top:1.1rem}.split{gap:1.1rem}
+  .mcol:not(.on){display:none!important}
+  .mmore2{display:block;width:100%;margin:.8rem 0 0;padding:.7rem;border:1px solid var(--hair-2);color:var(--ink);font-weight:700;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase}
+  .msticky{top:3.1rem;margin:.6rem 0 .2rem}
+  .msticky .mcats,.msticky .dietF{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:.1rem}
+  .msticky .mcats::-webkit-scrollbar,.msticky .dietF::-webkit-scrollbar{display:none}
+  .msticky .mcat{white-space:nowrap;flex:none}
+  .mprice{display:none}
+  .mitem .qo{display:none}
+  .order .ostep{cursor:pointer;margin:0;padding:.7rem 0;border-top:1px solid var(--hair)}
+  .order .ostep::after{content:"›";margin-left:.35rem;color:var(--ink-3);transform:rotate(90deg);display:inline-block;transition:transform .2s}
+  .order .ostep.open::after{transform:rotate(-90deg)}
+  .order .ostep:not(.open)+.opts,.order .ostep:not(.open)+.opts+.more{display:none}
+  .order .ostep.open+.opts{margin:.4rem 0 .9rem}
+  .order .ohead{margin-bottom:0;padding-bottom:.6rem}
+  .order .ohelp{display:none}
+  .ticket{margin-top:.5rem}
+  .ticket .steps{display:none}.ticket.placed .steps{display:flex}
+  .tsim{display:none}
+  .shop{gap:.8rem}.evgrid{gap:.8rem}
+  .kmini .out b{font-size:1rem}
+  .tiers{gap:.45rem}.tier{padding:.65rem .8rem}
+  .marq{display:none}
+  .ps,#gece>.inner>figure.ph{display:none}
+  .shop{grid-template-columns:1fr 1fr;gap:.6rem}.prodcard .ph{aspect-ratio:1}.prodcard .pc{padding:.6rem .65rem .75rem;gap:.35rem}.prodcard h3{font-size:.95rem;margin:0;line-height:1.15}.prodcard p{font-size:.76rem}.prodcard .tags{display:none}.prodcard.giftcard{grid-column:1/-1}.prodcard .btn{font-size:.72rem;padding:.4rem .6rem}
+  .stdgrid{grid-template-columns:repeat(3,1fr)}.stdprods{grid-template-columns:1fr 1fr;gap:.5rem}.sp{grid-template-columns:1fr;gap:.4rem;padding:.4rem}.sp img{width:100%;height:auto;aspect-ratio:4/3}
+  .phone.v2 .scr{min-height:30rem}.loyal{gap:1rem}.appdl{margin-top:1.4rem}
+  .mlist.collapsed .mitem:nth-child(n+7){display:none}
+  footer .fgrid{grid-template-columns:1fr 1fr}footer .fbrand,footer .fapp{grid-column:1/-1}
+  .moods{display:grid;grid-template-columns:1fr 1fr;gap:.4rem;margin:.9rem 0}.mood{padding:.6rem .7rem;font-size:.84rem}
+  .favs{margin-top:.6rem}
+  .mlist{grid-template-columns:1fr 1fr;gap:.6rem}
+  .favstack{aspect-ratio:16/11}
+  .brewcol:first-child>figure.ph{display:none}
+  .appdl p{display:none}.appdl h3{font-size:1.15rem;margin:.3rem 0 .7rem}.adl-badges{display:grid;grid-template-columns:1fr 1fr;gap:.45rem}.adl-badges .btn{grid-column:1/-1}.dl{padding:.5rem .6rem}.dl b{font-size:.85rem}
+  .tacts .btn.lamp{font-size:.82rem;padding:.75rem .6rem}
+  body.has-osum .flo-fab{bottom:8rem}body.has-osum .flo-hint{bottom:8.3rem}
+}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -984,7 +1051,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
               <button class="opt" aria-pressed="false" data-n="simdi">Şimdi</button>
             </div></div>
           </div>
-          <div id="milkwrap"><div class="ostep"><i>4</i><span class="lbl">Süt</span><span class="pick soft">profilinize kaydedilir</span></div>
+          <div id="milkwrap"><div class="ostep"><i>4</i><span class="lbl">Süt</span><span class="pick" id="pk4">Laktozsuz</span></div>
           <div class="opts" id="milks">
             <button class="opt milk" aria-pressed="false" data-n="İnek sütü" data-d="0">İnek</button>
             <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz <small>+10</small></button>
@@ -1021,6 +1088,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
         </div>
       </div>
     </div>
+    <div class="osum" id="osum" aria-live="polite"><span><b id="sDrink">Iced Latte</b><small id="sMods">Orta · Laktozsuz</small></span><span class="p" id="sPrice">170 ₺</span><button class="btn amber sm" id="sAct" type="button">Sepete git</button></div>
   </div>
 </section>
 
@@ -1056,7 +1124,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
         </div>
         <div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div>
       </div>
-      <div class="brewcol">
+      <div class="brewcol mcol" data-more="Çekirdek, kavurma ve 5 adım">
         <figure class="ph r169" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure>
         <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
         <div class="brewtabs" id="brewtabs">
@@ -1152,13 +1220,13 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <h2>Fiyat, kalori, alerjen.<br>Hepsi burada.</h2>
     <p class="lede">Şubeye gitmeden görebilmeniz gereken her şey. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfasında görünür.</p>
     <div class="grid g3" style="margin:1.4rem 0 .4rem"><figure class="ph r11" data-img="latteart"><span class="cap">Flat white</span></figure><figure class="ph r11" data-img="coldbrew"><span class="cap">Boğaz cold brew</span></figure><figure class="ph r11" data-img="cup"><span class="cap">Bardağımız</span></figure></div>
-    <div class="mcats" id="mcats">
+    <div class="msticky"><div class="mcats" id="mcats">
       <button class="mcat" aria-pressed="true" data-c="sicak">Sıcak kahveler</button>
       <button class="mcat" aria-pressed="false" data-c="soguk">Soğuk kahveler</button>
       <button class="mcat" aria-pressed="false" data-c="diger">Kahve dışı</button>
       <button class="mcat" aria-pressed="false" data-c="yiyecek">Yiyecek</button>
     </div>
-    <div class="dietF" id="dietF"><button class="mcat" aria-pressed="true" data-d="">Hepsi</button><button class="mcat" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div>
+    <div class="dietF" id="dietF"><button class="mcat" aria-pressed="true" data-d="">Hepsi</button><button class="mcat" aria-pressed="false" data-d="hafif">Hafif · &lt;100 kcal</button><button class="mcat" aria-pressed="false" data-d="vegan">Vegan</button><button class="mcat" aria-pressed="false" data-d="sutsuz">Sütsüz</button><button class="mcat" aria-pressed="false" data-d="azkafein">Az kafein</button><button class="mcat" aria-pressed="false" data-d="glutensiz">Glütensiz</button></div><div class="mprice"><span><b>Süt:</b> inek dahil · laktozsuz +10 ₺ · yulaf, badem +15 ₺</span><span><b>Boy:</b> küçük −15 ₺ · orta · büyük +20 ₺</span><span><b>Fiyatlar:</b> İstanbul şubeleri</span></div></div>
     <div class="mlist collapsed" id="mlist"></div><button class="mmore" id="mMoreBtn" type="button" hidden>Tamamını göster</button>
     <div class="milkbar">
       <strong style="color:var(--paper-ink)">Süt seçenekleri:</strong>
@@ -1178,12 +1246,12 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <p class="lede">Şubede içtiğiniz harman, aynı kavurma tarihiyle. Uygulamadan ön sipariş verin, şubeden alın; kargo yakında.</p>
     <div class="shop">
       <article class="prodcard"><figure class="ph r43" data-img="beans"><span class="cap">Sonbahar Harmanı</span></figure>
-        <div class="pc"><div class="ptop"><h3><a href="/urunler/sonbahar-harmani-250-g/">Sonbahar Harmanı · 250 g</a></h3><span class="price">420 ₺</span></div><p>Etiyopya %60 · Brezilya %40, orta kavurma. Çekirdek veya öğütülmüş. Kavurma tarihi pakette.</p><div class="tags"><span class="chip">Çekirdek</span><span class="chip">Öğütülmüş</span><span class="chip water">Kavurmadan 7 gün</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
+        <div class="pc"><div class="ptop"><h3><a href="/urunler/sonbahar-harmani-250-g/">Sonbahar Harmanı · 250 g</a></h3><span class="price">420 ₺</span></div><p>Etiyopya %60 · Brezilya %40, orta kavurma. Çekirdek veya öğütülmüş.</p><span class="fresh" id="fresh">Son kavurma: hesaplanıyor</span><div class="tags"><span class="chip">Çekirdek</span><span class="chip">Öğütülmüş</span><span class="chip water">Kavurmadan 7 gün</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
       <article class="prodcard"><figure class="ph r43" data-img="pour"><span class="cap">Espresso seti</span></figure>
         <div class="pc"><div class="ptop"><h3><a href="/urunler/ev-espresso-seti/">Ev Espresso Seti</a></h3><span class="price">1.150 ₺</span></div><p>500 g harman, 14 g ölçek kaşığı, barista kartı: doz, süre, sıcaklık. Evde aynı standart.</p><div class="tags"><span class="chip">Hediye</span><span class="chip water">El kitabı standardı</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
       <article class="prodcard"><figure class="ph r43" data-img="cup"><span class="cap">Termos bardak</span></figure>
         <div class="pc"><div class="ptop"><h3><a href="/urunler/florida-termos-350-ml/">Florida Termos · 350 ml</a></h3><span class="price">650 ₺</span></div><p>Petrol yeşili, çift cidar, tukan amblemli. Şubede kendi bardağınızla %10 indirim.</p><div class="tags"><span class="chip">Merch</span><span class="chip water">%10 indirim</span></div><a class="btn ghost sm" href="/app/">Ön sipariş</a></div></article>
-      <article class="prodcard giftcard"><div class="pc"><div class="ptop"><h3><a href="/urunler/hediye-karti/">Hediye Kartı</a></h3><span class="price">250–2.000 ₺</span></div><p>Uygulamadan telefona gönderin; alan kişi bakiyeyi cüzdanına aktarır. Kartona gerek yok.</p><div class="tags"><span class="chip">Dijital</span><span class="chip water">Anında</span></div><a class="btn amber sm" href="/urunler/hediye-karti/">Hediye gönder</a></div></article>
+      <article class="prodcard giftcard"><div class="pc"><div class="ptop"><h3><a href="/urunler/hediye-karti/">Hediye Kartı</a></h3><span class="price" id="gPrice">500 ₺</span></div><div class="giftamt" id="giftamt"><button type="button" aria-pressed="false" data-v="250">250</button><button type="button" aria-pressed="true" data-v="500">500</button><button type="button" aria-pressed="false" data-v="1000">1.000</button><button type="button" aria-pressed="false" data-v="2000">2.000</button></div><p>Uygulamadan telefona gönderin; alan kişi bakiyeyi cüzdanına aktarır. Kartona gerek yok.</p><div class="tags"><span class="chip">Dijital</span><span class="chip water">Anında</span></div><a class="btn amber sm" href="/urunler/hediye-karti/" id="gLink">500 ₺ hediye gönder</a></div></article>
     </div>
     <p class="note" style="font-size:.8rem;color:var(--ink-3);margin-top:1rem">Fiyatlar örnektir; ürün kataloğu merkezden yönetilir.</p>
   </div>
@@ -1203,6 +1271,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
       <button class="fbtn" aria-pressed="false" data-f="calisma">Çalışma alanı</button>
       <button class="fbtn" aria-pressed="false" data-f="otopark">Otopark</button>
       <button class="fbtn" aria-pressed="false" data-f="kahvalti">Kahvaltı</button>
+      <button class="fbtn" id="geoBtn" aria-pressed="false" type="button">◎ En yakın şube</button>
       <span class="fcount" id="fcount"></span>
     </div>
     <div class="bhint"><span>Kaydırarak gezin · <b id="bcount">17</b> şube</span><a href="/subeler/">Tümü + harita ›</a></div>
@@ -1227,6 +1296,7 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
           <div class="tier hi"><span class="tname">Plus</span><span class="d">Ayda 2 boy yükseltme · erken sezon menüsü</span><span class="r">2.500–7.500 ₺</span></div>
           <div class="tier"><span class="tname">Premium</span><span class="d">Ücretsiz ekstra shot · gün batımında manzaralı masa önceliği</span><span class="r">7.500 ₺ +</span></div>
         </div>
+        <div class="kmini"><label>Haftada kaç kahve? <b><span id="kmW">5</span> kahve</b></label><input type="range" id="kmWeek" min="1" max="21" value="5" aria-label="Haftalık kahve sayısı"><div class="out"><div><b id="kmBeans">39.000</b><span>yıllık çekirdek</span></div><div><b id="kmFree">26</b><span>hediye içecek</span></div><div><b id="kmTier">Plus</b><span>seviyeniz</span></div></div></div>
       </div>
       <div class="phone v2" aria-hidden="true">
         <div class="scr">
@@ -1276,9 +1346,9 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
     <p class="lede">Kavacık ve Beykoz ikiye kadar açık. Gece yarısı bir filtre kahve, terasta serin bir rüzgâr ve karşı kıyının ışıkları — bunun için menüye gerek yok.</p>
     <figure class="ph r169" data-img="night" style="margin:1.4rem 0"><span class="cap">Beykoz · 01:00</span></figure>
     <div class="evgrid">
-      <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p></div>
-      <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p></div>
-      <div class="ev"><div class="d">Her gün 22:00 sonrası</div><div class="t">Gece filtresi</div><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p></div>
+      <div class="ev"><div class="d">Her Perşembe · 21:00</div><div class="t">Akustik set · Kavacık terası</div><p>İki kişilik akustik, gün batımından sonra. Rezervasyon uygulamadan.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
+      <div class="ev"><div class="d">Ayın ilk Cumartesi'si</div><div class="t">Cupping · Çengelköy</div><p>Sezon harmanını birlikte tadıyoruz. 12 kişilik, ücretsiz, Plus üyelere öncelikli.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
+      <div class="ev"><div class="d">Her gün 22:00 sonrası</div><div class="t">Gece filtresi</div><p>Kafeinsiz seçenekle aynı fiyat. Uykunuzu bozmadan oturmaya devam.</p><div class="acts"><button class="btn amber sm" type="button" data-flo="yer ayır">Yer ayır</button><a class="btn ghost sm" href="/etkinlikler/">Takvim</a></div></div>
     </div>
   </div>
 </section>
@@ -1553,12 +1623,14 @@ if (liveCard && !reduce) {
 }
 
 /* ---------------- branch list ---------------- */
-const active = new Set();
+const active = new Set(); let geo = null;
+const distKm = b => { if (!geo) return 0; const R = 6371, dLat = (b.lat - geo.lat) * Math.PI / 180, dLng = (b.lng - geo.lng) * Math.PI / 180; const a = Math.sin(dLat / 2) ** 2 + Math.cos(geo.lat * Math.PI / 180) * Math.cos(b.lat * Math.PI / 180) * Math.sin(dLng / 2) ** 2; return 2 * R * Math.asin(Math.sqrt(a)); };
 const SUBEIMG = (() => { try { return JSON.parse(document.getElementById("subeimg")?.textContent || "{}"); } catch (e) { return {}; } })();
 function renderBranches(){
   const now = new Date();
   const el = document.getElementById("branches");
   const list = B.filter(b => [...active].every(f => f === "acik" ? isOpen(b, now) : b.f.includes(f)));
+  if (geo) list.sort((a, b) => distKm(a) - distKm(b));
   document.getElementById("fcount").textContent = list.length + " / " + B.length + " şube"; const bc = document.getElementById("bcount"); if (bc) bc.textContent = list.length;
   el.innerHTML = list.length ? list.map(b => {
     const open = isOpen(b, now), ss = zhm(sunTimes(now, b.lat, b.lng).set, tzOf(b));
@@ -1566,14 +1638,14 @@ function renderBranches(){
       <span class="bph"><img src="${SUBEIMG[b.id] || ("img/subeler/" + b.id + ".jpg")}" alt="" loading="lazy" decoding="async" onerror="this.parentNode.remove()"></span>
       <span class="row1"><span><span class="n">${b.n}</span><br><span class="c">${b.c}</span></span>
       <span class="st ${open?"open":"closed"}"><span class="dot-s ${open?"g":"r"}"></span>${open?"Açık":"Kapalı"}</span></span>
-      <span class="c">${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r} (${b.rev})</span>
+      <span class="c">${geo ? `<span class="km">${distKm(b).toFixed(1).replace(".", ",")} km · </span>` : ""}${hourStr(b.o)}–${hourStr(b.k)} · ★ ${b.r} (${b.rev})</span>
       ${b.f.includes("manzara") ? `<span class="sun">Gün batımı ${ss}</span>` : ""}
       <span class="tags">${b.f.map(f=>`<span class="chip">${F[f]}</span>`).join("")}</span>
     </button>`;
   }).join("") : `<div class="empty">Bu filtrelerle şube yok. Bir filtreyi kaldırın.</div>`;
   el.querySelectorAll(".branch").forEach(x => x.addEventListener("click", () => openBranch(x.dataset.id)));
 }
-document.querySelectorAll("#filters .fbtn").forEach(btn => btn.addEventListener("click", () => {
+document.querySelectorAll("#filters .fbtn[data-f]").forEach(btn => btn.addEventListener("click", () => {
   const f = btn.dataset.f, on = btn.getAttribute("aria-pressed") === "true";
   btn.setAttribute("aria-pressed", String(!on));
   on ? active.delete(f) : active.add(f);
@@ -1816,7 +1888,7 @@ function renderMenu(cat){
   document.getElementById("mlist").innerHTML = items.length ? items.map(([n,d,p,tags]) =>
     `<a class="mitem" href="/menu/${mslug(n)}/">${mthumb(n)}<span class="n">${n}</span><span class="p">${p} ₺</span>
      <span class="d">${d}</span>
-     <span class="tags">${tags.filter(t => !["sütsüz"].includes(t) || diet === "sutsuz").map(t => `<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}</span></a>`).join("")
+     <span class="tags">${tags.filter(t => !["sütsüz"].includes(t) || diet === "sutsuz").map(t => `<span class="tg ${/vegan|glütensiz|kafeinsiz/.test(t)?"v":/kafein|mg/.test(t)?"c":""}">${t}</span>`).join("")}<span class="qo" role="button" data-flo="sipariş: ${n}">Sipariş</span></span></a>`).join("")
     : `<p class="note" style="padding:1rem 0">Bu filtrede bu kategoride ürün yok; başka bir kategoriye bakın.</p>`;
   const mb = document.getElementById("mMoreBtn"), ml = document.getElementById("mlist"); ml.classList.add("collapsed"); mb.hidden = items.length <= 8; mb.textContent = "Tamamını göster · " + items.length + " ürün";
 }
@@ -1832,6 +1904,46 @@ document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click
 renderMenu("sicak");
 document.querySelectorAll("img[data-mi]").forEach(im => { im.src = MENUIMG[im.dataset.mi] || ("img/menu/" + im.dataset.mi + ".jpg"); im.onerror = () => im.remove(); });
 paintTicket();
+/* ---------------- v12: mobil adımlı sipariş, özet çubuğu, konum, hızlı sipariş, hediye tutarı, kulüp mini hesap ---------------- */
+(() => {
+  const mq = matchMedia("(max-width:640px)");
+  const steps = [...document.querySelectorAll("#sabah .order .ostep")];
+  const openStep = i => steps.forEach((s, k) => s.classList.toggle("open", k === i));
+  steps.forEach((s, i) => s.addEventListener("click", () => { if (!mq.matches) return; s.classList.contains("open") ? s.classList.remove("open") : openStep(i); }));
+  const advance = id => { if (!mq.matches) return; let n = {drinks:1, sizes:2, whens:3, milks:4}[id]; if (n === undefined) return; if (n === 3 && O.nomilk) n = 4; if (n < steps.length) { openStep(n); steps[n].scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}); } };
+  ["drinks","sizes","whens","milks"].forEach(id => document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => setTimeout(() => advance(id), 150))));
+  const sync = () => { if (mq.matches) { if (!steps.some(s => s.classList.contains("open"))) openStep(0); } else steps.forEach(s => s.classList.remove("open")); };
+  mq.addEventListener("change", sync); sync();
+  const osum = document.getElementById("osum"), sec = document.getElementById("sabah"), ticket = document.getElementById("ticket");
+  let secVis = false, tickVis = false;
+  const paintSum = () => { if (!osum) return; document.getElementById("sDrink").textContent = (O.qty > 1 ? O.qty + " × " : "") + O.drink; document.getElementById("sMods").textContent = document.getElementById("tMods").textContent + " · " + O.branch; document.getElementById("sPrice").textContent = document.getElementById("tPrice").textContent + " ₺"; const on = mq.matches && secVis && !tickVis && O.step === 1 && !O.placed; osum.classList.toggle("on", on); document.body.classList.toggle("has-osum", on); };
+  const io = new IntersectionObserver(es => { es.forEach(e => { if (e.target === sec) secVis = e.isIntersecting; if (e.target === ticket) tickVis = e.isIntersecting; }); paintSum(); }, {threshold: 0.02}); io.observe(sec); io.observe(ticket);
+  document.getElementById("sAct").addEventListener("click", () => ticket.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}));
+  const _paint = paintTicket;
+  paintTicket = function(){ _paint(); const pk4 = document.getElementById("pk4"); if (pk4) pk4.textContent = O.nomilk ? "Sütsüz" : O.milk; ticket.classList.toggle("placed", O.placed || O.step > 1); paintSum(); };
+  paintTicket();
+  /* konuma göre en yakın şube */
+  const gb = document.getElementById("geoBtn");
+  if (gb) gb.addEventListener("click", () => {
+    if (geo) { geo = null; gb.setAttribute("aria-pressed","false"); renderBranches(); return; }
+    const done = (lat, lng, msg) => { geo = {lat, lng}; gb.setAttribute("aria-pressed","true"); renderBranches(); const near = B.slice().sort((a, b) => distKm(a) - distKm(b))[0]; showToast(msg || `En yakın şube: ${near.n} · ${distKm(near).toFixed(1).replace(".", ",")} km`); };
+    if (!navigator.geolocation) return done(41.04, 29.0, "Konum desteklenmiyor; İstanbul merkez alındı");
+    gb.textContent = "◎ Konum alınıyor…";
+    navigator.geolocation.getCurrentPosition(p => { gb.textContent = "◎ En yakın şube"; done(p.coords.latitude, p.coords.longitude); }, () => { gb.textContent = "◎ En yakın şube"; done(41.04, 29.0, "Konum izni yok; İstanbul merkez alındı"); }, {timeout: 6000, maximumAge: 300000});
+  });
+  /* Flo'ya görev gönderen düğmeler: hızlı sipariş, yer ayır */
+  document.addEventListener("click", e => { const q = e.target.closest("[data-flo]"); if (!q) return; e.preventDefault(); e.stopPropagation(); if (typeof openFlo === "function") { openFlo(); userSays(q.dataset.flo); } });
+  /* hediye kartı tutarı */
+  const ga = document.getElementById("giftamt");
+  if (ga) ga.querySelectorAll("button").forEach(b => b.addEventListener("click", () => { ga.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed","false")); b.setAttribute("aria-pressed","true"); const v = +b.dataset.v; document.getElementById("gPrice").textContent = v.toLocaleString("tr-TR") + " ₺"; const l = document.getElementById("gLink"); l.textContent = v.toLocaleString("tr-TR") + " ₺ hediye gönder"; l.href = "/urunler/hediye-karti/?tutar=" + v; }));
+  /* harman tazelik */
+  const fr = document.getElementById("fresh"); if (fr) { const d = new Date(); d.setDate(d.getDate() - 3); fr.textContent = "Son kavurma: " + d.toLocaleDateString("tr-TR", {day:"numeric", month:"long"}) + " · 3 gün önce · en iyi 21 gün içinde"; }
+  /* kulüp mini hesap */
+  const kw = document.getElementById("kmWeek");
+  if (kw) { const paintK = () => { const w = +kw.value, yearly = w * 52 * 150, half = yearly / 2; document.getElementById("kmW").textContent = w; document.getElementById("kmBeans").textContent = yearly.toLocaleString("tr-TR"); document.getElementById("kmFree").textContent = Math.floor(w * 52 / 10); document.getElementById("kmTier").textContent = half >= 7500 ? "Premium" : half >= 2500 ? "Plus" : "Classic"; }; kw.addEventListener("input", paintK); paintK(); }
+  /* mobilde daraltılan bloklar */
+  document.querySelectorAll(".mcol").forEach(el => { const b = document.createElement("button"); b.type = "button"; b.className = "mmore2"; const lbl = el.dataset.more || "Devamını gör"; b.textContent = lbl + " ›"; el.after(b); b.addEventListener("click", () => { const on = el.classList.toggle("on"); b.textContent = on ? "Daha az ‹" : lbl + " ›"; }); });
+})();
 /* ---------------- favoriler döngüsü (bölüm 02) ---------------- */
 const FAVS = ["Iced Latte","Flat White","Florida Filtre","Boğaz Cold Brew","San Sebastian","Cold Brew"];
 const favEl = document.getElementById("favs");
