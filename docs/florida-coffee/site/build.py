@@ -439,6 +439,31 @@ EXTRA_JS3 = r'''
 '''
 EXTRA_CSS5 = r'''
 
+/* ---------- v20: önceki / sonraki ürün ---------- */
+.pdp-media .big{position:relative;touch-action:pan-y;will-change:transform}
+.pnav .pn{position:absolute;top:50%;transform:translateY(-50%);width:2.5rem;height:2.5rem;display:grid;place-items:center;background:rgba(244,238,226,.92);color:var(--paper-ink);border:1px solid var(--paper-line);z-index:2;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 6px 18px -8px rgba(0,0,0,.35)}
+.pnav .pn:hover{background:#fff}
+.pnav .pn:active{transform:translateY(-50%) scale(.94)}
+.pnav .prev{left:.7rem}.pnav .next{right:.7rem}
+.pnav svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pstrip{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:0;border:1px solid var(--paper-line);border-top:0;background:#FBF8F2}
+.pstrip .ps{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;text-decoration:none;color:var(--paper-ink);min-width:0;transition:background .2s}
+.pstrip .ps:hover{background:#fff}
+.pstrip .ps.next{justify-content:flex-end;text-align:right}
+.pstrip .ps img{width:2.7rem;height:2.7rem;object-fit:cover;flex:none;background:var(--paper-line)}
+.pstrip .ps span{min-width:0}
+.pstrip .ps small{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-ink-2)}
+.pstrip .ps b{display:block;font-family:var(--disp);font-size:.88rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pstrip .pidx{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .8rem;border-left:1px solid var(--paper-line);border-right:1px solid var(--paper-line);font-size:.72rem;color:var(--paper-ink-2);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+.pstrip .pidx b{color:var(--paper-ink);font-family:var(--disp);font-size:.95rem}
+.pstrip .pidx small{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem}
+.pdp-media .big.swipe-hint::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:.9;pointer-events:none}
+@media (max-width:640px){
+  .pnav .pn{width:2.2rem;height:2.2rem;background:rgba(244,238,226,.82)}
+  .pstrip .ps{padding:.5rem .55rem;gap:.45rem}.pstrip .ps img{width:2.2rem;height:2.2rem}.pstrip .ps b{font-size:.8rem}
+  .pstrip .pidx{padding:0 .55rem}.pstrip .pidx small{display:none}
+}
+
 /* ---------- v19: ürün sayfası mobil — görsel sabit değil, alt sipariş çubuğu ---------- */
 .pdp-bar{display:none}
 @media (max-width:860px){
@@ -575,6 +600,23 @@ EXTRA_CSS5 = r'''
 }
 '''
 EXTRA_JS4 = r'''
+
+/* ---------- v20: ürün sayfası — önceki/sonraki ürün: görselde kaydırma (mobil), oklar, ← → tuşları, ön yükleme ---------- */
+(() => {
+  const big = document.querySelector(".pdp-media .big"), prev = document.querySelector(".pnav .prev"), next = document.querySelector(".pnav .next");
+  if (!big || !prev || !next) return;
+  [prev, next].forEach(a => { const l = document.createElement("link"); l.rel = "prefetch"; l.href = a.href; document.head.appendChild(l); });
+  let busy = false;
+  const go = (a, dir) => { if (busy) return; busy = true; big.style.transition = "transform .18s ease, opacity .18s ease"; big.style.transform = `translateX(${dir * -48}px)`; big.style.opacity = ".35"; setTimeout(() => { location.href = a.href; }, 170); };
+  prev.addEventListener("click", e => { e.preventDefault(); go(prev, -1); }); next.addEventListener("click", e => { e.preventDefault(); go(next, 1); });
+  addEventListener("keydown", e => { if (e.altKey || e.metaKey || e.ctrlKey || /input|textarea|select/i.test(e.target.tagName)) return; if (e.key === "ArrowRight") go(next, 1); else if (e.key === "ArrowLeft") go(prev, -1); });
+  let x0 = 0, y0 = 0, dx = 0, drag = false;
+  big.addEventListener("touchstart", e => { const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; dx = 0; drag = true; big.style.transition = "none"; }, { passive: true });
+  big.addEventListener("touchmove", e => { if (!drag) return; const t = e.touches[0]; dx = t.clientX - x0; if (Math.abs(t.clientY - y0) > Math.abs(dx) + 8) { drag = false; big.style.transform = ""; return; } big.style.transform = `translateX(${dx * .4}px)`; }, { passive: true });
+  const end = () => { if (!drag) return; drag = false; if (dx < -56) go(next, 1); else if (dx > 56) go(prev, -1); else { big.style.transition = "transform .22s ease"; big.style.transform = ""; } };
+  big.addEventListener("touchend", end); big.addEventListener("touchcancel", end);
+  if (matchMedia("(pointer:coarse)").matches && !sessionStorage.getItem("fc_swipe_hint")) { big.classList.add("swipe-hint"); sessionStorage.setItem("fc_swipe_hint", "1"); setTimeout(() => big.classList.remove("swipe-hint"), 2600); }
+})();
 
 /* ---------- v19: ürün sayfası mobil sipariş çubuğu — sayfadaki düğme görünümden çıkınca belirir, fiyatı canlı yansıtır ---------- */
 (() => {
@@ -1108,6 +1150,18 @@ def tagnum(tags, key):
             m = re.search(r"\d+", t)
             if m: return int(m.group(0))
     return None
+# ---------- v20: önceki / sonraki ürün gezinmesi ----------
+_CHEV_L = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg>'
+_CHEV_R = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg>'
+def pnav(prev, nxt, idx, total, label):
+    """prev/nxt: (href, ad, görsel yolu). Görsel üstü oklar ve görsel altı şerit döner."""
+    (ph, pn, pi), (nh, nn, ni) = prev, nxt
+    over = (f'<div class="pnav"><a class="pn prev" href="{ph}" rel="prev" aria-label="Önceki: {H.escape(pn)}">{_CHEV_L}</a>'
+            f'<a class="pn next" href="{nh}" rel="next" aria-label="Sonraki: {H.escape(nn)}">{_CHEV_R}</a></div>')
+    strip = (f'<div class="pstrip"><a class="ps prev" href="{ph}"><img src="{pi}" alt="" loading="lazy" decoding="async"><span><small>Önceki</small><b>{H.escape(pn)}</b></span></a>'
+             f'<span class="pidx"><b>{idx}</b> / {total}<small>{H.escape(label)}</small></span>'
+             f'<a class="ps next" href="{nh}"><span><small>Sonraki</small><b>{H.escape(nn)}</b></span><img src="{ni}" alt="" loading="lazy" decoding="async"></a></div>')
+    return over, strip
 def has_menu_img(sl): return os.path.exists(os.path.join(BASE, "demo-site", "img", "menu", sl + ".jpg"))
 def pcard(it):
     sl = slug(it["n"]); kcal = tagnum(it["tags"], "kcal"); mg = tagnum(it["tags"], "mg")
@@ -1148,6 +1202,9 @@ for c, items in MENU.items():
         sl = slug(it["n"]); kcal = tagnum(it["tags"], "kcal"); mg = tagnum(it["tags"], "mg")
         kcal_s = next((t for t in it["tags"] if "kcal" in t), None); caf_s = next((t for t in it["tags"] if "mg" in t), None)
         has_img = has_menu_img(sl)
+        _i = items.index(it); _pv, _nx = items[_i - 1], items[(_i + 1) % len(items)]
+        _th = lambda x: f"/img/menu/{slug(x['n'])}.jpg" if has_menu_img(slug(x["n"])) else "/favicon.svg"
+        pnav_over, pstrip = pnav((f"/menu/{slug(_pv['n'])}/", _pv["n"], _th(_pv)), (f"/menu/{slug(_nx['n'])}/", _nx["n"], _th(_nx)), _i + 1, len(items), CATN[c])
         ld = {"@context":"https://schema.org","@type":"MenuItem","name":it["n"],"description":it["d"],"offers":{"@type":"Offer","price":it["p"],"priceCurrency":"TRY","availability":"https://schema.org/InStock"}}
         if kcal_s: ld["nutrition"] = {"@type":"NutritionInformation","calories":kcal_s}
         if has_img: ld["image"] = f"{SITE}/img/menu/{sl}.jpg"
@@ -1164,7 +1221,7 @@ for c, items in MENU.items():
         others = "".join(pcard(o) for o in items if o is not it)[:16000]
         page(f"/menu/{sl}/", shell(
           f'''<section class="pdp"><div class="wrap"><div class="crumbs"><a href="/">Ana sayfa</a> › <a href="/menu/">Menü</a> › <a href="/menu/#c-{c}">{CATN[c]}</a> › {it["n"]}</div>
-          <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}</div><div class="mini">{mini}</div></div>
+          <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}{pnav_over}</div><div class="mini">{mini}</div>{pstrip}</div>
           <div class="pdp-info"><div class="eyebrow">{CATN[c]}</div><h1>{it["n"]}</h1><p class="lede">{it["d"]}</p>
           <div class="price"><b id="pdpPrice" data-base="{it["p"]}">{it["p"]} ₺</b><span>İstanbul şubeleri · Anadolu ve Karadağ fiyatı şube sayfasında</span></div>{sizes}{milk}
           <div class="cta"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">En yakın şube</a></div>
@@ -1281,6 +1338,9 @@ for p in PRODUCTS:
     if p["img"]: ld["image"] = f"{SITE}/img/{p['img']}.jpg"
     base = int(re.sub(r"[^\d]","",p["p"].split("–")[0]))
     big = f'<img src="/img/{p["img"]}.jpg" alt="{p["n"]}">' if p["img"] else f'<div class="giftvis big">{gift_vis("250 ₺")}</div>'
+    _i = PRODUCTS.index(p); _pv, _nx = PRODUCTS[_i - 1], PRODUCTS[(_i + 1) % len(PRODUCTS)]
+    _th = lambda x: f"/img/{x['img']}.jpg" if x["img"] else "/img/og/hero.jpg"
+    pnav_over, pstrip = pnav((f"/urunler/{slug(_pv['n'])}/", _pv["n"], _th(_pv)), (f"/urunler/{slug(_nx['n'])}/", _nx["n"], _th(_nx)), _i + 1, len(PRODUCTS), "Ürünler")
     is_bean = "Harman" in p["n"]; is_gift = "Hediye" in p["n"]
     opts = ('<div class="opt"><div class="lbl">Öğütüm</div><div class="pills"><button class="pill" data-extra="0" aria-pressed="true">Çekirdek</button><button class="pill" data-extra="0" aria-pressed="false">Espresso</button><button class="pill" data-extra="0" aria-pressed="false">Filtre</button><button class="pill" data-extra="0" aria-pressed="false">French press</button></div></div>'
             '<div class="opt"><div class="lbl">Gramaj</div><div class="pills"><button class="pill" data-mult="1" aria-pressed="true">250 g</button><button class="pill" data-mult="1.9" aria-pressed="false">500 g <small>−5%</small></button><button class="pill" data-mult="3.6" aria-pressed="false">1 kg <small>−10%</small></button></div></div>') if is_bean else (
@@ -1289,7 +1349,7 @@ for p in PRODUCTS:
     pair = [menu_item(x) for x in (["Flat White","Florida Filtre","Cold Brew"] if is_bean else ["Latte","San Sebastian","Tereyağlı Kruvasan"])]
     page(f"/urunler/{sl}/", shell(
       f'''<section class="pdp"><div class="wrap"><div class="crumbs"><a href="/">Ana sayfa</a> › <a href="/urunler/">Ürünler</a> › {p["n"]}</div>
-      <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}</div><div class="mini"><div><b>{p["tags"][0]}</b><span>etiket</span></div><div><b>Şubeden</b><span>teslim</span></div><div><b>{p["p"]}</b><span>fiyat</span></div></div></div>
+      <div class="pdp-grid"><div class="pdp-media"><div class="big">{big}{pnav_over}</div><div class="mini"><div><b>{p["tags"][0]}</b><span>etiket</span></div><div><b>Şubeden</b><span>teslim</span></div><div><b>{p["p"]}</b><span>fiyat</span></div></div>{pstrip}</div>
       <div class="pdp-info"><div class="eyebrow">Ürün</div><h1>{p["n"]}</h1><p class="lede">{p["d"]}</p><div class="price"><b id="pvPrice" data-base="{base}">{p["p"]}</b><span>uygulamadan ön sipariş · şubeden teslim</span></div>{opts}
       <div class="cta"><a class="btn amber" href="/app/">Ön sipariş ver</a><a class="btn ghost" href="/subeler/">Teslim şubesi seç</a></div>
       <p class="howto" style="margin-top:1.4rem">{p["body"]}</p></div></div></div></section>

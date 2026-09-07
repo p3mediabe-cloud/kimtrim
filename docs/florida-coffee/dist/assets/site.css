@@ -639,6 +639,31 @@ form.f .pills{margin-top:.2rem}
 
 
 
+/* ---------- v20: önceki / sonraki ürün ---------- */
+.pdp-media .big{position:relative;touch-action:pan-y;will-change:transform}
+.pnav .pn{position:absolute;top:50%;transform:translateY(-50%);width:2.5rem;height:2.5rem;display:grid;place-items:center;background:rgba(244,238,226,.92);color:var(--paper-ink);border:1px solid var(--paper-line);z-index:2;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 6px 18px -8px rgba(0,0,0,.35)}
+.pnav .pn:hover{background:#fff}
+.pnav .pn:active{transform:translateY(-50%) scale(.94)}
+.pnav .prev{left:.7rem}.pnav .next{right:.7rem}
+.pnav svg{width:1.15rem;height:1.15rem;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.pstrip{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch;gap:0;border:1px solid var(--paper-line);border-top:0;background:#FBF8F2}
+.pstrip .ps{display:flex;align-items:center;gap:.6rem;padding:.55rem .7rem;text-decoration:none;color:var(--paper-ink);min-width:0;transition:background .2s}
+.pstrip .ps:hover{background:#fff}
+.pstrip .ps.next{justify-content:flex-end;text-align:right}
+.pstrip .ps img{width:2.7rem;height:2.7rem;object-fit:cover;flex:none;background:var(--paper-line)}
+.pstrip .ps span{min-width:0}
+.pstrip .ps small{display:block;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-ink-2)}
+.pstrip .ps b{display:block;font-family:var(--disp);font-size:.88rem;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pstrip .pidx{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .8rem;border-left:1px solid var(--paper-line);border-right:1px solid var(--paper-line);font-size:.72rem;color:var(--paper-ink-2);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:center}
+.pstrip .pidx b{color:var(--paper-ink);font-family:var(--disp);font-size:.95rem}
+.pstrip .pidx small{font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;margin-top:.1rem}
+.pdp-media .big.swipe-hint::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:linear-gradient(90deg,transparent,var(--amber),transparent);opacity:.9;pointer-events:none}
+@media (max-width:640px){
+  .pnav .pn{width:2.2rem;height:2.2rem;background:rgba(244,238,226,.82)}
+  .pstrip .ps{padding:.5rem .55rem;gap:.45rem}.pstrip .ps img{width:2.2rem;height:2.2rem}.pstrip .ps b{font-size:.8rem}
+  .pstrip .pidx{padding:0 .55rem}.pstrip .pidx small{display:none}
+}
+
 /* ---------- v19: ürün sayfası mobil — görsel sabit değil, alt sipariş çubuğu ---------- */
 .pdp-bar{display:none}
 @media (max-width:860px){

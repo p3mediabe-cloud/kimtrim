@@ -324,6 +324,23 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 
+/* ---------- v20: ürün sayfası — önceki/sonraki ürün: görselde kaydırma (mobil), oklar, ← → tuşları, ön yükleme ---------- */
+(() => {
+  const big = document.querySelector(".pdp-media .big"), prev = document.querySelector(".pnav .prev"), next = document.querySelector(".pnav .next");
+  if (!big || !prev || !next) return;
+  [prev, next].forEach(a => { const l = document.createElement("link"); l.rel = "prefetch"; l.href = a.href; document.head.appendChild(l); });
+  let busy = false;
+  const go = (a, dir) => { if (busy) return; busy = true; big.style.transition = "transform .18s ease, opacity .18s ease"; big.style.transform = `translateX(${dir * -48}px)`; big.style.opacity = ".35"; setTimeout(() => { location.href = a.href; }, 170); };
+  prev.addEventListener("click", e => { e.preventDefault(); go(prev, -1); }); next.addEventListener("click", e => { e.preventDefault(); go(next, 1); });
+  addEventListener("keydown", e => { if (e.altKey || e.metaKey || e.ctrlKey || /input|textarea|select/i.test(e.target.tagName)) return; if (e.key === "ArrowRight") go(next, 1); else if (e.key === "ArrowLeft") go(prev, -1); });
+  let x0 = 0, y0 = 0, dx = 0, drag = false;
+  big.addEventListener("touchstart", e => { const t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; dx = 0; drag = true; big.style.transition = "none"; }, { passive: true });
+  big.addEventListener("touchmove", e => { if (!drag) return; const t = e.touches[0]; dx = t.clientX - x0; if (Math.abs(t.clientY - y0) > Math.abs(dx) + 8) { drag = false; big.style.transform = ""; return; } big.style.transform = `translateX(${dx * .4}px)`; }, { passive: true });
+  const end = () => { if (!drag) return; drag = false; if (dx < -56) go(next, 1); else if (dx > 56) go(prev, -1); else { big.style.transition = "transform .22s ease"; big.style.transform = ""; } };
+  big.addEventListener("touchend", end); big.addEventListener("touchcancel", end);
+  if (matchMedia("(pointer:coarse)").matches && !sessionStorage.getItem("fc_swipe_hint")) { big.classList.add("swipe-hint"); sessionStorage.setItem("fc_swipe_hint", "1"); setTimeout(() => big.classList.remove("swipe-hint"), 2600); }
+})();
+
 /* ---------- v19: ürün sayfası mobil sipariş çubuğu — sayfadaki düğme görünümden çıkınca belirir, fiyatı canlı yansıtır ---------- */
 (() => {
   const cta = document.querySelector(".pdp .cta"), price = document.getElementById("pdpPrice") || document.getElementById("pvPrice"), h1 = document.querySelector(".pdp-info h1");
