@@ -439,6 +439,26 @@ EXTRA_JS3 = r'''
 '''
 EXTRA_CSS5 = r'''
 
+/* ---------- v18: şube filtre şeridi (yapışkan, tek satır) + mobil saat çubuğu ---------- */
+.ftool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.5rem;margin:1.2rem 0 1.3rem;padding:.45rem 0;background:rgba(4,20,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair);transition:transform .25s ease}
+.ftool.hide{transform:translateY(-130%)}
+.ftool .fstrip{flex:1;min-width:0;display:flex;flex-wrap:nowrap;gap:.35rem;overflow-x:auto;scrollbar-width:none;padding-right:2.5rem;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
+.ftool .fstrip::-webkit-scrollbar{display:none}
+.ftool .fbtn{flex:none;white-space:nowrap;scroll-snap-align:start;font-size:.8rem;padding:.42rem .85rem}
+.ftool .ftools{flex:none;display:flex;align-items:center;gap:.5rem}
+.ftool .geo{display:inline-flex;align-items:center;gap:.4rem;margin:0}
+.ftool .geo svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;flex:none}
+.ftool .fcount{font-size:.72rem;letter-spacing:.04em;color:var(--ink-3);white-space:nowrap;margin:0;font-variant-numeric:tabular-nums}
+.rail{transition:transform .25s ease}
+@media (max-width:640px){
+  .ftool{top:3.1rem;margin:.6rem 0 1rem;padding:.35rem 0}
+  .ftool .fbtn{font-size:.76rem;padding:.38rem .72rem}
+  .ftool .geo .t{display:none}
+  .ftool .geo{width:2.15rem;height:2.15rem;padding:0;justify-content:center}
+  .ftool .fcount{display:none}
+  .rail.hide{transform:translateY(110%)}
+}
+
 /* ---------- v17: kompakt menü araç çubuğu (kategori şeridi + filtre kutusu + arama) ---------- */
 .mtool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.6rem;padding:.45rem 0;background:rgba(237,230,216,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);box-shadow:0 10px 18px -16px rgba(0,0,0,.4);transition:transform .25s ease}
 .mtool.hide,.mbar.hide{transform:translateY(-130%)}
@@ -539,6 +559,22 @@ EXTRA_CSS5 = r'''
 }
 '''
 EXTRA_JS4 = r'''
+
+/* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
+(() => {
+  const mob = () => matchMedia("(max-width:640px)").matches;
+  const tops = [...document.querySelectorAll(".ftool")], rail = document.querySelector(".rail");
+  if (!tops.length && !rail) return;
+  const t0 = new Map(tops.map(el => [el, el.getBoundingClientRect().top + scrollY]));
+  let last = scrollY;
+  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
+    if (!mob()) { tops.forEach(el => el.classList.remove("hide")); if (rail) rail.classList.remove("hide"); return; }
+    const down = d > 6, up = d < -4;
+    tops.forEach(el => { const r = el.getBoundingClientRect(); if (r.top > 64) t0.set(el, r.top + y); if (down && y > t0.get(el) + 160) el.classList.add("hide"); else if (up || y <= t0.get(el)) el.classList.remove("hide"); });
+    if (rail) { if (down && y > 320) rail.classList.add("hide"); else if (up) rail.classList.remove("hide"); }
+  }, { passive: true });
+  tops.forEach(el => el.querySelectorAll(".fstrip .fbtn").forEach(c => c.addEventListener("click", () => { const s = c.parentNode; s.scrollTo({ left: c.offsetLeft - s.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); })));
+})();
 
 /* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
 (() => {
@@ -1110,7 +1146,7 @@ for c, items in MENU.items():
 # ---------- ŞUBELER ----------
 filters = "".join(f'<button class="fbtn" aria-pressed="false" data-f="{k}">{v}</button>' for k,v in [("acik","Şu an açık"),("manzara","Manzara"),("gece","Gece açık"),("calisma","Çalışma alanı"),("otopark","Otopark"),("kahvalti","Kahvaltı")])
 page("/subeler/", shell(hero("Bölüm 19:38 · Şubeler","Manzarayı da<br>menüye koyduk.","17 şube, iki ülke. Filtreleyin, o an açık olanları görün; gün batımı saatleri bugüne göre hesaplanır.",[("Şubeler",None)],"sunset") +
-  f'<section class="sec"><div class="wrap"><div class="filters" id="filters">{filters}<span class="fcount" id="fcount"></span></div><div class="grid g3" id="branches"></div></div></section>',
+  f'<section class="sec"><div class="wrap"><div class="filters ftool" id="filters"><div class="fstrip">{filters}</div><div class="ftools"><span class="fcount" id="fcount"></span></div></div><div class="grid g3" id="branches"></div></div></section>',
   "subeler","Şubeler · Florida Coffee","Florida Coffee şubeleri: İstanbul, Kocaeli, Sakarya, Bursa, Samsun, Rize, Erzincan ve Karadağ. Saatler, özellikler, gün batımı.","/subeler/",
   {"@context":"https://schema.org","@type":"ItemList","itemListElement":[{"@type":"ListItem","position":i+1,"url":f"{SITE}/subeler/{b['id']}/","name":f"Florida Coffee {b['n']}"} for i,b in enumerate(BRANCHES)]}))
 for b in BRANCHES:

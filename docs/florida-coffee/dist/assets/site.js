@@ -324,6 +324,22 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 
+/* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
+(() => {
+  const mob = () => matchMedia("(max-width:640px)").matches;
+  const tops = [...document.querySelectorAll(".ftool")], rail = document.querySelector(".rail");
+  if (!tops.length && !rail) return;
+  const t0 = new Map(tops.map(el => [el, el.getBoundingClientRect().top + scrollY]));
+  let last = scrollY;
+  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
+    if (!mob()) { tops.forEach(el => el.classList.remove("hide")); if (rail) rail.classList.remove("hide"); return; }
+    const down = d > 6, up = d < -4;
+    tops.forEach(el => { const r = el.getBoundingClientRect(); if (r.top > 64) t0.set(el, r.top + y); if (down && y > t0.get(el) + 160) el.classList.add("hide"); else if (up || y <= t0.get(el)) el.classList.remove("hide"); });
+    if (rail) { if (down && y > 320) rail.classList.add("hide"); else if (up) rail.classList.remove("hide"); }
+  }, { passive: true });
+  tops.forEach(el => el.querySelectorAll(".fstrip .fbtn").forEach(c => c.addEventListener("click", () => { const s = c.parentNode; s.scrollTo({ left: c.offsetLeft - s.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); })));
+})();
+
 /* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
 (() => {
   const bar = document.querySelector(".mtool"); if (!bar) return;
