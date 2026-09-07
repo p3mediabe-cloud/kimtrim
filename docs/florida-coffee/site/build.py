@@ -1576,6 +1576,15 @@ site = site.replace('<li>Türkçe</li><li>English</li><li>Crnogorski</li>','<li>
 home_head = '<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="robots" content="noindex"><meta name="theme-color" content="#004854"><title>Florida Coffee · Boğaz\'da Bir Gün</title><meta name="description" content="Çengelköy\'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise."><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="canonical" href="' + SITE + '/">' + og_tags("Florida Coffee · Boğaz'da Bir Gün", "Çengelköy'de doğan, 17 şubeli kahve zinciri. Ön sipariş, FloridaDays Club, franchise.", "/", "hero") + '<style>html{color-scheme:dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>' + \
   '<script type="application/ld+json">' + json.dumps({"@context":"https://schema.org","@type":"Organization","name":"Florida Coffee","alternateName":["Florida Coffee Türkiye","Florida Coffee Co."],"url":SITE,"logo":f"{SITE}/favicon.svg","address":{"@type":"PostalAddress","streetAddress":"Çengelköy Mah. Görgeç Sok. No:6","addressLocality":"Üsküdar","addressRegion":"İstanbul","addressCountry":"TR"}}, ensure_ascii=False) + '</script></head><body>'
 open(os.path.join(DIST, "index.html"), "w", encoding="utf-8").write(rebase(home_head + site + '</body></html>')); n += 1
+def inject_menudata():
+    """Uygulama demosu siteyle aynı menüyü okur: 53 ürün, kategoriler; her derlemede yenilenir."""
+    fp = os.path.join(DIST, "app", "index.html")
+    if not os.path.exists(fp): return
+    t = open(fp, encoding="utf-8").read()
+    tag = '<script id="menudata" type="application/json">' + json.dumps({"cats": CATN, "menu": {c: [[it["n"], it["d"], it["p"], it["tags"]] for it in items] for c, items in MENU.items()}}, ensure_ascii=False) + '</script>'
+    t = re.sub(r'<script id="menudata" type="application/json">.*?</script>', lambda m: tag, t, count=1, flags=re.S) if 'id="menudata"' in t else t.replace('</style><header class="apphead">', '</style>' + tag + '<header class="apphead">', 1)
+    open(fp, "w", encoding="utf-8").write(t)
+inject_menudata()
 inject_og("app/index.html", "Florida Coffee · Uygulama Demosu", "Ön sipariş, FloridaDays Club, cüzdan ve tek QR; tarayıcıda çalışan uygulama demosu.", "/app/", "teslim")
 inject_og("platform/index.html", "Florida Coffee · Platform Prototipi", "HQ paneli ve franchisee portalı: ciro, royalty, denetim, tedarik, aday havuzu.", "/platform/", "workspace")
 inject_og("sunum/index.html", "Florida Coffee · Sunum", "P3Media teklif sunumu: web sitesi, mobil uygulama ve HQ platformu.", "/sunum/", "ekip")
