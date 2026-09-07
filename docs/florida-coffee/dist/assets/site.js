@@ -323,6 +323,39 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 })();
 
 
+
+/* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
+(() => {
+  const bar = document.querySelector(".mtool"); if (!bar) return;
+  const host = bar.closest(".mbar") || bar, mob = () => matchMedia("(max-width:640px)").matches;
+  const fb = document.getElementById("mFiltBtn"), pop = document.getElementById("mpop"), fn = document.getElementById("mFiltN"), ft = fb && fb.querySelector(".t");
+  const close = () => { if (!pop || pop.hidden) return; pop.hidden = true; fb.setAttribute("aria-expanded", "false"); };
+  if (fb && pop) {
+    fb.addEventListener("click", e => { e.stopPropagation(); const o = pop.hidden; pop.hidden = !o; fb.setAttribute("aria-expanded", String(o)); });
+    pop.addEventListener("click", e => e.stopPropagation());
+    document.addEventListener("click", close); document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+    const sync = () => { const a = pop.querySelector("#dietF [aria-pressed=true]"), on = !!(a && a.dataset.d); fb.classList.toggle("on", on); if (fn) { fn.hidden = !on; fn.textContent = on ? "1" : ""; } if (ft) ft.textContent = on ? a.textContent.split("·")[0].trim() : "Filtre"; };
+    pop.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => { setTimeout(sync, 0); if (mob()) setTimeout(close, 120); }));
+    sync();
+  }
+  const sb = document.getElementById("mSearchBtn"), si = document.getElementById("msearch"), sx = document.getElementById("mSearchX");
+  const stopSearch = () => { if (!si) return; si.value = ""; si.dispatchEvent(new Event("input")); bar.classList.remove("searching"); if (sb) sb.setAttribute("aria-expanded", "false"); };
+  if (sb && si) sb.addEventListener("click", () => { if (bar.classList.contains("searching")) return stopSearch(); bar.classList.add("searching"); sb.setAttribute("aria-expanded", "true"); setTimeout(() => si.focus(), 60); });
+  if (sx) sx.addEventListener("click", stopSearch);
+  /* kaydırma takibi: görünen kategori sekmede işaretli, sekme şeridin ortasına kayar */
+  const cats = [...bar.querySelectorAll("#mcats .mcat")], secs = [...document.querySelectorAll(".msec")], strip = bar.querySelector("#mcats");
+  const center = c => { if (!strip) return; strip.scrollTo({ left: c.offsetLeft - strip.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); };
+  cats.forEach(c => c.addEventListener("click", () => center(c)));
+  if (secs.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => { es.filter(e => e.isIntersecting).forEach(e => cats.forEach(c => { const on = (c.getAttribute("href") || "") === "#" + e.target.id; c.setAttribute("aria-pressed", String(on)); if (on) center(c); })); }, { rootMargin: "-38% 0px -55% 0px" });
+    secs.forEach(s => io.observe(s));
+  }
+  /* mobilde aşağı kaydırınca çubuk gizlenir, yukarı kaydırınca döner */
+  const top0 = host.getBoundingClientRect().top + scrollY; let last = scrollY;
+  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
+    if (!mob() || bar.classList.contains("searching") || (pop && !pop.hidden)) { host.classList.remove("hide"); return; }
+    if (d > 6 && y > top0 + 160) host.classList.add("hide"); else if (d < -4 || y <= top0) host.classList.remove("hide"); }, { passive: true });
+})();
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
 (() => { const grids = [...document.querySelectorAll("[data-collapse]")];
   const mq = matchMedia("(max-width:640px)");

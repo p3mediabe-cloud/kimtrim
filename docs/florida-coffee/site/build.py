@@ -174,10 +174,7 @@ JOBS = [
 NAV = [("Menü","/menu/"),("Şubeler","/subeler/"),("Kahvemiz","/kahvemiz/"),("Taze","/taze/"),("Ürünler","/urunler/"),("Kulüp","/kulup/"),("Franchise","/franchise/")]
 EXTRA_CSS = r'''
 /* ---------- menü: ürün ızgarası ---------- */
-.mbar{position:sticky;top:3.3rem;z-index:30;background:rgba(237,230,216,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);padding:.7rem 0}
-.mbar .wrap{display:flex;flex-direction:column;gap:.55rem;align-items:center}
 .mbar .row{display:flex;gap:.4rem;flex-wrap:wrap;justify-content:center}
-.mbar .search{width:min(100%,22rem);border:1px solid var(--paper-line);background:#fff;padding:.5rem .8rem;font:inherit;color:var(--paper-ink)}
 .mcat.sm{padding:.35rem .75rem;font-size:.78rem}
 .msec{padding:clamp(2rem,5vh,3.5rem) 0 0}
 .msec .mhead{text-align:center;margin-bottom:1.4rem}
@@ -441,6 +438,55 @@ EXTRA_JS3 = r'''
 })();
 '''
 EXTRA_CSS5 = r'''
+
+/* ---------- v17: kompakt menü araç çubuğu (kategori şeridi + filtre kutusu + arama) ---------- */
+.mtool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.6rem;padding:.45rem 0;background:rgba(237,230,216,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);box-shadow:0 10px 18px -16px rgba(0,0,0,.4);transition:transform .25s ease}
+.mtool.hide,.mbar.hide{transform:translateY(-130%)}
+.mtool .mcats{flex:1;min-width:0;display:flex;flex-wrap:nowrap;gap:.3rem;overflow-x:auto;scrollbar-width:none;margin:0;padding-right:2.5rem;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
+.mtool .mcats::-webkit-scrollbar{display:none}
+.mtool .mcat{flex:none;white-space:nowrap;scroll-snap-align:start;text-decoration:none;font-size:.8rem;padding:.42rem .85rem;margin:0}
+.mtools{flex:none;display:flex;align-items:center;gap:.4rem;position:relative}
+.mfw{position:relative}
+.mtb{position:relative;display:inline-flex;align-items:center;gap:.4rem;height:2.15rem;padding:0 .8rem;border:1px solid var(--paper-line);background:#fff;color:var(--paper-ink);font:inherit;font-size:.78rem;font-weight:700;letter-spacing:.02em;cursor:pointer;white-space:nowrap;border-radius:0}
+.mtb svg{width:1rem;height:1rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.mtb.ico{width:2.15rem;padding:0;justify-content:center}
+.mtb.on,.mtb[aria-expanded="true"]{background:var(--paper-ink);color:var(--paper);border-color:var(--paper-ink)}
+.mtb .n{min-width:1.05rem;height:1.05rem;border-radius:999px!important;background:var(--amber);color:#2A1703;font-size:.62rem;display:grid;place-items:center;padding:0 .25rem}
+.mtb .n[hidden]{display:none}
+.mpop{position:absolute;right:0;top:calc(100% + .45rem);z-index:31;width:min(24rem,calc(100vw - 2rem));background:#fff;border:1px solid var(--paper-line);box-shadow:0 22px 48px -12px rgba(0,0,0,.28);padding:.9rem 1rem 1rem;text-align:left;color:var(--paper-ink)}
+.mpop[hidden]{display:none}
+.mpop .lbl{font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-ink-2);font-weight:700;margin:0 0 .45rem}
+.mpop .row+.lbl,.mpop .dietF+.lbl{margin-top:.9rem}
+.mpop .row,.mpop .dietF{display:flex;flex-wrap:wrap;gap:.35rem;justify-content:flex-start;margin:0}
+.mpop .mprice{display:flex!important;flex-direction:column;gap:.3rem;margin:0;font-size:.8rem;color:var(--paper-ink-2)}
+.mpop .mprice b{color:var(--paper-ink)}
+.msw{position:relative;display:flex;align-items:center}
+.msw svg{position:absolute;left:.65rem;width:.95rem;height:.95rem;fill:none;stroke:var(--paper-ink-2);stroke-width:2;stroke-linecap:round;pointer-events:none}
+.msw .search{width:13rem;height:2.15rem;border:1px solid var(--paper-line);background:#fff;padding:0 2rem 0 2.1rem;font:inherit;font-size:.85rem;color:var(--paper-ink);margin:0;border-radius:0}
+.msw .search:focus{outline:2px solid var(--amber);outline-offset:0}
+.msw .search::-webkit-search-cancel-button,.msw .search::-webkit-search-decoration{-webkit-appearance:none;appearance:none;display:none}
+.msw .mx{position:absolute;right:.15rem;width:1.7rem;height:1.7rem;display:none;place-items:center;font-size:1.15rem;line-height:1;color:var(--paper-ink-2);cursor:pointer;background:none;border:0;padding:0}
+.mtool.searching .msw .mx{display:grid}
+.mtool #mSearchBtn{display:none}
+.mbar{position:sticky;top:3.3rem;z-index:30;background:rgba(237,230,216,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);box-shadow:0 10px 18px -16px rgba(0,0,0,.4);transition:transform .25s ease;padding:0}
+.mbar .mtool{position:static;background:none;border:0;box-shadow:none;backdrop-filter:none;flex-direction:row;padding:.45rem 0}
+.msec{scroll-margin-top:6.8rem}
+@media (max-width:640px){
+  .mtool,.mbar{top:3.1rem}
+  .mtool{padding:.35rem 0;flex-wrap:wrap;gap:.4rem;margin-left:0;margin-right:0}
+  .mbar .mtool{padding:.35rem 0}
+  .mtool .mcats{flex-wrap:nowrap;margin:0}
+  .mtool .mcat{font-size:.76rem;padding:.38rem .72rem}
+  .mtb .t{display:none}.mtb{width:2.15rem;padding:0;justify-content:center}
+  .mtb .n{position:absolute;top:-.35rem;right:-.35rem}
+  .mfw{position:static}
+  .mtool #mSearchBtn{display:inline-flex}
+  .msw{display:none;width:100%;order:3}
+  .mtool.searching .msw{display:flex}
+  .msw .search{width:100%}
+  .mpop{width:calc(100vw - 2.2rem)}
+  .msec{scroll-margin-top:6.4rem}
+}
 /* v15: sahne seti */
 .origin3{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}.origin3 .pht:first-child{grid-column:1/-1}
 .split .pht+.grid,.split p+.pht{margin-top:1rem}
@@ -493,6 +539,39 @@ EXTRA_CSS5 = r'''
 }
 '''
 EXTRA_JS4 = r'''
+
+/* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
+(() => {
+  const bar = document.querySelector(".mtool"); if (!bar) return;
+  const host = bar.closest(".mbar") || bar, mob = () => matchMedia("(max-width:640px)").matches;
+  const fb = document.getElementById("mFiltBtn"), pop = document.getElementById("mpop"), fn = document.getElementById("mFiltN"), ft = fb && fb.querySelector(".t");
+  const close = () => { if (!pop || pop.hidden) return; pop.hidden = true; fb.setAttribute("aria-expanded", "false"); };
+  if (fb && pop) {
+    fb.addEventListener("click", e => { e.stopPropagation(); const o = pop.hidden; pop.hidden = !o; fb.setAttribute("aria-expanded", String(o)); });
+    pop.addEventListener("click", e => e.stopPropagation());
+    document.addEventListener("click", close); document.addEventListener("keydown", e => { if (e.key === "Escape") close(); });
+    const sync = () => { const a = pop.querySelector("#dietF [aria-pressed=true]"), on = !!(a && a.dataset.d); fb.classList.toggle("on", on); if (fn) { fn.hidden = !on; fn.textContent = on ? "1" : ""; } if (ft) ft.textContent = on ? a.textContent.split("·")[0].trim() : "Filtre"; };
+    pop.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click", () => { setTimeout(sync, 0); if (mob()) setTimeout(close, 120); }));
+    sync();
+  }
+  const sb = document.getElementById("mSearchBtn"), si = document.getElementById("msearch"), sx = document.getElementById("mSearchX");
+  const stopSearch = () => { if (!si) return; si.value = ""; si.dispatchEvent(new Event("input")); bar.classList.remove("searching"); if (sb) sb.setAttribute("aria-expanded", "false"); };
+  if (sb && si) sb.addEventListener("click", () => { if (bar.classList.contains("searching")) return stopSearch(); bar.classList.add("searching"); sb.setAttribute("aria-expanded", "true"); setTimeout(() => si.focus(), 60); });
+  if (sx) sx.addEventListener("click", stopSearch);
+  /* kaydırma takibi: görünen kategori sekmede işaretli, sekme şeridin ortasına kayar */
+  const cats = [...bar.querySelectorAll("#mcats .mcat")], secs = [...document.querySelectorAll(".msec")], strip = bar.querySelector("#mcats");
+  const center = c => { if (!strip) return; strip.scrollTo({ left: c.offsetLeft - strip.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); };
+  cats.forEach(c => c.addEventListener("click", () => center(c)));
+  if (secs.length && "IntersectionObserver" in window) {
+    const io = new IntersectionObserver(es => { es.filter(e => e.isIntersecting).forEach(e => cats.forEach(c => { const on = (c.getAttribute("href") || "") === "#" + e.target.id; c.setAttribute("aria-pressed", String(on)); if (on) center(c); })); }, { rootMargin: "-38% 0px -55% 0px" });
+    secs.forEach(s => io.observe(s));
+  }
+  /* mobilde aşağı kaydırınca çubuk gizlenir, yukarı kaydırınca döner */
+  const top0 = host.getBoundingClientRect().top + scrollY; let last = scrollY;
+  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
+    if (!mob() || bar.classList.contains("searching") || (pop && !pop.hidden)) { host.classList.remove("hide"); return; }
+    if (d > 6 && y > top0 + 160) host.classList.add("hide"); else if (d < -4 || y <= top0) host.classList.remove("hide"); }, { passive: true });
+})();
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
 (() => { const grids = [...document.querySelectorAll("[data-collapse]")];
   const mq = matchMedia("(max-width:640px)");
@@ -977,7 +1056,7 @@ diet = '<div class="row" id="dietF"><button class="mcat sm" aria-pressed="true" 
 msecs = "".join(f'<section class="msec" id="c-{c}"><div class="mhead"><h2>{CATN[c]}</h2><p>{CATLEDE[c]} <span class="cnt">{len(items)} ürün</span></p></div><div class="pgrid" data-collapse="6">{"".join(pcard(it) for it in items)}</div></section>' for c, items in MENU.items())
 menu_ld = {"@context":"https://schema.org","@type":"Menu","name":"Florida Coffee Menü","hasMenuSection":[{"@type":"MenuSection","name":CATN[c],"hasMenuItem":[{"@type":"MenuItem","name":i["n"],"description":i["d"],"offers":{"@type":"Offer","price":i["p"],"priceCurrency":"TRY"}} for i in items]} for c,items in MENU.items()]}
 page("/menu/", shell(hero("Bölüm 15:00 · Menü","Fiyat, kalori, alerjen.<br>Hepsi burada.",f"{sum(len(v) for v in MENU.values())} ürün, dört kategori. Fiyatlar İstanbul şubeleri içindir; Anadolu ve Karadağ fiyatları şube sayfalarında. Süt: inek dahil, laktozsuz +10 ₺, yulaf ve badem +15 ₺.",[("Menü",None)]) +
-  f'<div class="mbar"><div class="wrap"><div class="row" id="mcats">{cats}</div>{diet}<input class="search" id="msearch" type="search" placeholder="Ürün ara: latte, vegan, cheesecake…" aria-label="Menüde ara"></div></div>'
+  f'<div class="mbar"><div class="wrap mtool"><div class="mcats" id="mcats">{cats}</div><div class="mtools"><div class="mfw"><button class="mtb" id="mFiltBtn" type="button" aria-expanded="false" aria-controls="mpop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span class="t">Filtre</span><span class="n" id="mFiltN" hidden></span></button><div class="mpop" id="mpop" hidden><div class="lbl">Beslenme</div>{diet}<div class="lbl">Süt ve boy</div><div class="mprice"><span><b>Süt:</b> inek dahil · laktozsuz +10 ₺ · yulaf, badem +15 ₺</span><span><b>Boy:</b> küçük −15 ₺ · orta · büyük +20 ₺</span><span><b>Fiyatlar:</b> İstanbul şubeleri</span></div></div></div><button class="mtb ico" id="mSearchBtn" type="button" aria-label="Menüde ara" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button></div><div class="msw"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input class="search" id="msearch" type="search" placeholder="Ürün ara: latte, vegan, cheesecake…" aria-label="Menüde ara"><button class="mx" id="mSearchX" type="button" aria-label="Aramayı kapat">×</button></div></div></div>'
   f'<div class="wrap">{msecs}<p class="mempty" id="mempty" hidden>Bu filtreyle ürün yok. Filtreyi kaldırın ya da başka bir şey arayın.</p>'
   f'<section class="sec"><div class="grid g3"><div class="cell"><h3>Süt seçenekleri</h3><p>İnek sütü dahil · laktozsuz +10 ₺ · yulaf ve badem +15 ₺. Tercihinizi uygulamada profilinize kaydedin, her siparişte hatırlanır.</p></div><div class="cell"><h3>Boylar</h3><p>Küçük −15 ₺ · orta · büyük +20 ₺. Fiyatlar orta boy içindir.</p></div><div class="cell"><h3>Alerjenler</h3><p>Her üründe etiket var; kuruyemiş, süt, glüten ve yumurta belirtilir. Emin değilseniz baristaya sorun.</p></div></div><p class="mnote">Örnek fiyatlar; gerçek menü merkezden yönetilir ve şube fiyat grubuna göre otomatik güncellenir.</p></div></section></div>',
   "menu","Menü ve Fiyatlar · Florida Coffee","Florida Coffee menüsü: sıcak ve soğuk kahveler, kahve dışı içecekler ve yiyecekler; fotoğraf, kalori, kafein ve alerjen bilgisiyle.","/menu/",menu_ld,"paper"))
