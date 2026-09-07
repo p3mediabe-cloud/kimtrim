@@ -639,6 +639,38 @@ form.f .pills{margin-top:.2rem}
 
 
 
+/* ---------- v22: mobil altbilgi — kenar boşluğu, akordeon bağlantı grupları, düğme gibi iletişim ---------- */
+footer#footer{padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem)}
+details.fcol summary{list-style:none;cursor:default;pointer-events:none}
+details.fcol summary::-webkit-details-marker{display:none}
+details.fcol summary h4{margin:0 0 .8rem}
+@media (max-width:640px){
+  footer#footer{padding:2.2rem 1.2rem 1.6rem}
+  footer .fgrid{grid-template-columns:1fr;gap:0}
+  footer .fbrand{padding-bottom:1.4rem}
+  footer .fbrand .tag{margin:.1rem 0 .8rem;font-size:.9rem}
+  footer .fbrand address{font-size:.85rem;margin-bottom:1rem}
+  footer .fbrand .contact{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1rem}
+  footer .fbrand .contact a{display:flex;align-items:center;justify-content:center;min-height:2.7rem;padding:.4rem .6rem;border:1px solid var(--hair-2);color:var(--ink);font-weight:600;font-size:.82rem;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  footer .fbrand .contact a:last-child{grid-column:1/-1;background:var(--amber);color:#2A1703;border-color:var(--amber)}
+  footer .social{gap:.6rem}footer .social a{width:2.6rem;height:2.6rem}
+  details.fcol{border-top:1px solid var(--hair)}
+  details.fcol summary{cursor:pointer;pointer-events:auto;display:flex;justify-content:space-between;align-items:center;padding:.95rem 0;-webkit-tap-highlight-color:transparent}
+  details.fcol summary h4{margin:0;font-size:.82rem}
+  details.fcol summary::after{content:"";width:.55rem;height:.55rem;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg);transition:transform .2s;margin-right:.3rem}
+  details.fcol[open] summary::after{transform:rotate(-135deg)}
+  details.fcol ul{padding:0 0 1rem;gap:.15rem}
+  details.fcol ul a{display:block;padding:.4rem 0;font-size:.95rem;color:var(--ink-2)}
+  footer .fapp{border-top:1px solid var(--hair);padding-top:1.3rem;margin-top:0}
+  footer .fapp h4{margin-bottom:.6rem}
+  footer .badges{grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.2rem}
+  footer .badge{padding:.6rem .7rem;gap:.5rem}footer .badge b{font-size:.85rem}footer .badge small{font-size:.58rem}
+  footer .fnews input{padding:.7rem .8rem}
+  footer .fend{flex-direction:column;align-items:flex-start;gap:.8rem;margin-top:1.8rem}
+  footer .legal{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .8rem}
+  footer .demo-note{font-size:.7rem}
+}
+
 /* ---------- v20: önceki / sonraki ürün ---------- */
 .pdp-media .big{position:relative;touch-action:pan-y;will-change:transform}
 .pnav .pn{position:absolute;top:50%;transform:translateY(-50%);width:2.5rem;height:2.5rem;display:grid;place-items:center;background:rgba(244,238,226,.92);color:var(--paper-ink);border:1px solid var(--paper-line);z-index:2;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 6px 18px -8px rgba(0,0,0,.35)}

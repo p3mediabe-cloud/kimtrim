@@ -264,6 +264,9 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 
+/* ---------- v22: mobil altbilgi — bağlantı grupları kapalı başlar ---------- */
+if (matchMedia("(max-width:640px)").matches) { document.querySelectorAll("details.fcol").forEach(d => d.removeAttribute("open")); document.querySelectorAll("footer .contact a[href^='mailto:']").forEach(a => { a.title = a.textContent; a.textContent = "E-posta gönder"; }); }
+
 /* ---------- v20: ürün sayfası — önceki/sonraki ürün: görselde kaydırma (mobil), oklar, ← → tuşları, ön yükleme ---------- */
 (() => {
   const big = document.querySelector(".pdp-media .big"), prev = document.querySelector(".pnav .prev"), next = document.querySelector(".pnav .next");

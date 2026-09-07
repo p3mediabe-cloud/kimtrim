@@ -439,6 +439,38 @@ EXTRA_JS3 = r'''
 '''
 EXTRA_CSS5 = r'''
 
+/* ---------- v22: mobil altbilgi — kenar boşluğu, akordeon bağlantı grupları, düğme gibi iletişim ---------- */
+footer#footer{padding-left:clamp(1.2rem,5vw,5rem);padding-right:clamp(1.2rem,5vw,5rem)}
+details.fcol summary{list-style:none;cursor:default;pointer-events:none}
+details.fcol summary::-webkit-details-marker{display:none}
+details.fcol summary h4{margin:0 0 .8rem}
+@media (max-width:640px){
+  footer#footer{padding:2.2rem 1.2rem 1.6rem}
+  footer .fgrid{grid-template-columns:1fr;gap:0}
+  footer .fbrand{padding-bottom:1.4rem}
+  footer .fbrand .tag{margin:.1rem 0 .8rem;font-size:.9rem}
+  footer .fbrand address{font-size:.85rem;margin-bottom:1rem}
+  footer .fbrand .contact{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1rem}
+  footer .fbrand .contact a{display:flex;align-items:center;justify-content:center;min-height:2.7rem;padding:.4rem .6rem;border:1px solid var(--hair-2);color:var(--ink);font-weight:600;font-size:.82rem;text-align:center;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  footer .fbrand .contact a:last-child{grid-column:1/-1;background:var(--amber);color:#2A1703;border-color:var(--amber)}
+  footer .social{gap:.6rem}footer .social a{width:2.6rem;height:2.6rem}
+  details.fcol{border-top:1px solid var(--hair)}
+  details.fcol summary{cursor:pointer;pointer-events:auto;display:flex;justify-content:space-between;align-items:center;padding:.95rem 0;-webkit-tap-highlight-color:transparent}
+  details.fcol summary h4{margin:0;font-size:.82rem}
+  details.fcol summary::after{content:"";width:.55rem;height:.55rem;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);transform:rotate(45deg);transition:transform .2s;margin-right:.3rem}
+  details.fcol[open] summary::after{transform:rotate(-135deg)}
+  details.fcol ul{padding:0 0 1rem;gap:.15rem}
+  details.fcol ul a{display:block;padding:.4rem 0;font-size:.95rem;color:var(--ink-2)}
+  footer .fapp{border-top:1px solid var(--hair);padding-top:1.3rem;margin-top:0}
+  footer .fapp h4{margin-bottom:.6rem}
+  footer .badges{grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:1.2rem}
+  footer .badge{padding:.6rem .7rem;gap:.5rem}footer .badge b{font-size:.85rem}footer .badge small{font-size:.58rem}
+  footer .fnews input{padding:.7rem .8rem}
+  footer .fend{flex-direction:column;align-items:flex-start;gap:.8rem;margin-top:1.8rem}
+  footer .legal{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .8rem}
+  footer .demo-note{font-size:.7rem}
+}
+
 /* ---------- v20: önceki / sonraki ürün ---------- */
 .pdp-media .big{position:relative;touch-action:pan-y;will-change:transform}
 .pnav .pn{position:absolute;top:50%;transform:translateY(-50%);width:2.5rem;height:2.5rem;display:grid;place-items:center;background:rgba(244,238,226,.92);color:var(--paper-ink);border:1px solid var(--paper-line);z-index:2;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 6px 18px -8px rgba(0,0,0,.35)}
@@ -597,6 +629,9 @@ EXTRA_CSS5 = r'''
 }
 '''
 EXTRA_JS4 = r'''
+
+/* ---------- v22: mobil altbilgi — bağlantı grupları kapalı başlar ---------- */
+if (matchMedia("(max-width:640px)").matches) { document.querySelectorAll("details.fcol").forEach(d => d.removeAttribute("open")); document.querySelectorAll("footer .contact a[href^='mailto:']").forEach(a => { a.title = a.textContent; a.textContent = "E-posta gönder"; }); }
 
 /* ---------- v20: ürün sayfası — önceki/sonraki ürün: görselde kaydırma (mobil), oklar, ← → tuşları, ön yükleme ---------- */
 (() => {
@@ -1038,9 +1073,9 @@ def shell(body, page, title, desc, path, jsonld=None, cls=""):
 {body}
 <footer id="footer"><div class="fwrap"><div class="fgrid">
 <div class="fbrand">{LOGO_FOOT}<span class="sr">Florida Coffee</span><p class="tag">Taste of Joy. İstanbul doğumlu, 17 şube, iki ülke; her fincanda aynı reçete.</p><address>Çengelköy Mah. Görgeç Sok. No:6<br>Üsküdar / İstanbul</address><div class="contact"><a href="tel:+902160000000">+90 216 000 00 00</a><a href="mailto:merhaba@floridacoffee.com.tr">merhaba@floridacoffee.com.tr</a><a href="/franchise/basvuru/">Franchise başvurusu →</a></div><div class="social"><a href="https://www.instagram.com/floridacoffeetr/" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 7.3a4.7 4.7 0 1 0 0 9.4 4.7 4.7 0 0 0 0-9.4zm0 7.7a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.9-7.9a1.1 1.1 0 1 1-2.2 0 1.1 1.1 0 0 1 2.2 0zM12 2c-2.7 0-3 0-4.1.1-2.9.1-4.7 1.9-4.8 4.8C3 8 3 8.3 3 12s0 4 .1 5.1c.1 2.9 1.9 4.7 4.8 4.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c2.9-.1 4.7-1.9 4.8-4.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-2.9-1.9-4.7-4.8-4.8C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1 2 .1 2.9 1 3 3 .1 1 .1 1.3.1 4s0 3-.1 4c-.1 2-1 2.9-3 3-1 .1-1.3.1-4 .1s-3 0-4-.1c-2-.1-2.9-1-3-3-.1-1-.1-1.3-.1-4s0-3 .1-4c.1-2 1-2.9 3-3 1-.1 1.3-.1 4-.1z"/></svg></a><a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M16.6 5.8A4.3 4.3 0 0 1 15.5 3h-3.1v12.4a2.6 2.6 0 1 1-2.6-2.6c.3 0 .5 0 .8.1V9.7a5.7 5.7 0 1 0 4.9 5.6V9.1a7.4 7.4 0 0 0 4.3 1.4V7.4a4.3 4.3 0 0 1-3.2-1.6z"/></svg></a><a href="https://www.facebook.com/floridacoffeetr/" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.8c0-.9.3-1.6 1.6-1.6h1.7V4.4c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.2v2.3H7.4V14h2.8v8h3.3z"/></svg></a><a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3L10 15z"/></svg></a></div></div>
-<div><h4>Keşfet</h4><ul><li><a href="/menu/">Menü</a></li><li><a href="/subeler/">Şubeler</a></li><li><a href="/kahvemiz/">Kahvemiz</a></li><li><a href="/taze/">Taze</a></li><li><a href="/urunler/">Ürünler</a></li><li><a href="/etkinlikler/">Etkinlikler</a></li></ul></div>
-<div><h4>Kulüp</h4><ul><li><a href="/kulup/">FloridaDays Club</a></li><li><a href="/uygulama/">Uygulama</a></li><li><a href="/app/">Uygulama demosu</a></li><li><a href="/hikayemiz/">Hikâyemiz</a></li><li><a href="/sss/">SSS</a></li></ul></div>
-<div><h4>Kurumsal</h4><ul><li><a href="/franchise/">Franchise</a></li><li><a href="/kurumsal/">Kurumsal satış</a></li><li><a href="/kariyer/">Kariyer</a></li><li><a href="/iletisim/">İletişim</a></li><li><a href="/platform/">Platform prototipi</a></li><li><a href="/sunum/">Sunum</a></li></ul></div>
+<details class="fcol" open><summary><h4>Keşfet</h4></summary><ul><li><a href="/menu/">Menü</a></li><li><a href="/subeler/">Şubeler</a></li><li><a href="/kahvemiz/">Kahvemiz</a></li><li><a href="/taze/">Taze</a></li><li><a href="/urunler/">Ürünler</a></li><li><a href="/etkinlikler/">Etkinlikler</a></li></ul></details>
+<details class="fcol" open><summary><h4>Kulüp</h4></summary><ul><li><a href="/kulup/">FloridaDays Club</a></li><li><a href="/uygulama/">Uygulama</a></li><li><a href="/app/">Uygulama demosu</a></li><li><a href="/hikayemiz/">Hikâyemiz</a></li><li><a href="/sss/">SSS</a></li></ul></details>
+<details class="fcol" open><summary><h4>Kurumsal</h4></summary><ul><li><a href="/franchise/">Franchise</a></li><li><a href="/kurumsal/">Kurumsal satış</a></li><li><a href="/kariyer/">Kariyer</a></li><li><a href="/iletisim/">İletişim</a></li><li><a href="/platform/">Platform prototipi</a></li><li><a href="/sunum/">Sunum</a></li></ul></details>
 <div class="fapp"><h4>Uygulama</h4><p style="margin:0 0 .6rem;color:var(--ink-2)">Ön sipariş, FloridaDays Club, cüzdan.</p><div class="badges"><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a></div><h4>Haber al</h4><form class="fnews" id="fnews" autocomplete="off"><input type="email" required placeholder="e-posta" aria-label="E-posta"><button class="btn amber sm" type="submit">Kaydol</button></form></div>
 </div><div class="fend"><span>© 2026 Florida Coffee Kahve Gıda San. ve Tic. A.Ş.</span><nav class="legal" aria-label="Yasal"><a href="/yasal/kvkk/">KVKK aydınlatma</a><a href="/yasal/cerez/">Çerez politikası</a><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a><a href="/yasal/mesafeli-satis/">Mesafeli satış</a></nav><span class="langs"><b>TR</b><a href="/en/">EN</a><span>ME</span></span></div><p class="demo-note">Demo · P3Media tarafından Florida Coffee için hazırlanmış tasarım önerisi; içerik ve iletişim bilgileri örnektir.</p></div></footer>
 {FLO_HTML}
