@@ -659,8 +659,9 @@ if (matchMedia("(max-width:640px)").matches) { document.querySelectorAll("detail
   document.body.appendChild(bar); document.body.classList.add("has-pdpbar");
   const pb = bar.querySelector(".pb-p"), sync = () => { pb.textContent = price.textContent; }; sync();
   new MutationObserver(sync).observe(price, { childList: true, characterData: true, subtree: true });
-  const io = new IntersectionObserver(es => es.forEach(e => { const on = !e.isIntersecting && e.boundingClientRect.top < 0; bar.classList.toggle("on", on); document.body.classList.toggle("pdpbar-on", on); }), { threshold: 0 });
-  io.observe(cta);
+  // düğme ekranın üstünden çıkınca çubuk belirir (hızlı kaydırmada da güvenilir: gözlemci yerine kaydırma dinleyicisi)
+  let tick = false; const upd = () => { tick = false; const on = cta.getBoundingClientRect().bottom < 0; bar.classList.toggle("on", on); document.body.classList.toggle("pdpbar-on", on); };
+  addEventListener("scroll", () => { if (!tick) { tick = true; requestAnimationFrame(upd); } }, { passive: true }); addEventListener("resize", upd); upd();
 })();
 
 /* ---------- v18: filtre şeridi — seçilen çip ortaya kayar ---------- */
