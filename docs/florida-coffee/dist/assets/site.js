@@ -126,66 +126,6 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 })();
 /* ---------- /logo canlandırma ---------- */
 
-/* ---------- logo canlandırma ---------- */
-(() => {
-  const marks = [...document.querySelectorAll(".mark")];
-  if (!reduce && matchMedia("(pointer:fine)").matches) {
-    let raf = 0, px = 0, py = 0;
-    addEventListener("pointermove", e => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(look); }, {passive:true});
-    function look(){ raf = 0; for (const m of marks) { const r = m.getBoundingClientRect(); if (!r.width) continue;
-      const cx = r.left + r.width * .616, cy = r.top + r.height * .408, dx = px - cx, dy = py - cy, d = Math.hypot(dx, dy) || 1, k = Math.min(1, d / 240) * 4.2;
-      m.style.setProperty("--ex", (dx / d * k).toFixed(2)); m.style.setProperty("--ey", (dy / d * k).toFixed(2)); } }
-  }
-  // kayan şerit: şube adları
-  const mq = document.getElementById("marq");
-  if (mq && typeof B !== "undefined") {
-    const dot = marks[0] ? marks[0].outerHTML.replace(/class="mark[^"]*"/, 'class="mark"') : "·";
-    const seq = B.map(b => `<span>${b.n}${dot}</span>`).join("");
-    mq.innerHTML = seq + seq;
-  }
-  // sayaçlar
-  const cnt = [...document.querySelectorAll("[data-count]")];
-  if (cnt.length) {
-    const run = el => { const to = +el.dataset.count, t0 = performance.now(), dur = reduce ? 0 : 1400;
-      const step = t => { const p = Math.min(1, (t - t0) / (dur || 1)), e = 1 - Math.pow(1 - p, 3); el.textContent = Math.round(to * e); if (p < 1) requestAnimationFrame(step); };
-      requestAnimationFrame(step); };
-    const io = new IntersectionObserver(es => es.forEach(x => { if (x.isIntersecting) { run(x.target); io.unobserve(x.target); } }), {threshold:.4});
-    cnt.forEach(el => io.observe(el));
-  }
-})();
-// hero: tek klip, yumuşak döngü — sona yaklaşırken koyu marka rengine kararır, baştan karanlıktan açılır; hafif yavaşlatılmış
-document.querySelectorAll("video[data-fadeloop]").forEach(v => {
-  if (reduce) return;
-  const veil = document.createElement("span"); veil.className = "veil"; veil.setAttribute("aria-hidden", "true"); v.after(veil);
-  const rate = +v.dataset.rate || 1, FADE = .9; let arming = false;
-  const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
-  v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
-  veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
-  v.addEventListener("timeupdate", () => {
-    if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
-    arming = true; veil.classList.add("on");
-  });
-  v.addEventListener("ended", () => {
-    v.currentTime = 0;
-    v.play().then(() => { setTimeout(() => { veil.classList.remove("on"); arming = false; }, 150); })
-            .catch(() => { veil.classList.remove("on"); arming = false; });
-  });
-});
-// hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
-(() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
-  addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
-  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) { const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; hm.style.setProperty("--ex", ex.toFixed(2)); hm.style.setProperty("--ey", ey.toFixed(2)); hm.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); } setTimeout(idle, 700 + Math.random() * 1600); })(); })();
-// header: kaydırınca daralır; mobil menü
-(() => { const nav = document.querySelector(".nav"); if (!nav) return; let last = -1;
-  const onS = () => { const s = scrollY > 40; if (s !== last) { nav.classList.toggle("scrolled", s); last = s; } }; addEventListener("scroll", onS, {passive:true}); onS();
-  const bg = document.getElementById("burger"), mn = document.getElementById("mnav"); if (!bg || !mn) return;
-  const set = open => { bg.setAttribute("aria-expanded", String(open)); bg.setAttribute("aria-label", open ? "Menüyü kapat" : "Menüyü aç"); mn.hidden = !open; document.body.classList.toggle("menu-open", open); };
-  bg.addEventListener("click", () => set(mn.hidden)); mn.querySelectorAll("a").forEach(a => a.addEventListener("click", () => set(false)));
-  addEventListener("keydown", e => { if (e.key === "Escape" && !mn.hidden) set(false); });
-  addEventListener("resize", () => { if (innerWidth > 720 && !mn.hidden) set(false); });
-  if (typeof showToast !== "function") window.showToast = msg => { let t = document.getElementById("toastv7"); if (!t) { t = document.createElement("div"); t.id = "toastv7"; t.className = "toastv7"; t.setAttribute("role","status"); document.body.appendChild(t); } t.textContent = msg; t.classList.add("on"); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove("on"), 2800); };
-})();
-
 
 /* menü: filtre + arama (statik kartlar) */
 (() => {
@@ -354,26 +294,18 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   io.observe(cta);
 })();
 
-/* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
+/* ---------- v18: filtre şeridi — seçilen çip ortaya kayar ---------- */
 (() => {
   const mob = () => matchMedia("(max-width:640px)").matches;
-  const tops = [...document.querySelectorAll(".ftool")], rail = document.querySelector(".rail");
-  if (!tops.length && !rail) return;
-  const t0 = new Map(tops.map(el => [el, el.getBoundingClientRect().top + scrollY]));
-  let last = scrollY;
-  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
-    if (!mob()) { tops.forEach(el => el.classList.remove("hide")); if (rail) rail.classList.remove("hide"); return; }
-    const down = d > 6, up = d < -4;
-    tops.forEach(el => { const r = el.getBoundingClientRect(); if (r.top > 64) t0.set(el, r.top + y); if (down && y > t0.get(el) + 160) el.classList.add("hide"); else if (up || y <= t0.get(el)) el.classList.remove("hide"); });
-    if (rail) { if (down && y > 320) rail.classList.add("hide"); else if (up) rail.classList.remove("hide"); }
-  }, { passive: true });
+  const tops = [...document.querySelectorAll(".ftool")];
+  if (!tops.length) return;
   tops.forEach(el => el.querySelectorAll(".fstrip .fbtn").forEach(c => c.addEventListener("click", () => { const s = c.parentNode; s.scrollTo({ left: c.offsetLeft - s.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); })));
 })();
 
 /* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
 (() => {
   const bar = document.querySelector(".mtool"); if (!bar) return;
-  const host = bar.closest(".mbar") || bar, mob = () => matchMedia("(max-width:640px)").matches;
+  const mob = () => matchMedia("(max-width:640px)").matches;
   const fb = document.getElementById("mFiltBtn"), pop = document.getElementById("mpop"), fn = document.getElementById("mFiltN"), ft = fb && fb.querySelector(".t");
   const close = () => { if (!pop || pop.hidden) return; pop.hidden = true; fb.setAttribute("aria-expanded", "false"); };
   if (fb && pop) {
@@ -396,11 +328,6 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
     const io = new IntersectionObserver(es => { es.filter(e => e.isIntersecting).forEach(e => cats.forEach(c => { const on = (c.getAttribute("href") || "") === "#" + e.target.id; c.setAttribute("aria-pressed", String(on)); if (on) center(c); })); }, { rootMargin: "-38% 0px -55% 0px" });
     secs.forEach(s => io.observe(s));
   }
-  /* mobilde aşağı kaydırınca çubuk gizlenir, yukarı kaydırınca döner */
-  const top0 = host.getBoundingClientRect().top + scrollY; let last = scrollY;
-  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
-    if (!mob() || bar.classList.contains("searching") || (pop && !pop.hidden)) { host.classList.remove("hide"); return; }
-    if (d > 6 && y > top0 + 160) host.classList.add("hide"); else if (d < -4 || y <= top0) host.classList.remove("hide"); }, { passive: true });
 })();
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
 (() => { const grids = [...document.querySelectorAll("[data-collapse]")];

@@ -482,7 +482,6 @@ EXTRA_CSS5 = r'''
 
 /* ---------- v18: şube filtre şeridi (yapışkan, tek satır) + mobil saat çubuğu ---------- */
 .ftool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.5rem;margin:1.2rem 0 1.3rem;padding:.45rem 0;background:rgba(4,20,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair);transition:transform .25s ease}
-.ftool.hide{transform:translateY(-130%)}
 .ftool .fstrip{flex:1;min-width:0;display:flex;flex-wrap:nowrap;gap:.35rem;overflow-x:auto;scrollbar-width:none;padding-right:2.5rem;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
 .ftool .fstrip::-webkit-scrollbar{display:none}
 .ftool .fbtn{flex:none;white-space:nowrap;scroll-snap-align:start;font-size:.8rem;padding:.42rem .85rem}
@@ -497,12 +496,10 @@ EXTRA_CSS5 = r'''
   .ftool .geo .t{display:none}
   .ftool .geo{width:2.15rem;height:2.15rem;padding:0;justify-content:center}
   .ftool .fcount{display:none}
-  .rail.hide{transform:translateY(110%)}
 }
 
 /* ---------- v17: kompakt menü araç çubuğu (kategori şeridi + filtre kutusu + arama) ---------- */
 .mtool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.6rem;padding:.45rem 0;background:rgba(237,230,216,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--paper-line);box-shadow:0 10px 18px -16px rgba(0,0,0,.4);transition:transform .25s ease}
-.mtool.hide,.mbar.hide{transform:translateY(-130%)}
 .mtool .mcats{flex:1;min-width:0;display:flex;flex-wrap:nowrap;gap:.3rem;overflow-x:auto;scrollbar-width:none;margin:0;padding-right:2.5rem;scroll-snap-type:x proximity;-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 2.5rem),transparent)}
 .mtool .mcats::-webkit-scrollbar{display:none}
 .mtool .mcat{flex:none;white-space:nowrap;scroll-snap-align:start;text-decoration:none;font-size:.8rem;padding:.42rem .85rem;margin:0}
@@ -631,26 +628,18 @@ EXTRA_JS4 = r'''
   io.observe(cta);
 })();
 
-/* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
+/* ---------- v18: filtre şeridi — seçilen çip ortaya kayar ---------- */
 (() => {
   const mob = () => matchMedia("(max-width:640px)").matches;
-  const tops = [...document.querySelectorAll(".ftool")], rail = document.querySelector(".rail");
-  if (!tops.length && !rail) return;
-  const t0 = new Map(tops.map(el => [el, el.getBoundingClientRect().top + scrollY]));
-  let last = scrollY;
-  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
-    if (!mob()) { tops.forEach(el => el.classList.remove("hide")); if (rail) rail.classList.remove("hide"); return; }
-    const down = d > 6, up = d < -4;
-    tops.forEach(el => { const r = el.getBoundingClientRect(); if (r.top > 64) t0.set(el, r.top + y); if (down && y > t0.get(el) + 160) el.classList.add("hide"); else if (up || y <= t0.get(el)) el.classList.remove("hide"); });
-    if (rail) { if (down && y > 320) rail.classList.add("hide"); else if (up) rail.classList.remove("hide"); }
-  }, { passive: true });
+  const tops = [...document.querySelectorAll(".ftool")];
+  if (!tops.length) return;
   tops.forEach(el => el.querySelectorAll(".fstrip .fbtn").forEach(c => c.addEventListener("click", () => { const s = c.parentNode; s.scrollTo({ left: c.offsetLeft - s.clientWidth / 2 + c.offsetWidth / 2, behavior: "smooth" }); })));
 })();
 
 /* ---------- v17: menü araç çubuğu — filtre kutusu, arama, kaydırma takibi, mobilde gizlenme ---------- */
 (() => {
   const bar = document.querySelector(".mtool"); if (!bar) return;
-  const host = bar.closest(".mbar") || bar, mob = () => matchMedia("(max-width:640px)").matches;
+  const mob = () => matchMedia("(max-width:640px)").matches;
   const fb = document.getElementById("mFiltBtn"), pop = document.getElementById("mpop"), fn = document.getElementById("mFiltN"), ft = fb && fb.querySelector(".t");
   const close = () => { if (!pop || pop.hidden) return; pop.hidden = true; fb.setAttribute("aria-expanded", "false"); };
   if (fb && pop) {
@@ -673,11 +662,6 @@ EXTRA_JS4 = r'''
     const io = new IntersectionObserver(es => { es.filter(e => e.isIntersecting).forEach(e => cats.forEach(c => { const on = (c.getAttribute("href") || "") === "#" + e.target.id; c.setAttribute("aria-pressed", String(on)); if (on) center(c); })); }, { rootMargin: "-38% 0px -55% 0px" });
     secs.forEach(s => io.observe(s));
   }
-  /* mobilde aşağı kaydırınca çubuk gizlenir, yukarı kaydırınca döner */
-  const top0 = host.getBoundingClientRect().top + scrollY; let last = scrollY;
-  addEventListener("scroll", () => { const y = scrollY, d = y - last; last = y;
-    if (!mob() || bar.classList.contains("searching") || (pop && !pop.hidden)) { host.classList.remove("hide"); return; }
-    if (d > 6 && y > top0 + 160) host.classList.add("hide"); else if (d < -4 || y <= top0) host.classList.remove("hide"); }, { passive: true });
 })();
 /* v10: mobilde ürün ızgaralarını daralt/genişlet; filtre veya arama yapılınca hepsi açılır */
 (() => { const grids = [...document.querySelectorAll("[data-collapse]")];
@@ -972,7 +956,6 @@ footer .end{{margin-top:2.5rem;padding-top:1.2rem;border-top:1px solid var(--hai
 '''
 JS = f'''"use strict";
 {DATA_JS}
-{LOGO_JS}
 {EXTRA_JS}
 {EXTRA_JS2}
 {EXTRA_JS3}
