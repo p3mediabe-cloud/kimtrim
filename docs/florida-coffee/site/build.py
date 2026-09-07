@@ -439,6 +439,22 @@ EXTRA_JS3 = r'''
 '''
 EXTRA_CSS5 = r'''
 
+/* ---------- v19: ürün sayfası mobil — görsel sabit değil, alt sipariş çubuğu ---------- */
+.pdp-bar{display:none}
+@media (max-width:860px){
+  .pdp-media{position:static}
+  .pdp-media .big{aspect-ratio:4/3}
+  .pdp-bar{position:fixed;left:0;right:0;bottom:0;z-index:70;display:flex;align-items:center;gap:.7rem;padding:.55rem .9rem calc(.55rem + env(safe-area-inset-bottom,0px));background:rgba(244,238,226,.96);backdrop-filter:blur(12px);border-top:1px solid var(--paper-line);box-shadow:0 -12px 30px -18px rgba(0,0,0,.45);transform:translateY(110%);transition:transform .25s ease;color:var(--paper-ink)}
+  .pdp-bar.on{transform:none}
+  .pdp-bar .pb-n{flex:1;min-width:0}
+  .pdp-bar .pb-n b{display:block;font-family:var(--disp);font-size:.95rem;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pdp-bar .pb-n small{font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--paper-ink-2)}
+  .pdp-bar .pb-p{font-family:var(--disp);font-weight:800;font-size:1.15rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .pdp-bar .btn{padding:.65rem .9rem;font-size:.74rem;flex:none}
+  body.pdpbar-on .flo-fab{bottom:5.4rem}body.pdpbar-on .flo-hint{bottom:5.7rem}
+  body.has-pdpbar{padding-bottom:4.2rem}
+}
+
 /* ---------- v18: şube filtre şeridi (yapışkan, tek satır) + mobil saat çubuğu ---------- */
 .ftool{position:sticky;top:3.3rem;z-index:30;display:flex;align-items:center;gap:.5rem;margin:1.2rem 0 1.3rem;padding:.45rem 0;background:rgba(4,20,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--hair);transition:transform .25s ease}
 .ftool.hide{transform:translateY(-130%)}
@@ -559,6 +575,19 @@ EXTRA_CSS5 = r'''
 }
 '''
 EXTRA_JS4 = r'''
+
+/* ---------- v19: ürün sayfası mobil sipariş çubuğu — sayfadaki düğme görünümden çıkınca belirir, fiyatı canlı yansıtır ---------- */
+(() => {
+  const cta = document.querySelector(".pdp .cta"), price = document.getElementById("pdpPrice") || document.getElementById("pvPrice"), h1 = document.querySelector(".pdp-info h1");
+  if (!cta || !price || !h1) return;
+  const a = cta.querySelector("a.btn"), bar = document.createElement("div"); bar.className = "pdp-bar";
+  bar.innerHTML = `<div class="pb-n"><b>${h1.textContent}</b><small>${document.querySelector(".pdp-info .eyebrow")?.textContent || ""}</small></div><div class="pb-p"></div><a class="btn amber sm" href="${a ? a.getAttribute("href") : "#"}">Ön sipariş</a>`;
+  document.body.appendChild(bar); document.body.classList.add("has-pdpbar");
+  const pb = bar.querySelector(".pb-p"), sync = () => { pb.textContent = price.textContent; }; sync();
+  new MutationObserver(sync).observe(price, { childList: true, characterData: true, subtree: true });
+  const io = new IntersectionObserver(es => es.forEach(e => { const on = !e.isIntersecting && e.boundingClientRect.top < 0; bar.classList.toggle("on", on); document.body.classList.toggle("pdpbar-on", on); }), { threshold: 0 });
+  io.observe(cta);
+})();
 
 /* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
 (() => {

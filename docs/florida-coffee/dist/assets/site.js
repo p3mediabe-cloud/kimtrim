@@ -324,6 +324,19 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
 
 
 
+/* ---------- v19: ürün sayfası mobil sipariş çubuğu — sayfadaki düğme görünümden çıkınca belirir, fiyatı canlı yansıtır ---------- */
+(() => {
+  const cta = document.querySelector(".pdp .cta"), price = document.getElementById("pdpPrice") || document.getElementById("pvPrice"), h1 = document.querySelector(".pdp-info h1");
+  if (!cta || !price || !h1) return;
+  const a = cta.querySelector("a.btn"), bar = document.createElement("div"); bar.className = "pdp-bar";
+  bar.innerHTML = `<div class="pb-n"><b>${h1.textContent}</b><small>${document.querySelector(".pdp-info .eyebrow")?.textContent || ""}</small></div><div class="pb-p"></div><a class="btn amber sm" href="${a ? a.getAttribute("href") : "#"}">Ön sipariş</a>`;
+  document.body.appendChild(bar); document.body.classList.add("has-pdpbar");
+  const pb = bar.querySelector(".pb-p"), sync = () => { pb.textContent = price.textContent; }; sync();
+  new MutationObserver(sync).observe(price, { childList: true, characterData: true, subtree: true });
+  const io = new IntersectionObserver(es => es.forEach(e => { const on = !e.isIntersecting && e.boundingClientRect.top < 0; bar.classList.toggle("on", on); document.body.classList.toggle("pdpbar-on", on); }), { threshold: 0 });
+  io.observe(cta);
+})();
+
 /* ---------- v18: filtre şeridi ve mobil saat çubuğu — aşağı kaydırınca gizlenir, yukarıda döner ---------- */
 (() => {
   const mob = () => matchMedia("(max-width:640px)").matches;
