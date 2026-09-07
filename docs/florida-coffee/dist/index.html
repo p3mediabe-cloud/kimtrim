@@ -1148,7 +1148,7 @@ details.fcol summary h4{margin:0 0 .8rem}
 
 <!-- ============ 06:40 ŞAFAK ============ -->
 <section class="sec hero" id="safak">
-  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline preload="auto" data-vid="hero" data-fadeloop data-rate=".5"><source src="video/hero.mp4" type="video/mp4"></video><span class="shade" aria-hidden="true"></span></figure>
+  <figure class="ph hero-bg" data-img="hero" aria-hidden="true"><video class="vid" autoplay muted playsinline webkit-playsinline preload="auto" disablepictureinpicture data-vid="hero" data-fadeloop data-rate=".5"><source src="video/hero.mp4" type="video/mp4"></video><span class="shade" aria-hidden="true"></span></figure>
   <div class="inner">
     <div class="heromark" aria-hidden="true"><svg class="mark anim big" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg></div>
     <div class="hour"><span class="t">06:40</span><span class="p">Şafak · Çengelköy’den Boğaz’a</span></div>
@@ -1362,7 +1362,7 @@ details.fcol summary h4{margin:0 0 .8rem}
     <div class="hour"><span class="t">13:00</span><span class="p">Öğle · seçim yorgunluğu</span></div>
     <h2>Ne içeceğinizi<br>bilmiyorsanız sorun bizde.</h2>
     <p class="lede">Menüde 40 satır var, sizin 20 saniyeniz. Nasıl hissettiğinizi söyleyin, gerisini biz eşleştirelim.</p>
-    <figure class="ph r169" data-img="pour" style="margin-top:1.4rem"><video class="vid" autoplay muted loop playsinline preload="metadata" data-vid="pour"><source src="video/pour.mp4" type="video/mp4"></video><span class="cap">9 bar · 18–23 saniye</span></figure>
+    <figure class="ph r169" data-img="pour" style="margin-top:1.4rem"><video class="vid" autoplay muted loop playsinline webkit-playsinline preload="metadata" disablepictureinpicture data-vid="pour"><source src="video/pour.mp4" type="video/mp4"></video><span class="cap">9 bar · 18–23 saniye</span></figure>
     <div class="moods" id="moods">
       <button class="mood" aria-pressed="true" data-m="uyan">Uyanmam lazım</button>
       <button class="mood" aria-pressed="false" data-m="odak">Uzun süre odaklanacağım</button>
@@ -1723,6 +1723,10 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
   v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
   veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
+  // otomatik oynatma engellenirse (düşük güç modu, veri tasarrufu) karartma kalkar, arkadaki fotoğraf görünür; ilk dokunuşta yeniden denenir
+  const lift = () => veil.classList.remove("on");
+  setTimeout(() => { if (v.paused || v.readyState < 2) lift(); }, 2200);
+  v.addEventListener("error", lift); v.addEventListener("abort", lift);
   v.addEventListener("timeupdate", () => {
     if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
     arming = true; veil.classList.add("on");
@@ -1733,6 +1737,13 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
             .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
+// mobil: otomatik oynatma engellendiyse ilk etkileşimde ve sekmeye dönüşte tüm arka plan videoları yeniden denenir
+(() => { const vids = [...document.querySelectorAll("video[autoplay]")]; if (!vids.length) return;
+  const kick = () => vids.forEach(v => { if (v.paused && !v.ended) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });
+  ["touchstart", "pointerdown", "scroll", "keydown"].forEach(ev => addEventListener(ev, kick, { once: true, passive: true }));
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) kick(); });
+  setTimeout(kick, 1500);
+})();
 // hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
 (() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
   addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});

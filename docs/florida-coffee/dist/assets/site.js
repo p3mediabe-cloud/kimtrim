@@ -100,6 +100,10 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   const applyRate = () => { try { v.playbackRate = rate; } catch (e) {} };
   v.addEventListener("loadedmetadata", applyRate); v.addEventListener("play", applyRate); applyRate();
   veil.classList.add("on"); v.addEventListener("playing", () => requestAnimationFrame(() => veil.classList.remove("on")), {once:true});
+  // otomatik oynatma engellenirse (düşük güç modu, veri tasarrufu) karartma kalkar, arkadaki fotoğraf görünür; ilk dokunuşta yeniden denenir
+  const lift = () => veil.classList.remove("on");
+  setTimeout(() => { if (v.paused || v.readyState < 2) lift(); }, 2200);
+  v.addEventListener("error", lift); v.addEventListener("abort", lift);
   v.addEventListener("timeupdate", () => {
     if (arming || !v.duration || v.currentTime < v.duration - FADE * rate) return;
     arming = true; veil.classList.add("on");
@@ -110,6 +114,13 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
             .catch(() => { veil.classList.remove("on"); arming = false; });
   });
 });
+// mobil: otomatik oynatma engellendiyse ilk etkileşimde ve sekmeye dönüşte tüm arka plan videoları yeniden denenir
+(() => { const vids = [...document.querySelectorAll("video[autoplay]")]; if (!vids.length) return;
+  const kick = () => vids.forEach(v => { if (v.paused && !v.ended) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } });
+  ["touchstart", "pointerdown", "scroll", "keydown"].forEach(ev => addEventListener(ev, kick, { once: true, passive: true }));
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) kick(); });
+  setTimeout(kick, 1500);
+})();
 // hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
 (() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
   addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
