@@ -986,6 +986,8 @@ if (fC) {{ const fmt = n => n.toLocaleString("tr-TR"); const calc = () => {{ con
 showHint(document.body.dataset.page || "safak");
 '''.replace("  document.querElementsAll = null;\n","")
 
+import hashlib
+ASSET_V = hashlib.sha1((CSS + JS).encode("utf-8")).hexdigest()[:8]   # önbellek kırıcı: her derlemede değişen sürüm etiketi
 def head(title, desc, path, jsonld=None, noindex=True, og="hero"):
     ld = f'<script type="application/ld+json">{json.dumps(jsonld, ensure_ascii=False)}</script>' if jsonld else ""
     return f'''<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -995,7 +997,7 @@ def head(title, desc, path, jsonld=None, noindex=True, og="hero"):
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Manrope:wght@400;500;600;700&family=Poppins:wght@600&display=swap">
-<link rel="stylesheet" href="/assets/site.css">{ld}</head>'''
+<link rel="stylesheet" href="/assets/site.css?v={ASSET_V}">{ld}</head>'''
 
 def shell(body, page, title, desc, path, jsonld=None, cls=""):
     nav = "".join(f'<a href="{h}">{t}</a>' for t,h in NAV)
@@ -1017,7 +1019,7 @@ def shell(body, page, title, desc, path, jsonld=None, cls=""):
 <div class="fapp"><h4>Uygulama</h4><p style="margin:0 0 .6rem;color:var(--ink-2)">Ön sipariş, FloridaDays Club, cüzdan.</p><div class="badges"><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M16.4 12.7c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 2.9-.4 7.3 1.2 9.7.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.3 1.3-2.6 1.3-2.7 0 0-2.5-1-2.5-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.2-.6 2.8-1.4z"/></svg><span><small>App Store</small><b>iPhone için indir</b></span></a><a class="badge" href="/uygulama/"><svg viewBox="0 0 24 24"><path d="M3.6 2.3 13 12l-9.4 9.7c-.3-.2-.6-.6-.6-1.1V3.4c0-.5.3-.9.6-1.1zM16 15l-2.3-3L16 9l3.9 2.2c.8.5.8 1.2 0 1.6L16 15zM14.7 12.9 5.4 22.5l9.9-5.7-1.9-1.9zM5.4 1.5l9.3 9.6 1.9-1.9-9.9-5.7-1.3-2z"/></svg><span><small>Google Play</small><b>Android için indir</b></span></a></div><h4>Haber al</h4><form class="fnews" id="fnews" autocomplete="off"><input type="email" required placeholder="e-posta" aria-label="E-posta"><button class="btn amber sm" type="submit">Kaydol</button></form></div>
 </div><div class="fend"><span>© 2026 Florida Coffee Kahve Gıda San. ve Tic. A.Ş.</span><nav class="legal" aria-label="Yasal"><a href="/yasal/kvkk/">KVKK aydınlatma</a><a href="/yasal/cerez/">Çerez politikası</a><a href="/yasal/kullanici-sozlesmesi/">Kullanıcı sözleşmesi</a><a href="/yasal/mesafeli-satis/">Mesafeli satış</a></nav><span class="langs"><b>TR</b><a href="/en/">EN</a><span>ME</span></span></div><p class="demo-note">Demo · P3Media tarafından Florida Coffee için hazırlanmış tasarım önerisi; içerik ve iletişim bilgileri örnektir.</p></div></footer>
 {FLO_HTML}
-<script src="/assets/site.js" defer></script></body></html>'''
+<script src="/assets/site.js?v={ASSET_V}" defer></script></body></html>'''
 
 def hero(eyebrow, h1, lede, crumbs=None, img=None, extra=""):
     c = f'<div class="crumbs"><a href="/">Ana sayfa</a> › ' + " › ".join(f'<a href="{h}">{t}</a>' if h else t for t,h in crumbs) + '</div>' if crumbs else ""
@@ -1462,7 +1464,7 @@ page("/en/", head("Florida Coffee · Istanbul-born coffee, 17 locations, 2 count
 <section class="hero img"><div class="bg"><img src="/img/hero.jpg" alt=""></div><div class="wrap"><div class="eyebrow">Istanbul-born · Taste of Joy</div><h1>The Bosphorus wakes up.<br>The coffee is already <span style="color:var(--amber)">ready</span>.</h1><p class="lede">Born in Çengelköy. Now 17 locations in Turkey and Montenegro, one recipe everywhere: 14 g dose weighed, 90–96 °C, 9 bar, 18–23 s shot, milk at 60–65 °C.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/subeler/">Find a location</a><a class="btn ghost" href="/franchise/">Franchise</a></div></div></section>
 <section class="sec"><div class="wrap"><h2 style="margin-bottom:1rem">Sunset terraces and the Adriatic</h2><div class="grid g3">{en_branches}</div><p style="margin-top:1.4rem;font-size:.9rem;color:var(--ink-3)">Full English and Montenegrin site coming with the Podgorica and Budva menus. Ask Flo — our toucan — in English or Turkish.</p></div></section>
 <section class="sec" style="padding-top:0"><div class="wrap">{appdl("/uygulama/", "", "Get the app", "Order ahead, pay with one QR, earn beans.", "Pick a location, your drink and milk; tap \"I'm here\" and your cup is ready when you walk in. Free on iOS and Android.", ios="Download for iPhone", android="Download for Android", scan="Scan with your camera")}</div></section>
-<footer><div class="wrap"><div class="end"><span>© 2026 Florida Coffee · Demo by P3Media</span><a href="/">Türkçe</a></div></div></footer>{FLO_HTML}<script src="/assets/site.js" defer></script></body></html>''')
+<footer><div class="wrap"><div class="end"><span>© 2026 Florida Coffee · Demo by P3Media</span><a href="/">Türkçe</a></div></div></footer>{FLO_HTML}<script src="/assets/site.js?v={ASSET_V}" defer></script></body></html>''')
 
 # ---------- 404 ----------
 page("/404.html", shell('<section class="hero"><div class="wrap"><div class="eyebrow">404</div><h1>Bu masa boş.</h1><p class="lede">Aradığınız sayfa yok ya da taşındı. Flo size yolu gösterebilir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.4rem"><a class="btn amber" href="/">Ana sayfa</a><a class="btn ghost" href="/subeler/">Şubeler</a></div></div></section>',
