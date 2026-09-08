@@ -20,6 +20,10 @@
 | `demo-site/embed_images.py` | `img/` karelerini, marka görsellerini ve hero videosunu data-URI olarak `index.html`'e gömer (artifact harici dosya yükleyemez); diğer videolar `video/` yoluyla kalır |
 | `site/build.py` | Çok sayfalı statik site üreticisi (Python 3.12). `demo-site/index.html`'den ortak CSS/JS/veriyi çeker, 77 sayfa üretir: ana sayfa, menü + 25 ürün sayfası, 17 şube sayfası, kahvemiz, taze + 8 haber, ürünler + 4 ürün, kulüp, uygulama, franchise (+ başvuru, SSS), kariyer, kurumsal, etkinlikler, hikâyemiz, SSS, iletişim, 4 yasal metin, EN özet, 404; her sayfada JSON-LD, sitemap.xml, robots.txt (demo: noindex) |
 | `dist/` | Yayın paketi: `site/build.py` çıktısı + `app/` (mobil uygulama demosu) + `platform/` + `sunum/`. Vercel veya GitHub Pages'e olduğu gibi yüklenir |
+| `06-teklif-plani.md` | İlk teklif planı (96.000 € / dar kapsam). **Yerini `08` aldı**, tarihsel kayıt olarak duruyor |
+| `07-entegre-cerceve.md` | **Entegre işletme platformu çerçevesi:** tek gerçek kaynağı, altı yüz, üç döngü, 13 modül (kasa entegrasyonu, açılış motoru, e-ticaret, B2B tedarik, içerik havuzu, etkinlik motoru, İK, HQ veri merkezi, AI), yayın yönetişimi, entegrasyon haritası, kapsam dışı kalemler |
+| `08-deger-fiyat-roi.md` | **Değer, fiyat ve geri dönüş:** ayrı ayrı satın alma karşılaştırması, 1.326 saat/yıl zaman tasarrufu, franchise/uygulama/e-ticaret gelir modeli, iki bileşenli fiyat mimarisi (HQ bedeli + şube lisansı), üç kademe, iç maliyet tabanı, pazarlık çerçevesi |
+| `09-ilk-yil-plani.md` | **İki taraflı 12 aylık plan:** ay ay P3Media teslimatları ve müşteri yükümlülükleri, toplantı ritmi, veri paylaşımı, onay SLA'sı, ulaşım, fotoğrafçı sınırı, kilometre taşları ve gecikme yaptırımları |
 | `04-sunum-deck.html` | Görüşme sunumu: 16 slayt, ok tuşlarıyla ilerler, `N` konuşmacı notları, `F` tam ekran |
 
 ## Siteyi yeniden üretmek
