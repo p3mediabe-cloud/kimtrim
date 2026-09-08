@@ -920,11 +920,6 @@ footer .end{max-width:1180px;margin:2.5rem auto 0;padding-top:1.2rem;border-top:
   .msticky .mcat{white-space:nowrap;flex:none}
   .mprice{display:none}
   .mitem .qo{display:none}
-  .order .ostep{cursor:pointer;margin:0;padding:.7rem 0;border-top:1px solid var(--hair)}
-  .order .ostep::after{content:"›";margin-left:.35rem;color:var(--ink-3);transform:rotate(90deg);display:inline-block;transition:transform .2s}
-  .order .ostep.open::after{transform:rotate(-90deg)}
-  .order .ostep:not(.open)+.opts,.order .ostep:not(.open)+.opts+.more{display:none}
-  .order .ostep.open+.opts{margin:.4rem 0 .9rem}
   .order .ohead{margin-bottom:0;padding-bottom:.6rem}
   .order .ohelp{display:none}
   .ticket{margin-top:.5rem}
@@ -1125,6 +1120,32 @@ details.fcol summary h4{margin:0 0 .8rem}
   footer .legal{display:grid;grid-template-columns:1fr 1fr;gap:.45rem .8rem}
   footer .demo-note{font-size:.7rem}
 }
+
+/* ---------- v27: sipariş sihirbazı ---------- */
+.order.wizard{grid-template-columns:minmax(0,1fr);max-width:46rem;margin:0 auto}
+.order.wizard .ticket{display:none}
+.order.wizard.done .wsteps,.order.wizard.done .wnav,.order.wizard.done .wrail{display:none}
+.order.wizard.done .ticket{display:flex;max-width:36rem;margin:0 auto;width:100%;animation:wfade .3s ease}
+.wstep{display:none}.wstep.cur{display:block;animation:wfade .25s ease}
+@keyframes wfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.wrail{display:flex;gap:.35rem;overflow-x:auto;scrollbar-width:none;margin:.7rem 0 .2rem;padding-bottom:.2rem}
+.wrail::-webkit-scrollbar{display:none}
+.wrail button{flex:none;display:inline-flex;align-items:center;gap:.4rem;padding:.38rem .65rem;border:1px solid var(--hair);font-size:.72rem;color:var(--ink-3);background:none;cursor:pointer;white-space:nowrap;font-family:var(--ui)}
+.wrail button i{width:1.1rem;height:1.1rem;display:grid;place-items:center;font-style:normal;font-size:.62rem;font-weight:800;background:var(--hair-2);color:var(--ink);flex:none}
+.wrail button.done{color:var(--ink);border-color:var(--hair-2)}.wrail button.done i{background:var(--ok);color:#08150D}
+.wrail button.cur{color:var(--ink);border-color:var(--amber)}.wrail button.cur i{background:var(--amber);color:#241704}
+.wrail button b{font-weight:700}.wrail button span{color:var(--ink-2);max-width:11rem;overflow:hidden;text-overflow:ellipsis}
+.wrail button:disabled{cursor:default;opacity:.5}
+.wnav{display:flex;align-items:center;justify-content:space-between;gap:.6rem;margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--hair)}
+.wnav .wpos{font-size:.72rem;color:var(--ink-3);letter-spacing:.08em;font-variant-numeric:tabular-nums}
+.wnav .btn.sm{font-size:.74rem;padding:.55rem .9rem}
+.wnav .btn::after{content:none}
+.order.wizard .ostep{margin:.8rem 0 .5rem}.order.wizard .ostep .pick{display:none}
+.order.wizard .opts.tiles{grid-template-columns:1fr 1fr}
+.order.wizard .opts{margin:.3rem 0 .4rem}
+.order.wizard .more{display:inline-block;margin-top:.4rem}
+.tfoot button{background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;font:inherit;font-size:.78rem;padding:0}
+@media (max-width:640px){.order.wizard .opts.tiles{grid-template-columns:1fr 1fr}.wnav .btn.sm{padding:.6rem .8rem}}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -1224,43 +1245,45 @@ details.fcol summary h4{margin:0 0 .8rem}
             <label class="where"><span class="dot-s g" aria-hidden="true"></span>Şube <select id="oBranch" aria-label="Şube seç"><option value="Kadıköy">Kadıköy · 350 m</option><option value="Kavacık">Kavacık · 1,2 km</option><option value="Çengelköy">Çengelköy · 2,8 km</option><option value="Talimhane">Talimhane · 6,1 km</option><option value="Ümraniye">Ümraniye · 7,4 km</option></select></label>
             <button class="usual" id="oUsual" type="button" title="Iced Latte · orta · laktozsuz · geldiğimde">★ Her zamanki · tek dokunuş</button>
           </div>
-          <div class="ostep"><i>1</i><span class="lbl">İçecek</span><span class="pick" id="pk1">Iced Latte</span></div>
+<div class="wrail" id="wrail" aria-label="Adımlar"></div>
+          <div class="wsteps">
+          <div class="wstep cur" data-w="1"><div class="ostep"><i>1</i><span class="lbl">İçecek</span><span class="pick" id="pk1">Iced Latte</span></div>
           <div class="opts tiles" id="drinks">
             <button class="opt tile" aria-pressed="true" data-n="Iced Latte" data-p="160" data-c="120" data-k="150" data-cold="1"><img data-mi="iced-latte" alt=""><span>Iced Latte<small class="ml">Espresso, soğuk süt, buz</small></span><b>160 ₺</b></button>
             <button class="opt tile" aria-pressed="false" data-n="Flat White" data-p="150" data-c="180" data-k="140"><img data-mi="flat-white" alt=""><span>Flat White<small class="ml">Çift shot, ince süt</small></span><b>150 ₺</b></button>
             <button class="opt tile" aria-pressed="false" data-n="Florida Filtre" data-p="120" data-c="95" data-k="5" data-nomilk="1"><img data-mi="florida-filtre" alt=""><span>Florida Filtre<small class="ml">Günün çekirdeği</small></span><b>120 ₺</b></button>
             <button class="opt tile" aria-pressed="false" data-n="Cold Brew" data-p="145" data-c="200" data-k="25" data-cold="1" data-nomilk="1"><img data-mi="cold-brew" alt=""><span>Cold Brew<small class="ml">16 saat demleme</small></span><b>145 ₺</b></button>
           </div>
-          <a class="more" href="#menu">Başka bir şey mi? Tüm menü · 53 ürün ›</a>
-          <div class="orow">
-            <div><div class="ostep"><i>2</i><span class="lbl">Boy</span><span class="pick" id="pk2">Orta · 350 ml</span></div>
-            <div class="opts" id="sizes">
+          <a class="more" href="#menu">Başka bir şey mi? Tüm menü · 53 ürün ›</a></div>
+          <div class="wstep" data-w="2"><div class="ostep"><i>2</i><span class="lbl">Boy</span><span class="pick" id="pk2">Orta · 350 ml</span></div>
+          <div class="opts" id="sizes">
               <button class="opt" aria-pressed="false" data-n="Küçük" data-d="-15" data-ml="240 ml">Küçük <small>240 ml · −15</small></button>
               <button class="opt" aria-pressed="true" data-n="Orta" data-d="0" data-ml="350 ml">Orta <small>350 ml</small></button>
               <button class="opt" aria-pressed="false" data-n="Büyük" data-d="20" data-ml="470 ml">Büyük <small>470 ml · +20</small></button>
             </div></div>
-            <div><div class="ostep"><i>3</i><span class="lbl">Ne zaman</span><span class="pick" id="pk3">Geldiğimde</span></div>
-            <div class="opts" id="whens">
+          <div class="wstep" data-w="3"><div class="ostep"><i>3</i><span class="lbl">Ne zaman</span><span class="pick" id="pk3">Geldiğimde</span></div>
+          <div class="opts" id="whens">
               <button class="opt" aria-pressed="true" data-n="geldigimde">Geldiğimde</button>
               <button class="opt" aria-pressed="false" data-n="10dk">10 dk sonra</button>
               <button class="opt" aria-pressed="false" data-n="simdi">Şimdi</button>
             </div></div>
-          </div>
-          <div id="milkwrap"><div class="ostep"><i>4</i><span class="lbl">Süt</span><span class="pick" id="pk4">Laktozsuz</span></div>
+          <div class="wstep" data-w="4" id="milkwrap"><div class="ostep"><i>4</i><span class="lbl">Süt</span><span class="pick" id="pk4">Laktozsuz</span></div>
           <div class="opts" id="milks">
             <button class="opt milk" aria-pressed="false" data-n="İnek sütü" data-d="0">İnek</button>
             <button class="opt milk" aria-pressed="true" data-n="Laktozsuz" data-d="10">Laktozsuz <small>+10</small></button>
             <button class="opt milk" aria-pressed="false" data-n="Yulaf" data-d="15">Yulaf <small>+15</small></button>
             <button class="opt milk" aria-pressed="false" data-n="Badem" data-d="15">Badem <small>+15</small></button>
           </div></div>
-          <div class="ostep"><i>5</i><span class="lbl">Barista notu</span><span class="pick soft">isteğe bağlı</span></div>
+          <div class="wstep" data-w="5"><div class="ostep"><i>5</i><span class="lbl">Barista notu</span><span class="pick soft">isteğe bağlı</span></div>
           <div class="opts" id="notes">
             <button class="opt note" aria-pressed="false" data-n="Ekstra sıcak">Ekstra sıcak</button>
             <button class="opt note" aria-pressed="false" data-n="Az buz">Az buz</button>
             <button class="opt note" aria-pressed="false" data-n="Az şeker">Az şeker</button>
             <button class="opt note" aria-pressed="false" data-n="Kapaksız">Kapaksız</button>
           </div>
-          <p class="ohelp">Süt tercihiniz ve notunuz profilinize kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında renkli etiketle görünür.</p>
+          <p class="ohelp">Süt tercihiniz ve notunuz profilinize kaydedilir; bir daha söylemeniz gerekmez. Barista ekranında renkli etiketle görünür.</p></div>
+          </div>
+          <div class="wnav"><button type="button" class="btn ghost sm" id="wBack">‹ Geri</button><span class="wpos" id="wPos">1 / 5</span><button type="button" class="btn amber sm" id="wNext">Sonraki ›</button></div>
         </div>
         <div class="ticket" id="ticket">
           <div class="thead"><div><div class="no">Sepetiniz · <span id="tBranch">Kadıköy</span></div><div class="drink" id="tDrink">Iced Latte</div><div class="mods" id="tMods">Orta · Laktozsuz</div></div><img class="thumb" id="tThumb" alt=""></div>
@@ -1278,7 +1301,7 @@ details.fcol summary h4{margin:0 0 .8rem}
           <div class="code" id="tCode" hidden>FC·4821</div>
           <div class="tacts">
             <button class="btn lamp" id="tAct">Siparişi onayla · 170 ₺</button>
-            <div class="tfoot"><span>Uygulamada iki dokunuş sürer.</span><button type="button" id="tReset">Baştan başla</button></div>
+            <div class="tfoot"><span>Uygulamada iki dokunuş sürer.</span><span><button type="button" id="tEdit">Değiştir</button> · <button type="button" id="tReset">Baştan başla</button></span></div>
           </div>
         </div>
       </div>
@@ -2096,6 +2119,35 @@ document.querySelectorAll("#dietF .mcat").forEach(b => b.addEventListener("click
 }));
 renderMenu("sicak");
 
+/* ---------- v27: sipariş sihirbazı — her adımda tek soru; seçince sonraki adım; sonda sepet ---------- */
+(() => {
+  const order = document.querySelector("#sabah .order"); if (!order) return; order.classList.add("wizard");
+  const steps = [...order.querySelectorAll(".wstep")], rail = document.getElementById("wrail"), back = document.getElementById("wBack"), next = document.getElementById("wNext"), pos = document.getElementById("wPos");
+  const LBL = {1:"İçecek", 2:"Boy", 3:"Ne zaman", 4:"Süt", 5:"Not"};
+  let cur = 1;
+  const active = () => steps.map(s => +s.dataset.w).filter(n => !(n === 4 && O.nomilk));
+  const val = n => n === 1 ? O.drink : n === 2 ? O.size : n === 3 ? (document.querySelector('#whens .opt[aria-pressed="true"]')?.textContent || "") : n === 4 ? (O.nomilk ? "Sütsüz" : O.milk) : (O.notes.size ? [...O.notes].join(", ") : "Yok");
+  const paint = () => {
+    const act = active(); if (!act.includes(cur)) cur = act[0];
+    steps.forEach(s => s.classList.toggle("cur", +s.dataset.w === cur));
+    rail.innerHTML = act.map(n => `<button type="button" class="${n < cur ? "done" : n === cur ? "cur" : ""}" data-w="${n}"${n > cur ? " disabled" : ""}><i>${n < cur ? "✓" : act.indexOf(n) + 1}</i><b>${LBL[n]}</b>${n < cur ? `<span>· ${val(n)}</span>` : ""}</button>`).join("");
+    rail.querySelectorAll("button:not(:disabled)").forEach(b => b.addEventListener("click", () => go(+b.dataset.w)));
+    const i = act.indexOf(cur); pos.textContent = (i + 1) + " / " + act.length; back.disabled = i === 0;
+    next.textContent = i === act.length - 1 ? "Sepeti gör ›" : "Sonraki ›";
+  };
+  const go = n => { cur = n; order.classList.remove("done"); paint(); };
+  const finish = () => { order.classList.add("done"); paintTicket(); if (innerWidth < 821) document.getElementById("ticket").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); };
+  window.wizardDone = finish;
+  const step = d => { const act = active(), i = act.indexOf(cur) + d; if (i >= act.length) return finish(); if (i < 0) return; go(act[i]); };
+  next.addEventListener("click", () => step(1)); back.addEventListener("click", () => step(-1));
+  ["drinks", "sizes", "whens", "milks"].forEach(id => document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => setTimeout(() => { if (!order.classList.contains("done")) step(1); }, 260))));
+  const ed = document.getElementById("tEdit"); if (ed) ed.addEventListener("click", () => { go(1); if (innerWidth < 821) order.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" }); });
+  document.getElementById("oUsual").addEventListener("click", () => setTimeout(finish, 0));
+  const sAct = document.getElementById("sAct"); if (sAct) sAct.addEventListener("click", finish);
+  const _p = paintTicket; paintTicket = function(){ _p(); if (!order.classList.contains("done")) paint(); };
+  paint();
+})();
+
 /* ---------- v22: mobil altbilgi — bağlantı grupları kapalı başlar ---------- */
 if (matchMedia("(max-width:640px)").matches) { document.querySelectorAll("details.fcol").forEach(d => d.removeAttribute("open")); document.querySelectorAll("footer .contact a[href^='mailto:']").forEach(a => { a.title = a.textContent; a.textContent = "E-posta gönder"; }); }
 
@@ -2139,13 +2191,6 @@ paintTicket();
 /* ---------------- v12: mobil adımlı sipariş, özet çubuğu, konum, hızlı sipariş, hediye tutarı, kulüp mini hesap ---------------- */
 (() => {
   const mq = matchMedia("(max-width:640px)");
-  const steps = [...document.querySelectorAll("#sabah .order .ostep")];
-  const openStep = i => steps.forEach((s, k) => s.classList.toggle("open", k === i));
-  steps.forEach((s, i) => s.addEventListener("click", () => { if (!mq.matches) return; s.classList.contains("open") ? s.classList.remove("open") : openStep(i); }));
-  const advance = id => { if (!mq.matches) return; let n = {drinks:1, sizes:2, whens:3, milks:4}[id]; if (n === undefined) return; if (n === 3 && O.nomilk) n = 4; if (n < steps.length) { openStep(n); steps[n].scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"}); } };
-  ["drinks","sizes","whens","milks"].forEach(id => document.querySelectorAll("#" + id + " .opt").forEach(b => b.addEventListener("click", () => setTimeout(() => advance(id), 150))));
-  const sync = () => { if (mq.matches) { if (!steps.some(s => s.classList.contains("open"))) openStep(0); } else steps.forEach(s => s.classList.remove("open")); };
-  mq.addEventListener("change", sync); sync();
   const osum = document.getElementById("osum"), sec = document.getElementById("sabah"), ticket = document.getElementById("ticket");
   let secVis = false, tickVis = false;
   const paintSum = () => { if (!osum) return; document.getElementById("sDrink").textContent = (O.qty > 1 ? O.qty + " × " : "") + O.drink; document.getElementById("sMods").textContent = document.getElementById("tMods").textContent + " · " + O.branch; document.getElementById("sPrice").textContent = document.getElementById("tPrice").textContent + " ₺"; const on = mq.matches && secVis && !tickVis && O.step === 1 && !O.placed; osum.classList.toggle("on", on); document.body.classList.toggle("has-osum", on); };
@@ -2418,7 +2463,7 @@ const FLOWS = {
       if (panel) { const click = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
         click("drinks", d.drink.n); click("sizes", d.size[0]); if (d.milk[0] !== "—") click("milks", d.milk[0]); click("whens", d.when === "Geldiğimde" ? "geldigimde" : d.when === "Şimdi" ? "simdi" : "10dk");
         const sel = document.getElementById("oBranch"); if (sel && [...sel.options].some(o => o.value === d.branch.n)) { sel.value = d.branch.n; sel.dispatchEvent(new Event("change")); }
-        const act = document.getElementById("tAct"); if (act) act.click(); }
+        if (typeof wizardDone === "function") wizardDone(); const act = document.getElementById("tAct"); if (act) act.click(); }
       return [`Sipariş <b>${code}</b> ${d.branch.n} şubesine iletildi. ${d.when === "Geldiğimde" ? "Kapıya 200 m kala ya da \"Geldim\" deyince hazırlanmaya başlar." : "Hazırlanıyor; tezgâhta kodunuzu gösterin."}${panel ? " Sipariş panelinde de görüyorsunuz." : ""}`,
         panel ? [["Paneli göster","#sabah"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]] : [["Uygulamada aç","/app/"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]]];
     }

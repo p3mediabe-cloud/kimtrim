@@ -589,7 +589,7 @@ const FLOWS = {
       if (panel) { const click = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
         click("drinks", d.drink.n); click("sizes", d.size[0]); if (d.milk[0] !== "—") click("milks", d.milk[0]); click("whens", d.when === "Geldiğimde" ? "geldigimde" : d.when === "Şimdi" ? "simdi" : "10dk");
         const sel = document.getElementById("oBranch"); if (sel && [...sel.options].some(o => o.value === d.branch.n)) { sel.value = d.branch.n; sel.dispatchEvent(new Event("change")); }
-        const act = document.getElementById("tAct"); if (act) act.click(); }
+        if (typeof wizardDone === "function") wizardDone(); const act = document.getElementById("tAct"); if (act) act.click(); }
       return [`Sipariş <b>${code}</b> ${d.branch.n} şubesine iletildi. ${d.when === "Geldiğimde" ? "Kapıya 200 m kala ya da \"Geldim\" deyince hazırlanmaya başlar." : "Hazırlanıyor; tezgâhta kodunuzu gösterin."}${panel ? " Sipariş panelinde de görüyorsunuz." : ""}`,
         panel ? [["Paneli göster","#sabah"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]] : [["Uygulamada aç","/app/"],["Şube yolu","yol tarifi " + d.branch.n],["Başka bir şey"]]];
     }
