@@ -1204,7 +1204,7 @@ details.fcol summary h4{margin:0 0 .8rem}
 </header>
 <div class="mnav" id="mnav" hidden>
   <nav aria-label="Mobil menü" class="mnav-links"><a href="/menu/">Menü</a><a href="/subeler/">Şubeler</a><a href="/kahvemiz/">Kahvemiz</a><a href="/taze/">Taze</a><a href="/urunler/">Ürünler</a><a href="/kulup/">Kulüp</a><a href="/franchise/">Franchise</a></nav>
-  <div class="mnav-foot"><a class="status" href="#subeler"><i></i><span id="mnavStatus">Kavacık</span></a><a class="btn amber" href="#sabah">Ön sipariş ver</a><div class="mnav-langs"><b>TR</b><a href="#">EN</a><span>ME · yakında</span></div></div>
+  <div class="mnav-foot"><a class="status" href="#subeler"><i></i><span id="mnavStatus">Kavacık</span></a><a class="btn amber" href="/app/">Ön sipariş ver</a><div class="mnav-langs"><b>TR</b><a href="#">EN</a><span>ME · yakında</span></div></div>
 </div>
 
 <nav class="rail" aria-label="Günün saatleri">
@@ -1250,7 +1250,7 @@ details.fcol summary h4{margin:0 0 .8rem}
           <b id="sunsetT">--:--</b>
         </div>
         <div class="acts">
-          <a class="btn solid sm" href="#sabah">Ön sipariş ver</a>
+          <a class="btn solid sm" href="/app/">Ön sipariş ver</a>
           <a class="btn ghost sm" href="#subeler">Tüm şubeler</a>
         </div>
       </div>
@@ -1381,7 +1381,7 @@ details.fcol summary h4{margin:0 0 .8rem}
           <a class="sp" href="/menu/flat-white/"><img data-mi="flat-white" alt=""><span><b>Flat White</b><small>Çift shot · ince süt dokusu</small><em>150 ₺</em></span></a>
           <a class="sp" href="/menu/cappuccino/"><img data-mi="cappuccino" alt=""><span><b>Cappuccino</b><small>Çift shot · bol mikro köpük</small><em>145 ₺</em></span></a>
         </div></div>
-<div class="bk"><div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div></div>
+<div class="bk"><div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="/app/">Ön sipariş ver</a></div></div>
 
       </div>
       <div class="brewcol mcol" data-more="Çekirdek, kavurma ve 5 adım">
@@ -1468,7 +1468,7 @@ details.fcol summary h4{margin:0 0 .8rem}
           <span><b id="mPrice">150 ₺</b>orta boy</span>
           <span><b id="mServe">Sıcak</b>servis</span>
         </div>
-        <div class="macts"><a class="btn amber sm" href="#sabah" id="mOrder">Ön sipariş ver</a><a class="btn ghost sm" id="mMore" href="/menu/flat-white/">Fiyat, kalori, alerjen</a></div>
+        <div class="macts"><a class="btn amber sm" href="/app/" id="mOrder">Ön sipariş ver</a><a class="btn ghost sm" id="mMore" href="/menu/flat-white/">Fiyat, kalori, alerjen</a></div>
       </div>
       <a class="mpic" id="mPic" href="/menu/flat-white/" aria-label="Flat White ürün sayfası"><img data-mi="flat-white" alt="" id="mImg"><span class="go">Ürün sayfası ›</span></a>
     </div>
@@ -2503,7 +2503,7 @@ const FLOWS = {
     ],
     done(d){
       const code = "FC·" + Math.floor(4800 + Math.random() * 200); mem.lastOrder = {drink:d.drink.n, size:d.size[0], milk:d.milk[0], branch:d.branch.id, when:d.when}; remember(); stat("order_done");
-      const panel = document.getElementById("drinks");
+      const panel = (p => p && p.offsetParent !== null ? p : null)(document.getElementById("drinks"));
       if (panel) { const click = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
         click("drinks", d.drink.n); click("sizes", d.size[0]); if (d.milk[0] !== "—") click("milks", d.milk[0]); click("whens", d.when === "Geldiğimde" ? "geldigimde" : d.when === "Şimdi" ? "simdi" : "10dk");
         const sel = document.getElementById("oBranch"); if (sel && [...sel.options].some(o => o.value === d.branch.n)) { sel.value = d.branch.n; sel.dispatchEvent(new Event("change")); }

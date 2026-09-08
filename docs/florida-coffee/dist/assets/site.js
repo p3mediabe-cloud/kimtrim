@@ -585,7 +585,7 @@ const FLOWS = {
     ],
     done(d){
       const code = "FC·" + Math.floor(4800 + Math.random() * 200); mem.lastOrder = {drink:d.drink.n, size:d.size[0], milk:d.milk[0], branch:d.branch.id, when:d.when}; remember(); stat("order_done");
-      const panel = document.getElementById("drinks");
+      const panel = (p => p && p.offsetParent !== null ? p : null)(document.getElementById("drinks"));
       if (panel) { const click = (id, n) => { const b = document.querySelector(`#${id} .opt[data-n="${n}"]`); if (b && b.getAttribute("aria-pressed") !== "true") b.click(); };
         click("drinks", d.drink.n); click("sizes", d.size[0]); if (d.milk[0] !== "—") click("milks", d.milk[0]); click("whens", d.when === "Geldiğimde" ? "geldigimde" : d.when === "Şimdi" ? "simdi" : "10dk");
         const sel = document.getElementById("oBranch"); if (sel && [...sel.options].some(o => o.value === d.branch.n)) { sel.value = d.branch.n; sel.dispatchEvent(new Event("change")); }

@@ -33,13 +33,13 @@ Yedek
 |---|---|---|---|
 | 0–2 | Deste 1–4 | Google'da ABD ile karışma, pazar, sözleşme maddeleri | "Sizi Google'da aradık, ABD'yi bulduk." |
 | 2–3 | Deste 5, 6 | Mimari, içerik el kitabından | "İçeriği uydurmuyoruz, el kitabınızdan yazıyoruz." |
-| 3–5 | Bilgisayar `/` | Kaydırın: 06:40 video, sipariş paneli (içecek seç, adet, onayla), menü çubuğu, şubelerde "En yakın şube" | "Bu sayfa bir günü anlatıyor; her saatte bir aksiyon var." |
+| 3–5 | Bilgisayar `/` | Kaydırın: 06:40 video, 08:30 favoriler ve "Uygulamada dene" şeridi, menü çubuğu, şubelerde "En yakın şube" | "Bu sayfa bir günü anlatıyor; her saatte bir aksiyon var." |
 | 5–6 | Bilgisayar `/subeler/kavacik/` | Saatler, gün batımı, popüler ürünler, yorumlar | "Rakiplerin hiçbirinde bu şube sayfası yok." |
 | 6–8 | **Telefon** `/menu/` → ürün | Kategori çubuğu yerinde kalır; ürünü açın, görseli sağa sola kaydırın, aşağı inince alt sipariş çubuğu | "Müşterinin yüzde sekseni telefondan gelir; her şey başparmağın altında." |
 | 8–9 | **Telefon** `/app/` | Sipariş sekmesi: kategori, ürün, boy ve süt, öde, "Geldim", "Hazır" | "Laktozsuz süt unutulmaz; barista ekranında mor etiket." |
 | 9–10 | Bilgisayar `/franchise/` | Hesaplayıcı: ciro kaydırıcısı, 3 km kontrolüne "Eskişehir" yazın | "Her yeni franchise platformun bir müşterisi." |
 | 10–11 | Bilgisayar `/kariyer/basvuru/` | Ad yazın, profil gücü yükselir; şube eşleştirme | "Aday havuzu yapay zekâ ile sizinle temasta kalır." |
-| 11–12 | Flo (sağ alt) | "en yakın şube" ve "sipariş: flat white" yazın | "Aynı motor WhatsApp ve Instagram'da çalışır." |
+| 11–12 | Flo (sağ alt) | "en yakın şube" ve "sipariş: flat white" yazın; sonunda "Uygulamada aç" | "Aynı motor WhatsApp ve Instagram'da çalışır." |
 | 12+ | Deste 14–23 | Franchise motoru, yol haritası, ticari model, teklif | Kapanış: "Bu platform bir masraf değil, sözleşmenizin 6.32 maddesindeki gelir kalemi." |
 
 ## Sorulursa hazır yanıtlar
@@ -52,6 +52,6 @@ Yedek
 
 ## Bilinen sınırlar (kendiniz açın, sürpriz olmasın)
 
-- Ana sayfadaki formlar ve sipariş onayı demodur; veri bir yere gitmez.
+- Ana sayfadaki formlar demodur; veri bir yere gitmez. Sipariş yalnızca uygulama demosunda (`/app/`); ana sayfadaki her "Ön sipariş" düğmesi oraya çıkar.
 - Mağaza rozetleri uygulama demosunu açar; mağaza bağlantıları yayında eklenir.
 - Flo kural tabanlı demo motorudur; canlıda büyük dil modeli ile aynı akışlar.
