@@ -1146,6 +1146,23 @@ details.fcol summary h4{margin:0 0 .8rem}
 .order.wizard .more{display:inline-block;margin-top:.4rem}
 .tfoot button{background:none;border:0;color:var(--ink-2);text-decoration:underline;cursor:pointer;font:inherit;font-size:.78rem;padding:0}
 @media (max-width:640px){.order.wizard .opts.tiles{grid-template-columns:1fr 1fr}.wnav .btn.sm{padding:.6rem .8rem}}
+
+/* ---------- v28: masaüstü saat çubuğu — çizgi noktaların üstünden geçer, dolgu aktif saate kadar, etiketler çizginin sağında ---------- */
+.rail .line,.rail .fill{display:none}
+.rail ol{position:relative;gap:1.6vh;padding-left:.15rem}
+.rail ol::before,.rail ol::after{content:"";position:absolute;left:calc(.15rem + 4px);top:.55rem;bottom:.55rem;width:2px;transform:translateX(-50%);border-radius:2px}
+.rail ol::before{background:var(--hair)}
+.rail ol::after{background:linear-gradient(180deg,var(--amber),var(--rust));bottom:auto;height:calc(var(--rp,0) * (100% - 1.1rem));transition:height .25s ease-out;box-shadow:0 0 12px rgba(240,156,28,.35)}
+.rail li{position:relative;z-index:1}
+.rail a{gap:.8rem;font-size:.7rem;letter-spacing:.08em;padding:.15rem 0;color:var(--ink-3)}
+.rail a .dot{width:8px;height:8px;background:#0F3A45;border:2px solid var(--hair-2);box-sizing:border-box;transition:transform .25s,background .2s,border-color .2s,box-shadow .25s}
+.rail a.past{color:var(--ink-2)}
+.rail a.past .dot{background:var(--amber);border-color:var(--amber);width:8px;height:8px}
+.rail a[aria-current="true"]{color:var(--amber);font-weight:700;font-size:.78rem}
+.rail a[aria-current="true"] .dot{background:var(--amber);border-color:#F6F1E8;transform:scale(1.5);box-shadow:0 0 0 5px rgba(240,156,28,.18),0 0 18px rgba(240,156,28,.45)}
+.rail a:hover{color:var(--ink)}
+.rail a:hover .dot{border-color:var(--ink)}
+@media (max-width:640px){.rail ol::before,.rail ol::after{display:none}.rail ol{padding-left:0}.rail a[aria-current="true"]{font-size:.72rem}.rail a[aria-current="true"] .dot{transform:scale(1.2)}.rail a .dot{width:7px;height:7px}}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -2775,7 +2792,8 @@ function paint(){
   fill.style.height = (t * (innerHeight * 0.84)) + "px";
   let cur = 0;
   secs.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.35) cur = i; });
-  links.forEach((a, i) => a.setAttribute("aria-current", String(i === cur)));
+  links.forEach((a, i) => { a.setAttribute("aria-current", String(i === cur)); a.classList.toggle("past", i < cur); });
+  { const ol = document.querySelector(".rail ol"), s0 = secs[cur], s1 = secs[cur + 1]; if (ol && s0) { const y0 = s0.getBoundingClientRect().top, y1 = s1 ? s1.getBoundingClientRect().top : y0 + innerHeight, ref = innerHeight * 0.35; const within = s1 ? Math.max(0, Math.min(1, (ref - y0) / (y1 - y0 || 1))) : 0; ol.style.setProperty("--rp", ((cur + within) / Math.max(1, links.length - 1)).toFixed(4)); } }
   if (cur !== railCur) { railCur = cur; const rl = document.querySelector(".rail"), a = links[cur]; if (rl && a && matchMedia("(max-width:640px)").matches) rl.scrollTo({ left: a.getBoundingClientRect().left - rl.getBoundingClientRect().left + rl.scrollLeft - rl.clientWidth / 2 + a.offsetWidth / 2, behavior: "smooth" }); }
   if (typeof showHint === "function" && secs[cur]) showHint(secs[cur].id);
 }
