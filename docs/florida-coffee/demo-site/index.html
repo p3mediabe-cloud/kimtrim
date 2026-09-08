@@ -577,6 +577,10 @@ h2 + .lede{margin-top:1.3rem}
 @keyframes flo-chirp{0%,100%{transform:rotate(0)}50%{transform:rotate(-14deg)}}
 @keyframes flo-q{0%{transform:scale(0);opacity:0}14%{transform:scale(1.15);opacity:1}24%,84%{transform:scale(1);opacity:1}100%{transform:scale(0);opacity:0}}
 @media (prefers-reduced-motion:reduce){.flo-fab .mark,.flo-fab.wave,.flo-fab.wave .mark,.flo-fab.wave .beak,.flo-fab.wave .fq{animation:none}}
+/* Flo düğmesi: kare kutu yok, yuvarlak madeni para; göz halka renginde ve hareketli */
+.flo-fab{border-radius:50%!important;width:3.8rem;height:3.8rem;border-width:2px;box-shadow:0 12px 30px rgba(0,0,0,.4),0 0 0 4px rgba(4,20,26,.35)}
+.flo-fab svg{width:2.55rem;height:2.55rem}
+.flo-fab .mark .eye{fill:currentColor}
 /* ---------- loyalty / phone ---------- */
 .loyal{display:grid;grid-template-columns:minmax(0,1fr) 19rem;gap:clamp(1.5rem,4vw,3.5rem);align-items:center}
 @media (max-width:900px){.loyal{grid-template-columns:minmax(0,1fr)}.phone{margin:0 auto}}
@@ -1592,7 +1596,7 @@ details.fcol summary h4{margin:0 0 .8rem}
 <!-- ============ FLO · asistan ============ -->
 <button class="flo-hint" id="floHint" type="button">Merhaba, ben Flo. Sor bana.</button>
 <button class="flo-fab" id="floFab" aria-haspopup="dialog" aria-controls="flo" aria-expanded="false">
-  <svg class="mark fab anim" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="#004854"/></g></svg>
+  <svg class="mark fab anim" viewBox="0 0 100 100" aria-hidden="true"><circle class="ring" cx="50" cy="50" r="38.3" fill="none" stroke="currentColor" stroke-width="23.4"/><path class="beak" d="M50 50 L50 0 A50 50 0 0 0 0 50 Z" fill="var(--amber)"/><path class="chin" d="M50 50 L23.4 50 A26.6 26.6 0 0 0 50 76.6 Z" fill="var(--rust)"/><g class="eyeg"><circle class="eye" cx="61.6" cy="40.8" r="6" fill="currentColor"/></g></svg>
   <span class="fq" aria-hidden="true">?</span><span class="sr">Flo asistanı aç</span>
 </button>
 <section class="flo" id="flo" role="dialog" aria-modal="false" aria-labelledby="floTitle" hidden>
