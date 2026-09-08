@@ -122,9 +122,9 @@ document.querySelectorAll("video[data-fadeloop]").forEach(v => {
   setTimeout(kick, 1500);
 })();
 // hero işareti: boş dururken sağa sola bakar, daha sık kırpar, başını hafif eğer
-(() => { const hm = document.querySelector(".heromark .mark"); if (!hm || reduce) return; let lastP = 0;
-  addEventListener("pointermove", () => { lastP = Date.now(); hm.style.setProperty("--tilt", "0deg"); }, {passive:true});
-  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) { const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; hm.style.setProperty("--ex", ex.toFixed(2)); hm.style.setProperty("--ey", ey.toFixed(2)); hm.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); } setTimeout(idle, 700 + Math.random() * 1600); })(); })();
+(() => { const marks = [document.querySelector(".heromark .mark"), document.querySelector(".flo-fab .mark")].filter(Boolean); if (!marks.length || reduce) return; let lastP = 0;
+  addEventListener("pointermove", () => { lastP = Date.now(); marks.forEach(m => m.style.setProperty("--tilt", "0deg")); }, {passive:true});
+  (function idle(){ if (Date.now() - lastP > 1800 && !document.hidden) marks.forEach(m => { if (m.closest('[aria-expanded="true"]')) return; const ex = (Math.random() * 2 - 1) * 4.2, ey = (Math.random() * 2 - 1) * 2.2; m.style.setProperty("--ex", ex.toFixed(2)); m.style.setProperty("--ey", ey.toFixed(2)); m.style.setProperty("--tilt", (ex * 1.4).toFixed(1) + "deg"); }); setTimeout(idle, 700 + Math.random() * 1600); })(); })();
 // header: kaydırınca daralır; mobil menü
 (() => { const nav = document.querySelector(".nav"); if (!nav) return; let last = -1;
   const onS = () => { const s = scrollY > 40; if (s !== last) { nav.classList.toggle("scrolled", s); last = s; } }; addEventListener("scroll", onS, {passive:true}); onS();
@@ -819,6 +819,13 @@ const fabEye = fab.querySelector(".eyeg");
 function glance(x, y, ms){ if (!fabEye || reduce) return; fabEye.style.setProperty("--ex", x); fabEye.style.setProperty("--ey", y); setTimeout(() => { fabEye.style.setProperty("--ex", 0); fabEye.style.setProperty("--ey", 0); }, ms || 1400); }
 if (!reduce) setInterval(() => { if (!document.hidden && Math.random() < .5) glance((Math.random() * 6 - 3).toFixed(1), (Math.random() * 3 - 1.5).toFixed(1), 900); }, 5000);
 
+/* Flo düğmesi: ara sıra "buradayım" — zıplar, başını sallar, gagasını kıpırdatır, soru rozeti çıkar; panel açıkken susar */
+(() => { if (!fab || reduce) return;
+  const wave = () => { if (!floEl.hidden || document.hidden || fab.classList.contains("wave")) return; fab.classList.add("wave"); glance(-4, -2, 1500); setTimeout(() => fab.classList.remove("wave"), 2150); };
+  window.floWave = wave;
+  (function loop(){ setTimeout(() => { wave(); loop(); }, 14000 + Math.random() * 9000); })();
+  setTimeout(wave, 4500);
+})();
 
 /* bölüm bazlı ipucu balonu: hikâyenin anlatıcısı Flo · tıklanınca o soruyu yanıtlar */
 const HINTS = {
@@ -859,7 +866,7 @@ function showHint(id){ if (id === lastHint || !floEl.hidden) return; lastHint = 
   else if (hr >= 17 && hr < 20 && hb.f.includes("manzara") && ["subeler","gece","safak"].includes(id)) hh = {t:`${hb.n}'ta gün batımı ${sunsetOf(hb)}; manzaralı masa ayırayım mı?`, s:"yer ayır"};
   const ss = sunsetOf(hb); hintSend = hh.s; h = hh;
   floHint.textContent = h.t.replace("{ss}", ss).replace("{selam}", mem.name ? `${greetWord()} ${mem.name}!` : `${greetWord()}!`);
-  floHint.classList.add("on"); glance(-4, 0, 1600); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 6500); }
+  floHint.classList.add("on"); if (typeof floWave === "function") floWave(); else glance(-4, 0, 1600); clearTimeout(hintTimer); hintTimer = setTimeout(() => floHint.classList.remove("on"), 6500); }
 floHint.addEventListener("click", e => { e.stopPropagation(); floHint.classList.remove("on"); openFlo(); if (hintSend) userSays(hintSend); });
 
 showHint(document.body.dataset.page || "safak");
