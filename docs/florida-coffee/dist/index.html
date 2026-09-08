@@ -1163,6 +1163,29 @@ details.fcol summary h4{margin:0 0 .8rem}
 .rail a:hover{color:var(--ink)}
 .rail a:hover .dot{border-color:var(--ink)}
 @media (max-width:640px){.rail ol::before,.rail ol::after{display:none}.rail ol{padding-left:0}.rail a[aria-current="true"]{font-size:.72rem}.rail a[aria-current="true"] .dot{transform:scale(1.2)}.rail a .dot{width:7px;height:7px}}
+
+/* ---------- v29: sipariş paneli gizli; standartlar simetrik; haberler aralıklı ---------- */
+#sabah .panel:has(.order){display:none}
+.osum{display:none!important}
+.appcta{margin-top:1.4rem;padding:1rem 1.1rem;font-size:.92rem}
+.appcta b{color:var(--ink)}
+.origin2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.origin2 .ph{margin:0}
+.bk>.ph{margin:0}
+@media (min-width:901px){
+  .brewwrap.v2{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:repeat(5,auto);grid-auto-flow:column;align-items:stretch;column-gap:clamp(1rem,3vw,2.5rem);row-gap:1.2rem}
+  .brewwrap.v2 .brewcol{display:contents}
+  .brewwrap.v2 .mmore2{display:none}
+  .brewwrap.v2 .bk{min-width:0;display:flex;flex-direction:column}
+  .brewwrap.v2 .bk>.lbl{margin-top:0}
+  .brewwrap.v2 .stdgrid,.brewwrap.v2 .shot,.brewwrap.v2 .stdprods,.brewwrap.v2 .stdcta,.brewwrap.v2 .brewout,.brewwrap.v2 .origin2,.brewwrap.v2 .roastbar{flex:1}
+  .brewwrap.v2 .shot{align-content:center}
+  .brewwrap.v2 .roastbar{display:flex;flex-direction:column;justify-content:center}
+  .brewwrap.v2 .bk>.ph{flex:1;aspect-ratio:auto;min-height:19rem}
+}
+@media (max-width:640px){.origin2{display:none}}
+.news,.newswrap .news{gap:.9rem;background:none;border:0;padding:2px 2px 6px}
+.newsitem{border:1px solid var(--hair);background:rgba(6,24,31,.72)}
 </style>
 
 <div class="sky" id="sky" aria-hidden="true"></div>
@@ -1255,6 +1278,7 @@ details.fcol summary h4{margin:0 0 .8rem}
     </div></div><aside class="favs" id="favs" aria-label="En çok sipariş edilenler"></aside></div>
 
     <figure class="ph r169" data-img="workspace" style="margin-top:1.6rem"><span class="cap">Kadıköy · üst kat çalışma alanı</span></figure>
+    <div class="stdcta appcta"><span><b>Ön siparişi canlı deneyin.</b> Şube, içecek, boy, süt; öde, "Geldim" de, tezgâhta al. Uygulama demosu tarayıcıda açılır.</span><a class="btn amber sm" href="/app/">Uygulamada dene</a></div>
     <div class="panel" style="margin-top:1.2rem">
       <div class="order">
         <div>
@@ -1336,8 +1360,8 @@ details.fcol summary h4{margin:0 0 .8rem}
 
     <div class="brewwrap v2" style="margin-top:2rem">
       <div class="brewcol">
-        <figure class="ph r169" data-img="pour"><span class="cap">9 bar · 18–23 saniye</span></figure>
-        <div class="lbl">Espresso standardımız · tıklayın, nedenini görün</div>
+        <div class="bk"><figure class="ph r169" data-img="pour"><span class="cap">9 bar · 18–23 saniye</span></figure></div>
+<div class="bk"><div class="lbl">Espresso standardımız · tıklayın, nedenini görün</div>
         <div class="stdgrid" id="stdgrid">
           <button class="std" aria-expanded="false"><span class="v">14 g</span><span class="l">Doz</span><span class="why">Double shot dozu tartıyla doğrulanır; 1 g sapma shot süresini 2–3 saniye kaydırır.</span></button>
           <button class="std" aria-expanded="false"><span class="v">90–96 °C</span><span class="l">Su</span><span class="why">Daha düşük su ekşi ve zayıf, daha yüksek su yanık ve acı çıkarır.</span></button>
@@ -1345,23 +1369,25 @@ details.fcol summary h4{margin:0 0 .8rem}
           <button class="std" aria-expanded="false"><span class="v">18–23 sn</span><span class="l">Shot süresi</span><span class="why">Kronometreyle izlenir. 18'in altı ekşi, 23'ün üstü acı.</span></button>
           <button class="std" aria-expanded="false"><span class="v">30–60 g</span><span class="l">Çıktı</span><span class="why">Tartıda ölçülür; oran içeceğe göre 1:2 ile 1:4 arasında.</span></button>
           <button class="std" aria-expanded="false"><span class="v">60–65 °C</span><span class="l">Süt</span><span class="why">Mikro köpük parlak ve boya kıvamında; 70 °C üstünde süt yanar, tatlılığını kaybeder.</span></button>
-        </div>
-        <div class="shot" id="shot">
+        </div></div>
+<div class="bk"><div class="shot" id="shot">
           <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="var(--hair)" stroke-width="8"/><circle id="shotArc" cx="50" cy="50" r="42" fill="none" stroke="var(--amber)" stroke-width="8" stroke-linecap="butt" stroke-dasharray="264" stroke-dashoffset="264" transform="rotate(-90 50 50)"/><text id="shotT" x="50" y="55" text-anchor="middle" font-size="22" font-weight="700" fill="currentColor" font-family="var(--disp)">0.0</text><text x="50" y="70" text-anchor="middle" font-size="9" fill="var(--ink-3)">saniye</text></svg>
           <div><div class="lbl">Shot simülatörü · 4× hız</div><div class="big" id="shotG">0 g</div><p class="brewnote" id="shotMsg" style="margin:.2rem 0 .6rem">Başlatın; 18–23 saniye aralığında kesilmesi gerekir.</p><div style="display:flex;gap:.5rem;flex-wrap:wrap"><button class="btn amber sm" id="shotBtn">Shot'ı başlat</button><button class="btn ghost sm" id="shotStop" disabled>Kes</button></div></div>
-        </div>
-        <div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between;gap:.6rem"><span>Bu standartla hazırlananlar</span><a href="#menu" style="color:var(--amber)">Tüm sıcak kahveler ›</a></div>
+        </div></div>
+<div class="bk"><div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between;gap:.6rem"><span>Bu standartla hazırlananlar</span><a href="#menu" style="color:var(--amber)">Tüm sıcak kahveler ›</a></div>
         <div class="stdprods" id="stdprods">
           <a class="sp" href="/menu/espresso/"><img data-mi="espresso" alt=""><span><b>Espresso</b><small>14 g · 18–23 sn · 30 g çıktı</small><em>95 ₺</em></span></a>
           <a class="sp" href="/menu/cortado/"><img data-mi="cortado" alt=""><span><b>Cortado</b><small>Tek shot · eşit süt · 62 °C</small><em>130 ₺</em></span></a>
           <a class="sp" href="/menu/flat-white/"><img data-mi="flat-white" alt=""><span><b>Flat White</b><small>Çift shot · ince süt dokusu</small><em>150 ₺</em></span></a>
           <a class="sp" href="/menu/cappuccino/"><img data-mi="cappuccino" alt=""><span><b>Cappuccino</b><small>Çift shot · bol mikro köpük</small><em>145 ₺</em></span></a>
-        </div>
-        <div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div>
+        </div></div>
+<div class="bk"><div class="stdcta"><span>Standardı kendiniz test edin: Kavacık'ta her Cumartesi 11:00 barista tezgâhı açık.</span><a class="btn ghost sm" href="#sabah">Ön sipariş ver</a></div></div>
+
       </div>
       <div class="brewcol mcol" data-more="Çekirdek, kavurma ve 5 adım">
-        <div class="origin"><figure class="ph r169" data-img="hasat"><span class="cap">Hasat · Etiyopya, elle toplama</span></figure><figure class="ph r43" data-img="kavurma"><span class="cap">Kavurma · küçük parti</span></figure><figure class="ph r43" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure></div>
-        <div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
+        <div class="bk"><figure class="ph r169" data-img="hasat"><span class="cap">Hasat · Etiyopya, elle toplama</span></figure></div>
+<div class="bk"><div class="origin2"><figure class="ph r43" data-img="kavurma"><span class="cap">Kavurma · küçük parti</span></figure><figure class="ph r43" data-img="beans"><span class="cap">Orta kavurma · arabica</span></figure></div></div>
+<div class="bk"><div class="lbl">Çekirdek nereden geliyor · kahve kuşağı</div>
         <div class="brewtabs" id="brewtabs">
           <button class="fbtn" aria-pressed="true" data-b="latin">Latin Amerika</button>
           <button class="fbtn" aria-pressed="false" data-b="afrika">Afrika</button>
@@ -1373,13 +1399,8 @@ details.fcol summary h4{margin:0 0 .8rem}
           <div><div class="v" id="bTemp">Orta</div><div class="l">Gövde</div></div>
           <div><div class="v" id="bTime">Espresso</div><div class="l">En uygun</div></div>
         </div>
-        <p class="brewnote" id="bNote">Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil.</p>
-        <div class="roastbar" style="padding:0">
-          <div class="lbl">Kavurma aralığımız</div>
-          <div class="track"><span class="pin" style="left:52%"></span></div>
-          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
-        </div>
-        <div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between"><span>Shot öncesi zorunlu 5 adım · işaretleyin</span><span id="stepProg" style="color:var(--amber)">0 / 5</span></div>
+        <p class="brewnote" id="bNote">Fındık, badem, kakao, sütlü çikolata, karamel ve narenciye notaları. Temiz bitiş. Brezilya, Kolombiya, Guatemala. Espresso bazlı içeceklerde en stabil profil.</p></div>
+<div class="bk"><div class="lbl" style="margin-top:1.4rem;display:flex;justify-content:space-between"><span>Shot öncesi zorunlu 5 adım · işaretleyin</span><span id="stepProg" style="color:var(--amber)">0 / 5</span></div>
         <ol class="fivestep check" id="fivestep">
           <li><label><input type="checkbox"><span><b>Grup başlığı flush edilir</b> — 2–3 saniye su akıtılır, kalıntı temizlenir, sıcaklık dengelenir.</span></label></li>
           <li><label><input type="checkbox"><span><b>Portafiltre temizlenir</b> — sepet içi kuru; önceki shot'tan partikül kalmaz.</span></label></li>
@@ -1387,7 +1408,13 @@ details.fcol summary h4{margin:0 0 .8rem}
           <li><label><input type="checkbox"><span><b>Tamp uygulanır</b> — eşit basınç, düz yüzey.</span></label></li>
           <li><label><input type="checkbox"><span><b>Süre takip edilir</b> — kronometre 18–23 saniye aralığında izlenir.</span></label></li>
         </ol>
-        <p class="brewnote" id="stepNote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p>
+        <p class="brewnote" id="stepNote">Bu adımlardan birinin atlanması zincir standardına aykırıdır. Kaynak: Florida Coffee barista operasyon el kitabı.</p></div>
+<div class="bk"><div class="roastbar" style="padding:0">
+          <div class="lbl">Kavurma aralığımız</div>
+          <div class="track"><span class="pin" style="left:52%"></span></div>
+          <div class="scale"><span>Açık</span><span>Orta · 215–220 °C</span><span>Koyu · 220–225 °C</span></div>
+        </div></div>
+
       </div>
     </div>
   </section>
