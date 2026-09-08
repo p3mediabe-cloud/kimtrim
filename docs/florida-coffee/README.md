@@ -24,6 +24,7 @@
 | `07-entegre-cerceve.md` | **Entegre işletme platformu çerçevesi:** tek gerçek kaynağı, altı yüz, üç döngü, 13 modül (kasa entegrasyonu, açılış motoru, e-ticaret, B2B tedarik, içerik havuzu, etkinlik motoru, İK, HQ veri merkezi, AI), yayın yönetişimi, entegrasyon haritası, kapsam dışı kalemler |
 | `08-deger-fiyat-roi.md` | **Değer, fiyat ve geri dönüş:** ayrı ayrı satın alma karşılaştırması, 1.326 saat/yıl zaman tasarrufu, franchise/uygulama/e-ticaret gelir modeli, iki bileşenli fiyat mimarisi (HQ bedeli + şube lisansı), üç kademe, iç maliyet tabanı, pazarlık çerçevesi |
 | `09-ilk-yil-plani.md` | **İki taraflı 12 aylık plan:** ay ay P3Media teslimatları ve müşteri yükümlülükleri, toplantı ritmi, veri paylaşımı, onay SLA'sı, ulaşım, fotoğrafçı sınırı, kilometre taşları ve gecikme yaptırımları |
+| `10-teklif-sunumu.html` | **Müşteriye giden sunum:** durum, ilke ve mimari, 13 modül, açılış motoru, tek ağızdan yayın, etkinlik motoru, iki yönlü ticaret, zaman tasarrufu, ayrı ayrı satın alma karşılaştırması, fiyat ve finansman dağılımı, geri dönüş ve duyarlılık, iki taraflı 12 aylık plan, çalışma modeli, kapsam dışı, karar takvimi. Artifact olarak yayında: https://claude.ai/code/artifact/5d401433-2aad-4982-ac9c-666af5ba3235 |
 | `04-sunum-deck.html` | Görüşme sunumu: 16 slayt, ok tuşlarıyla ilerler, `N` konuşmacı notları, `F` tam ekran |
 
 ## Siteyi yeniden üretmek
