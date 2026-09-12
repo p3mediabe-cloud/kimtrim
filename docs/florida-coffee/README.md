@@ -21,6 +21,7 @@
 | `site/build.py` | Çok sayfalı statik site üreticisi (Python 3.12). `demo-site/index.html`'den ortak CSS/JS/veriyi çeker, 77 sayfa üretir: ana sayfa, menü + 25 ürün sayfası, 17 şube sayfası, kahvemiz, taze + 8 haber, ürünler + 4 ürün, kulüp, uygulama, franchise (+ başvuru, SSS), kariyer, kurumsal, etkinlikler, hikâyemiz, SSS, iletişim, 4 yasal metin, EN özet, 404; her sayfada JSON-LD, sitemap.xml, robots.txt (demo: noindex) |
 | `dist/` | Yayın paketi: `site/build.py` çıktısı + `app/` (mobil uygulama demosu) + `platform/` + `sunum/`. Vercel veya GitHub Pages'e olduğu gibi yüklenir |
 | `04-sunum-deck.html` | Görüşme sunumu: 16 slayt, ok tuşlarıyla ilerler, `N` konuşmacı notları, `F` tam ekran |
+| `muzik/` | Suno v6 müzik paketi: 9 parçanın şarkı sözü ve stil tarifi (marka marşı, EN sürüm, uygulama, sadakat, gece, akustik, sezon ürünü, kurumsal enstrümantal, ses logosu) + ses kimliği brief'i. Stil alanı İngilizce, sözler Türkçe; her parçada kısa/uzun stil ve hariç tutma satırı hazır |
 
 ## Siteyi yeniden üretmek
 
