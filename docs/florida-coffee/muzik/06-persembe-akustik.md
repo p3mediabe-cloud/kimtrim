@@ -33,43 +33,55 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: two guitars tuning, a chair moves, someone laughs]
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: male and female duo trading lines, unpolished, one take, no doubling, no autotune]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Verse 1: male]
+[Intro — room noise, two guitars tuning, a chair moves, someone laughs]
+[Spoken — off mic, warm, unamplified, as if to thirty people]
+İyi akşamlar. Florida Coffee, Kavacık terası.
+
+[Verse 1 — male solo, close mic, fret noise and breath audible]
+[one nylon guitar, fingerpicked]
 Kavacık'ta rüzgâr tam kıvamında
 Sandalyeler yarım daire
 Gitar akort olurken biri gülüyor
 Gün batımı biraz gecikti bugün
 
-[Verse 2: female]
+[Verse 2 — female takes the lead, second guitar answers]
 Bardaklar tezgâhta sıraya girdi
 Işıklar karşı kıyıda uyandı
 Kimse programı sormuyor bu akşam
 Ne çalınırsa o güzel
 
-[Chorus: both]
+[Chorus — both voices in unison, cajon and shaker enter, a slight rush is fine]
 Bu akşam iki kişilik bir şarkı
 Yarısı biz, yarısı rüzgâr
 Terasta bir yer ayırdık sana
 Perşembe hep böyle başlar
 
-[Verse 3: male]
+[Verse 3 — male lead, female harmony above, cajon drops to the rim]
 Birinci sıra kimsenin değil
 Geç kalan da oturur bir yere
 Kahve soğursa yenisi gelir
 Şarkı bitmez, tekrar başlar
 
-[Chorus: both, audience joins softly]
+[Chorus — both voices, a few audience voices joining quietly, not loud]
 Bu akşam iki kişilik bir şarkı
 Yarısı biz, yarısı rüzgâr
 Terasta bir yer ayırdık sana
 Perşembe hep böyle başlar
 
-[Outro: guitars only, applause fading in at the very end]
+[Outro — guitars only, slowing down, the last chord left ringing]
+[Spoken — off mic, over the ringing chord]
+Perşembe yine buradayız. Florida Coffee.
+[a few claps, close and small, then room noise]
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** sahne girişinde mikrofon dışından "İyi akşamlar. Florida Coffee, Kavacık terası." ve kapanışta "Perşembe yine buradayız." Konuşma bilerek şarkının dışında; duyuru gibi değil, sahne gibi duymalı.
 - Alkış ve oda sesi bilerek var: bu parça reklam müziği gibi değil, **kaydedilmiş bir akşam**
   gibi duymalı. Suno fazla stüdyo işi üretirse stil alanına `raw live recording, audience
   present, one take` ekle.

@@ -30,8 +30,11 @@ Ses kimliğinin bütünü (palet–ses eşlemesi, sözlük, yasaklar): [00-ses-k
    ediyorsa *uzun stil* bloğunu kullan; kabul etmiyorsa kısa sürümle devam et — her
    dosyada iki sürüm de var, kısa sürüm 200 karakterin altında tutuldu.
 3. **Exclude styles** alanına dosyadaki hariç tutma satırını gir.
-4. **Lyrics** alanına söz bloğunu köşeli parantezli etiketleriyle birlikte yapıştır.
-   Etiketleri silme; bölüm geçişlerini onlar kuruyor.
+4. **Lyrics** alanına söz bloğunu olduğu gibi yapıştır. Sözler yalnızca dize değil; bölüm,
+   vokal rolü, çalgı girişi, dinamik ve ortam sesi yönergeleriyle birlikte kodlandı. Hiçbir
+   satırı silme — parçanın nasıl söyleneceğini onlar kuruyor. Etiket dili, `[End]` kuralı ve
+   model yönergeleri şarkının içinde okumaya başlarsa uygulanacak **düşürme sırası**:
+   [00-ses-kimligi-brief.md](00-ses-kimligi-brief.md#söz-kodlaması-etiket-dili).
 5. Parça başına **4–6 varyasyon** üret, en iyisini seç.
 6. **Tutarlılık:** 01 numaralı marşın onaylanan kaydından bir *Persona* oluştur ve 02–07'yi
    o Persona ile üret. Katalogun tek marka gibi duymasını sağlayan tek adım budur.
@@ -41,7 +44,16 @@ Ses kimliğinin bütünü (palet–ses eşlemesi, sözlük, yasaklar): [00-ses-k
 ### Stil alanı neden İngilizce?
 
 Suno stil yönergelerini İngilizce daha isabetli yorumluyor; sözler Türkçe kalır. Bu
-ayrım bilinçli: **stil = İngilizce, söz = Türkçe.**
+ayrım bilinçli: **stil = İngilizce, söz = Türkçe.** Aynı mantık sözlerin içindeki
+yönergeler için de geçerli: köşeli parantez içi İngilizce, söylenen her şey Türkçe
+(02 numaralı parça hariç).
+
+### Marka her parçada geçer
+
+Florida Coffee adı dokuz parçanın hepsinde duyuluyor: nakaratın arkasından gelen cevap
+olarak (01, 02, 04, 07), grup vokali bağırışı olarak (03), fısıltılı konuşma olarak (05),
+sahne girişinde (06), ses logosunun üç notasında (08) ve sözlü ses logosunda (09). Kural:
+marka adı nakaratın önüne geçmez — şarkı markayı anlatmaz, marka şarkının içinde durur.
 
 ### Türkçe telaffuz
 

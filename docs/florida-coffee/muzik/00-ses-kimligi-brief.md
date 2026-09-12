@@ -56,6 +56,76 @@ tropikal), "enerji", "patlama", "bomba gibi", "acele et", "kaçırma", indirim d
 > bağlar, tropikal hiçbir çağrışım verilmez. Tukan Flo görsel dilde tropik kuş olabilir;
 > müzikte tropikal ritim (bossa, reggaeton, steel drum, latin perküsyon) **yasak.**
 
+## Söz kodlaması (etiket dili)
+
+Bu katalogda söz alanı düz metin değil; Suno'ya **ne söyleyeceğini değil, nasıl söyleyeceğini**
+de anlatan bir partisyon. Dokuz parçanın hepsi aynı beş işaretle kodlandı.
+
+| İşaret | Suno ne yapar | Örnek |
+|---|---|---|
+| Kendi satırında `[köşeli parantez]` | Yönerge olarak okur, söylemez | `[guitar only, no drums]` |
+| `[Bölüm — rol, mikrofon, dinamik]` | Bölümü açar ve icrayı belirler | `[Chorus — full band, female harmony a third above]` |
+| Dize içinde `(parantez)` | **Söyler:** arka vokal, cevap, ad-lib | `Kahven seni bekler burada (Florida Coffee)` |
+| BÜYÜK HARF | Heceyi vurgular | `bu BİZDEN` |
+| `—` ve `...` | Notayı uzatır, duraklatır | `tam zamanında—` |
+| `[End]` | Parçayı bitirir; uzayıp giden outro'yu keser | |
+
+Kullanılmayacak işaretler: `*yıldız*`, `{süslü}`, `<açılı>` ve emoji. Suno bunları ya şarkının
+içinde okur ya da yok sayar; ikisi de istemediğimiz şey.
+
+### Her sözün başındaki üç satır
+
+Her parça aynı üç satırla açılır. Dil kilidi, vokal rolü ve "parantezleri okuma" talimatı:
+
+```
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: male lead, close mic, breath audible; female harmony from the second chorus]
+[Perform: bracketed lines are directions — do not sing them]
+```
+
+Üçüncü satırın tutacağı garanti değil; tutmadığında aşağıdaki düşürme sırası uygulanır.
+
+### Bir bölüm nasıl kodlanır
+
+Bölüm başına en fazla iki yönerge satırı: biri **kim söylüyor, nasıl**, diğeri **çalgılar ne
+yapıyor**. Üçten fazlası modelin dikkatini dağıtıyor.
+
+```
+[Pre-Chorus — voice lifts, upright bass enters underneath]
+[brushed drums enter on the last line only]
+Tezgâhta bir fincan ısınır
+Gün ilk yudumla başlar
+```
+
+### Etiket düşürme sırası
+
+Model yönergeleri şarkının içinde okumaya başlarsa ya da alan metni kabul etmezse, şu sırayla sil:
+
+1. Miks ve konum yönergeleri (`far back in the mix`, `left of centre`)
+2. Ortam sesi satırları (`distant ferry horn`, `room noise`)
+3. Çalgı giriş-çıkış satırları (`upright bass enters`)
+4. **En son gidenler — bunlar kalır:** bölüm etiketleri, vokal rolü satırı, `(parantez içindeki
+   arka vokaller)` ve `[End]`
+
+Sözlerin hiçbiri 2.300 karakteri geçmiyor; alan sınırı sorun çıkarırsa sebep uzunluk değil,
+yoğunluktur.
+
+### Marka kuralı
+
+Florida Coffee adı **her parçada** geçer. Nasıl geçtiği parçanın türüne göre değişir:
+
+| Parça | Nasıl |
+|---|---|
+| 01, 02, 04, 07 | Nakaratın arkasından gelen cevap: `(Florida Coffee)` |
+| 03 | Grup vokali bağırışı ve kapanış: `(Florida Coffee — uygulamada)` |
+| 05 | Fısıltıya yakın konuşma: "Florida Coffee. Beykoz. İkiye kadar açığız." |
+| 06 | Sahne girişinde mikrofon dışından: "İyi akşamlar. Florida Coffee, Kavacık terası." |
+| 08 | Sözsüz: kapanışta ses logosunun üç notası (D–F#–A); istenirse fısıltılı ek bölüm |
+| 09 | Ses logosunun sözlü sürümü: "Florida Coffee. Mutluluğun tadı." |
+
+Kural: marka adı **nakaratın önüne geçmez.** Cevap olarak, kapanışta veya konuşmada geçer;
+dizenin konusu olmaz. Şarkı markayı anlatmaz, marka şarkının içinde durur.
+
 ## Katalog genelinde hariç tutulacaklar
 
 Her parçanın kendi "Exclude styles" satırı var; ortak çekirdek şu:

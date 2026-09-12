@@ -33,54 +33,64 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: tambourine count-in, funk guitar]
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: female lead, smiling and grown-up; three-part stacked backing vocals answering the hook]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Chorus]
-FloridaDays, FloridaDays
+[Intro — 2 bars]
+[tambourine count-in, clean funk guitar on the off-beats]
+
+[Chorus — starts cold, full band, hook first]
+FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
-FloridaDays, FloridaDays
+FloridaDays, FloridaDays (Florida Coffee)
 Bu fincan senin hesabına
 
-[Verse 1]
+[Verse 1 — lead drops to conversational, drums stay tight and dry]
+[Rhodes enters underneath]
 Saat dokuz, telaş dağıldı
 Şehir biraz yavaşladı
 Kart cebinde değil artık
 Cebindeki telefonda
 
-[Pre-Chorus]
+[Pre-Chorus — build, backing vocals hum underneath]
 Ne kuyruk, ne kâğıt, ne de "kartım yanımda değildi"
 Sadece sen ve tezgâh
 
-[Chorus]
-FloridaDays, FloridaDays
+[Chorus — full band, stacked backing vocals]
+FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
-FloridaDays, FloridaDays
+FloridaDays, FloridaDays (Florida Coffee)
 Bu fincan senin hesabına
 
-[Verse 2]
+[Verse 2 — short warm horn stabs between the lines]
 Biri cupping'e yazıldı
 Biri terasta yer ayırdı
 Biri yorum yazdı bir satır
 Hepsi aynı kulüpte
 
-[Bridge: drums drop to tambourine and claps]
-Say bakalım, kaç oldu
-Biriktir, acelesi yok
+[Bridge — drums drop to tambourine and claps, call and response]
+Say bakalım, kaç oldu (kaç oldu)
+Biriktir, acelesi yok (acelesi yok)
 Bir akşam gelir, tezgâh der ki:
-Bugün bizden
+Bugün BİZDEN
+[full band returns on the last word]
 
-[Final Chorus: full, stacked vocals]
-FloridaDays, FloridaDays
+[Final Chorus — stacked vocals doubled, horn line on top]
+FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
-FloridaDays, FloridaDays
+FloridaDays, FloridaDays (Florida Coffee)
 Bu fincan senin hesabına
 
-[Outro]
+[Outro — half-time, warm, band thins to Rhodes and bass]
 Mutluluğun tadı — kulüpte
+(Florida Coffee)
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** nakaratta FloridaDays'e cevap veren `(Florida Coffee)` katmanı. Alt marka adı değişirse bu cevap yerinde kalır — kampanya adı değişse de marka duyulur.
 - **FloridaDays adı teyide bağlı.** Rapor §8.1'e göre bu alt markanın rolü belirsiz;
   sadakat programının adı olması bizim önerimiz. Ad değişirse nakarat tek tek hecelenerek
   yeniden üretilir; ölçü iki heceli + üç heceli her ada uyar (örn. "Florida Plus" da oturur).

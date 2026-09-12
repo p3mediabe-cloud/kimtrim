@@ -39,7 +39,17 @@ vocals, drums, percussion loop, EDM, trap, cinematic riser, orchestral swell, co
 ## Sözler
 
 ```
-[Instrumental]
+[Instrumental — no singing]
+[Perform: bracketed lines are the arrangement map — do not sing them]
+
+[Sting — one gesture, four seconds, free tempo]
+[felt piano plays three rising notes: D, F sharp, A]
+[a nylon guitar harmonic doubles the third note an octave up]
+[a soft mallet under the first note only]
+[the third note rings and decays over warm tape hiss and a distant hint of water]
+[no drums, no rhythm, no chord progression, no reverb wash]
+[end in silence]
+[End]
 ```
 
 ## Üretim yöntemi
@@ -57,17 +67,23 @@ Suno 3 saniyelik parça üretmez; yöntem şu:
 
 ## Sözlü alternatif
 
-Kampanya videolarında, üç notanın üzerine tek dize:
+Kampanya videolarında ve uygulama karşılama ekranında, üç notanın üzerine tek cümle:
 
 ```
-Mutluluğun tadı
+[Sting with voice — one gesture, five seconds, free tempo]
+[felt piano plays three rising notes: D, F sharp, A]
+[Spoken — one warm voice, close mic, unhurried, arriving on the third note]
+Florida Coffee. Mutluluğun tadı.
+[the note rings and decays under the voice — end in silence]
+[End]
 ```
 
-Marşın (01) nakarat kapanışıyla aynı cümle. Sözlü sürüm yalnızca reklam kesitlerinde
-kullanılır; uygulama ve mağaza içi sürümler sözsüz kalır.
+"Mutluluğun tadı" marşın (01) nakarat kapanışıyla aynı cümle. Sözlü sürüm yalnızca
+reklam kesitlerinde kullanılır; mağaza içi ve arayüz sürümleri sözsüz kalır.
 
 ## Notlar
 
+- **Marka:** sözlü sürümde üç notanın üzerine "Florida Coffee. Mutluluğun tadı." Sözsüz sürüm arayüz ve mağaza içi kullanımda kalır.
 - **Değişmez.** Bir kez onaylandıktan sonra ses logosu yeniden üretilmez; kampanyadan
   kampanyaya değişen bir imza, imza değildir. Yeni sürüm gerekirse marş yeniden
   düzenlendiğinde, katalogla birlikte değişir.

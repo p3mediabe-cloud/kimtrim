@@ -33,64 +33,79 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: fingerpicked nylon guitar, distant ferry horn]
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: male lead, close mic, breath audible, very little processing; female harmony from the second chorus]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Verse 1]
+[Intro — instrumental, 8 bars]
+[solo nylon guitar, fingerpicked, dry and close]
+[one distant ferry horn, far back in the mix]
+
+[Verse 1 — solo male, close mic, almost spoken, no reverb tail]
+[guitar only, no drums]
 Altı kırkta Çengelköy'de ışık
 Camda buğu, vapur daha uzakta
 Değirmen döner, bir koku uyanır
 Şehir henüz gözünü açmadan
 
-[Pre-Chorus]
+[Pre-Chorus — voice lifts, upright bass enters underneath]
+[brushed drums enter on the last line only]
 Tezgâhta bir fincan ısınır
 Gün ilk yudumla başlar
 
-[Chorus]
-Boğaz'da bir gün, bir gün daha
+[Chorus — full band, open and warm, female harmony a third above]
+Boğaz'da bir gün, bir gün daha (bir gün daha)
 Aynı fincan, aynı sıcaklıkta
 Sen ne kadar acele edersen et
-Kahven seni bekler burada
+Kahven seni bekler burada (Florida Coffee)
 Mutluluğun tadı burada
 
-[Verse 2]
+[Verse 2 — same voice, more movement, drums stay brushed]
 Sekiz buçuk, Kadıköy koşuyor
 Vapur kalkar, biri hep geç kalır
 "Geldim" yazar telefonun ekranı
 Tezgâhta adın çoktan yazılı
 
-[Pre-Chorus]
+[Pre-Chorus — tighten, hold the last word]
 On sekiz saniye, belki yirmi üç
-Tam kıvamında, tam zamanında
+Tam kıvamında, tam zamanında—
 
-[Chorus]
-Boğaz'da bir gün, bir gün daha
+[Chorus — same as before, harmony doubled]
+Boğaz'da bir gün, bir gün daha (bir gün daha)
 Aynı fincan, aynı sıcaklıkta
 Sen ne kadar acele edersen et
-Kahven seni bekler burada
+Kahven seni bekler burada (Florida Coffee)
 Mutluluğun tadı burada
 
-[Bridge: softer, female harmony enters]
+[Bridge — drop to guitar and voice, female takes the lead, male hums underneath]
+[wind and a distant terrace crowd, very low]
 Dokuzda terasta bir akustik
 Yarısı biz, yarısı rüzgâr
 Gece yarısı Beykoz'da hâlâ
 İki kişilik bir masa var
 
-[Final Chorus: full band]
-Boğaz'da bir gün, bir gün daha
+[Instrumental Break — 4 bars, oud answers the guitar once, then the band thins out]
+
+[Final Chorus — both voices in unison, full band, the biggest moment of the song]
+Boğaz'da bir gün, bir gün daha (bir gün daha)
 On yedi kapı, aynı reçete
 Sen ne kadar acele edersen et
-Kahven seni bekler burada
+Kahven seni bekler burada (Florida Coffee)
 Mutluluğun tadı burada
 
-[Outro: guitar and voice only, ferry horn fades in]
+[Outro — band drops out, guitar and one voice, quiet, almost whispered]
+[the ferry horn returns, closer this time]
 İkide kepenk iner usulca
 Işık söner, Boğaz uyur
 Son bölüm yok — yarın altı kırkta
 Aynı yerden başlar yeniden
+(Florida Coffee)
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** nakaratın son dizesinin arkasından gelen `(Florida Coffee)` cevabı ve outro'nun son fısıltısı. Kesitlerde bu cevap mutlaka kalsın — 6 saniyelik kesitte bile markayı duyuran tek şey o.
 - **Şube sayısı teyit edilene kadar:** "On yedi kapı, aynı reçete" yerine
   → `İki kıyıda, aynı reçete`
 - **18–23 sn standardı teyit edilmezse:** "On sekiz saniye, belki yirmi üç" yerine

@@ -34,59 +34,69 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: handclaps, footsteps, a door opening]
-Hey!
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: female lead, bright and smiling, slightly ahead of the beat; four-voice gang chorus]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Verse 1]
+[Intro — 4 bars]
+[handclaps and shaker only; footsteps and a door in the background]
+(Hey!)
+
+[Verse 1 — female solo, close mic, rhythmic, almost talking]
+[muted guitar plucks, no kick yet]
 Alarm çalar, ceket yarım
 Asansörde bir tuş, bir de sen
 Telefonda iki dokunuş yeter
 Kapıya iki yüz metre var
 
-[Pre-Chorus]
+[Pre-Chorus — kick and bass enter, build two bars]
 Sen yürürken o hazırlanır
 Kapıdan gir, adını duy
 
-[Chorus]
-Sıra beklemek yok, yok
+[Chorus — full band, gang vocals answer every second line]
+Sıra beklemek yok, yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok
+Sıra beklemek yok, yok (yok, yok)
 Sabah bugün senden yana
-Hey!
+(Florida Coffee!)
 
-[Verse 2]
+[Verse 2 — same energy, tambourine joins]
 Sütü sen seçersin, buzu sen
 "Laktozsuz" yazdın, unutulmaz
 Cüzdanda kaybolan bir kart yok
 Hepsi telefonda, hepsi seninle
 
-[Pre-Chorus]
+[Pre-Chorus — half-time feel, hold the last word]
 Tezgâh senden önce uyanmış
-Kapıdan gir, adını duy
+Kapıdan gir, adını duy—
 
-[Chorus]
-Sıra beklemek yok, yok
+[Chorus — full band, gang vocals, glockenspiel on top]
+Sıra beklemek yok, yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok
+Sıra beklemek yok, yok (yok, yok)
 Sabah bugün senden yana
-Hey!
+(Florida Coffee!)
 
-[Bridge: drums drop, claps only]
+[Bridge — drums drop out, claps and one voice only]
 Her fincanda bir çekirdek düşer hesabına
-Birikir, bir sabah tezgâh der ki: bu bizden
+Birikir, bir sabah tezgâh der ki: bu BİZDEN
+[full band crashes back in on the last word]
 
-[Final Chorus: fuller, gang vocals]
-Sıra beklemek yok, yok
+[Final Chorus — biggest, gang vocals doubled, short brass stab between lines]
+Sıra beklemek yok, yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok
+Sıra beklemek yok, yok (yok, yok)
 Sabah bugün senden yana
 
-[Outro]
+[Outro — claps only, single voice, dry]
 İki dokunuş, bir de sen
+(Florida Coffee — uygulamada)
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** her nakaratın ardından gelen grup vokali bağırışı `(Florida Coffee!)` ve kapanıştaki `(Florida Coffee — uygulamada)`. 6 saniyelik kesit bu bağırışla biter.
 - Sadakat mekaniği netleşmeden köprü dizeleri riskli. Mekanik söylemeyen alternatif:
   → `Her fincan seni bir adım öteye taşır` / `Bir sabah tezgâh der ki: bu bizden`
 - Kesitler: **6 sn** = ilk nakaratın ilk iki dizesi + "Hey!"; **15 sn** = pre-chorus +

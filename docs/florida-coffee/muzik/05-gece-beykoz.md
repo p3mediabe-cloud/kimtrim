@@ -33,34 +33,47 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: water, distant ferry horn, Rhodes fading in]
-[Humming]
+[Lang: Turkish — sing exactly as written, no English words]
+[Voice: female, breathy, near-whisper; mostly wordless humming, vocals kept low in the mix]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Verse 1: soft, almost spoken]
+[Intro — 16 bars, instrumental]
+[water against stone, one distant ferry horn]
+[Rhodes fading in through tape delay, upright bass entering late]
+
+[Humming — wordless, no words, low in the mix]
+
+[Verse 1 — near-whisper, close mic, almost spoken, long gaps between lines]
+[brushed rim clicks only, no full kit]
 Şehir susunca Boğaz konuşur
 Son vapur geçti, ışıklar suda
 
-[Humming]
+[Humming — wordless]
 
-[Instrumental break: upright bass and Rhodes]
+[Instrumental Break — upright bass and Rhodes, tape delay trails]
 
-[Verse 2: soft]
+[Verse 2 — same delivery, one step quieter]
 Kafeinsiz bir filtre, iki fincan
 Kapanışa daha iki saat var
 
-[Humming]
+[Humming — wordless]
 
-[Instrumental break: muted trumpet, far back]
+[Instrumental Break — muted trumpet, far back in the mix, one phrase only]
 
-[Verse 3: barely above a whisper]
+[Verse 3 — barely audible, a breath before each line]
 Karşı kıyı yanar söner, yanar söner
 Kimse acele etmiyor bu saatte
 
-[Outro: humming, ambience, long fade]
+[Spoken — single voice, very close, almost off-mic, unhurried]
+Florida Coffee. Beykoz. İkiye kadar açığız.
+
+[Outro — humming over ambience, band thins to bass and water, long fade]
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** son kıtadan sonra fısıltıya yakın konuşma — "Florida Coffee. Beykoz. İkiye kadar açığız." Şarkının tek doğrudan mesajı bu; mağaza içi kullanımda bu satır çıkarılıp enstrümantal sürüm çalınır.
 - Söz ağırlığı bilerek düşük: mağaza içinde saatlerce çalacak, konuşmayı bastırmamalı.
   Suno vokali fazla öne çıkarırsa stil alanına `vocals very low in the mix, background
   texture only` ekleyerek yeniden üret.

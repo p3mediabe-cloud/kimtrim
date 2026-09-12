@@ -33,59 +33,72 @@ trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric g
 ## Sözler
 
 ```
-[Intro: nylon guitar, distant ferry horn, gulls]
+[Lang: English — sing exactly as written]
+[Voice: female lead, close and conversational; male harmony from the second chorus]
+[Perform: bracketed lines are directions — do not sing them]
 
-[Verse 1]
+[Intro — instrumental, 8 bars]
+[nylon guitar alone, upright bass entering on bar five]
+[coastal ambience: gulls, water on stone, one distant ferry horn]
+
+[Verse 1 — female solo, close mic, warm, almost spoken]
+[guitar only]
 Six-forty on the water, the light comes in slow
 Steam on the window, the ferry still below
 A grinder turns somewhere, the morning finds a sound
 Before the city opens up around
 
-[Pre-Chorus]
+[Pre-Chorus — bass and brushed drums enter, lift]
 One cup warming on the counter
 The whole day starts on the first sip
 
-[Chorus]
-Taste of joy, the same in every room
+[Chorus — full band, open, male harmony underneath]
+Taste of joy, the same in every room (taste of joy)
 Istanbul morning, Adriatic blue
 Two countries, one recipe, one door
-Wherever you are, the coffee waits for you
+Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Verse 2]
+[Verse 2 — same delivery, drums stay brushed]
 Half past eight and Kadıköy is late
 Somebody's running, somebody always waits
 Your name is on the counter before you're through the door
 Eighteen seconds, maybe twenty-three, no more
 
-[Pre-Chorus]
+[Pre-Chorus — hold the last word]
 No line to stand in, nothing owed
-Just the cup and the road
+Just the cup and the road—
 
-[Chorus]
-Taste of joy, the same in every room
+[Chorus — harmony doubled]
+Taste of joy, the same in every room (taste of joy)
 Istanbul morning, Adriatic blue
 Two countries, one recipe, one door
-Wherever you are, the coffee waits for you
+Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Bridge: softer]
+[Bridge — drop to guitar and voice, male takes the lead, female hums underneath]
+[wind and a distant terrace crowd, very low]
 Thursday on the terrace, a guitar and the wind
 Half of it played, half of it lived in
 Two in the morning, Beykoz still awake
 A table by the water, for anyone's sake
 
-[Final Chorus]
-Taste of joy, the same in every room
+[Instrumental Break — 4 bars, oud answers the guitar once]
+
+[Final Chorus — both voices in unison, full band]
+Taste of joy, the same in every room (taste of joy)
 Istanbul morning, Adriatic blue
 Two countries, one recipe, one door
-Wherever you are, the coffee waits for you
+Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Outro: voice and guitar only]
+[Outro — guitar and one voice, quiet, the ferry horn returns]
 There's no last chapter, nothing to close
 Tomorrow at six-forty, the light comes in slow
+(Florida Coffee — taste of joy)
+[End]
 ```
 
 ## Notlar
 
+- **Marka:** nakarat cevabı `(Florida Coffee)` ve kapanıştaki `(Florida Coffee — taste of joy)`. İngilizce sözde marka adı çevrilmez, olduğu gibi okunur.
 - "Adriatic blue" Budva ve Podgorica'yı kastediyor; Karadağ dışı bir pazara açılırsa
   → `Istanbul morning, a second shore`
 - Şube sayısı burada bilerek geçmiyor; "two countries, one recipe" teyide bağlı değil.
