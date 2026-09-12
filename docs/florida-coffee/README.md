@@ -21,6 +21,7 @@
 | `site/build.py` | Çok sayfalı statik site üreticisi (Python 3.12). `demo-site/index.html`'den ortak CSS/JS/veriyi çeker, 77 sayfa üretir: ana sayfa, menü + 25 ürün sayfası, 17 şube sayfası, kahvemiz, taze + 8 haber, ürünler + 4 ürün, kulüp, uygulama, franchise (+ başvuru, SSS), kariyer, kurumsal, etkinlikler, hikâyemiz, SSS, iletişim, 4 yasal metin, EN özet, 404; her sayfada JSON-LD, sitemap.xml, robots.txt (demo: noindex) |
 | `dist/` | Yayın paketi: `site/build.py` çıktısı + `app/` (mobil uygulama demosu) + `platform/` + `sunum/`. Vercel veya GitHub Pages'e olduğu gibi yüklenir |
 | `04-sunum-deck.html` | Görüşme sunumu: 16 slayt, ok tuşlarıyla ilerler, `N` konuşmacı notları, `F` tam ekran |
+| `07-misafir-wifi-5651.md` | Misafir Wi-Fi ve 5651 loglama: Netway'e ödenen bedelin katmanlara ayrılması, üç tedarik senaryosu (ISP / white-label / kendi kurulum), maliyet modeli, ticari model ve kırmızı çizgiler, KVKK iki kutu kuralı, ISP teklif talebi ve müşteri e-postası şablonları |
 
 ## Siteyi yeniden üretmek
 

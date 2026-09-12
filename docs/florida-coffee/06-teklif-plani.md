@@ -217,6 +217,7 @@ Fatura ödenmeden kickoff yapılmaz; bu, sözleşmeye yazılır.
 13. Alt markalar ve Karadağ kapsam dışı mı, opsiyon mu?
 14. Şube sayısı artınca ücret (+250 €/şube/ay) ve azalınca (17 tabanın altına inmez).
 15. İletişim dili ve saat dilimi; Türkçe raporlama, Belçika'dan çalışma, iş günü tanımı.
+16. Misafir Wi-Fi ve 5651 loglama: mevcut sağlayıcıya (Netway) ödenen bedelin birimi ve fesih şartları, şube donanımının mülkiyeti, izin belgeleri, giriş verisine erişim. Katman ayrımı, tedarik senaryoları ve ticari model: `07-misafir-wifi-5651.md`.
 
 ---
 
