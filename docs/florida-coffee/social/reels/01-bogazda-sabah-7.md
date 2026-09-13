@@ -25,15 +25,15 @@ SLAG 3 — LANDING 13–17 s  Licht raakt het water, hand pakt de beker. Eindkaa
 
 | # | Beeld | Camera | Licht | Duur | First frame |
 |---|---|---|---|---|---|
-| 1 | Crème beker met petrol band op houten reling, stoom | Statisch, micro-drift | Gouden uur, tegenlicht | 8 s | `img/hero.jpg` |
-| 2 | Bosporus, veerboot glijdt voorbij, water glinstert | Trage lateral dolly rechts | Gouden uur | 8 s | `img/sunset.jpg` |
-| 3 | Hand pakt beker van de reling, verdwijnt uit beeld | Statisch, ondiepe scherpte | Gouden uur | 8 s | `img/cup.jpg` |
+| 1 | Crème beker met petrol band op houten reling, stoom | Statisch, micro-drift | Gouden uur, tegenlicht | 8 s | `img/branded/hero-9x16.jpg` |
+| 2 | Bosporus, veerboot glijdt voorbij, water glinstert | Trage lateral dolly rechts | Gouden uur | 8 s | `img/branded/sunset-9x16.jpg` |
+| 3 | Hand pakt beker van de reling, verdwijnt uit beeld | Statisch, ondiepe scherpte | Gouden uur | 8 s | `img/branded/cup-9x16.jpg` |
 
 ## Google Flow — prompts
 
 **Instellingen:** 9:16 · 720p · 8s · Veo 3.1 · modus **Frames to Video**
 
-### Clip 1 — `01-haak` · startbeeld `img/hero.jpg`
+### Clip 1 — `01-haak` · startbeeld `img/branded/hero-9x16.jpg`
 ```
 Static shot with the faintest micro-drift on a cream takeaway cup with a deep teal band,
 resting on a weathered wooden terrace rail high above the Bosphorus. Steam curls slowly
@@ -41,14 +41,15 @@ upward and catches the low sun. Far below, water glitters; a ferry sits small on
 A linen napkin lifts slightly in the breeze. Golden hour backlight, warm haze, calm and still.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: distant ferry horn, soft water, faint gulls — no voices, no music.
 ```
 
-### Clip 2 — `02-moment` · startbeeld `img/sunset.jpg`
+### Clip 2 — `02-moment` · startbeeld `img/branded/sunset-9x16.jpg`
 ```
 Slow lateral dolly to the right along a terrace rail overlooking the Bosphorus at golden hour.
 A ferry drifts across the frame in the far distance, its wake catching amber light. The water
@@ -56,32 +57,34 @@ surface glitters with thousands of small highlights. Foreground rail stays softl
 Serene, unhurried, premium.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: distant ferry horn, soft lapping water — no voices, no music.
 ```
 
-### Clip 3 — `03-landing` · startbeeld `img/cup.jpg`
+### Clip 3 — `03-landing` · startbeeld `img/branded/cup-9x16.jpg`
 ```
 Static macro shot, shallow depth of field: a hand enters frame from the right and lifts a cream
 cup with a teal band off a wooden rail, then leaves frame. Behind it the Bosphorus glows out of
 focus in warm amber bokeh. Only the hand and forearm are visible, no face.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: soft ceramic on wood, distant city murmur — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
-lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
-stock-photo smile, lens flare, fast camera shake
+subtitles, captions, invented lettering, second logo, duplicated watermark, missing logo,
+distorted hands, extra fingers, cartoon, oversaturated, plastic skin, stock-photo smile,
+lens flare, fast camera shake
 ```
 
 ## Turkse copy

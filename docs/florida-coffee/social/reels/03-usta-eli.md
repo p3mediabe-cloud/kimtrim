@@ -25,61 +25,64 @@ SLAG 3 — LANDING 13–18 s  Espresso loopt, tijgerstrepen. CTA. Eindkaart.
 
 | # | Beeld | Camera | Licht | Duur | First frame |
 |---|---|---|---|---|---|
-| 1 | Groene bonen glijden door een open hand | Statisch macro, ondiepe scherpte | Warm zijlicht, donkere achtergrond | 8 s | `img/hasat.jpg` |
-| 2 | Trommel van de brander draait, bonen tuimelen amberkleurig | Trage push-in | Amber gloed uit de trommel | 8 s | `img/kavurma.jpg` |
-| 3 | Espresso stroomt uit portafilter, tijgerstrepen crema | Statisch macro, zachte rack focus | Amber, petrol tegelwand | 8 s | `img/pour.jpg` |
+| 1 | Groene bonen glijden door een open hand | Statisch macro, ondiepe scherpte | Warm zijlicht, donkere achtergrond | 8 s | `img/branded/hasat-9x16.jpg` |
+| 2 | Trommel van de brander draait, bonen tuimelen amberkleurig | Trage push-in | Amber gloed uit de trommel | 8 s | `img/branded/kavurma-9x16.jpg` |
+| 3 | Espresso stroomt uit portafilter, tijgerstrepen crema | Statisch macro, zachte rack focus | Amber, petrol tegelwand | 8 s | `img/branded/pour-9x16.jpg` |
 
 ## Google Flow — prompts
 
 **Instellingen:** 9:16 · 720p · 8s · Veo 3.1 · modus **Frames to Video**
 
-### Clip 1 — `01-cekirdek` · startbeeld `img/hasat.jpg`
+### Clip 1 — `01-cekirdek` · startbeeld `img/branded/hasat-9x16.jpg`
 ```
 Extreme macro, static camera, shallow depth of field: pale green raw coffee beans pour slowly
 through an open weathered hand and fall out of frame. Only hand and forearm visible, no face.
 Warm directional side light from the left, deep shadow behind. Skin texture and bean detail sharp.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: beans rattling, low roaster drum hum — no voices, no music.
 ```
 
-### Clip 2 — `02-kavurma` · startbeeld `img/kavurma.jpg`
+### Clip 2 — `02-kavurma` · startbeeld `img/branded/kavurma-9x16.jpg`
 ```
 Slow push-in toward the glass port of a rotating coffee roaster drum. Inside, beans tumble and
 glow, shifting from pale to deep amber, thin smoke drifting. Intense warm amber light spills out
 of the drum onto a dark workshop. Industrial, warm, controlled.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: roaster drum rumble, first crack pops — no voices, no music.
 ```
 
-### Clip 3 — `03-shot` · startbeeld `img/pour.jpg`
+### Clip 3 — `03-shot` · startbeeld `img/branded/pour-9x16.jpg`
 ```
 Static extreme macro with a gentle rack focus: espresso streams from a polished portafilter into
 a small cream cup, thick tiger-striped crema forming and swirling, tiny bubbles catching the light.
 Warm amber light, deep teal tiled wall softly out of focus behind.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: espresso machine hiss, liquid into ceramic — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
-lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
-stock-photo smile, lens flare, fast camera shake
+subtitles, captions, invented lettering, second logo, duplicated watermark, missing logo,
+distorted hands, extra fingers, cartoon, oversaturated, plastic skin, stock-photo smile,
+lens flare, fast camera shake
 ```
 
 ## Turkse copy

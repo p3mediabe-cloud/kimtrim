@@ -25,15 +25,15 @@ SLAG 3 — LANDING 11–15 s   IJs, gieten, condens. CTA. Eindkaart.
 
 | # | Beeld | Camera | Licht | Duur | First frame |
 |---|---|---|---|---|---|
-| 1 | Macro: één druppel valt in glazen kolf | Statisch macro | Amber zijlicht, petrol achtergrond | 8 s | `img/coldbrew.jpg` |
-| 2 | Donkere koffiesliert kringelt door helder water | Trage push-in | Amber tegenlicht | 8 s | `img/coldbrew.jpg` |
-| 3 | Cold brew over ijs, condens loopt langs glas | Trage tilt omhoog | Amber, petrol tegelwand | 8 s | `img/menu/bogaz-cold-brew.jpg` |
+| 1 | Macro: één druppel valt in glazen kolf | Statisch macro | Amber zijlicht, petrol achtergrond | 8 s | `img/branded/coldbrew-9x16.jpg` |
+| 2 | Donkere koffiesliert kringelt door helder water | Trage push-in | Amber tegenlicht | 8 s | `img/branded/coldbrew-9x16.jpg` |
+| 3 | Cold brew over ijs, condens loopt langs glas | Trage tilt omhoog | Amber, petrol tegelwand | 8 s | `img/branded/bogaz-cold-brew-9x16.jpg` |
 
 ## Google Flow — prompts
 
 **Instellingen:** 9:16 · 720p · 8s · Veo 3.1 · modus **Frames to Video**
 
-### Clip 1 — `01-damla` · startbeeld `img/coldbrew.jpg`
+### Clip 1 — `01-damla` · startbeeld `img/branded/coldbrew-9x16.jpg`
 ```
 Extreme macro, static camera: a single dark coffee droplet forms at the tip of a glass cold-brew
 tower valve, hangs, then falls and breaks the surface of clear water below, sending one slow
@@ -41,46 +41,49 @@ ripple outward. Amber rim light from the left, deep teal tiled wall far out of f
 Very slow, meditative, high detail on the glass and the droplet.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: a single soft drip, faint room tone — no voices, no music.
 ```
 
-### Clip 2 — `02-ekstraksiyon` · startbeeld `img/coldbrew.jpg`
+### Clip 2 — `02-ekstraksiyon` · startbeeld `img/branded/coldbrew-9x16.jpg`
 ```
 Slow push-in on a tall glass vessel: dark coffee tendrils curl and bloom downward through clear
 cold water like ink in slow motion, forming soft brown veils. Backlit by warm amber light, deep
 teal background. Mesmerising, unhurried, laboratory-clean.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: faint liquid movement, quiet room tone — no voices, no music.
 ```
 
-### Clip 3 — `03-servis` · startbeeld `img/menu/bogaz-cold-brew.jpg`
+### Clip 3 — `03-servis` · startbeeld `img/branded/bogaz-cold-brew-9x16.jpg`
 ```
 Slow tilt up along a tall glass filled with clear ice as dark cold brew is poured in from above,
 swirling between the cubes. Condensation beads and runs down the outside of the glass. A hand
 holds the carafe, only fingers visible. Warm amber light, deep teal tiled wall softly blurred.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: ice clinking, liquid pouring — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
-lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
-stock-photo smile, lens flare, fast camera shake
+subtitles, captions, invented lettering, second logo, duplicated watermark, missing logo,
+distorted hands, extra fingers, cartoon, oversaturated, plastic skin, stock-photo smile,
+lens flare, fast camera shake
 ```
 
 ## Turkse copy

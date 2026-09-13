@@ -93,22 +93,28 @@ Bestanden: `docs/florida-coffee/demo-site/brand/`
 | `logo-reverse.png` | Op petrol/donkere achtergrond — standaard voor reels |
 | `wordmark-noo.png` / `wordmark-reverse-noo.png` | Woordmerk met uitgespaarde "o" voor animatie |
 
-**Het logo wordt altijd in de montage toegevoegd, nooit gegenereerd.** Dat is een vaste
-afspraak met P3Media en heeft twee harde consequenties voor elke prompt:
+**Het logo zit in het startframe, niet in de prompt.** Veo tekent geen logo op beschrijving —
+het maakt er verminkte letters van. Wat wél werkt: het echte logo staat al in het eerste
+frame, en het model draagt het mee door de clip.
 
-1. **Ruimte reserveren.** Elke gegenereerde clip houdt de **linkerbovenhoek** rustig: geen
-   hoofdonderwerp, geen bewegende highlights, weinig detail. Daar landt het logo. Onderin
-   kan het niet — daar zitten de knoppen en captions van Reels en TikTok.
-2. **Niets laten bedrukken.** Bekers, glazen, verpakking en oppervlakken worden expliciet
-   als **blanco en merkloos** beschreven. Verzint het model zelf een merkteken, dan botst
-   dat met het echte logo dat er overheen komt — en AI-letters zijn altijd verminkt.
+`demo-site/brand_frames.py` maakt die frames: midden-crop naar 9:16 (1080×1920), logo
+linksboven net onder de Reels-UI, en de versie wordt gekozen op de gemeten helderheid van
+precies dat vlak — `logo.png` op licht, `logo-reverse.png` op donker. Staat het onderwerp
+niet in het midden, dan corrigeert `BIAS` de crop. Uitvoer: `demo-site/img/branded/`.
 
-Beide staan als vast blok in elke prompt (zie de skill, §4.2) en het negatieve blok vangt
-de rest af (`branded cup`, `printed logo on cup`, `emblem`, `insignia`, `label`, `lettering`).
+**De prompt moet het logo dan bewáren, niet verbieden.** Dit is de valkuil: woorden als
+`no logos`, `unbranded` of `no printed marks` in de prompt — of `logo` en `watermark` in
+het negatieve blok — laten Veo het logo uit het frame poetsen. Precies wat je erin hebt
+gestopt, haalt het er weer uit. Het logoblok in §4.2 van de skill is daarom als
+*behoud*-instructie geschreven, en het negatieve blok bevat geen enkel logowoord meer.
 
-**Welke versie:** kies per reel op de toon van de linkerbovenhoek — `logo.png` op licht
-(gouden lucht, zee), `logo-reverse.png` op donker (nacht, branderij, petrol wand). Eén
-versie per reel, dezelfde positie in alle clips; wisselen binnen één reel valt op.
+Let op: de bekers in de bestaande frames dragen het toekan-merk al. Dat telt mee als merk
+en moet dus net zo goed bewaard blijven.
+
+**Blijft nodig: de overlay in de montage.** Veo houdt een ingebakken logo goed vast in een
+statisch shot, maar kan het bij beweging vervormen. Controleer elke clip; wijkt het logo
+af, leg er dan in de montage alsnog het echte bestand overheen. Het ingebakken logo geeft
+de natuurlijke look, de overlay geeft de garantie.
 
 ---
 

@@ -25,61 +25,64 @@ SLAG 3 — LANDING 11–16 s   Tweede kopje verschijnt. CTA app. Eindkaart.
 
 | # | Beeld | Camera | Licht | Duur | First frame |
 |---|---|---|---|---|---|
-| 1 | Stopcontact in petrol wand, hand plugt lader in | Statisch macro | Zacht daglicht | 8 s | `img/workspace.jpg` |
-| 2 | Werkhoek van bovenaf: laptop, schrift, beker, zonvlek | Trage push-in schuin | Middaglicht door raam | 8 s | `img/workspace.jpg` |
-| 3 | Tweede volle beker wordt naast de eerste gezet | Statisch, ondiepe scherpte | Warm middaglicht | 8 s | `img/sakarya.jpg` |
+| 1 | Stopcontact in petrol wand, hand plugt lader in | Statisch macro | Zacht daglicht | 8 s | `img/branded/workspace-9x16.jpg` |
+| 2 | Werkhoek van bovenaf: laptop, schrift, beker, zonvlek | Trage push-in schuin | Middaglicht door raam | 8 s | `img/branded/workspace-9x16.jpg` |
+| 3 | Tweede volle beker wordt naast de eerste gezet | Statisch, ondiepe scherpte | Warm middaglicht | 8 s | `img/branded/sakarya-9x16.jpg` |
 
 ## Google Flow — prompts
 
 **Instellingen:** 9:16 · 720p · 8s · Veo 3.1 · modus **Frames to Video**
 
-### Clip 1 — `01-priz` · startbeeld `img/workspace.jpg`
+### Clip 1 — `01-priz` · startbeeld `img/branded/workspace-9x16.jpg`
 ```
 Static macro shot, shallow depth of field: a hand enters frame and pushes a laptop charger plug
 into a wall socket set in a deep teal painted wall with a warm wooden shelf edge above. Only hand
 and forearm visible, no face. Soft daylight from the left, calm and domestic.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: soft click of the plug, distant cafe murmur — no voices, no music.
 ```
 
-### Clip 2 — `02-kose` · startbeeld `img/workspace.jpg`
+### Clip 2 — `02-kose` · startbeeld `img/branded/workspace-9x16.jpg`
 ```
 Slow diagonal push-in over a cafe study corner seen from above: an open laptop, a handwritten
 notebook, a cream cup with a teal band, a pair of glasses on a warm wooden table. A soft patch of
 afternoon sun moves slowly across the surface. Dust motes drift in the light. No people in frame.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: pages turning, faint keyboard, soft cafe murmur — no voices, no music.
 ```
 
-### Clip 3 — `03-ikinci` · startbeeld `img/sakarya.jpg`
+### Clip 3 — `03-ikinci` · startbeeld `img/branded/sakarya-9x16.jpg`
 ```
 Static shot, shallow depth of field: a hand sets a second full cream cup with a teal band down on
 a warm wooden table next to an empty first cup, then withdraws. Only hand and forearm visible.
 Warm late-afternoon light from a window, deep teal wall softly out of focus behind.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 Ambient only: ceramic on wood, soft cafe murmur — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
-lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
-stock-photo smile, lens flare, fast camera shake
+subtitles, captions, invented lettering, second logo, duplicated watermark, missing logo,
+distorted hands, extra fingers, cartoon, oversaturated, plastic skin, stock-photo smile,
+lens flare, fast camera shake
 ```
 
 ## Turkse copy

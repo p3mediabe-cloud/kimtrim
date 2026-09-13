@@ -75,6 +75,19 @@ Regels die niet onderhandelbaar zijn:
 Dit is de productieroute: P3Media plakt de prompts in **flow.google.com** en betaalt met
 de eigen (gratis) credits. Lever ze daarom **kant-en-klaar en zonder uitleg ertussen**.
 
+### 4.0 Maak eerst de startframes met logo
+
+```
+cd docs/florida-coffee/demo-site && python3 brand_frames.py
+```
+
+Dit bakt het echte logo in de frames (9:16, versie automatisch op helderheid) en schrijft
+ze naar `img/branded/`. Verwijs in de prompts altijd naar die bestanden, nooit naar de
+kale `img/*.jpg`. Een logo dat alleen in de prompt staat, tekent Veo niet.
+
+Nieuw frame nodig dat er nog niet is? Voeg de naam toe aan `FRAMES` in dat script; staat
+het onderwerp niet in het midden, zet er dan een `BIAS` bij.
+
 ### 4.1 Kies de invoermodus
 
 | Modus | Wanneer | Wat je aanlevert |
@@ -94,15 +107,16 @@ de eigen (gratis) credits. Lever ze daarom **kant-en-klaar en zonder uitleg ertu
 ```
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
-shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+shallow depth of field, no added text, no captions, no talking, no people looking at camera.
 ```
 
 **Logoblok — plak dit ongewijzigd onder het merkblok, vóór de audioregel:**
 
 ```
-Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
-highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
-plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
+scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
+unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
+second logo or invented lettering anywhere in frame.
 ```
 
 P3Media zet het logo bij élke video zelf in de montage. Daarom doet dit blok twee dingen:
@@ -114,9 +128,9 @@ platform-UI. Noteer per reel welke logoversie past bij de toon van die hoek.
 **Negatief — standaard:**
 
 ```
-text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
-lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
-stock-photo smile, lens flare, fast camera shake
+subtitles, captions, invented lettering, second logo, duplicated watermark, missing logo,
+distorted hands, extra fingers, cartoon, oversaturated, plastic skin, stock-photo smile,
+lens flare, fast camera shake
 ```
 
 **Instellingen in Flow:** verhouding `9:16` · resolutie `720p` (upscalen kan later) ·
