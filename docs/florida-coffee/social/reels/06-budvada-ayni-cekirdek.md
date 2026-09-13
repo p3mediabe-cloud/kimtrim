@@ -41,6 +41,9 @@ water glittering in golden hour light. Warm haze, calm, premium.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: distant ferry horn, gulls, soft water — no voices, no music.
 ```
 
@@ -53,6 +56,9 @@ sea breeze. Photoreal, cinematic.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: waves on stone, distant gulls, light wind — no voices, no music.
 ```
 
@@ -67,13 +73,17 @@ Mediterranean light, strong rim highlight on the steam.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: waves, light wind — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Turkse copy
@@ -112,6 +122,7 @@ Tekstkaart : 0,5 s  "İstanbul"       — cream, klein, linksboven binnen veilig
 Tekstkaart : 4,5 s  "Budva"          — cream, zelfde positie: de match-cut doet het werk
 Tekstkaart : 11,0 s "Aynı çekirdek." — amber, midden-onder
 Subregel   : 11,4 s "Same beans. 1,400 km away." — cream, klein, onder de amber-regel
+Logo       : logo.png linksboven, vanaf 0,0 s — heldere lucht en zee
 Eindkaart  : 13,5–15 s  logo-reverse.png op #004854
 Geluid     : harde audio-cut op 2,0 s (veerboothoorn → branding) — dat is de reel
 Export     : 1080×1920, H.264, ±8 Mbps

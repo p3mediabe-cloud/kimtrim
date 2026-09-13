@@ -93,9 +93,22 @@ Bestanden: `docs/florida-coffee/demo-site/brand/`
 | `logo-reverse.png` | Op petrol/donkere achtergrond — standaard voor reels |
 | `wordmark-noo.png` / `wordmark-reverse-noo.png` | Woordmerk met uitgespaarde "o" voor animatie |
 
-**Regel:** logo verschijnt uitsluitend in de laatste 1,5 seconde (eindkaart), niet als
-permanente watermark. Laat het generatieve model nooit zelf een logo of tekst tekenen —
-dat wordt altijd fout. Logo en tekst komen er in de montage overheen.
+**Het logo wordt altijd in de montage toegevoegd, nooit gegenereerd.** Dat is een vaste
+afspraak met P3Media en heeft twee harde consequenties voor elke prompt:
+
+1. **Ruimte reserveren.** Elke gegenereerde clip houdt de **linkerbovenhoek** rustig: geen
+   hoofdonderwerp, geen bewegende highlights, weinig detail. Daar landt het logo. Onderin
+   kan het niet — daar zitten de knoppen en captions van Reels en TikTok.
+2. **Niets laten bedrukken.** Bekers, glazen, verpakking en oppervlakken worden expliciet
+   als **blanco en merkloos** beschreven. Verzint het model zelf een merkteken, dan botst
+   dat met het echte logo dat er overheen komt — en AI-letters zijn altijd verminkt.
+
+Beide staan als vast blok in elke prompt (zie de skill, §4.2) en het negatieve blok vangt
+de rest af (`branded cup`, `printed logo on cup`, `emblem`, `insignia`, `label`, `lettering`).
+
+**Welke versie:** kies per reel op de toon van de linkerbovenhoek — `logo.png` op licht
+(gouden lucht, zee), `logo-reverse.png` op donker (nacht, branderij, petrol wand). Eén
+versie per reel, dezelfde positie in alle clips; wisselen binnen één reel valt op.
 
 ---
 

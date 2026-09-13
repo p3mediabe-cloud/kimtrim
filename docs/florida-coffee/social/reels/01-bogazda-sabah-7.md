@@ -42,6 +42,9 @@ A linen napkin lifts slightly in the breeze. Golden hour backlight, warm haze, c
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: distant ferry horn, soft water, faint gulls — no voices, no music.
 ```
 
@@ -54,6 +57,9 @@ Serene, unhurried, premium.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: distant ferry horn, soft lapping water — no voices, no music.
 ```
 
@@ -65,13 +71,17 @@ focus in warm amber bokeh. Only the hand and forearm are visible, no face.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: soft ceramic on wood, distant city murmur — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Turkse copy
@@ -113,6 +123,7 @@ Clips      : 01-haak.mp4 (0–2 s) · 02-moment.mp4 (2–13 s) · 03-landing.mp4
 Tekstkaart : 0,6 s  "Sabah 7. Vapur geçiyor."  — cream op petrol-balk, onderin veilige zone
 Tekstkaart : 8,0 s  "Şehir daha uyanmadı."
 Tekstkaart : 14,0 s "Kahven hazır."
+Logo       : logo.png linksboven, vanaf 0,0 s — linkerbovenhoek is heldere gouden lucht
 Eindkaart  : 15,5–17 s  logo-reverse.png gecentreerd op #004854
 Geluid     : ambient uit de clips + zacht piano/ambient bed, -18 dB
 Export     : 1080×1920, H.264, ±8 Mbps

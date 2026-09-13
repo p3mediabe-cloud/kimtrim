@@ -42,6 +42,9 @@ Very slow, meditative, high detail on the glass and the droplet.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: a single soft drip, faint room tone — no voices, no music.
 ```
 
@@ -53,6 +56,9 @@ teal background. Mesmerising, unhurried, laboratory-clean.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: faint liquid movement, quiet room tone — no voices, no music.
 ```
 
@@ -64,13 +70,17 @@ holds the carafe, only fingers visible. Warm amber light, deep teal tiled wall s
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: ice clinking, liquid pouring — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Turkse copy
@@ -113,6 +123,7 @@ Clips      : 01-damla.mp4 (0–2 s) · 02-ekstraksiyon.mp4 (2–11 s) · 03-serv
 Tekstkaart : 0,5 s  "18 saat."            — groot, cream op transparant, midden
 Tekstkaart : 4,0 s  "Tek bir bardak için."
 Tekstkaart : 12,0 s "Boğaz Cold Brew"     — amber, onderin veilige zone
+Logo       : logo-reverse.png linksboven, vanaf 0,0 s — donkere petrol achtergrond
 Eindkaart  : 13,5–15 s  logo-reverse.png op #004854
 Geluid     : TikTok → trending sound, beeld op de beat geknipt · Reels → ambient + ambient bed
 Export     : 1080×1920, H.264, ±8 Mbps

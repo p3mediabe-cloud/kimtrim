@@ -41,6 +41,9 @@ Warm directional side light from the left, deep shadow behind. Skin texture and 
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: beans rattling, low roaster drum hum — no voices, no music.
 ```
 
@@ -52,6 +55,9 @@ of the drum onto a dark workshop. Industrial, warm, controlled.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: roaster drum rumble, first crack pops — no voices, no music.
 ```
 
@@ -63,13 +69,17 @@ Warm amber light, deep teal tiled wall softly out of focus behind.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: espresso machine hiss, liquid into ceramic — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Turkse copy
@@ -110,6 +120,7 @@ Clips      : 01-cekirdek.mp4 (0–2 s) · 02-kavurma.mp4 (2–13 s) · 03-shot.m
 Tekstkaart : 0,5 s  "Çekirdek bizim."  — cream op petrol-balk, onderin
 Tekstkaart : 7,0 s  "Kavurma bizim."
 Tekstkaart : 14,0 s "Tadı da öyle."    — amber
+Logo       : logo-reverse.png linksboven, vanaf 0,0 s — donkere branderij
 Eindkaart  : 16,5–18 s  logo-reverse.png op #004854
 Geluid     : ambient uit de clips dragend (trommel + crack + machine), muziekbed -22 dB
 Export     : 1080×1920, H.264, ±8 Mbps

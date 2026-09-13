@@ -41,6 +41,9 @@ and forearm visible, no face. Soft daylight from the left, calm and domestic.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: soft click of the plug, distant cafe murmur — no voices, no music.
 ```
 
@@ -52,6 +55,9 @@ afternoon sun moves slowly across the surface. Dust motes drift in the light. No
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: pages turning, faint keyboard, soft cafe murmur — no voices, no music.
 ```
 
@@ -63,13 +69,17 @@ Warm late-afternoon light from a window, deep teal wall softly out of focus behi
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
 Ambient only: ceramic on wood, soft cafe murmur — no voices, no music.
 ```
 
 **Negatief (alle clips):**
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Turkse copy
@@ -112,6 +122,7 @@ Clips      : 01-priz.mp4 (0–2 s) · 02-kose.mp4 (2–11 s) · 03-ikinci.mp4 (1
 Tekstkaart : 0,5 s  "Priz var."              — cream op petrol, onderin
 Tekstkaart : 5,0 s  "Wi-Fi var. Acele yok."
 Tekstkaart : 12,0 s "İkincisi bizden."       — amber
+Logo       : logo-reverse.png linksboven, vanaf 0,0 s — petrol geschilderde wand
 Eindkaart  : 14,5–16 s  logo-reverse.png op #004854
 Geluid     : trending sound (studie/lo-fi), knippen op de beat
 Export     : 1080×1920, H.264, ±8 Mbps

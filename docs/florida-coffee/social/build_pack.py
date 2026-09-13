@@ -39,8 +39,9 @@ op de clips die niet meteen goed zijn, is dit één werksessie.
 ## Negatief blok — gelijk voor alle clips
 
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 ## Twee dingen die de kwaliteit maken

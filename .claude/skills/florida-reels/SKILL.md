@@ -86,7 +86,7 @@ de eigen (gratis) credits. Lever ze daarom **kant-en-klaar en zonder uitleg ertu
 ### 4.2 Promptopbouw — vaste volgorde
 
 ```
-<CAMERA> <ONDERWERP + HANDELING> <OMGEVING> <LICHT> <SFEER> <MERKBLOK> <NEGATIEF>
+<CAMERA> <ONDERWERP + HANDELING> <OMGEVING> <LICHT> <SFEER> <MERKBLOK> <LOGOBLOK> <AUDIO>
 ```
 
 **Merkblok — plak dit ongewijzigd achter elke prompt:**
@@ -97,11 +97,26 @@ One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, 
 shallow depth of field, no text, no logos, no captions, no talking, no people looking at camera.
 ```
 
+**Logoblok — plak dit ongewijzigd onder het merkblok, vóór de audioregel:**
+
+```
+Compose for 9:16 vertical with the top-left corner kept quiet and free of key detail or moving
+highlights — reserved space for a logo composited in post. Every cup, glass, package and surface is
+plain and unbranded: no printed marks, emblems, lettering or labels anywhere in frame.
+```
+
+P3Media zet het logo bij élke video zelf in de montage. Daarom doet dit blok twee dingen:
+het houdt de linkerbovenhoek vrij zodat het logo ergens kan landen, en het verbiedt
+gegenereerde merktekens op bekers en verpakking — die botsen met het echte logo en komen
+er als verminkte letters uit. Onderin reserveren heeft geen zin: daar staat de
+platform-UI. Noteer per reel welke logoversie past bij de toon van die hoek.
+
 **Negatief — standaard:**
 
 ```
-text, watermark, logo, subtitles, distorted hands, extra fingers, cartoon, oversaturated,
-plastic skin, stock-photo smile, lens flare, fast camera shake
+text, watermark, logo, subtitles, branded cup, printed logo on cup, emblem, insignia, label,
+lettering on packaging, distorted hands, extra fingers, cartoon, oversaturated, plastic skin,
+stock-photo smile, lens flare, fast camera shake
 ```
 
 **Instellingen in Flow:** verhouding `9:16` · resolutie `720p` (upscalen kan later) ·
