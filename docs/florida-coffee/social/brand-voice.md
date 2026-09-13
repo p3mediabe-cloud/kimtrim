@@ -111,6 +111,20 @@ gestopt, haalt het er weer uit. Het logoblok in §4.2 van de skill is daarom als
 Let op: de bekers in de bestaande frames dragen het toekan-merk al. Dat telt mee als merk
 en moet dus net zo goed bewaard blijven.
 
+**Het logo staat ook op de bekers.** Het `CUPS`-woordenboek in `brand_frames.py` bepaalt
+per frame waar het woordmerk landt: middelpunt, breedte, rotatie en welke versie. Het wordt
+om een denkbeeldige cilinder gebogen (`cylinder()`), zodat het gedrukt lijkt in plaats van
+geplakt, en het pikt de helderheid van de beker op zodat het meegaat in het licht.
+
+Zeven van de twaalf frames hebben er een: `hero`, `cup`, `coldbrew`, `pour`, `night`,
+`gecefiltre` en `sunset` (twee bekers). De rest niet — bij `hasat`, `kavurma`, `workspace`
+en `sakarya` is de beker te klein of half verdekt, en bij `bogaz-cold-brew` vult de toekan
+het glas al. Op dat formaat wordt een woordmerk pap, en pap in het startframe wordt
+onleesbare troep in de video. Liever zeven bekers goed dan twaalf half.
+
+Nieuw frame? Zet de coördinaten in `CUPS`, draai het script en kijk of het klopt voordat
+je de prompt schrijft.
+
 **Blijft nodig: de overlay in de montage.** Veo houdt een ingebakken logo goed vast in een
 statisch shot, maar kan het bij beweging vervormen. Controleer elke clip; wijkt het logo
 af, leg er dan in de montage alsnog het echte bestand overheen. Het ingebakken logo geeft

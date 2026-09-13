@@ -110,20 +110,42 @@ One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, 
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
 ```
 
-**Logoblok — plak dit ongewijzigd onder het merkblok, vóór de audioregel:**
+**Logoblok — kies de variant die bij het startframe hoort, en plak hem onder het merkblok,
+vóór de audioregel.** `brand_frames.py` bepaalt welke: het `CUPS`-woordenboek zegt of dat
+frame een bekerlogo heeft.
+
+**A — hoeklogo én bekerlogo** (frames die in `CUPS` staan):
 
 ```
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 ```
 
-P3Media zet het logo bij élke video zelf in de montage. Daarom doet dit blok twee dingen:
-het houdt de linkerbovenhoek vrij zodat het logo ergens kan landen, en het verbiedt
-gegenereerde merktekens op bekers en verpakking — die botsen met het echte logo en komen
-er als verminkte letters uit. Onderin reserveren heeft geen zin: daar staat de
-platform-UI. Noteer per reel welke logoversie past bij de toon van die hoek.
+**B — alleen hoeklogo** (beker te klein, verdekt of al door de toekan gevuld):
+
+```
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
+```
+
+**C — niets ingebakken** (Text to Video, geen startframe):
+
+```
+Keep the upper-left corner of the frame quiet and free of key detail or moving highlights: the
+Florida Coffee logo is composited there afterwards. Show no other logo, brand mark or lettering
+anywhere in frame.
+```
+
+Bij C mag je `logo, brand mark, lettering` wél in het negatieve blok zetten — er is immers
+niets te bewaren. Bij A en B nooit: dan poetst Veo het ingebakken logo eruit.
+
+De curvature-zin in A is geen franje. `brand_frames.py` buigt het woordmerk om de beker;
+zonder die instructie strijkt Veo het plat en ziet het eruit als een sticker.
 
 **Negatief — standaard:**
 

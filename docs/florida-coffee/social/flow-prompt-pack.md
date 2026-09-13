@@ -54,10 +54,11 @@ A linen napkin lifts slightly in the breeze. Golden hour backlight, warm haze, c
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: distant ferry horn, soft water, faint gulls — no voices, no music.
 ```
 
@@ -71,10 +72,11 @@ Serene, unhurried, premium.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: distant ferry horn, soft lapping water — no voices, no music.
 ```
 
@@ -87,10 +89,11 @@ focus in warm amber bokeh. Only the hand and forearm are visible, no face.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: soft ceramic on wood, distant city murmur — no voices, no music.
 ```
 
@@ -108,10 +111,11 @@ Very slow, meditative, high detail on the glass and the droplet.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: a single soft drip, faint room tone — no voices, no music.
 ```
 
@@ -124,10 +128,11 @@ teal background. Mesmerising, unhurried, laboratory-clean.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: faint liquid movement, quiet room tone — no voices, no music.
 ```
 
@@ -140,10 +145,10 @@ holds the carafe, only fingers visible. Warm amber light, deep teal tiled wall s
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: ice clinking, liquid pouring — no voices, no music.
 ```
 
@@ -160,10 +165,10 @@ Warm directional side light from the left, deep shadow behind. Skin texture and 
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: beans rattling, low roaster drum hum — no voices, no music.
 ```
 
@@ -176,10 +181,10 @@ of the drum onto a dark workshop. Industrial, warm, controlled.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: roaster drum rumble, first crack pops — no voices, no music.
 ```
 
@@ -192,10 +197,11 @@ Warm amber light, deep teal tiled wall softly out of focus behind.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: espresso machine hiss, liquid into ceramic — no voices, no music.
 ```
 
@@ -212,10 +218,10 @@ and forearm visible, no face. Soft daylight from the left, calm and domestic.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: soft click of the plug, distant cafe murmur — no voices, no music.
 ```
 
@@ -228,10 +234,10 @@ afternoon sun moves slowly across the surface. Dust motes drift in the light. No
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: pages turning, faint keyboard, soft cafe murmur — no voices, no music.
 ```
 
@@ -244,10 +250,10 @@ Warm late-afternoon light from a window, deep teal wall softly out of focus behi
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo in the upper-left corner of the frame belongs to the scene: keep it exactly
+as it is — same position, size, shape and colour — sharp and legible for the entire shot. Never
+redraw, re-letter, animate, warp, relight or remove it, and add no second logo or invented lettering
+anywhere in frame.
 Ambient only: ceramic on wood, soft cafe murmur — no voices, no music.
 ```
 
@@ -264,10 +270,11 @@ Deep teal and near-black surroundings, a few warm highlights. Calm, cinematic, n
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: light rain, distant traffic, faint water — no voices, no music.
 ```
 
@@ -280,10 +287,11 @@ Car headlights pass in the background as soft bokeh. Rain-wet pavement reflects 
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: footsteps on wet pavement, passing car, light rain — no voices, no music.
 ```
 
@@ -296,10 +304,11 @@ distant city lights out of focus. Warm amber lamp above, cool blue night outside
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: slow dripping, faint room tone — no voices, no music.
 ```
 
@@ -316,10 +325,11 @@ water glittering in golden hour light. Warm haze, calm, premium.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: distant ferry horn, gulls, soft water — no voices, no music.
 ```
 
@@ -333,10 +343,9 @@ sea breeze. Photoreal, cinematic.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+Keep the upper-left corner of the frame quiet and free of key detail or moving highlights: the
+Florida Coffee logo is composited there afterwards. Show no other logo, brand mark or lettering
+anywhere in frame.
 Ambient only: waves on stone, distant gulls, light wind — no voices, no music.
 ```
 
@@ -349,9 +358,10 @@ Mediterranean light, strong rim highlight on the steam.
 Brand: Florida Coffee, Istanbul. Palette petrol teal #004854, amber #F09C1C, rust #D44808, cream.
 One continuous shot, no cuts, no scene changes, loopable. Photoreal, cinematic, natural light,
 shallow depth of field, no added text, no captions, no talking, no people looking at camera.
-The Florida Coffee logo in the upper-left corner and the toucan mark on the cup are part of the
-scene: keep them exactly as they are — same position, size, shape and colour — sharp, flat and
-unchanged for the entire shot. Never redraw, animate, warp, relight or remove them, and add no
-second logo or invented lettering anywhere in frame.
+The Florida Coffee logo appears twice and both belong to the scene: once in the upper-left corner
+of the frame, and once printed on the cup, where the wordmark curves with the cup's surface. Keep
+both exactly as they are — same position, size, shape, colour and curvature — sharp and legible for
+the entire shot. Never redraw, re-letter, animate, warp, relight or remove them, and add no second
+logo or invented lettering anywhere in frame.
 Ambient only: waves, light wind — no voices, no music.
 ```
