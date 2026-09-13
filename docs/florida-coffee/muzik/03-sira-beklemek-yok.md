@@ -1,94 +1,102 @@
 # 03 · Sıra Beklemek Yok
 
-Uygulama ve ön sipariş kampanyasının parçası. Ana sayfadaki 08:30 bölümünün vaadini
-("Sıra sizi bekletmesin. Kahve sizi beklesin.") şarkıya çevirir. Persona 2 (Emre, plaza
-çalışanı) ve persona 1 (Zeynep, öğrenci) hedef.
+Uygulama ve ön sipariş kampanyasının parçası; setin en hareketli noktası. Sabah telaşını anlatıyor
+ama koşmuyor — lounge'da acele, tempo değil **filtre** ile anlatılır.
 
 | | |
 |---|---|
 | Dil | Türkçe |
-| Süre hedefi | 1:45–2:15 |
-| Tempo / ton | 112 BPM · A majör |
-| Vokal | Kadın lider, nakaratta grup vokali |
-| Kullanım | Uygulama lansmanı, ön sipariş reklamı, mağaza içi sabah listesi |
-| Suno | Custom · Instrumental **kapalı** |
+| Tür | Nu-disco · lounge house |
+| Tempo / ton | 112 BPM · E minör |
+| Vokal | Kadın lider, ikili arka vokal |
+| Instrumental | Kapalı |
+| Persona | Boğaz Lounge |
+| Weirdness | %25 |
+| Style Influence | %75 |
+| Audio Influence | — |
+| Süre hedefi | 3:00–3:30 |
+| Kullanım | Uygulama lansmanı, ön sipariş reklamı, 30/15/6 sn kesitler |
+| Sonrası | Stems → kesitler · Crop → 6 sn hook |
 
 ## Stil — kısa
 
 ```
-Bright Turkish indie pop, 112 BPM, A major. Acoustic guitar, handclaps, warm bass, punchy kick, glockenspiel. Female lead with gang-vocal chorus. Sunny, brisk, city-morning energy.
+Nu-disco lounge house, 112 BPM, E minor. Round bass guitar, clavinet, Rhodes, brushed hats, claps. Airy female lead with double-tracked answers. Bright, moving, morning city.
 ```
 
 ## Stil — uzun
 
 ```
-Bright Turkish indie pop at 112 BPM in A major, brisk but never frantic. Strummed acoustic guitar and muted electric plucks over a warm round bass and a punchy, dry kick; handclaps and shaker drive the verses; glockenspiel and a short brass stab colour the chorus. Female lead vocal, close and smiling, joined by a small gang-vocal chorus of four or five voices. Clean modern production with analog warmth, tight low end, no harshness in the highs. Light city ambience under the intro: footsteps, a door, a milk steamer. Structure is hook-forward so the first ten seconds work as a standalone advert cut. Sunny, confident, morning-commute energy.
+Nu-disco meeting lounge house at 112 BPM in E minor, bright and moving but never hurried. A round, played bass guitar drives the groove under a soft four-on-the-floor kick, brushed hi-hats, shaker and dry claps; a muted clavinet figure and clean funk guitar chops sit on the off-beats; Rhodes and a short warm horn line lift the chorus. Airy female lead vocal, smiling and slightly ahead of the beat, with her own double-tracked answers panned wide and a tape-delay throw on every hook. Light city ambience in the intro: footsteps, a door, a milk steamer. Hook-forward arrangement so the first eight seconds stand alone as an advert cut. Clean modern production with analog warmth, tight round low end, no harshness on top, plenty of groove and air. Sunny, confident, an easy morning in the city.
 ```
 
 ## Hariç tut
 
 ```
-trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric guitar, aggressive rap, reggaeton, tropical house, corporate stock music, 8-bit, sad ballad
+big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit, ballad, slow tempo
 ```
 
 ## Sözler
 
 ```
 [Lang: Turkish — sing exactly as written, no English words]
-[Voice: female lead, bright and smiling, slightly ahead of the beat; four-voice gang chorus]
+[Voice: airy female lead, smiling, slightly ahead of the beat; her own double-tracked answers panned wide]
 [Perform: bracketed lines are directions — do not sing them]
 
-[Intro — 4 bars]
-[handclaps and shaker only; footsteps and a door in the background]
-(Hey!)
+[Intro — 8 bars]
+[footsteps, a door, a milk steamer; bass guitar and brushed hats enter on bar five]
 
-[Verse 1 — female solo, close mic, rhythmic, almost talking]
-[muted guitar plucks, no kick yet]
+[Hook — cold open, half groove, claps only underneath]
+Sıra beklemek yok (yok, yok)
+Kahven seni bekler
+
+[Verse 1 — close, rhythmic, almost talking, clavinet underneath]
 Alarm çalar, ceket yarım
 Asansörde bir tuş, bir de sen
-Telefonda iki dokunuş yeter
-Kapıya iki yüz metre var
+Telefonda iki dokunuş
+Kapıya iki yüz metre—
 
-[Pre-Chorus — kick and bass enter, build two bars]
+[Build — 8 bars, kick enters, filter opening, claps doubling]
 Sen yürürken o hazırlanır
-Kapıdan gir, adını duy
+Kapıdan gir, adını duy...
 
-[Chorus — full band, gang vocals answer every second line]
-Sıra beklemek yok, yok (yok, yok)
+[Drop — full groove, horn line on top, answers panned wide]
+Sıra beklemek yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok (yok, yok)
+Sıra beklemek yok (yok, yok)
 Sabah bugün senden yana
-(Florida Coffee!)
+(Florida Coffee)
 
-[Verse 2 — same energy, tambourine joins]
+[Groove — 8 bars instrumental, clavinet solo through delay]
+
+[Verse 2 — same energy, tambourine joins the hats]
 Sütü sen seçersin, buzu sen
 "Laktozsuz" yazdın, unutulmaz
-Cüzdanda kaybolan bir kart yok
-Hepsi telefonda, hepsi seninle
+Cüzdanda kaybolan kart yok
+Hepsi telefonda, seninle
 
-[Pre-Chorus — half-time feel, hold the last word]
+[Build — drums thin to claps, filter sweep up]
 Tezgâh senden önce uyanmış
-Kapıdan gir, adını duy—
+Kapıdan gir, adını duy...
 
-[Chorus — full band, gang vocals, glockenspiel on top]
-Sıra beklemek yok, yok (yok, yok)
+[Drop — full groove, everything in]
+Sıra beklemek yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok (yok, yok)
+Sıra beklemek yok (yok, yok)
 Sabah bugün senden yana
-(Florida Coffee!)
+(Florida Coffee)
 
-[Bridge — drums drop out, claps and one voice only]
+[Breakdown — drums out, Rhodes and voice, one bar of silence before the last word]
 Her fincanda bir çekirdek düşer hesabına
 Birikir, bir sabah tezgâh der ki: bu BİZDEN
-[full band crashes back in on the last word]
 
-[Final Chorus — biggest, gang vocals doubled, short brass stab between lines]
-Sıra beklemek yok, yok (yok, yok)
+[Final Drop — everything in, answers doubled, horn line on top]
+Sıra beklemek yok (yok, yok)
 Kahven seni bekler
-Sıra beklemek yok, yok (yok, yok)
+Sıra beklemek yok (yok, yok)
 Sabah bugün senden yana
 
-[Outro — claps only, single voice, dry]
+[Outro — groove filters down, claps last, delay on the final line]
 İki dokunuş, bir de sen
 (Florida Coffee — uygulamada)
 [End]
@@ -96,13 +104,12 @@ Sabah bugün senden yana
 
 ## Notlar
 
-- **Marka:** her nakaratın ardından gelen grup vokali bağırışı `(Florida Coffee!)` ve kapanıştaki `(Florida Coffee — uygulamada)`. 6 saniyelik kesit bu bağırışla biter.
-- Sadakat mekaniği netleşmeden köprü dizeleri riskli. Mekanik söylemeyen alternatif:
-  → `Her fincan seni bir adım öteye taşır` / `Bir sabah tezgâh der ki: bu bizden`
-- Kesitler: **6 sn** = ilk nakaratın ilk iki dizesi + "Hey!"; **15 sn** = pre-chorus +
-  nakarat; **30 sn** = 1. kıta + nakarat. Hepsi tek kayıttan kesilir, yeniden üretme.
-- Şikâyet analizinden (§5.3) gelen iki gerçek sorun bilerek söze girdi: süt tercihi
-  ("laktozsuz yazdın, unutulmaz") ve kaybolan fiziksel kart. Kampanya mesajı bunları
-  çözdüğümüzü söylüyor; ürün gerçekten çözmeden bu dizeler yayımlanmamalı.
-- Ana sayfadaki "Geldim" akışıyla uyumlu: söz "kapıya iki yüz metre" diyor, ürün 200 m
-  yaklaşınca hazırlığa başlıyor. Bu sayı üründe değişirse söz de değişir.
+- **Marka:** her drop'un sonunda `(Florida Coffee)`, kapanışta `(Florida Coffee — uygulamada)`. 6
+  saniyelik kesit hook'tan alınır, marka cevabı kesitin son yarım saniyesine denk gelir.
+- Parça **hook ile açılıyor** (cold open): 8 saniyelik dikey video kesiti için beklemeye gerek yok.
+- Sadakat mekaniği netleşmeden breakdown dizeleri riskli. Mekanik söylemeyen alternatif: → `Her
+  fincan seni bir adım öteye taşır` / `Bir sabah tezgâh der ki: bu bizden`
+- Weirdness burada %25 — katalogdaki en yüksek değer. Nu-disco'nun clavinet ve horn renkleri biraz
+  serbestlik istiyor; %15'e indirirseniz parça diğer sekiziyle aynılaşır.
+- Şikâyet analizinden (§5.3) gelen iki gerçek sorun söze girdi: süt tercihi ve kaybolan fiziksel
+  kart. Ürün bunları çözmeden bu dizeler yayımlanmamalı.

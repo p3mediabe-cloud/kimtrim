@@ -1,88 +1,92 @@
 # 04 · FloridaDays
 
-Sadakat kulübünün parçası. Ana sayfanın 21:00 bölümüne ("FloridaDays Club") bağlanır;
-kısa video için nakaratla başlar.
+Sadakat kulübünün parçası ve setin caz tarafı. Ana sayfanın 21:00 bölümüne bağlanır; saksofonu,
+Rhodes'u ve yürüyen basıyla akşamın başladığı saati anlatır.
 
 | | |
 |---|---|
 | Dil | Türkçe |
-| Süre hedefi | 1:30–2:00 |
-| Tempo / ton | 105 BPM · A majör |
-| Vokal | Kadın lider, çok katmanlı arka vokal |
-| Kullanım | Sadakat kampanyası, Reels/TikTok, push bildirimi videoları |
-| Suno | Custom · Instrumental **kapalı** |
+| Tür | Nu-jazz lounge · jazzy house |
+| Tempo / ton | 110 BPM · A minör |
+| Vokal | Kadın lider, üç katmanlı arka vokal |
+| Instrumental | Kapalı |
+| Persona | Boğaz Lounge |
+| Weirdness | %20 |
+| Style Influence | %80 |
+| Audio Influence | — |
+| Süre hedefi | 3:10–3:40 |
+| Kullanım | Sadakat kampanyası, Reels/TikTok, push videoları |
+| Sonrası | Crop → 8 sn hook · Stems → enstrümantal |
 
 ## Stil — kısa
 
 ```
-Warm retro-soul pop, 105 BPM, A major. Clean funk guitar, round electric bass, tight drums, Rhodes, tambourine. Female lead with stacked backing vocals. Playful, golden, evening city mood.
+Nu-jazz lounge house, 110 BPM, A minor. Upright bass, Rhodes, brushed kit, soft sax, vibraphone. Warm female lead with stacked backing vocals. Evening, jazzy, golden and easy.
 ```
 
 ## Stil — uzun
 
 ```
-Warm retro-soul pop at 105 BPM in A major, playful and grown-up at once. Clean single-coil funk guitar on the off-beats, round electric bass, tight dry drums with tambourine, Rhodes chords and a short warm horn line in the chorus. Female lead vocal, smiling and close, with stacked three-part backing vocals answering the hook. Seventies soul warmth filtered through modern clarity: analog saturation, light plate reverb, punchy but unfatiguing. Opens straight on the hook so the first eight seconds stand alone as a social-video cut. Golden, easy, early-evening city feeling — the hour when the rush is over.
+Nu-jazz lounge house at 110 BPM in A minor, the hour when the rush is over. An upright bass walks under a soft, brushed four-on-the-floor with rim clicks and tambourine; Rhodes holds jazzy seventh and ninth chords; a vibraphone answers the vocal and a soft, breathy tenor saxophone plays one phrase per section, never a full solo until the last one. Warm female lead vocal, close and smiling, with three-part stacked backing vocals answering the hook and a tape-delay throw on the last word of each line. Seventies soul warmth through modern clarity: analog saturation, light plate reverb, round low end, silky top. Opens straight on the hook so the first eight seconds work as a social cut. Golden, grown-up, early-evening city feeling.
 ```
 
 ## Hariç tut
 
 ```
-trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric guitar, aggressive rap, reggaeton, tropical house, corporate stock music, children's music, novelty jingle
+big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit, children's music, novelty jingle
 ```
 
 ## Sözler
 
 ```
 [Lang: Turkish — sing exactly as written, no English words]
-[Voice: female lead, smiling and grown-up; three-part stacked backing vocals answering the hook]
+[Voice: warm female lead, smiling and close; three-part stacked backing vocals answering the hook]
 [Perform: bracketed lines are directions — do not sing them]
 
-[Intro — 2 bars]
-[tambourine count-in, clean funk guitar on the off-beats]
+[Intro — 4 bars]
+[brushed kit and tambourine count in, upright bass walks in on bar three]
 
-[Chorus — starts cold, full band, hook first]
+[Hook — cold open, Rhodes and bass only underneath]
 FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
-FloridaDays, FloridaDays (Florida Coffee)
-Bu fincan senin hesabına
 
-[Verse 1 — lead drops to conversational, drums stay tight and dry]
-[Rhodes enters underneath]
+[Verse 1 — conversational, kit stays brushed, vibraphone answers the lines]
 Saat dokuz, telaş dağıldı
 Şehir biraz yavaşladı
 Kart cebinde değil artık
 Cebindeki telefonda
 
-[Pre-Chorus — build, backing vocals hum underneath]
-Ne kuyruk, ne kâğıt, ne de "kartım yanımda değildi"
-Sadece sen ve tezgâh
+[Build — 8 bars, kick fills out, backing vocals hum underneath, filter opening]
+Ne kuyruk, ne kâğıt
+Sadece sen ve tezgâh...
 
-[Chorus — full band, stacked backing vocals]
+[Drop — full groove, sax phrase after the second line]
 FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
 FloridaDays, FloridaDays (Florida Coffee)
 Bu fincan senin hesabına
 
-[Verse 2 — short warm horn stabs between the lines]
+[Groove — 8 bars instrumental, vibraphone and Rhodes trading]
+
+[Verse 2 — same delivery, sax answers each line quietly]
 Biri cupping'e yazıldı
 Biri terasta yer ayırdı
 Biri yorum yazdı bir satır
 Hepsi aynı kulüpte
 
-[Bridge — drums drop to tambourine and claps, call and response]
+[Breakdown — kit drops to tambourine and claps, call and response]
 Say bakalım, kaç oldu (kaç oldu)
 Biriktir, acelesi yok (acelesi yok)
 Bir akşam gelir, tezgâh der ki:
 Bugün BİZDEN
-[full band returns on the last word]
 
-[Final Chorus — stacked vocals doubled, horn line on top]
+[Final Drop — everything in, stacked vocals doubled, full sax solo over the last eight bars]
 FloridaDays, FloridaDays (Florida Coffee)
 Akşam başka güzel burada
 FloridaDays, FloridaDays (Florida Coffee)
 Bu fincan senin hesabına
 
-[Outro — half-time, warm, band thins to Rhodes and bass]
+[Outro — half-time, upright bass and Rhodes, delay on the last word]
 Mutluluğun tadı — kulüpte
 (Florida Coffee)
 [End]
@@ -90,13 +94,11 @@ Mutluluğun tadı — kulüpte
 
 ## Notlar
 
-- **Marka:** nakaratta FloridaDays'e cevap veren `(Florida Coffee)` katmanı. Alt marka adı değişirse bu cevap yerinde kalır — kampanya adı değişse de marka duyulur.
-- **FloridaDays adı teyide bağlı.** Rapor §8.1'e göre bu alt markanın rolü belirsiz;
-  sadakat programının adı olması bizim önerimiz. Ad değişirse nakarat tek tek hecelenerek
-  yeniden üretilir; ölçü iki heceli + üç heceli her ada uyar (örn. "Florida Plus" da oturur).
-- Mekanik söylemeyen köprü alternatifi: `Say bakalım, kaç oldu` yerine
-  → `Her fincan sayılır burada` (puan/adet sayısı vermez).
-- 8 sn'lik dikey video kesiti: sadece açılış nakaratı. Nakaratla başladığı için kesmek
-  için beklemeye gerek yok.
-- 2. kıtadaki üç davranış (cupping kaydı, teras rezervasyonu, yorum yazma) uygulamadaki
-  gerçek eylemler; kampanya görselleri bu üç ekranı gösterecek şekilde eşleşmeli.
+- **Marka:** hook'un her tekrarında FloridaDays'e cevap veren `(Florida Coffee)` katmanı. Alt marka
+  adı değişse bile bu cevap yerinde kalır — kampanya adı düşer, marka düşmez.
+- **FloridaDays adı teyide bağlı** (rapor §8.1). Ad değişirse hook yeniden üretilir; ölçü iki heceli
+  ve üç heceli her ada uyuyor ("Florida Plus" da oturur).
+- Sax bilerek son bölüme kadar tek cümleyle sınırlı. Suno erken solo verirse stil alanına `saxophone
+  plays one short phrase per section, no solo until the end` ekleyin.
+- A minör: 01 ile aynı ton. İkisi set içinde birbirine doğrudan mikslenebiliyor.
+- Mekanik söylemeyen breakdown alternatifi: → `Her fincan sayılır burada`

@@ -1,106 +1,129 @@
 # Florida Coffee — Suno v6 müzik paketi
 
-Marka için üretilecek 9 parçanın **şarkı sözü** ve **stil tarifi** dosyaları. Her dosya
-Suno'nun Custom (Özel) moduna doğrudan yapıştırılacak biçimde hazırlandı: stil alanı,
-hariç tutulacaklar ve sözler ayrı kod bloklarında.
+Marka için üretilecek 9 parçanın **şarkı sözü**, **stil tarifi** ve **tüm Suno v6 ayarları**.
+Her dosya Custom moda doğrudan yapıştırılacak biçimde hazırlandı.
 
-Kaynak: `00-analiz-raporu.md` §8 (marka vaadi, ton), `demo-site/index.html` ana sayfa
-hikâyesi (06:40 → 02:00 gün akışı) ve `06-teklif-plani.md` içerik üretimi kalemi.
+**Yön: gün batımı lounge.** Organic house, downtempo, nu-jazz ve deep house arası; bir kafenin
+akşamüstü çaldığı müzik. Katalog tek bir set olarak programlandı — tonlar akraba, tempo önce
+yükselip sonra iniyor (set listesi: [00-ses-kimligi-brief.md](00-ses-kimligi-brief.md#set-listesi)).
+
+Kaynak: `00-analiz-raporu.md` §8 (marka vaadi, ton), `demo-site/index.html` ana sayfa hikâyesi
+(06:40 → 02:00 gün akışı) ve `06-teklif-plani.md` içerik üretimi kalemi.
 
 ## Parçalar
 
-| # | Parça | Dil | Kullanım | Süre hedefi |
+| # | Parça | Tür | BPM · ton | Kullanım |
 |---|---|---|---|---|
-| 01 | [Boğaz'da Bir Gün](01-bogazda-bir-gun.md) | TR | Marka marşı; hero videosu, mağaza içi, yıllık film | 2:30–3:00 |
-| 02 | [Taste of Joy](02-taste-of-joy.md) | EN | Karadağ (Budva, Podgorica), EN site, turist içeriği | 2:15–2:45 |
-| 03 | [Sıra Beklemek Yok](03-sira-beklemek-yok.md) | TR | Uygulama + ön sipariş kampanyası; 30/15/6 sn kesitler | 1:45–2:15 |
-| 04 | [FloridaDays](04-floridadays.md) | TR | Sadakat kulübü; Reels/TikTok, push kampanyası | 1:30–2:00 |
-| 05 | [Gece · Beykoz 02:00](05-gece-beykoz.md) | TR (az sözlü) | Gece içeriği, mağaza içi 22:00 sonrası liste | 3:00–4:00 |
-| 06 | [Perşembe Akustik](06-persembe-akustik.md) | TR | Kavacık terası etkinlik duyuruları, etkinlik sayfası | 2:00–2:30 |
-| 07 | [Sonbahar Harmanı](07-sonbahar-harmani.md) | TR | Sezonluk ürün lansmanı (çekirdek/ev espresso seti) | 1:45–2:15 |
-| 08 | [Kurumsal Yatak](08-kurumsal-yatak.md) | — | Enstrümantal; franchise/kurumsal deste videoları, seslendirme altı | 2:00–3:00 |
-| 09 | [Ses Logosu](09-ses-logosu.md) | — | 3–5 sn marka imzası; her videonun kapanışı, uygulama sesi | 3–5 sn |
+| 01 | [Boğaz'da Bir Gün](01-bogazda-bir-gun.md) | Sunset lounge · organic house | 104 · A minör | Marka marşı, hero videosu; **Persona buradan** |
+| 02 | [Taste of Joy](02-taste-of-joy.md) | Deep house · lounge (EN) | 108 · D minör | Karadağ, EN site, turist içeriği |
+| 03 | [Sıra Beklemek Yok](03-sira-beklemek-yok.md) | Nu-disco · lounge house | 112 · E minör | Uygulama, ön sipariş; 30/15/6 sn kesitler |
+| 04 | [FloridaDays](04-floridadays.md) | Nu-jazz lounge · jazzy house | 110 · A minör | Sadakat kulübü, Reels/TikTok |
+| 05 | [Gece · Beykoz 02:00](05-gece-beykoz.md) | Dub-tinged downtempo | 92 · F# minör | Gece içerikleri, mağaza gece listesi |
+| 06 | [Perşembe Akustik](06-persembe-akustik.md) | Acoustic lounge · organic | 96 · D minör | Kavacık terası etkinliği |
+| 07 | [Sonbahar Harmanı](07-sonbahar-harmani.md) | Warm downtempo · organic | 100 · C majör | Sezonluk ürün; şablon parça |
+| 08 | [Kurumsal Yatak](08-kurumsal-yatak.md) | Ambient lounge · minimal | 100 · D minör | Enstrümantal, seslendirme altı |
+| 09 | [Ses Logosu](09-ses-logosu.md) | Lounge sting | serbest · A minör | 3–5 sn marka imzası |
 
-Ses kimliğinin bütünü (palet–ses eşlemesi, sözlük, yasaklar): [00-ses-kimligi-brief.md](00-ses-kimligi-brief.md).
+Ses kimliğinin bütünü (palet–ses eşlemesi, teknik çerçeve, etiket dili, marka kuralı, set
+listesi): [00-ses-kimligi-brief.md](00-ses-kimligi-brief.md).
 
-## Suno v6'da üretim akışı
+## Suno v6 alanları
 
-1. **Create → Custom** (Özel). "Instrumental" yalnızca 08 ve 09'da açık.
-2. **Styles** alanına dosyadaki *kısa stil* satırını yapıştır. Alan uzun metni kabul
-   ediyorsa *uzun stil* bloğunu kullan; kabul etmiyorsa kısa sürümle devam et — her
-   dosyada iki sürüm de var, kısa sürüm 200 karakterin altında tutuldu.
-3. **Exclude styles** alanına dosyadaki hariç tutma satırını gir.
-4. **Lyrics** alanına söz bloğunu olduğu gibi yapıştır. Sözler yalnızca dize değil; bölüm,
-   vokal rolü, çalgı girişi, dinamik ve ortam sesi yönergeleriyle birlikte kodlandı. Hiçbir
-   satırı silme — parçanın nasıl söyleneceğini onlar kuruyor. Etiket dili, `[End]` kuralı ve
-   model yönergeleri şarkının içinde okumaya başlarsa uygulanacak **düşürme sırası**:
-   [00-ses-kimligi-brief.md](00-ses-kimligi-brief.md#söz-kodlaması-etiket-dili).
-5. Parça başına **4–6 varyasyon** üret, en iyisini seç.
-6. **Tutarlılık:** 01 numaralı marşın onaylanan kaydından bir *Persona* oluştur ve 02–07'yi
-   o Persona ile üret. Katalogun tek marka gibi duymasını sağlayan tek adım budur.
-7. Kesitler için **stem** ayrıştırmasını kullan: 30/15/6 sn reklam kesitlerinde vokali
-   koru, enstrümantali seslendirme altına yatır. Yeniden üretmek yerine kes.
+Her parça dosyasının başındaki tablo bu alanların hepsini doldurur. Sürüm arayüzünde bazı
+kaydıraçların adı değişmiş olabilir; değerler başlangıç noktasıdır, kulakla ayarlanır.
+
+| Alan | Ne yazılır | Neden böyle |
+|---|---|---|
+| **Mod** | Custom | Simple mod stil tarifini ve söz kodlamasını kullanamaz |
+| **Model** | v6 | Uzun stil tarifini ve söz içi yönergeleri en iyi bu sürüm taşıyor |
+| **Şarkı adı** | Parçanın adı | Kataloglama; dışa aktarım adına da girer |
+| **Styles** | Kısa (200 krk altı) ya da uzun tarif | Alan uzun metni kabul ediyorsa uzun sürüm; etmiyorsa kısa |
+| **Exclude styles** | Parçanın hariç tutma satırı | Tropikal ve EDM çağrışımlarını kapatan asıl kontrol |
+| **Lyrics** | Kodlu söz bloğu | Yalnız dize değil; bölüm, vokal rolü, çalgı girişi, dinamik, ortam sesi |
+| **Instrumental** | 08 ve 09'da açık, diğerlerinde kapalı | Açıkken söz alanı düzenleme haritası olarak kullanılıyor |
+| **Weirdness** | %10–30 (parçaya göre) | Düşük = tür kalıbına sadık; yüksek = beklenmedik doku. 05'te %30, 08'de %10 |
+| **Style Influence** | %70–85 | Yüksek tutuldu: stil tarifine sadakat bu kaydıraçtan geliyor |
+| **Audio Influence** | — | Referans ses vermiyoruz; verilirse %30–50 arası, aksi hâlde referansı kopyalar |
+| **Persona** | Boğaz Lounge | 01'in onaylanan kaydından üretilir; 02–08 onunla üretilir |
+| **Vokal** | Parçaya göre kadın / erkek / yok | Stil tarifinde ayrıca yazılı |
+
+### Üretim sırası
+
+1. **01'i üret.** 6 varyasyon, en iyisini seç.
+2. Seçilen kayıttan **`Boğaz Lounge` Persona'sı** oluştur.
+3. 02–08'i o Persona ile üret. Katalogun tek set gibi duymasını sağlayan tek adım budur.
+4. 09'u ayrı üret (30–60 sn üretip kesilecek; ayrıntı parça dosyasında).
+5. Kesitleri **stem** ayrıştırmasıyla al, **Crop** ile kes. Yeniden üretme — groove değişir.
+6. Uzun sürümler **Extend** ile; sezon güncellemeleri **Cover** ile (müzik aynı, söz yeni).
 
 ### Stil alanı neden İngilizce?
 
-Suno stil yönergelerini İngilizce daha isabetli yorumluyor; sözler Türkçe kalır. Bu
-ayrım bilinçli: **stil = İngilizce, söz = Türkçe.** Aynı mantık sözlerin içindeki
-yönergeler için de geçerli: köşeli parantez içi İngilizce, söylenen her şey Türkçe
-(02 numaralı parça hariç).
+Suno stil yönergelerini İngilizce daha isabetli yorumluyor; sözler Türkçe kalır. Bu ayrım
+bilinçli: **stil = İngilizce, söz = Türkçe.** Aynı mantık sözlerin içindeki yönergeler için de
+geçerli: köşeli parantez içi İngilizce, söylenen her şey Türkçe (02 hariç).
+
+Radyo adı, sanatçı adı ya da şarkı adı yazmıyoruz — model bunları ya filtreliyor ya da yok
+sayıyor. İstenen sesi veren şey türün kendisi: *sunset lounge, organic house, downtempo, nu-jazz,
+deep house* ve çalgı listesi.
 
 ### Marka her parçada geçer
 
-Florida Coffee adı dokuz parçanın hepsinde duyuluyor: nakaratın arkasından gelen cevap
-olarak (01, 02, 04, 07), grup vokali bağırışı olarak (03), fısıltılı konuşma olarak (05),
-sahne girişinde (06), ses logosunun üç notasında (08) ve sözlü ses logosunda (09). Kural:
-marka adı nakaratın önüne geçmez — şarkı markayı anlatmaz, marka şarkının içinde durur.
+Florida Coffee adı dokuz parçanın hepsinde duyuluyor: drop'un arkasından gelen cevap olarak
+(01, 02, 04, 07), kapanış cevabı olarak (03), fısıltılı konuşma olarak (05), sahne girişinde (06),
+ses logosunun üç notasında (08) ve sözlü ses logosunda (09). Kural: marka adı nakaratın önüne
+geçmez — şarkı markayı anlatmaz, marka şarkının içinde durur.
 
 ### Türkçe telaffuz
 
-Model Türkçe sözcükleri genelde doğru okur, ancak özel adlarda kayabilir. Kayarsa sözü
-değiştirmeden **fonetik yazımla** yeniden dene:
+Model özel adlarda kayarsa sözü değiştirmeden fonetik yazımla yeniden üret. Fonetik yazım yalnızca
+üretim girdisinde kalır; yayımlanan söz metninde doğru yazım durur.
 
 | Yazım | Fonetik yedek |
 |---|---|
 | Boğaz | Boaz |
 | Çengelköy | Chengelkoy |
 | Kadıköy | Kadikoy |
-| Beykoz | Beykoz (sorun çıkmıyor) |
 | Kavacık | Kavajik |
-
-Fonetik yedeği yalnızca üretim girdisinde kullan; yayımlanan söz metninde doğru yazım kalır.
 
 ## Dosya adlandırma (dışa aktarım)
 
 ```
 florida-coffee_<parça-no>-<slug>_<sürüm>_<süre>.mp3
-örn. florida-coffee_01-bogazda-bir-gun_v3_2m47s.mp3
+örn. florida-coffee_01-bogazda-bir-gun_v3_3m28s.mp3
 ```
 
-Onaylanan kayıt `demo-site/audio/` altına, seçilmeyen varyasyonlar depoya girmez.
+Onaylanan kayıt `demo-site/audio/` altına; seçilmeyen varyasyonlar depoya girmez.
+
+## Önceki yön: akustik folk
+
+Bu paketin ilk sürümü akustik folk-pop'tu (naylon gitar, kontrbas, fırça davul, canlı oda).
+Sözler ve marka kuralı aynıydı, düzenleme başkaydı. Müşteri iki yön arasında seçim yapmak isterse
+o sürüm git geçmişinde duruyor:
+
+```
+git show 35661c7 -- docs/florida-coffee/muzik/
+```
 
 ## Yayından önce kapatılacaklar
 
-Sözlerde geçen marka bilgileri rapordaki **doğrulanmamış** verilerden geliyor. Müşteriyle
-teyit edilmeden yayına alınmamalı:
+Sözlerde geçen marka bilgileri rapordaki **doğrulanmamış** verilerden geliyor. Müşteriyle teyit
+edilmeden yayına alınmamalı; her biri için teyide ihtiyaç duymayan alternatif dize ilgili parçanın
+*Notlar* bölümünde duruyor.
 
-- **"On yedi şube, iki ülke"** — rapor §2.2 şube sayısını 15–18 aralığında tahmin ediyor,
-  liste müşteriden alınacak. Teyide kadar sayısız alternatif dizeler her dosyanın
-  *Notlar* bölümünde duruyor.
-- **"18–23 saniye" espresso standardı** — barista el kitabından geliyor, güncelliği teyit edilmeli.
-- **Sadakat mekaniği** (çekirdek biriktirme, "beşincisi bizden") — 04 ve 03'te geçiyor;
-  program kuralları netleşmeden mekaniği söyleyen dizeler yerine alternatifleri kullanılmalı.
-- **FloridaDays** alt markasının rolü (§8.1) müşteriyle netleşmeden 04 numaralı parça
-  kampanya adıyla yayımlanmamalı.
+- **"On yedi kapı, aynı reçete"** (01) — rapor §2.2 şube sayısını 15–18 aralığında tahmin ediyor.
+- **18–23 saniye espresso standardı** (01, 02) — barista el kitabından geliyor, güncelliği teyit edilmeli.
+- **Sadakat mekaniği** (03, 04) — program kuralları netleşmeden mekaniği söyleyen dizeler kullanılmamalı.
+- **FloridaDays** alt markasının rolü (§8.1) netleşmeden 04 kampanya adıyla yayımlanmamalı.
+- **"Kavurmadan yedi gün"** ve ev espresso seti içeriği (07) — operasyonda tutulamıyorsa dizeler düşer.
 
 ## Kullanım hakları
 
-Suno'da üretilen kayıtların ticari kullanımı ücretli plana bağlı ve şartlar dönem dönem
-değişiyor. Reklam yayını, mağaza içi çalma ve sosyal medya kullanımından önce:
+Suno'da üretilen kayıtların ticari kullanımı ücretli plana bağlı ve şartlar dönem dönem değişiyor.
+Reklam yayını, mağaza içi çalma ve sosyal medya kullanımından önce:
 
 1. Üretim P3Media'nın ticari kullanıma açık hesabından yapılmalı, kişisel hesaptan değil.
-2. Suno'nun güncel kullanım şartları teklif tarihinde kontrol edilip müşteri sözleşmesine
-   ek olarak konmalı.
-3. Mağaza içi çalma ayrıca **MESAM/MÜ-YAP** kapsamına girebilir; yapay zekâ üretimi
-   kayıtların durumu için hukuk danışmanına sorulmalı.
+2. Suno'nun güncel kullanım şartları teklif tarihinde kontrol edilip müşteri sözleşmesine ek
+   olarak konmalı.
+3. Mağaza içi çalma ayrıca **MESAM/MÜ-YAP** kapsamına girebilir; yapay zekâ üretimi kayıtların
+   durumu için hukuk danışmanına sorulmalı.
 4. Teslimde müşteriye WAV + MP3, stem'ler ve bu dizindeki söz/stil dosyaları birlikte verilir.

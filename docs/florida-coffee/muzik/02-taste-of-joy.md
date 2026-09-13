@@ -1,96 +1,99 @@
 # 02 · Taste of Joy
 
-Marşın İngilizce kardeşi. Çeviri değil: aynı hikâye, Karadağ kıyısını da içine alan
-ikinci bir bakış. EN site, Budva/Podgorica içerikleri ve turist kitlesi (persona 5, Mira) için.
+Marşın İngilizce kardeşi ve setin en deep house'a yaklaşan parçası. Karadağ (Budva, Podgorica), EN
+site ve turist kitlesi için; çeviri değil, aynı hikâyenin ikinci kıyıdan bakışı.
 
 | | |
 |---|---|
 | Dil | İngilizce |
-| Süre hedefi | 2:15–2:45 |
-| Tempo / ton | 96 BPM · D majör (01 ile aynı ton ailesi) |
-| Vokal | Kadın lider, nakaratta erkek armoni (01'in tersi) |
+| Tür | Deep house · sunset lounge |
+| Tempo / ton | 108 BPM · D minör |
+| Vokal | Kadın lider, erkek spoken-word ara |
+| Instrumental | Kapalı |
+| Persona | Boğaz Lounge |
+| Weirdness | %20 |
+| Style Influence | %80 |
+| Audio Influence | — |
+| Süre hedefi | 3:30–4:00 |
 | Kullanım | EN site, Karadağ şubeleri, uluslararası sosyal medya |
-| Suno | Custom · Instrumental **kapalı** · 01'in Persona'sı ile üret |
+| Sonrası | Extend → set sürümü · Cover → TR sözle ikinci sürüm |
 
 ## Stil — kısa
 
 ```
-Warm Mediterranean indie folk-pop, 96 BPM, D major. Nylon guitar, upright bass, brushed drums, soft female lead with male harmony. Sea air, ferry horns, unhurried and golden.
+Deep house lounge, 108 BPM, D minor. Warm sub bass, Rhodes, muted guitar, brushed hats, congas. Airy female vocal, male spoken word. Mediterranean dusk, wide and easy.
 ```
 
 ## Stil — uzun
 
 ```
-Warm Mediterranean indie folk-pop at 96 BPM in D major, sibling to a Turkish brand anthem. Fingerpicked nylon guitar and upright bass at the centre, brushed drums keeping an easy pulse, felt piano and a warm string pad lifting the choruses. Soft female lead vocal, close and conversational, with a male harmony entering on the second chorus. Slight coastal ambience: distant ferry horn, gulls, water on stone. Analog tape warmth, generous reverb tails, light compression, plenty of air. Golden-hour feeling, unhurried, travelled but not touristic. English lyrics, no accent exaggeration.
+Deep house with a lounge heart at 108 BPM in D minor, Mediterranean rather than Turkish in accent but the same room. Warm sub bass and a soft kick underneath brushed hi-hats, congas and shaker; Rhodes and a muted, clean electric guitar trade small figures; a filtered pad opens across the whole track. Airy female lead vocal, close and conversational, with heavy reverb tails and dub delay throws; a low male spoken-word line appears once in the breakdown, close to the mic. Coastal field recordings — gulls, water on stone, a distant ferry horn. The arrangement is filter-led: a long intro, a verse over hats, a build, a groove that fills rather than lifts, a stripped breakdown, then everything together. Analog saturation, wide stereo, soft top end, deep but never boomy low end. Golden hour by the Adriatic, unhurried and grown-up.
 ```
 
 ## Hariç tut
 
 ```
-trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric guitar, aggressive rap, reggaeton, bossa nova, steel drums, tropical house, corporate stock music, country twang
+big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit
 ```
 
 ## Sözler
 
 ```
 [Lang: English — sing exactly as written]
-[Voice: female lead, close and conversational; male harmony from the second chorus]
+[Voice: airy female lead, close and conversational, wide reverb; one low male spoken line in the breakdown]
 [Perform: bracketed lines are directions — do not sing them]
 
-[Intro — instrumental, 8 bars]
-[nylon guitar alone, upright bass entering on bar five]
-[coastal ambience: gulls, water on stone, one distant ferry horn]
+[Intro — 16 bars, instrumental]
+[gulls, water on stone, one distant ferry horn]
+[filtered pad opening, Rhodes entering on bar nine, sub bass on bar thirteen]
 
-[Verse 1 — female solo, close mic, warm, almost spoken]
-[guitar only]
-Six-forty on the water, the light comes in slow
-Steam on the window, the ferry still below
-A grinder turns somewhere, the morning finds a sound
-Before the city opens up around
+[Verse 1 — breathy, close, almost spoken, delay on the line ends]
+[brushed hats only, no kick yet]
+Six-forty on the water
+The light comes in slow
+Steam on the window
+The ferry still below
 
-[Pre-Chorus — bass and brushed drums enter, lift]
+[Build — 8 bars, kick and congas enter, filter opening]
 One cup warming on the counter
-The whole day starts on the first sip
+The whole day starts on the first sip...
 
-[Chorus — full band, open, male harmony underneath]
-Taste of joy, the same in every room (taste of joy)
+[Drop — full groove, warm and even, muted guitar figure on top]
+Taste of joy (taste of joy)
+The same in every room
 Istanbul morning, Adriatic blue
-Two countries, one recipe, one door
 Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Verse 2 — same delivery, drums stay brushed]
-Half past eight and Kadıköy is late
-Somebody's running, somebody always waits
-Your name is on the counter before you're through the door
-Eighteen seconds, maybe twenty-three, no more
+[Groove — 8 bars instrumental, vocal chop of "taste of joy" through tape delay]
 
-[Pre-Chorus — hold the last word]
-No line to stand in, nothing owed
-Just the cup and the road—
+[Verse 2 — same delivery, groove continues]
+Half past eight, and the city is late
+Somebody's running, somebody waits
+Your name is on the counter
+Before you're through the door
 
-[Chorus — harmony doubled]
-Taste of joy, the same in every room (taste of joy)
+[Build — filter sweep, drums thin to hats]
+Eighteen seconds, maybe twenty-three
+Nothing owed—
+
+[Drop — full groove, pad widens]
+Taste of joy (taste of joy)
+The same in every room
 Istanbul morning, Adriatic blue
-Two countries, one recipe, one door
 Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Bridge — drop to guitar and voice, male takes the lead, female hums underneath]
-[wind and a distant terrace crowd, very low]
-Thursday on the terrace, a guitar and the wind
-Half of it played, half of it lived in
-Two in the morning, Beykoz still awake
-A table by the water, for anyone's sake
+[Breakdown — drums out, Rhodes and pad only, huge reverb]
+[Spoken — low male voice, very close to the mic, unhurried]
+Two in the morning. Beykoz is still open. A table by the water.
 
-[Instrumental Break — 4 bars, oud answers the guitar once]
-
-[Final Chorus — both voices in unison, full band]
-Taste of joy, the same in every room (taste of joy)
-Istanbul morning, Adriatic blue
+[Final Drop — everything in, congas doubled, vocal ad-libs over the top]
+Taste of joy (taste of joy)
 Two countries, one recipe, one door
+Istanbul morning, Adriatic blue
 Wherever you are, the coffee waits for you (Florida Coffee)
 
-[Outro — guitar and one voice, quiet, the ferry horn returns]
-There's no last chapter, nothing to close
+[Outro — groove filters down, gulls return, last word on a long delay]
+There's no last chapter
 Tomorrow at six-forty, the light comes in slow
 (Florida Coffee — taste of joy)
 [End]
@@ -98,11 +101,10 @@ Tomorrow at six-forty, the light comes in slow
 
 ## Notlar
 
-- **Marka:** nakarat cevabı `(Florida Coffee)` ve kapanıştaki `(Florida Coffee — taste of joy)`. İngilizce sözde marka adı çevrilmez, olduğu gibi okunur.
-- "Adriatic blue" Budva ve Podgorica'yı kastediyor; Karadağ dışı bir pazara açılırsa
-  → `Istanbul morning, a second shore`
+- **Marka:** drop cevabı `(Florida Coffee)` ve kapanıştaki `(Florida Coffee — taste of joy)`. Marka
+  adı İngilizce sözde de çevrilmez, olduğu gibi okunur.
+- Breakdown'daki erkek konuşma parçanın tek TR bağlantısı değil; Beykoz adı orada geçiyor. Karadağ
+  dışında kullanılacaksa "Adriatic blue" yerine → `Istanbul morning, a second shore`
 - Şube sayısı burada bilerek geçmiyor; "two countries, one recipe" teyide bağlı değil.
-- 01 ile aynı Persona'dan üretilmeli. Ton ailesi ortak olduğu için iki parça bir listede
-  art arda çalabilir.
-- Türkçe yer adları İngilizce sözün içinde: "Kadıköy" ve "Beykoz" yanlış okunursa
-  `Kadikoy` / `Beykoz` yazımıyla yeniden üret.
+- 01'in Persona'sıyla üretilmeli. D minör, 01'in A minöründen dördüncü derece: iki parça set içinde
+  arka arkaya sorunsuz miksleniyor.

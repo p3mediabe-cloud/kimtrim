@@ -1,66 +1,73 @@
 # 08 · Kurumsal Yatak (enstrümantal)
 
-Vokalsiz altlık. Franchise sunumu, kurumsal videolar, yatırımcı destesi ve seslendirmeli
-her içerik için. Tek işi seslendirmenin altında durmak; öne çıkmaz.
+Vokalsiz altlık: franchise sunumu, yatırımcı destesi ve seslendirmeli her içerik için. Tek işi
+seslendirmenin altında durmak; öne çıkmaz, yükselmez, bitmez.
 
 | | |
 |---|---|
 | Dil | — (enstrümantal) |
-| Süre hedefi | 2:00–3:00 |
-| Tempo / ton | 84 BPM · D majör |
+| Tür | Ambient lounge · minimal organic house |
+| Tempo / ton | 100 BPM · D minör |
 | Vokal | Yok |
-| Kullanım | `04-sunum-deck.html` video kesitleri, franchise hunisi videoları, kurumsal film |
-| Suno | Custom · Instrumental **açık** |
+| Instrumental | **Açık** |
+| Persona | Boğaz Lounge |
+| Weirdness | %10 |
+| Style Influence | %85 |
+| Audio Influence | — |
+| Süre hedefi | 3:00–4:00 |
+| Kullanım | Franchise ve kurumsal videolar, deste kesitleri, seslendirme altı |
+| Sonrası | Extend → 6:00 · Crop → 30 sn döngü |
 
 ## Stil — kısa
 
 ```
-Calm instrumental underscore, 84 BPM, D major. Felt piano, nylon guitar, upright bass, soft pad, light percussion. No vocals, no strong melody. Warm, confident, made to sit under narration.
+Ambient lounge, minimal organic house, 100 BPM, D minor. Soft sub, brushed hats, Rhodes, felt piano, warm pad. No vocals, no lead melody. Made to sit under narration.
 ```
 
 ## Stil — uzun
 
 ```
-Calm instrumental underscore at 84 BPM in D major, written to sit beneath a voiceover. Felt piano and fingerpicked nylon guitar carry a simple repeating figure; upright bass and a soft warm pad hold the floor; light shaker and rim clicks mark time without drawing attention. Absolutely no vocals, no lead melody competing with speech, nothing busy in the mid range where a voice lives — keep 300 Hz to 3 kHz open and uncluttered. Dynamics stay flat and predictable: no build, no drop, no cinematic swell, no risers. Analog warmth, gentle reverb, wide and soft. Confident and human rather than corporate; the sound of a well-run place, not a product launch. Loop-friendly so any thirty-second section works on its own.
+Ambient lounge and minimal organic house at 100 BPM in D minor, written to sit beneath a voiceover. A soft sub bass and a quiet kick under brushed hats and shaker; Rhodes and felt piano trade a simple repeating figure; a warm filtered pad holds the floor. Absolutely no vocals, no vocal chops, no choir pad, and no lead melody competing with speech — keep 300 Hz to 3 kHz open and uncluttered. Dynamics stay flat and predictable: no build, no drop, no riser, no cymbal swell. Analog warmth, wide soft stereo, gentle reverb, generous headroom. Confident and human rather than corporate — the sound of a well-run place, not a product launch. Loop-friendly, so any thirty-second section works on its own.
 ```
 
 ## Hariç tut
 
 ```
-vocals, singing, choir, spoken word, trap, EDM, festival drop, cinematic riser, orchestral swell, aggressive rap, reggaeton, tropical house, generic corporate stock music, dramatic percussion, brass stabs
+vocals, singing, vocal chops, choir, spoken word, big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit, cinematic riser, orchestral swell, dramatic percussion
 ```
 
 ## Sözler
 
 ```
 [Instrumental — no vocals anywhere in this track]
-[Voice: none — do not generate lyrics, do not hum, no vocal texture, no choir pad]
+[Voice: none — do not generate lyrics, do not hum, no vocal chops, no choir pad]
 [Perform: bracketed lines are the arrangement map — do not sing them]
 
-[Intro — 8 bars]
-[felt piano alone, one simple repeating figure, dry and close]
+[Intro — 16 bars]
+[filtered pad and felt piano only, sub bass entering on bar nine]
 
-[Bed A — 16 bars, narration sits here]
-[nylon guitar joins the piano, upright bass underneath, shaker keeping time]
+[Bed A — 32 bars, narration sits here]
+[brushed hats and shaker enter, Rhodes takes the repeating figure]
 [keep 300 Hz to 3 kHz open — nothing sustained in the speaking range]
 
-[Lift — 8 bars]
-[soft pad swells one step, rim clicks enter]
+[Lift — 16 bars]
+[pad opens one step, rim clicks enter, bass stays where it is]
 [dynamics stay flat — no crescendo, no riser, no cymbal swell]
 
-[Bed B — 16 bars, narration sits here]
-[back to piano, guitar and bass; the pad holds underneath]
+[Bed B — 32 bars, narration sits here]
+[back to Rhodes, piano and sub bass; pad holds underneath]
 
-[Close — 8 bars]
-[instruments leave one by one: shaker, then bass, then guitar]
-[felt piano plays the three-note brand motif: D, F sharp, A]
+[Close — 16 bars]
+[instruments leave one by one: hats, then bass, then Rhodes]
+[felt piano plays the three-note brand motif: A, C, E]
 [the last note rings and decays — end in silence, not in reverb wash]
 [End]
 ```
 
 ## Markalı kapanış (isteğe bağlı)
 
-Parça vokalsiz; markanın sesteki karşılığı kapanıştaki üç nota. Seslendirmesiz kullanımda markayı duyurmak gerekirse bu ek bölüm sözlerin sonuna eklenir.
+Parça vokalsiz; markanın sesteki karşılığı kapanıştaki üç nota. Seslendirmesiz kullanımda markayı
+duyurmak gerekirse bu ek bölüm sözlerin sonuna eklenir.
 
 ```
 [Outro tag — after the last piano note, over the decay]
@@ -71,12 +78,11 @@ Florida Coffee
 
 ## Notlar
 
-- **Marka:** vokal yok; markanın karşılığı kapanıştaki üç nota (D–F#–A), yani ses logosunun kendisi. Seslendirmesiz kullanımda sözlü duyuru gerekirse "Markalı kapanış" bölümü eklenir.
-- Suno vokal ekliyorsa: Instrumental anahtarının açık olduğunu doğrula, ayrıca hariç tutma
-  alanının ilk sözcüğü `vocals` kalsın.
-- Seslendirme altına yatırırken müziği **-18 ile -22 LUFS** aralığına çek; konuşma
-  bittiğinde -14'e çık. Ducking otomatik değil, elle yapılır — parça zaten yükselmiyor.
-- Franchise destesindeki 23 slaytlık akışa göre: giriş ve kapanış slaytlarında parça
-  açıkta, sayı ve tablo slaytlarında seslendirme altında.
-- İkinci bir altlık gerekirse bu parçanın Cover'ını F majörde üret; aynı karakter, farklı
-  renk, aynı listede çakışmaz.
+- **Marka:** vokal yok; markanın karşılığı kapanıştaki üç nota (A–C–E), yani ses logosunun kendisi.
+  Sözlü duyuru gerekirse aşağıdaki "Markalı kapanış" bölümü sözlerin sonuna eklenir.
+- Weirdness %10 — katalogun en düşüğü. Altlık sürpriz yapmamalı; her 30 saniyesi birbirinin yerine
+  geçebilmeli.
+- Seslendirme altına yatırırken müziği -18 ile -22 LUFS aralığına çekin; konuşma bittiğinde -14'e
+  çıkın. Parça zaten yükselmediği için ducking elle yapılabilir.
+- İkinci bir altlık gerekirse Cover ile A minöre alın: aynı karakter, farklı renk, aynı listede
+  çakışmaz.

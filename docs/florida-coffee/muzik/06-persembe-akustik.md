@@ -1,66 +1,75 @@
 # 06 · Perşembe Akustik
 
-Kavacık terasındaki Perşembe 21:00 akustik setinin parçası. "İki kişilik akustik, gün
-batımından sonra." Etkinlik duyuruları ve etkinlik sayfası için; canlı çalınmış hissi verir.
+Kavacık terasındaki Perşembe 21:00 setinin parçası. Katalogdaki tek yarı-canlı kayıt: naylon gitar
+ve cajon gerçek odada, elektronik katman altta. Etkinlik duyuruları için.
 
 | | |
 |---|---|
 | Dil | Türkçe |
-| Süre hedefi | 2:00–2:30 |
-| Tempo / ton | 84 BPM · D majör |
-| Vokal | Erkek + kadın düet, dönüşümlü dizeler |
+| Tür | Acoustic lounge · organic downtempo |
+| Tempo / ton | 96 BPM · D minör |
+| Vokal | Kadın lider, erkek harmoni |
+| Instrumental | Kapalı |
+| Persona | Boğaz Lounge |
+| Weirdness | %25 |
+| Style Influence | %75 |
+| Audio Influence | — |
+| Süre hedefi | 3:00–3:30 |
 | Kullanım | Etkinlik duyuruları, etkinlik sayfası, teras içerikleri |
-| Suno | Custom · Instrumental **kapalı** |
+| Sonrası | Stems → gitar-vokal sürümü |
 
 ## Stil — kısa
 
 ```
-Live acoustic duo, 84 BPM, D major. Two nylon guitars, light cajon, small room sound, audible fret noise and breath. Male and female voices trading lines. Intimate rooftop performance feel.
+Acoustic lounge, 96 BPM, D minor. Nylon guitar and cajon in a real room over soft Rhodes, sub bass and shaker. Female lead with male harmony, breath and fret noise audible. Terrace at dusk.
 ```
 
 ## Stil — uzun
 
 ```
-Live acoustic duo recording at 84 BPM in D major, as if captured on a terrace at dusk. Two nylon-string guitars — one fingerpicking, one answering — with a light cajon and a shaker, no drum kit. A small, real room: audible fret noise, breath, chairs, the faint sound of wind and a city below. Male and female voices trading lines and meeting in unison on the chorus, both close-miked and unpolished. Minimal production: a touch of room reverb, no autotune, no doubling, small dynamic imperfections left in. Should sound performed in one take, in front of thirty people, not produced in a studio. Warm, communal, end-of-day.
+Acoustic lounge and organic downtempo at 96 BPM in D minor: a real terrace performance with an electronic floor underneath it. Two nylon-string guitars — one fingerpicking, one answering — and a cajon played with the hands, recorded in a small live room with audible fret noise, breath, chairs and a city faintly below. Under them, quietly, a soft Rhodes pad, a round sub bass and a shaker keep the pulse; the electronics never take over, they hold the floor. Female lead vocal with a male harmony above, both close-miked and unpolished, no doubling and no tuning correction. Warm room reverb, a little tape delay on the line ends, small dynamic imperfections left in. It should sound performed in one take in front of thirty people, with a DJ softly underneath. Communal, warm, end-of-day.
 ```
 
 ## Hariç tut
 
 ```
-trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric guitar, aggressive rap, reggaeton, tropical house, corporate stock music, studio polish, drum machine, synth pad
+big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit, studio polish, drum machine, autotune, big room reverb
 ```
 
 ## Sözler
 
 ```
 [Lang: Turkish — sing exactly as written, no English words]
-[Voice: male and female duo trading lines, unpolished, one take, no doubling, no autotune]
+[Voice: female lead with male harmony above, unpolished, one take, no doubling, no autotune]
 [Perform: bracketed lines are directions — do not sing them]
 
 [Intro — room noise, two guitars tuning, a chair moves, someone laughs]
+[soft Rhodes pad and sub bass fade in underneath]
 [Spoken — off mic, warm, unamplified, as if to thirty people]
 İyi akşamlar. Florida Coffee, Kavacık terası.
 
-[Verse 1 — male solo, close mic, fret noise and breath audible]
-[one nylon guitar, fingerpicked]
+[Verse 1 — female solo, close mic, fret noise and breath audible]
+[one nylon guitar, fingerpicked; shaker enters on the third line]
 Kavacık'ta rüzgâr tam kıvamında
 Sandalyeler yarım daire
 Gitar akort olurken biri gülüyor
 Gün batımı biraz gecikti bugün
 
-[Verse 2 — female takes the lead, second guitar answers]
+[Verse 2 — male harmony joins above, second guitar answers]
 Bardaklar tezgâhta sıraya girdi
 Işıklar karşı kıyıda uyandı
 Kimse programı sormuyor bu akşam
 Ne çalınırsa o güzel
 
-[Chorus — both voices in unison, cajon and shaker enter, a slight rush is fine]
+[Chorus — cajon and sub bass fill out, both voices in unison, a slight rush is fine]
 Bu akşam iki kişilik bir şarkı
 Yarısı biz, yarısı rüzgâr
-Terasta bir yer ayırdık sana
+Terasta bir yer ayırdık sana (Florida Coffee)
 Perşembe hep böyle başlar
 
-[Verse 3 — male lead, female harmony above, cajon drops to the rim]
+[Instrumental Break — guitars trade four bars, Rhodes pad swells underneath]
+
+[Verse 3 — female lead, male harmony, cajon drops to the rim]
 Birinci sıra kimsenin değil
 Geç kalan da oturur bir yere
 Kahve soğursa yenisi gelir
@@ -69,10 +78,10 @@ Kahve soğursa yenisi gelir
 [Chorus — both voices, a few audience voices joining quietly, not loud]
 Bu akşam iki kişilik bir şarkı
 Yarısı biz, yarısı rüzgâr
-Terasta bir yer ayırdık sana
+Terasta bir yer ayırdık sana (Florida Coffee)
 Perşembe hep böyle başlar
 
-[Outro — guitars only, slowing down, the last chord left ringing]
+[Outro — guitars slow down, the last chord left ringing, electronics fade under it]
 [Spoken — off mic, over the ringing chord]
 Perşembe yine buradayız. Florida Coffee.
 [a few claps, close and small, then room noise]
@@ -81,13 +90,13 @@ Perşembe yine buradayız. Florida Coffee.
 
 ## Notlar
 
-- **Marka:** sahne girişinde mikrofon dışından "İyi akşamlar. Florida Coffee, Kavacık terası." ve kapanışta "Perşembe yine buradayız." Konuşma bilerek şarkının dışında; duyuru gibi değil, sahne gibi duymalı.
-- Alkış ve oda sesi bilerek var: bu parça reklam müziği gibi değil, **kaydedilmiş bir akşam**
-  gibi duymalı. Suno fazla stüdyo işi üretirse stil alanına `raw live recording, audience
-  present, one take` ekle.
-- Etkinlik takvimi değişirse nakaratın son dizesi güne göre uyarlanır; ölçü "Perşembe"yi
-  iki heceli her güne bırakır (`Cumartesi` üç hece — o durumda `Akşam hep böyle başlar`).
-- Cupping etkinliği (ayın ilk Cumartesi'si) için ayrı parça gerekmiyor; bu parçanın
-  enstrümantal stem'i o içeriklerin de altına yatar.
-- Nakaratın "Terasta bir yer ayırdık sana" dizesi uygulamadaki rezervasyon akışını işaret
-  eder; duyuru videolarında bu dizede rezervasyon ekranı gösterilsin.
+- **Marka:** sahne girişinde ve kapanışta mikrofon dışından konuşma, ayrıca nakarat içinde `(Florida
+  Coffee)` cevabı. Konuşma duyuru gibi değil, sahne gibi duymalı.
+- Katalogdaki tek "canlı" parça. Suno fazla stüdyo işi üretirse stil alanına `raw live recording,
+  audience present, one take, electronics kept quiet underneath` ekleyin.
+- Elektronik katman bilerek altta: bu parça setin içinde bir nefes molası. Tam elektronik bir sürüm
+  gerekirse Cover ile 05'in stiline giydirilebilir.
+- Gün değişirse nakaratın son dizesi uyarlanır; ölçü iki heceli her güne uyuyor (`Cumartesi` üç hece
+  — o durumda `Akşam hep böyle başlar`).
+- Cupping etkinliği için ayrı parça gerekmiyor; bu parçanın gitar-vokal stem'i o içeriklerin de
+  altına yatar.

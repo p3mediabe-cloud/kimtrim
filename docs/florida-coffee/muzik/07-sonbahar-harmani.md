@@ -1,92 +1,99 @@
 # 07 · Sonbahar Harmanı
 
-Sezonluk ürün lansmanının parçası: Sonbahar Harmanı (Etiyopya %60 · Brezilya %40, orta
-kavurma) ve ev espresso seti. Ana sayfanın 17:00 bölümüne ("Aynı çekirdek, sizin
-mutfağınızda") bağlanır. Şablon parça: her sezon yeni harman için sözü değişir.
+Sezonluk ürün lansmanının parçası ve setin en sıcak noktası. Ana sayfanın 17:00 bölümüne bağlanır.
+Şablon parça: her sezon söz değişir, müzik Cover ile aynı kalır.
 
 | | |
 |---|---|
 | Dil | Türkçe |
-| Süre hedefi | 1:45–2:15 |
-| Tempo / ton | 88 BPM · G majör |
-| Vokal | Erkek lider, sıcak ve alçak |
-| Kullanım | Sezon lansmanı, ürün sayfası videosu, e-ticaret içerikleri |
-| Suno | Custom · Instrumental **kapalı** |
+| Tür | Warm downtempo · organic lounge |
+| Tempo / ton | 100 BPM · C majör |
+| Vokal | Erkek lider, alçak ve sıcak |
+| Instrumental | Kapalı |
+| Persona | Boğaz Lounge |
+| Weirdness | %20 |
+| Style Influence | %80 |
+| Audio Influence | — |
+| Süre hedefi | 3:00–3:30 |
+| Kullanım | Sezon lansmanı, ürün sayfası videosu, e-ticaret |
+| Sonrası | Cover → yeni sezon sözüyle aynı düzenleme |
 
 ## Stil — kısa
 
 ```
-Warm acoustic folk, 88 BPM, G major. Steel-string guitar, upright bass, brushed drums, pedal steel, mandolin. Low warm male vocal. Autumn light, roastery warmth, homely and unhurried.
+Warm organic downtempo, 100 BPM, C major. Round bass, Rhodes, nylon guitar, hand percussion, soft flugelhorn. Low warm male vocal. Autumn light, roastery warmth, unhurried.
 ```
 
 ## Stil — uzun
 
 ```
-Warm acoustic folk at 88 BPM in G major, autumnal and homely. Steel-string acoustic guitar strummed gently, upright bass, brushed drums, a slow pedal steel line and a mandolin doubling the melody in the chorus. Low, warm male vocal, close and conversational, singing slightly behind the beat. Subtle ambience of a roastery: a grinder, beans settling, a kitchen in the morning. Analog warmth, soft tape compression, rounded low end, no bright top. Nothing rushes; the arrangement thickens by one instrument per section and never gets loud. The feeling of a bag of coffee opened at home in October.
+Warm organic downtempo at 100 BPM in C major, autumnal and homely. A round bass and a soft kick under shaker, frame drum and brushed rim clicks; Rhodes and a fingerpicked nylon guitar carry the harmony; a soft flugelhorn plays one warm phrase per section and a kalimba doubles the hook. Low, warm male vocal, close and conversational, sitting slightly behind the beat, with a light delay on the line ends. Subtle roastery ambience: a grinder, beans settling, a kitchen early in the morning. Analog warmth, soft tape compression, rounded low end, no bright top. The arrangement thickens by one instrument per section and never gets loud; the last section is fuller, not louder. The feeling of a bag of coffee opened at home in October.
 ```
 
 ## Hariç tut
 
 ```
-trap, EDM, festival drop, heavy autotune, screaming vocals, distorted electric guitar, aggressive rap, reggaeton, tropical house, corporate stock music, country twang, Christmas music
+big room EDM, festival drop, hard techno, trap, dubstep, drum and bass, aggressive rap, screaming vocals, heavy autotune, distorted electric guitar, country, bluegrass, reggaeton, tropical house, steel drums, corporate stock music, 8-bit, Christmas music, orchestral swell
 ```
 
 ## Sözler
 
 ```
 [Lang: Turkish — sing exactly as written, no English words]
-[Voice: male lead, low and warm, singing slightly behind the beat, no doubling]
+[Voice: low warm male lead, close and conversational, sitting slightly behind the beat, no doubling]
 [Perform: bracketed lines are directions — do not sing them]
 
-[Intro — 8 bars]
+[Intro — 12 bars]
 [a grinder running, beans settling into a hopper]
-[steel-string guitar enters, played softly with the thumb]
+[Rhodes and nylon guitar enter, round bass on bar nine]
 
-[Verse 1 — solo voice and guitar, no drums]
-Etiyopya'dan altmış, Brezilya'dan kırk
-Orta kavurma, ne koyu ne açık
+[Verse 1 — voice and guitar, shaker only, no kick]
+Etiyopya'dan altmış
+Brezilya'dan kırk
+Orta kavurma
 Rafa çıktığında yedi gün olmuş
-Kavurmadan beri, günü sayılı
 
-[Pre-Chorus — upright bass enters, brushed drums on the second line]
+[Build — 8 bars, kick and frame drum enter, filter opening slowly]
 Bir ölçek, bir sabır
-Bir de senin mutfağın
+Bir de senin mutfağın...
 
-[Chorus — band in, pedal steel underneath, mandolin doubling the melody]
+[Drop — full groove, warm and even, flugelhorn phrase after the second line]
 Sonbahar harmanı geldi (Florida Coffee)
 Aynı çekirdek, aynı reçete
 Tezgâhta ne içiyorsan
 Aynısı bu akşam evinde
 
-[Verse 2 — drums drop out, keep the bass]
+[Groove — 8 bars instrumental, kalimba doubles the hook]
+
+[Verse 2 — drums thin out, keep the bass and shaker]
 Ölçek kaşığı kutunun içinde
 Kartta doz, süre, sıcaklık yazar
 Baristanın bildiğini saklamıyoruz
 Aynı standart, senin elinde
 
-[Pre-Chorus — hold the last word]
+[Build — filter sweep, hold the last word]
 Bir ölçek, bir sabır
 Bir de senin mutfağın—
 
-[Chorus — full band, mandolin on top]
+[Drop — full groove, flugelhorn and kalimba together]
 Sonbahar harmanı geldi (Florida Coffee)
 Aynı çekirdek, aynı reçete
 Tezgâhta ne içiyorsan
 Aynısı bu akşam evinde
 
-[Bridge — guitar and voice only, half-time, intimate]
+[Breakdown — drums out, guitar and voice only, half-time feel, intimate]
 Sezon geçer, harman değişir
 Kavurma günü hep yazılı kalır
 Bir sonraki paketi açtığında
 Aynı yerden devam edersin
 
-[Final Chorus — full arrangement, no louder than the one before]
+[Final Drop — everything in, fuller than before but no louder]
 Sonbahar harmanı geldi (Florida Coffee)
 Aynı çekirdek, aynı reçete
 Tezgâhta ne içiyorsan
 Aynısı bu akşam evinde
 
-[Outro — voice and guitar, the grinder returns for one second]
+[Outro — groove filters down, the grinder returns for one second, delay on the last word]
 Mutluluğun tadı — mutfağında
 (Florida Coffee)
 [End]
@@ -94,13 +101,12 @@ Mutluluğun tadı — mutfağında
 
 ## Notlar
 
-- **Marka:** nakaratın ilk dizesinin arkasından `(Florida Coffee)`. Sezon değiştiğinde dize değişir, cevap sabit kalır.
-- **Şablon parça.** Sezon değiştiğinde yalnızca 1. kıta ve nakaratın ilk dizesi değişir;
-  müzik aynı kalır, Cover ile yeni söz aynı sese giydirilir. Kış için:
-  → `Kış harmanı raflarda` + yeni oran dizesi.
-- Harman oranı ve kavurma bilgisi `demo-site/menu.json` içindeki ürün kaydından geliyor.
-  Ürün değişirse **önce menu.json, sonra söz** güncellenir.
-- 2. kıta ev espresso setinin içeriğini (500 g harman, 14 g ölçek kaşığı, barista kartı)
-  birebir anlatıyor; set içeriği değişirse dize de değişir.
-- "Kavurmadan yedi gün" ana sayfadaki "Kavurmadan 7 gün" rozetiyle aynı vaat. Vaat
-  operasyonda tutulamıyorsa bu dize düşer.
+- **Marka:** drop'un ilk dizesinin arkasından `(Florida Coffee)`. Sezon değiştiğinde dize değişir,
+  cevap sabit kalır.
+- **Şablon parça.** Yeni sezonda yalnızca 1. kıta ve drop'un ilk dizesi değişir; **Cover** ile yeni
+  söz aynı düzenlemeye giydirilir, yeniden üretilmez. Kış için: → `Kış harmanı raflarda` + yeni oran
+  dizesi.
+- C majör: A minörün ilgili majörü. Set içinde 01 ve 04'ten sonra aydınlanma gibi duyuluyor.
+- Harman oranı ve kavurma bilgisi `demo-site/menu.json`'dan geliyor. Ürün değişirse **önce
+  menu.json, sonra söz** güncellenir.
+- "Kavurmadan yedi gün" ana sayfadaki rozetle aynı vaat; operasyonda tutulamıyorsa bu dize düşer.
